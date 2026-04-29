@@ -589,6 +589,14 @@ function buildSummary(trap){
     <div class="si si-g"><span class="sl">If They Avoid It</span>${s.fallback}</div>`;
 }
 
+// ── COACH UI RESET ────────────────────────────────────────────────────
+function resetCoachUI() {
+  const btn = document.getElementById('coach-btn');
+  if (btn) { btn.className='coach-btn'; btn.innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Ask Coach — Best Move`; }
+  const prev = document.getElementById('coach-suggestion');
+  if (prev) prev.remove();
+}
+
 // ── NAVIGATION ────────────────────────────────────────────────────────
 function goToTrap(trap){
   CT=trap;CP=-1;chess=new Chess();
@@ -610,6 +618,7 @@ function goToTrap(trap){
 
 function goToPly(ply){
   if(!CT)return;
+  resetCoachUI();
   chess=new Chess();
   let lastFrom=null,lastTo=null;
   for(let i=0;i<=ply;i++){
@@ -632,7 +641,7 @@ function goToPly(ply){
   updateNav();
 }
 
-function navFirst(){if(CT){chess=new Chess();CP=-1;renderBoard(null,null);clearArrows();buildNotation(CT,-1);buildCoaching(CT,-1);updateNav();}}
+function navFirst(){if(CT){resetCoachUI();chess=new Chess();CP=-1;renderBoard(null,null);clearArrows();buildNotation(CT,-1);buildCoaching(CT,-1);updateNav();}}
 function navPrev(){if(CT&&CP>-1)goToPly(CP-1);}
 function navNext(){if(CT&&CP<CT.moves.length-1)goToPly(CP+1);}
 function navLast(){if(CT)goToPly(CT.moves.length-1);}
@@ -838,17 +847,6 @@ function showCoachError(msg) {
   box.className = 'c-box cb-warn';
   box.innerHTML = `<strong>⚠</strong> ${msg}`;
   coachCard.appendChild(box);
-}
-
-// Clear coach arrow when navigating moves
-const _origGoToPly = goToPly;
-function goToPly(ply) {
-  _origGoToPly(ply);
-  // Reset coach button
-  const btn = document.getElementById('coach-btn');
-  if (btn) { btn.className='coach-btn'; btn.innerHTML=`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Ask Coach — Best Move`; }
-  const prev = document.getElementById('coach-suggestion');
-  if (prev) prev.remove();
 }
 
 // Pre-init engine on page load for faster response
