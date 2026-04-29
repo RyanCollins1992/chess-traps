@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess Opening Traps</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#1a1a2e;color:#d4d0c8;font-size:14px;line-height:1.5;overflow:hidden}
+.app{display:flex;flex-direction:column;height:100vh}
+.topbar{background:#0f0f1a;border-bottom:1px solid #2a2a4a;padding:8px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.topbar h1{font-size:14px;font-weight:600;color:#fff}
+.topbar span{font-size:11px;color:#5a5a7a}
+.main{display:flex;flex:1;min-height:0;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:220px;flex-shrink:0;background:#12122a;border-right:1px solid #2a2a4a;overflow-y:auto;display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-track{background:#0a0a1a}.sidebar::-webkit-scrollbar-thumb{background:#3a3a5a;border-radius:2px}
+.sb-section{border-bottom:1px solid #1e1e3a}
+.sb-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#4a4a6a;padding:8px 12px 4px}
+.trap-item{display:flex;flex-direction:column;padding:7px 12px;cursor:pointer;border-left:3px solid transparent;gap:1px;transition:all .12s}
+.trap-item:hover{background:#1a1a3a}
+.trap-item.active{background:#1a2a3a;border-left-color:#629924}
+.ti-name{font-size:12px;font-weight:500;color:#c0c0d0}
+.trap-item.active .ti-name{color:#fff}
+.ti-meta{font-size:10px;color:#4a4a6a;display:flex;gap:5px;align-items:center}
+.trap-item.active .ti-meta{color:#7a9a5a}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.db{background:#5dba7e}.di{background:#e8a05e}.da{background:#e07060}
+
+/* BOARD AREA */
+.board-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#161628;min-width:0;padding:12px}
+
+.board-outer{display:flex;flex-direction:column;gap:2px}
+.board-row{display:flex;align-items:stretch;gap:2px}
+.rank-strip{display:flex;flex-direction:column;width:16px;justify-content:space-around}
+.rank-lbl{font-size:10px;color:#5a5a7a;text-align:center;font-family:monospace;height:52px;display:flex;align-items:center;justify-content:center}
+.file-strip{display:flex;padding-left:18px;gap:0}
+.file-lbl{width:52px;text-align:center;font-size:10px;color:#5a5a7a;font-family:monospace}
+
+/* BOARD */
+.cboard{display:grid;grid-template-columns:repeat(8,52px);grid-template-rows:repeat(8,52px);border:2px solid #3a3a2a;box-shadow:0 4px 24px rgba(0,0,0,.7)}
+.sq{width:52px;height:52px;position:relative;display:flex;align-items:center;justify-content:center}
+.sq.light{background:#f0d9b5}
+.sq.dark{background:#b58863}
+.sq.hl-from{background:#aaa23a!important}
+.sq.hl-to{background:#cdd16f!important}
+.sq.hl-check{background:#cc3333!important}
+/* Arrow overlay */
+.arrow-svg{position:absolute;top:0;left:0;width:416px;height:416px;pointer-events:none;z-index:30;overflow:visible}
+
+/* NAV */
+.nav-bar{display:flex;align-items:center;gap:6px}
+.nb{width:32px;height:32px;border-radius:6px;border:1px solid #2a2a4a;background:#1a1a3a;color:#b0b0c8;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .12s}
+.nb:hover:not(:disabled){background:#2a2a5a;border-color:#5a5a8a;color:#fff}
+.nb:disabled{opacity:.3;cursor:not-allowed}
+.nav-info{font-size:11px;color:#5a5a7a;min-width:70px;text-align:center;font-family:monospace}
+
+/* STUDY PANEL */
+.study{width:280px;flex-shrink:0;background:#12122a;border-left:1px solid #2a2a4a;display:flex;flex-direction:column;overflow:hidden}
+.study-head{padding:10px 12px 8px;border-bottom:1px solid #1e1e3a;flex-shrink:0}
+.study-title{font-size:14px;font-weight:600;color:#fff}
+.study-sub{font-size:11px;color:#4a4a6a;margin-top:1px}
+
+/* NOTATION */
+.notation{padding:8px 10px;border-bottom:1px solid #1e1e3a;display:flex;flex-wrap:wrap;align-items:baseline;gap:1px;font-family:monospace;font-size:12px;line-height:1.9;overflow-y:auto;max-height:160px;flex-shrink:0}
+.notation::-webkit-scrollbar{width:3px}.notation::-webkit-scrollbar-track{background:#0a0a1a}.notation::-webkit-scrollbar-thumb{background:#3a3a5a}
+.mn{color:#3a3a5a;font-size:10px;margin-right:1px}
+.mv{padding:1px 4px;border-radius:3px;cursor:pointer;color:#7a7a9a;transition:all .1s}
+.mv:hover{background:#2a2a4a;color:#fff}
+.mv.cur{background:#629924;color:#fff;font-weight:700}
+.mv.played{color:#c0b8a8}
+.mv.future{color:#3a3a5a}
+
+/* COACHING */
+.coaching{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.coaching::-webkit-scrollbar{width:3px}.coaching::-webkit-scrollbar-track{background:#0a0a1a}.coaching::-webkit-scrollbar-thumb{background:#3a3a5a}
+.who-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:100px;margin-bottom:2px}
+.ww{background:rgba(255,255,255,.08);color:#ccc;border:1px solid rgba(255,255,255,.12)}
+.wb{background:rgba(60,60,100,.35);color:#8888aa;border:1px solid rgba(80,80,120,.25)}
+.c-move{font-size:16px;font-weight:700;color:#fff;font-family:monospace}
+.c-hl{font-size:12px;font-weight:600;color:#aed67a;margin-top:3px;line-height:1.35}
+.c-txt{font-size:12px;color:#a0a0b8;line-height:1.6;margin-top:5px}
+.c-box{border-radius:5px;padding:6px 10px;font-size:11px;line-height:1.5;margin-top:5px}
+.cb-why{background:#0f1f06;border-left:3px solid #629924;color:#8aaa60}
+.cb-why strong{color:#aed67a}
+.cb-warn{background:#1f0808;border-left:3px solid #993333;color:#bb7070}
+.cb-warn strong{color:#ee8888}
+.cb-tip{background:#060f1f;border-left:3px solid #336699;color:#6888aa}
+.start-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:6px;color:#3a3a5a;text-align:center}
+.start-msg .bp{font-size:44px;opacity:.25}
+
+/* SUMMARY */
+.summary{border-top:1px solid #1e1e3a;padding:8px 12px;flex-shrink:0;display:none;flex-direction:column;gap:5px}
+.summary.show{display:flex}
+.si{font-size:11px;line-height:1.5;padding:5px 8px;border-radius:5px}
+.si .sl{font-size:9px;text-transform:uppercase;letter-spacing:.07em;opacity:.6;margin-bottom:1px;font-weight:700;display:block}
+.si-r{background:#200808;color:#bb6060;border-left:3px solid #882222}
+.si-g{background:#081508;color:#60aa50;border-left:3px solid #335522}
+.si-b{background:#080820;color:#6080bb;border-left:3px solid #334488}
+
+/* SVG pieces inside squares - they float above */
+.sq svg{width:46px;height:46px;pointer-events:none;display:block}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="topbar">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#629924" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+  <h1>Chess Opening Traps</h1>
+  <span>15 traps · Use ← → arrow keys</span>
+</div>
+<div class="main">
+
+<div class="sidebar" id="sidebar"></div>
+
+<div class="board-area">
+  <div class="board-outer">
+    <div class="board-row">
+      <div class="rank-strip" id="rank-strip"></div>
+      <div style="position:relative">
+        <div class="cboard" id="cboard"></div>
+        <svg class="arrow-svg" id="arrow-svg" viewBox="0 0 416 416" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+    </div>
+    <div class="file-strip" id="file-strip"></div>
+  </div>
+  <div class="nav-bar">
+    <button class="nb" id="b-first" onclick="navFirst()" title="Start">⏮</button>
+    <button class="nb" id="b-prev"  onclick="navPrev()"  title="Back">◀</button>
+    <span class="nav-info" id="nav-info">—</span>
+    <button class="nb" id="b-next"  onclick="navNext()"  title="Next">▶</button>
+    <button class="nb" id="b-last"  onclick="navLast()"  title="End">⏭</button>
+  </div>
+</div>
+
+<div class="study">
+  <div class="study-head">
+    <div class="study-title" id="st-title">Select a trap</div>
+    <div class="study-sub" id="st-sub">Choose from the list on the left</div>
+  </div>
+  <div class="notation" id="notation"></div>
+  <div class="coaching" id="coaching"><div class="start-msg"><div class="bp">♟</div><div>Select a trap to begin</div></div></div>
+  <div class="summary" id="summary"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+// ── INLINE SVG PIECES ─────────────────────────────────────────────────
+// Each function returns an SVG string rendered directly into the DOM square
+const P = {
+  wK:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 11.63V6M20 8h5" stroke-linejoin="miter"/><path d="M22.5 25s4.5-7.5 3-10.5c0 0-1-2.5-3-2.5s-3 2.5-3 2.5c-1.5 3 3 10.5 3 10.5" fill="#fff" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M11.5 37c5.5 3.5 15.5 3.5 21 0v-7s9-4.5 6-10.5c-4-6.5-13.5-3.5-16 4V17s-5.5-3.5-9.5-.5S7 24.5 10 27.5c1 1 2 1.5 3.5 2" fill="#fff"/><path d="M11.5 30c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0"/></g></svg>`,
+  wQ:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="#fff" stroke="#000" stroke-width="1.5" stroke-linejoin="round"><circle cx="6" cy="12" r="2.75"/><circle cx="14" cy="9" r="2.75"/><circle cx="22.5" cy="8" r="2.75"/><circle cx="31" cy="9" r="2.75"/><circle cx="39" cy="12" r="2.75"/><path stroke-linecap="round" d="M9.26 14.37 12 35h21l2.74-20.63"/><path d="m9 26 1.5-12.5 6.5 6.5 4-13 4 13 6.5-6.5L33 26"/><path d="M12 35v-2h21v2"/><path fill="none" stroke-linecap="round" d="M11 35h23M12.5 37.5h20M8.5 39.5h28"/></g></svg>`,
+  wR:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="#fff" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 39h27v-3H9zM12.5 32l1.5-2.5h17l1.5 2.5zM12 36v-4h21v4"/><path d="M14 29.5v-13h17v13M14.5 16.5l-1-5h17l-1 5" stroke-linejoin="miter"/><path d="M11 14V9h4v2h5V9h5v2h5V9h4v5" stroke-linejoin="miter"/></g></svg>`,
+  wB:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><g fill="#fff" stroke-linecap="butt"><path d="M9 36c3.39-.97 10.11.43 13.5-2 3.39 2.43 10.11 1.03 13.5 2 0 0 1.65.54 3 2-.68.97-1.65.99-3 .5-3.39-.97-10.11.46-13.5-1-3.39 1.46-10.11.03-13.5 1-1.354.49-2.323.47-3-.5 1.354-1.94 3-2 3-2z"/><path d="M15 32c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2z"/><circle cx="22.5" cy="8" r="2.5"/></g><path d="M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5" stroke-linejoin="miter"/></g></svg>`,
+  wN:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10c10.5 1 16.5 8 16 29H15c0-9 10-6.5 8-21" fill="#fff"/><path d="M24 18c.38 5.12-10.58 12.01-13.5 9-2.34-2.45 3.28-5.57 4-9" fill="#fff"/><path d="M9.5 11.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" fill="#000" stroke="#000"/><path d="M14.5 17s-1.5-1-3.5.5-2 4 0 4 3.5-1.5 4-4" fill="#000" stroke="#000"/></g></svg>`,
+  wP:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><path d="M22.5 9c-2.21 0-4 1.79-4 4 0 .89.29 1.71.78 2.38C17.33 16.5 16 18.59 16 21c0 2.03.94 3.84 2.41 5.03C15.41 27.09 11 31.58 11 39.5H34c0-7.92-4.41-12.41-7.41-13.47C28.06 24.84 29 23.03 29 21c0-2.41-1.33-4.5-3.28-5.62.49-.67.78-1.49.78-2.38 0-2.21-1.79-4-4-4z" fill="#fff" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+  bK:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 11.63V6M20 8h5" stroke-linejoin="miter"/><path d="M22.5 25s4.5-7.5 3-10.5c0 0-1-2.5-3-2.5s-3 2.5-3 2.5c-1.5 3 3 10.5 3 10.5" fill="#000" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M11.5 37c5.5 3.5 15.5 3.5 21 0v-7s9-4.5 6-10.5c-4-6.5-13.5-3.5-16 4V17s-5.5-3.5-9.5-.5S7 24.5 10 27.5c1 1 2 1.5 3.5 2" fill="#000"/><path d="M11.5 30c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0" stroke="#e0e0e0"/></g></svg>`,
+  bQ:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g stroke="#000" stroke-width="1.5" stroke-linejoin="round"><g fill="#000"><circle cx="6" cy="12" r="2.75"/><circle cx="14" cy="9" r="2.75"/><circle cx="22.5" cy="8" r="2.75"/><circle cx="31" cy="9" r="2.75"/><circle cx="39" cy="12" r="2.75"/><path stroke-linecap="round" d="M9.26 14.37 12 35h21l2.74-20.63"/><path d="m9 26 1.5-12.5 6.5 6.5 4-13 4 13 6.5-6.5L33 26"/><path d="M12 35v-2h21v2"/></g><path fill="none" stroke="#e0e0e0" stroke-linecap="round" d="M11 35h23M12.5 37.5h20M8.5 39.5h28"/></g></svg>`,
+  bR:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="#000" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 39h27v-3H9zM12.5 32l1.5-2.5h17l1.5 2.5zM12 36v-4h21v4"/><path d="M14 29.5v-13h17v13M14.5 16.5l-1-5h17l-1 5" stroke-linejoin="miter"/><path d="M11 14V9h4v2h5V9h5v2h5V9h4v5" stroke-linejoin="miter"/><path fill="#e0e0e0" stroke="#e0e0e0" d="M11 14h23M34 14l-3 3H14l-3-3" stroke-width="1"/></g></svg>`,
+  bB:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><g fill="#000" stroke-linecap="butt"><path d="M9 36c3.39-.97 10.11.43 13.5-2 3.39 2.43 10.11 1.03 13.5 2 0 0 1.65.54 3 2-.68.97-1.65.99-3 .5-3.39-.97-10.11.46-13.5-1-3.39 1.46-10.11.03-13.5 1-1.354.49-2.323.47-3-.5 1.354-1.94 3-2 3-2z"/><path d="M15 32c2.5 2.5 12.5 2.5 15 0 .5-1.5 0-2 0-2 0-2.5-2.5-4-2.5-4 5.5-1.5 6-11.5-5-15.5-11 4-10.5 14-5 15.5 0 0-2.5 1.5-2.5 4 0 0-.5.5 0 2z"/><circle cx="22.5" cy="8" r="2.5"/></g><path d="M17.5 26h10M15 30h15m-7.5-14.5v5M20 18h5" stroke="#e0e0e0" stroke-linejoin="miter"/></g></svg>`,
+  bN:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10c10.5 1 16.5 8 16 29H15c0-9 10-6.5 8-21" fill="#000"/><path d="M24 18c.38 5.12-10.58 12.01-13.5 9-2.34-2.45 3.28-5.57 4-9" fill="#000"/><path d="M9.5 11.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" fill="#e0e0e0" stroke="#e0e0e0"/><path d="M14.5 17s-1.5-1-3.5.5-2 4 0 4 3.5-1.5 4-4" fill="#e0e0e0" stroke="#e0e0e0"/></g></svg>`,
+  bP:`<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg"><path d="M22.5 9c-2.21 0-4 1.79-4 4 0 .89.29 1.71.78 2.38C17.33 16.5 16 18.59 16 21c0 2.03.94 3.84 2.41 5.03C15.41 27.09 11 31.58 11 39.5H34c0-7.92-4.41-12.41-7.41-13.47C28.06 24.84 29 23.03 29 21c0-2.41-1.33-4.5-3.28-5.62.49-.67.78-1.49.78-2.38 0-2.21-1.79-4-4-4z" fill="#000" stroke="#000" stroke-width="1.5" stroke-linecap="round"/></svg>`
+};
+
+// ── TRAP DATA ─────────────────────────────────────────────────────────
+const TRAPS=[
+{id:'w1',side:'White',level:'Beginner',name:"Fried Liver Attack",sub:"Italian — Nxf7!! sacrifice",
+moves:[
+{san:"e4",hl:"1.e4 — Control the centre",txt:"White stakes a central claim, opening lines for quick development.",why:"The most active first move — controls d5 and f5, opens diagonals."},
+{san:"e5",hl:"1...e5 — Black mirrors",txt:"Black matches in the centre. The Open Game begins — both sides have a pawn on the 5th rank."},
+{san:"Nf3",hl:"2.Nf3 — Develop AND attack",txt:"Knight to f3 develops a piece AND attacks Black's e5 pawn. Two threats with one move.",why:"Nf3 forces Black to respond — the principle of developing with tempo."},
+{san:"Nc6",hl:"2...Nc6 — Defend and develop",txt:"Knight defends e5 and develops toward the centre in one move."},
+{san:"Bc4",hl:"3.Bc4 — Italian! Bishop eyes f7",txt:"The Italian Game. The bishop targets f7 — Black's weakest pawn, only defended by the king.",why:"f7 is the 'Achilles heel' — bishop + knight battery on f7 will become devastating."},
+{san:"Nf6",hl:"3...Nf6 — Two Knights Defence",txt:"Black develops and counterattacks e4. But now the Nf6 that guarded f7 has moved."},
+{san:"Ng5",hl:"4.Ng5 — Double attack on f7!",txt:"Both the knight AND bishop aim at f7! d5 is Black's principled counter.",why:"Ng5 + Bc4 together create an attack on f7 that must be addressed immediately.",warn:"If Black plays 4...d5 correctly, the Fried Liver follows. Na5 is the safer alternative."},
+{san:"d5",hl:"4...d5 — Counterattack",txt:"d5 hits White's bishop and fights for the centre. The standard response."},
+{san:"exd5",hl:"5.exd5 — White accepts",txt:"White captures. Now how Black recaptures determines whether the Fried Liver happens."},
+{san:"Nxd5",hl:"5...Nxd5 — Natural... and the trap is set",txt:"Natural recapture, but this is what White wanted. The Nf6 that defended f7 is now on d5, blocking the queen from defending.",warn:"5...Na5 is safer, attacking the bishop. Nxd5 invites the sacrifice."},
+{san:"Nxf7",hl:"6.Nxf7!! — THE FRIED LIVER! 🔥",txt:"White sacrifices the knight on f7, forking the queen on d8 AND rook on h8! The king is FORCED to take. One piece for a permanent, deadly attack.",why:"Works because Nd5 blocks the queen from defending f7. White gets a king hunt that lasts the whole game.",warn:"Objectively unclear at GM level — but wins 70%+ of games under 2000 Elo. Too hard to defend in practice."},
+{san:"Kxf7",hl:"6...Kxf7 — King forced out",txt:"Black must take — both queen and rook were hanging. King steps to f7, exposed and unable to castle forever."},
+{san:"Qf3+",hl:"7.Qf3+ — Chase the king!",txt:"Check! Queen develops with tempo. Every White move attacks the king. Black must move deeper into the centre.",why:"White gains a free developing move — the queen swings to f3 while Black wastes moves."},
+{san:"Ke6",hl:"7...Ke6 — King walks into a storm",txt:"King retreats to e6 — the heart of the board, surrounded by enemy pieces. White plays Nc3 to add more attackers."},
+{san:"Nc3",hl:"8.Nc3 — More attackers! King is losing",txt:"Nc3 develops AND attacks the Nd5. White has enormous compensation. The king on e6 will be hunted all game.",tip:"In practice White wins this position very frequently — the attack is simply too hard to handle under time pressure."}
+],
+summary:{mistake:"Black plays Nxd5 then is forced Kxf7 — king exposed for the entire game.",punish:"After Ke6, White plays d4, Nd5, Re1 — the king has no safe square.",fallback:"If Black plays Na5 (targeting bishop), play Bb5+ c6 Qf3 — strong position without the sacrifice."}},
+
+{id:'w2',side:'White',level:'Beginner',name:"Scholar's Mate",sub:"Checkmate in 4 moves",
+moves:[
+{san:"e4",hl:"1.e4 — Open game",txt:"Central pawn, classic start."},
+{san:"e5",hl:"1...e5 — Mirror",txt:"Black mirrors in the centre."},
+{san:"Bc4",hl:"2.Bc4 — Bishop targets f7 immediately",txt:"White skips Nf3 and immediately targets f7. One half of the Scholar's Mate battery.",why:"f7 is only defended by the king — Bc4 starts the mating battery immediately."},
+{san:"Nc6",hl:"2...Nc6 — Misses the coming threat",txt:"Natural development, but Nc6 does nothing to defend f7."},
+{san:"Qh5",hl:"3.Qh5! — TWO threats at once!",txt:"Creates two threats simultaneously: (1) Qxf7# — immediate checkmate, (2) Qxe5 — winning the e5 pawn. Black must deal with BOTH. The only correct defence is g6.",why:"This is the core principle: a double threat that can't both be stopped.",warn:"Breaks the 'don't develop queen early' rule — but works here because Black can't easily attack it."},
+{san:"Nf6",hl:"3...Nf6?? — Attacks queen, misses MATE!",txt:"Black attacks the queen thinking it must move — but completely forgets Qxf7# is checkmate! Nf6 does NOTHING to defend f7.",warn:"The correct move is 3...g6! which drives the queen to f3 and Black is fine. Always scan for checkmate before attacking pieces!"},
+{san:"Qxf7",hl:"4.Qxf7# — CHECKMATE! 👑",txt:"Qxf7# — checkmate in 4 moves! Queen takes f7, protected by Bc4. King cannot take, cannot move, nothing can block. Game over.",tip:"The real lesson: always look for checkmate threats first. A double threat (mate + material) is the most powerful weapon in chess."}
+],
+summary:{mistake:"Black plays Nf6 to attack the queen, missing Qxf7# is immediate checkmate.",punish:"Qxf7# — game over in 4 moves.",fallback:"If Black plays g6 (correct), retreat to Qf3. Develop Nc3, Nge2, castle."}},
+
+{id:'w3',side:'White',level:'Intermediate',name:"Legal's Trap",sub:"Queen sacrifice for smothered mate",
+moves:[
+{san:"e4",hl:"1.e4",txt:"Open game."},
+{san:"e5",hl:"1...e5",txt:"Mirror."},
+{san:"Nf3",hl:"2.Nf3 — Develop, attack e5",txt:"Knight develops and attacks e5."},
+{san:"Nc6",hl:"2...Nc6 — Defend e5",txt:"Natural defence."},
+{san:"Bc4",hl:"3.Bc4 — Italian, targets f7",txt:"Bishop to c4, eyeing f7."},
+{san:"d6",hl:"3...d6 — Solid but slow",txt:"d6 reinforces e5 but is passive — gives White time to set the trap."},
+{san:"Nc3",hl:"4.Nc3 — Prepare the trap",txt:"Second knight developed. Everything looks normal.",why:"White is ready for the queen sacrifice if Black plays Bg4."},
+{san:"Bg4",hl:"4...Bg4 — The PIN! Walks into the trap!",txt:"Bg4 pins White's f3 knight against the queen. Black thinks the pinned knight can't defend e5. A classic but fatal mistake.",warn:"Bg4 feels powerful but the knight doesn't need to be defended! White is about to spring Legal's Trap."},
+{san:"h3",hl:"5.h3 — Invite the capture",txt:"h3 asks Black what they'll do with the bishop. Most players take the knight — it feels like winning material.",why:"h3 baits the trade. Once Black takes on f3, the trap is sprung."},
+{san:"Bxf3",hl:"5...Bxf3 — Taking the 'free' knight",txt:"Black takes the knight, expecting White to recapture normally with Qxf3."},
+{san:"Qxf3",hl:"6.Qxf3 — Normal recapture... trap is hidden",txt:"White recaptures with the queen. Completely normal. Black now plays Nd4 to attack the queen..."},
+{san:"Nd4",hl:"6...Nd4?? — Attacking the queen... fatal mistake!",txt:"Nd4 attacks the queen on f3. Black expects the queen to run. Instead White sacrifices it!",warn:"This is the losing blunder. Nd4 attacks the queen but leaves f7 completely undefended."},
+{san:"Qxf7",hl:"7.Qxf7+!! — QUEEN SACRIFICE!",txt:"Qxf7+!! White gives away the queen! The sacrifice forces the king to f7 where it's completely exposed. The smothered mate follows.",why:"After Kxf7, White plays Nd5+ — a family fork hitting king AND queen simultaneously. Then Nc7# is smothered checkmate."},
+{san:"Kxf7",hl:"7...Kxf7 — King takes, steps into the net",txt:"King captures the queen. Now on f7 with no shelter. The two White knights are about to deliver smothered checkmate."},
+{san:"Nd5",hl:"8.Nd5+ — Family fork! King AND queen attacked!",txt:"Nd5+! Knight to d5 with check — simultaneously hitting the king on f7 AND the queen on d8. A FAMILY FORK. Black must move the king.",why:"White wins back the queen with the fork — and then delivers checkmate!"},
+{san:"Ke6",hl:"8...Ke6 — Into smothered mate!",txt:"King to e6 — the only legal move. But the king is surrounded by its own pieces: d6 pawn, e5 pawn, d8 queen, Nd4. White plays the finishing blow."},
+{san:"Nc7",hl:"9.Nc7# — SMOTHERED CHECKMATE! 🎭",txt:"Nc7# — CHECKMATE! The king on e6 is surrounded by its own army — there is literally no escape square. White sacrificed a queen and won by checkmate!",tip:"Smothered mate is one of chess's most beautiful patterns. This trap was first recorded in 1750 by French master Sire de Légal."}
+],
+summary:{mistake:"Black plays Nd4 to attack the queen — it gets 'sacrificed' with Qxf7+, leading to smothered checkmate.",punish:"Qxf7+ Kxf7, Nd5+ (family fork), Ke6, Nc7# — smothered mate.",fallback:"If Black retreats Bh5 instead of Bxf3, play d4 — strong central push, White is better."}},
+
+{id:'w4',side:'White',level:'Intermediate',name:"Elephant Trap",sub:"Queen's Gambit — winning the e4 pawn",
+moves:[
+{san:"d4",hl:"1.d4 — Queen's Pawn",txt:"White controls the centre with d4."},
+{san:"d5",hl:"1...d5 — Symmetry",txt:"Black mirrors."},
+{san:"c4",hl:"2.c4 — Queen's Gambit!",txt:"Offering the c4 pawn for central control. One of the oldest and most respected openings.",why:"c4 creates a large pawn centre and offers a pawn Black usually can't hold long-term."},
+{san:"e6",hl:"2...e6 — Queen's Gambit Declined",txt:"Black declines the gambit — the most solid response. Reinforces d5 and opens the dark-squared bishop."},
+{san:"Nf3",hl:"3.Nf3 — Development",txt:"Knight develops, prepares castling."},
+{san:"Nf6",hl:"3...Nf6 — Development",txt:"Knight to f6, attacks e4 if it comes."},
+{san:"Nc3",hl:"4.Nc3 — Development",txt:"Second knight, supports d4."},
+{san:"dxc4",hl:"4...dxc4 — Black takes the gambit pawn!",txt:"Black accepts the gambit. White usually plays e3 or e4 to regain it. But e4 walks into the Elephant Trap!"},
+{san:"e4",hl:"5.e4? — Greedy attempt",txt:"White pushes e4 trying to reclaim c4 by force. But this is the MISTAKE — it walks into the Elephant Trap!",warn:"The correct move is e3. e4 allows 5...Bb4! pinning the Nc3 and winning the e4 pawn."},
+{san:"Bb4",hl:"5...Bb4! — PIN! The e4 pawn falls!",txt:"Bb4 pins the Nc3 against the king! Now e4 is attacked twice (by Bb4 and Nf6) but only defended by the pinned Nc3. It falls.",why:"The pin on c3 means the knight can't recapture. e4 is attacked by Bb4 and Nf6, defended only by the pinned knight — it falls for free."},
+{san:"Nxe4",hl:"5...Nxe4 — Black wins the pawn!",txt:"Black takes the e4 pawn. White tries to complicate but Black is ahead.",tip:"The Elephant Trap teaches a crucial lesson: always play e3 instead of e4 in the Queen's Gambit. e3 is safe, e4 loses material."}
+],
+summary:{mistake:"White plays e4 (greedy) instead of e3, allowing Bb4 which pins Nc3 and wins the e4 pawn.",punish:"After Bb4 Nxe4, Black is a pawn up with a good position.",fallback:"Always play e3 instead of e4 — safe, solid, keeps the extra pawn."}},
+
+{id:'w5',side:'White',level:'Intermediate',name:"Budapest Gambit Trap",sub:"Back-rank checkmate",
+moves:[
+{san:"d4",hl:"1.d4",txt:"Queen's Pawn."},
+{san:"Nf6",hl:"1...Nf6",txt:"Knight to f6."},
+{san:"c4",hl:"2.c4",txt:"English system setup."},
+{san:"e5",hl:"2...e5 — The Budapest Gambit!",txt:"Black sacrifices a pawn for rapid development. White almost always accepts."},
+{san:"dxe5",hl:"3.dxe5 — White accepts",txt:"White takes the pawn."},
+{san:"Ng4",hl:"3...Ng4 — Attacking e5",txt:"Knight immediately attacks e5."},
+{san:"Bf4",hl:"4.Bf4 — Defend and develop",txt:"Bf4 defends e5 and develops."},
+{san:"Nc6",hl:"4...Nc6 — Developing",txt:"Knight to c6, developing and pressuring e5."},
+{san:"Nf3",hl:"5.Nf3 — Development",txt:"Standard development, attacks the Ng4."},
+{san:"Bb4",hl:"5...Bb4+ — Check!",txt:"Black checks and pins. White must block carefully."},
+{san:"Nbd2",hl:"6.Nbd2 — Block the check",txt:"Nbd2 blocks. Now a3 is the key trap-setting move.",why:"Nbd2 prepares a3 which forces the bishop trade and sets up the back-rank mate."},
+{san:"Qe7",hl:"6...Qe7 — Preparing to recover the pawn",txt:"Black prepares to recover the e5 pawn with Qxe5."},
+{san:"a3",hl:"7.a3! — The trap is SET",txt:"a3 forces Black to decide. Black trades the bishop, White gets the queen to d2 — perfectly placed for Qd8#.",why:"After Bxd2+ Qxd2, the e5 pawn looks free — but taking it loses to Qd8# (back-rank checkmate)!"},
+{san:"Bxd2",hl:"7...Bxd2+ — Forced trade",txt:"Black trades the bishop."},
+{san:"Qxd2",hl:"8.Qxd2 — Queen perfectly placed",txt:"White's queen moves to d2, aimed at d8. The e5 pawn looks free to take...",warn:"If Black grabs the e5 pawn now, it's back-rank checkmate. The rooks on a8 and h8 seal the king's escape."},
+{san:"Ngxe5",hl:"8...Ngxe5?? — The greedy mistake!",txt:"Black grabs the 'free' pawn. But Black's back rank is undefended — the rooks haven't moved, blocking the king's escape. Qd8# is coming.",warn:"ALWAYS check your back rank before capturing! Ask: 'Can my king escape if they go to d8?'"},
+{san:"Nxe5",hl:"9.Nxe5 — Exchange continues",txt:"White recaptures."},
+{san:"Nxe5",hl:"9...Nxe5",txt:"Black takes back."},
+{san:"Bxe5",hl:"10.Bxe5 — White takes",txt:"White takes again."},
+{san:"Qxe5",hl:"10...Qxe5 — Everything looks equal...",txt:"Black recaptures. Material is equal. But it's White to move..."},
+{san:"Qd8",hl:"11.Qd8# — BACK-RANK CHECKMATE! 💀",txt:"Qd8# — CHECKMATE! Black's own unmoved rooks blocked every escape square. The most common checkmate pattern in club chess!",tip:"Back-rank mate is the #1 most common checkmate pattern under 1500 Elo. Before capturing, ALWAYS ask: 'Is my back rank safe?'"}
+],
+summary:{mistake:"Black takes the 'free' e5 pawn without noticing the back rank is sealed — Qd8# is checkmate.",punish:"Qd8# — immediate back-rank checkmate.",fallback:"If Black avoids Ngxe5, White is a pawn up. Castle and consolidate."}},
+
+{id:'w6',side:'White',level:'Advanced',name:"Stafford Gambit Refutation",sub:"d3 + Be2 + 0-0 — simple and winning",
+moves:[
+{san:"e4",hl:"1.e4",txt:"Open game."},
+{san:"e5",hl:"1...e5",txt:"Mirror."},
+{san:"Nf3",hl:"2.Nf3",txt:"Development."},
+{san:"Nf6",hl:"2...Nf6 — Petrov? Or Stafford!",txt:"Looks like the Petrov. But Black is setting up the Stafford Gambit.",warn:"Don't play Nc3 — it allows Nd4 fork on the queen and e4!"},
+{san:"Nxe5",hl:"3.Nxe5 — Taking the pawn",txt:"White takes e5. Now Black plays Nc6 — the Stafford Gambit."},
+{san:"Nc6",hl:"3...Nc6 — The Stafford Gambit!",txt:"Nc6 attacks the knight and offers a SECOND pawn. Black bets on rapid development and chaos.",why:"The Stafford only works if White plays greedily. d3 refutes everything cleanly."},
+{san:"Nxc6",hl:"4.Nxc6 — Taking again",txt:"White takes the second pawn."},
+{san:"dxc6",hl:"4...dxc6 — Open lines for Black",txt:"Black recaptures with the d-pawn, opening lines. Black has development potential."},
+{san:"d3",hl:"5.d3! — THE CORRECT REFUTATION",txt:"d3 — the key move. Solid, simple, refuses to be greedy. Consolidates the extra pawn without falling into any tricks.",why:"Why NOT Nc3? Because Nc3 allows Nd4 — forking the queen and e4 pawn. d3 sidesteps everything.",warn:"Instinctively many players play Nc3 here — it loses to Nd4. d3 is correct even though it looks passive."},
+{san:"Bc5",hl:"5...Bc5 — Black develops aggressively",txt:"Bishop to c5, pressuring f2. Standard aggressive Stafford setup."},
+{san:"Be2",hl:"6.Be2! — NOT Nc3! Simple development",txt:"Be2 — again avoiding Nc3. Develops simply toward castling. No tricks, no greed.",why:"Be2 is unambitious but correct. White is simply a pawn up with no counterplay for Black."},
+{san:"Ng4",hl:"6...Ng4 — Trying to create chaos",txt:"Black attacks f2, trying to generate complications. White simply castles."},
+{san:"O-O",hl:"7.0-0 — Safe king, game over",txt:"White castles. King is safe, pawn is up, Black has no attack. The Stafford Gambit has been completely refuted.",tip:"The Stafford is dangerous only against greedy or imprecise play. d3 + Be2 + 0-0 is the antidote — calm, principled, winning."}
+],
+summary:{mistake:"White plays Nc3 (natural but wrong) instead of d3, allowing Nd4 fork on queen and e4.",punish:"After 0-0, White is a clean pawn up with no counterplay. Convert the endgame.",fallback:"The whole system IS the answer — d3 + Be2 + 0-0 works in all variations."}},
+
+// BLACK TRAPS
+{id:'b1',side:'Black',level:'Beginner',name:"Traxler Counter-Attack",sub:"Counter-sacrifice against Ng5",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens."},
+{san:"e5",hl:"1...e5",txt:"Mirror."},
+{san:"Nf3",hl:"2.Nf3",txt:"Development."},
+{san:"Nc6",hl:"2...Nc6",txt:"Defends e5."},
+{san:"Bc4",hl:"3.Bc4 — Italian",txt:"Bishop targets f7."},
+{san:"Nf6",hl:"3...Nf6 — Two Knights",txt:"Development, fights for e4."},
+{san:"Ng5",hl:"4.Ng5 — Threatening Nxf7!",txt:"Double attack on f7! Normal response is d5.",warn:"White threatens Nxf7 forking queen and rook. The Traxler ignores the threat completely!"},
+{san:"Bc5",hl:"4...Bc5!? — THE TRAXLER! 🔄",txt:"Instead of defending, Black counter-attacks with Bc5! If White takes f7, Black responds with Bxf2+ dragging the king into the open.",why:"Bc5 is a counter-gambit. Black bets the counter-attack is faster and more dangerous than White's attack on f7."},
+{san:"Nxf7",hl:"5.Nxf7 — White takes, walks into the trap",txt:"White takes on f7, forking queen and rook. But Black prepared the shocking Bxf2+!!",warn:"Correct for White is Bxf7+! (not Nxf7). After Bxf7+ Ke7, the knight is trapped. Nxf7 walks into Black's preparation."},
+{san:"Bxf2",hl:"5...Bxf2+!! — Bishop sacrifice! King dragged out!",txt:"Bxf2+!! Black sacrifices the bishop, forcing the White king to f2. The king is exposed with no shelter.",why:"This is a deflection sacrifice — Black pulls the White king out of safety into the open."},
+{san:"Kxf2",hl:"6.Kxf2 — King forced to take",txt:"White must take. The king is now on f2, completely exposed."},
+{san:"Nxe4",hl:"6...Nxe4+ — Fork! Development with tempo",txt:"Nxe4+ takes the e4 pawn AND gives check. Every Black move attacks something. White is being driven across the board."},
+{san:"Kg1",hl:"7.Kg1 — Only safe square",txt:"King retreats to g1. Now Black has the decisive move..."},
+{san:"Qh4",hl:"7...Qh4! — Two unstoppable threats!",txt:"Qh4!! creates TWO simultaneous threats: (1) Qxf2# — checkmate, (2) Ng3+ forking king and rook. White cannot stop both.",tip:"This is the Traxler in full force. Know the Bxf2+ idea cold — it's the heart of the whole variation."}
+],
+summary:{mistake:"White plays Nxf7 (natural) instead of Bxf7+ (correct), allowing Bxf2+ which exposes the king.",punish:"After Bxf2+ Kxf2 Nxe4+ Kg1 Qh4 — White cannot stop both Qf2# and Ng3+.",fallback:"If White plays Bxf7+, play Ke7 — the f7 knight is trapped, Black gets compensation."}},
+
+{id:'b2',side:'Black',level:'Beginner',name:"Englund Gambit Trap",sub:"Bb4!! traps White's rook",
+moves:[
+{san:"d4",hl:"1.d4",txt:"Queen's Pawn."},
+{san:"e5",hl:"1...e5 — The Englund Gambit!",txt:"Black sacrifices a pawn for activity — the Englund Gambit."},
+{san:"dxe5",hl:"2.dxe5 — White accepts",txt:"White takes."},
+{san:"Nc6",hl:"2...Nc6 — Developing, targeting e5",txt:"Knight develops and attacks e5."},
+{san:"Nf3",hl:"3.Nf3 — Development",txt:"White develops, defends e5."},
+{san:"Qe7",hl:"3...Qe7 — Preparing Qb4+",txt:"Queen to e7, preparing the key Qb4+ check.",why:"Qe7 sets up the zwischenzug check on b4 — the heart of the Englund trap."},
+{san:"Bf4",hl:"4.Bf4 — Defending e5",txt:"Bishop to f4, defending."},
+{san:"Qb4",hl:"4...Qb4+! — The critical check!",txt:"Qb4+! Forces White to block. Wrong block (Bd2) loses the a1 rook. Correct block (Nc3) gives equality.",why:"Qb4+ is a zwischenzug — an in-between check that forces a critical decision under pressure."},
+{san:"Bd2",hl:"5.Bd2?? — THE WRONG BLOCK!",txt:"Bd2 looks natural but is a catastrophic blunder. After Qxb2, the queen invades and the a1 rook is soon trapped.",warn:"The correct move was Nc3! It blocks the check AND develops a piece for free. Bd2 creates a fatal pin problem on c3."},
+{san:"Qxb2",hl:"5...Qxb2 — Queen invades!",txt:"Queen takes b2 AND attacks the a1 rook. White plays Bc3 to try to trap the queen — but Black has Bb4!!"},
+{san:"Bc3",hl:"6.Bc3 — Trying to trap the queen",txt:"Bc3 attacks the queen. Looks like it might be trapped. But..."},
+{san:"Bb4",hl:"6...Bb4!! — PIN! Rook is trapped! 🪤",txt:"Bb4!! pins the Bc3 against the king! The a1 rook has ZERO escape squares. If Bxb4, Black takes Qxa1. Rook is trapped — White loses the exchange minimum.",why:"Removing the defender — Bc3 was the only piece guarding the a1 rook. Bb4 pins and removes it. The rook falls.",tip:"The Englund is a surprise weapon. If White knows Nc3, the trap fails. But Bd2 is natural and many players fall for it."}
+],
+summary:{mistake:"White blocks Qb4+ with Bd2 instead of Nc3, allowing Qxb2 followed by Bb4 which traps the a1 rook.",punish:"Bb4 pins Bc3 — the rook is trapped. White loses the exchange.",fallback:"If White plays Nc3 (correct), Black plays Nxe5 recovering the pawn with equality."}},
+
+{id:'b3',side:'Black',level:'Intermediate',name:"Nimzowitsch Defence Trap",sub:"Bf5 pins c3, then Ncxe5!! d4! demolishes the centre",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens."},
+{san:"Nc6",hl:"1...Nc6 — Nimzowitsch Defence!",txt:"Nc6 fights for the centre with a piece. Unconventional and disorienting."},
+{san:"d4",hl:"2.d4 — Big pawn centre",txt:"White builds a large pawn centre."},
+{san:"d5",hl:"2...d5 — Counterattack!",txt:"d5 directly challenges White's e4."},
+{san:"e5",hl:"3.e5 — Advance, French-like",txt:"White advances, creating a French-like pawn chain."},
+{san:"Bf5",hl:"3...Bf5! — THE KEY MOVE! Sets up everything",txt:"Bf5 develops the bishop OUTSIDE the pawn chain. But more importantly, Bf5 will PIN the c3 pawn later — making the knight sacrifice work.",why:"Without Bf5 here, the whole combination fails. This bishop will be the silent hero of the trap 6 moves from now. Long-range strategic thinking!"},
+{san:"Nf3",hl:"4.Nf3 — Normal development",txt:"White develops."},
+{san:"e6",hl:"4...e6 — Solidifying",txt:"e6 solidifies the structure."},
+{san:"Be2",hl:"5.Be2 — Development",txt:"White prepares to castle."},
+{san:"Nge7",hl:"5...Nge7 — Knight heading to g6",txt:"Knight to e7, preparing Ng6."},
+{san:"O-O",hl:"6.0-0 — White castles",txt:"White castles safely."},
+{san:"Ng6",hl:"6...Ng6 — Knight reaches ideal post",txt:"Ng6 — active and ready."},
+{san:"c3",hl:"7.c3 — Supports d4",txt:"c3 supports d4. This pawn will become PINNED by Bf5 when Black plays the combination.",why:"c3 is a normal move — but combined with Bf5 on the board, it creates the pin that makes the sacrifice work."},
+{san:"Be7",hl:"7...Be7 — Preparing castling",txt:"Bishop develops."},
+{san:"h3",hl:"8.h3?! — Slow! Gives Black a free hand",txt:"h3 wastes tempo. Black is ready to spring the combination.",warn:"Re1 or Bg5 would have been more active. h3 gives Black the free move needed to execute the sacrifice."},
+{san:"Ncxe5",hl:"8...Ncxe5!! — KNIGHT SACRIFICE! 💥",txt:"Ncxe5!! Black sacrifices the knight. After dxe5, Black plays d4! The c3 pawn is PINNED by Bf5 and CANNOT recapture. White's entire pawn chain collapses.",why:"This works ONLY because Bf5 is already on the board — it pins c3. This is why Bf5 was played on move 3! Six moves of preparation for this one moment."},
+{san:"dxe5",hl:"9.dxe5 — White must take",txt:"White captures the knight. Now the pawn break..."},
+{san:"d4",hl:"9...d4! — THE PAWN BREAK! Centre collapses!",txt:"d4!! The pawn advances, attacking c3 — but c3 CANNOT TAKE because it's pinned by Bf5! The pawn advances for free, White's centre collapses, and Black has a powerful passed pawn.",tip:"This combination is beautiful because of how far ahead it was planned. Bf5 on move 3 was preparation for this d4 break. This is what chess mastery looks like."}
+],
+summary:{mistake:"White plays h3 (slow) instead of active Re1/Bg5, giving Black the free move to execute the knight sacrifice.",punish:"After Ncxe5 dxe5 d4, c3 is pinned and cannot recapture — White's pawn chain collapses.",fallback:"With active play (Bg5, Re1), Black castles long and plays counterplay on the kingside."}},
+
+{id:'b4',side:'Black',level:'Intermediate',name:"Fishing Pole Trap",sub:"Ruy Lopez — Ng4 → Nxh2 king hunt",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens."},
+{san:"e5",hl:"1...e5",txt:"Mirror."},
+{san:"Nf3",hl:"2.Nf3",txt:"Development."},
+{san:"Nc6",hl:"2...Nc6",txt:"Defends e5."},
+{san:"Bb5",hl:"3.Bb5 — The Ruy Lopez!",txt:"One of the oldest and most analysed openings. The bishop pins the Nc6.",why:"The Ruy Lopez applies subtle long-term pressure. It's the most respected response to 1...e5."},
+{san:"Nf6",hl:"3...Nf6 — Berlin Defence",txt:"Nf6 is the Berlin — extremely solid. Black develops and attacks e4."},
+{san:"d3",hl:"4.d3 — Solid setup",txt:"White prepares to castle and play slowly."},
+{san:"Ng4",hl:"4...Ng4!? — The Fishing Pole! 🎣",txt:"Ng4! Black sacrifices the knight to lure Bg5, then h6 Bh4 g5 Bg3 h5 — the pawn hook traps the bishop!",why:"The Fishing Pole gets its name because White's bishop is slowly 'reeled in' by the advancing h5 pawn."},
+{san:"h3",hl:"5.h3 — Trying to kick the knight",txt:"h3 attacks the Ng4. But this weakens the kingside permanently.",warn:"The key Fishing Pole line is 5.0-0 Bc5! If White plays 0-0, Black has Nxh2!! Rxf2 Bxf2+ Kh1 d5! with a winning attack."},
+{san:"Nf6",hl:"5...Nf6 — Retreating, but h3 is a weakness",txt:"Knight retreats. White's h3 pawn is now a long-term target. Black has gained something even by 'retreating'.",tip:"Even forcing h3 gives Black a slight advantage. The full Fishing Pole (against 0-0) wins material with the Nxh2!! sacrifice."}
+],
+summary:{mistake:"White plays h3 to kick the Ng4, weakening the kingside permanently.",punish:"Against 0-0, the full trap: Nxh2!! Rxf2 Bxf2+ Kh1 d5! wins material.",fallback:"White's best is 5.0-0, but that walks into the full Fishing Pole trap."}},
+
+{id:'b5',side:'Black',level:'Advanced',name:"Siberian Trap",sub:"Smith-Morra — Nxh2!! wins",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens."},
+{san:"c5",hl:"1...c5 — Sicilian",txt:"The Sicilian Defence."},
+{san:"d4",hl:"2.d4 — Smith-Morra Gambit!",txt:"White sacrifices the d4 pawn for rapid development — the Smith-Morra Gambit.",why:"The Smith-Morra gives White fast development and attacking chances. Very dangerous if unprepared."},
+{san:"cxd4",hl:"2...cxd4",txt:"Black takes."},
+{san:"c3",hl:"3.c3 — The Gambit offer",txt:"c3 — White offers the pawn. Black can accept or decline."},
+{san:"dxc3",hl:"3...dxc3 — Accepting",txt:"Black accepts."},
+{san:"Nxc3",hl:"4.Nxc3 — Rapid development",txt:"White recaptures, developing rapidly."},
+{san:"Nc6",hl:"4...Nc6",txt:"Black develops."},
+{san:"Nf3",hl:"5.Nf3",txt:"White develops."},
+{san:"e6",hl:"5...e6",txt:"Black solidifies."},
+{san:"Bc4",hl:"6.Bc4 — Targeting f7!",txt:"White aims at f7 and d5.",why:"The Smith-Morra aims for rapid development and tactical pressure on f7."},
+{san:"Nf6",hl:"6...Nf6",txt:"Black develops."},
+{san:"e5",hl:"7.e5 — Driving the knight",txt:"White attacks the Nf6."},
+{san:"Ng4",hl:"7...Ng4 — The Siberian Trap begins!",txt:"Ng4! Black retreats — seemingly running away. But this sets up the deadly Nxh2!! sacrifice if White castles carelessly."},
+{san:"O-O",hl:"8.0-0 — Walking into the trap!",txt:"White castles. Looks natural — but walks into the Siberian Trap!",warn:"The correct move is Qe2 or Bb3. 0-0 allows the deadly combination."},
+{san:"Nxh2",hl:"8...Nxh2!! — Piece sacrifice!",txt:"Nxh2!! Black sacrifices the knight on h2. White must take or lose material another way."},
+{san:"Kxh2",hl:"9.Kxh2 — King takes",txt:"White must take. The king is now on h2, completely exposed."},
+{san:"Qh4",hl:"9...Qh4+ — KING HUNT BEGINS!",txt:"Qh4+ — check! The king is immediately in danger. White has no good answer.",why:"After Qh4+, Black plays Bc5 threatening Qxf2# and other mating ideas. White's exposed king has no defenders."},
+{san:"Kg1",hl:"10.Kg1 — Retreating",txt:"King retreats."},
+{san:"Bc5",hl:"10...Bc5!! — Discovered attack on f2!",txt:"Bc5!! threatens Qxf2# which is checkmate. White cannot stop all the threats. Black has a winning attack.",tip:"The Siberian Trap catches many Smith-Morra players by surprise. The key: Ng4 then Nxh2!! if White castles carelessly."}
+],
+summary:{mistake:"White plays 0-0 instead of Qe2/Bb3, allowing Nxh2!! Qh4+ Kg1 Bc5 — winning attack.",punish:"After Bc5, White cannot stop Qxf2# — decisive.",fallback:"Qe2 or Bb3 by White avoids the trap entirely."}},
+
+{id:'b6',side:'Black',level:'Advanced',name:"Lasker's Trap",sub:"Albin Counter-Gambit — promote to KNIGHT!",
+moves:[
+{san:"d4",hl:"1.d4",txt:"White opens d4."},
+{san:"d5",hl:"1...d5",txt:"Black mirrors."},
+{san:"c4",hl:"2.c4 — Queen's Gambit",txt:"The Queen's Gambit."},
+{san:"e5",hl:"2...e5 — Albin Counter-Gambit!",txt:"e5! Black counter-sacrifices immediately — the Albin Counter-Gambit. A pawn for active fighting play.",why:"The Albin creates immediate complications. The e5→d4 pawn will become a tactical weapon."},
+{san:"dxe5",hl:"3.dxe5 — White accepts",txt:"White takes."},
+{san:"d4",hl:"3...d4 — The Albin pawn!",txt:"d4! Black has a powerful passed pawn deep in White's position. The Albin pawn on d4 is the key feature.",why:"The d4 pawn controls c3 and e3 — it's a tactical weapon that White must handle carefully."},
+{san:"e3",hl:"4.e3?? — Walking into Lasker's Trap!",txt:"White tries to undermine d4 with e3. This is the WRONG move — it walks into the stunning combination!",warn:"The correct moves are Nf3 or e4. e3 allows Bb4+ Bd2 dxe3!! with an unstoppable promotion."},
+{san:"Bb4",hl:"4...Bb4+ — Check!",txt:"Bb4+ gives check, forcing White to block."},
+{san:"Bd2",hl:"5.Bd2 — Natural block",txt:"Bd2 blocks the check. Now Black plays the stunning dxe3!!"},
+{san:"dxe3",hl:"5...dxe3!! — THE PAWN STRIKES!",txt:"dxe3!! The d4 pawn advances to e3, forking the bishop on d2 and threatening to promote! White must take.",why:"The e3 pawn now threatens e2 and promotion to a queen! White can't ignore it."},
+{san:"Bxb4",hl:"6.Bxb4 — Taking the bishop",txt:"White takes the bishop. But..."},
+{san:"exf2",hl:"6...exf2+ — Check!",txt:"The pawn takes on f2 with check! It now threatens to promote on e1 or g1."},
+{san:"Ke2",hl:"7.Ke2 — Forced king move",txt:"White's king is forced to move."},
+{san:"fxg1",hl:"7...fxg1=N!! — UNDERPROMOTION! 👑",txt:"fxg1=N!! Promote to a KNIGHT, not a queen! The knight immediately forks the king on e2. Promoting to a queen would give nothing — the knight delivers an immediate fork and wins decisive material!",tip:"Underpromotion to a knight is extremely rare — and extremely effective here. Lasker's Trap is over 100 years old and still catches players to this day!"}
+],
+summary:{mistake:"White plays e3 (natural) instead of Nf3/e4, allowing the stunning dxe3!! exf2+ fxg1=N!! combination.",punish:"After fxg1=N+, the knight forks king and rook — Black wins decisive material.",fallback:"White should play Nf3 or e4 instead of e3 to avoid the trap."}}
+];
+
+// ── CHESS ENGINE & STATE ──────────────────────────────────────────────
+const FILES_ARR = ['a','b','c','d','e','f','g','h'];
+let chess = new Chess();
+let currentTrap = null;
+let currentPly = -1;
+
+// ── BUILD BOARD SQUARES ───────────────────────────────────────────────
+const boardEl = document.getElementById('cboard');
+const rankStrip = document.getElementById('rank-strip');
+const fileStrip = document.getElementById('file-strip');
+
+// Rank labels
+for (let r = 8; r >= 1; r--) {
+  const d = document.createElement('div');
+  d.className = 'rank-lbl';
+  d.textContent = r;
+  rankStrip.appendChild(d);
+}
+// File labels
+FILES_ARR.forEach(f => {
+  const d = document.createElement('div');
+  d.className = 'file-lbl';
+  d.textContent = f;
+  fileStrip.appendChild(d);
+});
+// Squares (rank 8 → rank 1, file a → h)
+for (let rank = 7; rank >= 0; rank--) {
+  for (let file = 0; file < 8; file++) {
+    const sq = document.createElement('div');
+    const sqName = FILES_ARR[file] + (rank + 1);
+    sq.id = 'sq-' + sqName;
+    sq.className = 'sq ' + ((file + rank) % 2 === 0 ? 'dark' : 'light');
+    boardEl.appendChild(sq);
+  }
+}
+
+// ── RENDER BOARD ──────────────────────────────────────────────────────
+function renderBoard(fromSq, toSq) {
+  // Clear pieces and highlights
+  document.querySelectorAll('.sq').forEach(el => {
+    el.innerHTML = '';
+    el.classList.remove('hl-from','hl-to','hl-check');
+  });
+  // Place pieces using inline SVG
+  const board = chess.board();
+  for (let r = 0; r < 8; r++) {
+    for (let f = 0; f < 8; f++) {
+      const piece = board[r][f];
+      if (!piece) continue;
+      const sqName = FILES_ARR[f] + (8 - r);
+      const el = document.getElementById('sq-' + sqName);
+      if (!el) continue;
+      const code = piece.color + piece.type.toUpperCase();
+      const svgStr = P[code];
+      if (svgStr) el.innerHTML = svgStr;
+    }
+  }
+  // Highlights
+  if (fromSq) { const e = document.getElementById('sq-'+fromSq); if(e) e.classList.add('hl-from'); }
+  if (toSq)   { const e = document.getElementById('sq-'+toSq);   if(e) e.classList.add('hl-to'); }
+  // Check
+  if (chess.in_check()) {
+    const turn = chess.turn();
+    const b2 = chess.board();
+    for (let r=0;r<8;r++) for (let f=0;f<8;f++) {
+      const p = b2[r][f];
+      if (p && p.type==='k' && p.color===turn) {
+        const n = FILES_ARR[f]+(8-r);
+        const e = document.getElementById('sq-'+n);
+        if (e) e.classList.add('hl-check');
+      }
+    }
+  }
+}
+
+// ── ARROWS ────────────────────────────────────────────────────────────
+function clearArrows() {
+  const svg = document.getElementById('arrow-svg');
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+}
+function drawArrow(from, to, color) {
+  const svg = document.getElementById('arrow-svg');
+  const SZ = 52; // square size in px
+  const fi = FILES_ARR.indexOf(from[0]), fr = 8 - parseInt(from[1]);
+  const ti = FILES_ARR.indexOf(to[0]),   tr = 8 - parseInt(to[1]);
+  const fx = (fi+.5)*SZ, fy = (fr+.5)*SZ;
+  const tx = (ti+.5)*SZ, ty = (tr+.5)*SZ;
+  const dx=tx-fx, dy=ty-fy, len=Math.sqrt(dx*dx+dy*dy);
+  const nx=dx/len, ny=dy/len;
+  const id='m'+Math.random().toString(36).slice(2,8);
+  const ns='http://www.w3.org/2000/svg';
+  const defs=document.createElementNS(ns,'defs');
+  const mk=document.createElementNS(ns,'marker');
+  mk.setAttribute('id',id); mk.setAttribute('viewBox','0 0 10 10');
+  mk.setAttribute('refX','8'); mk.setAttribute('refY','5');
+  mk.setAttribute('markerWidth','3.5'); mk.setAttribute('markerHeight','3.5');
+  mk.setAttribute('orient','auto');
+  const mp=document.createElementNS(ns,'path');
+  mp.setAttribute('d','M1 1L9 5L1 9z'); mp.setAttribute('fill',color);
+  mk.appendChild(mp); defs.appendChild(mk); svg.appendChild(defs);
+  const line=document.createElementNS(ns,'line');
+  line.setAttribute('x1',(fx+nx*SZ*.15).toFixed(1));
+  line.setAttribute('y1',(fy+ny*SZ*.15).toFixed(1));
+  line.setAttribute('x2',(tx-nx*SZ*.28).toFixed(1));
+  line.setAttribute('y2',(ty-ny*SZ*.28).toFixed(1));
+  line.setAttribute('stroke',color);
+  line.setAttribute('stroke-width',(SZ*.16).toFixed(1));
+  line.setAttribute('stroke-opacity','0.75');
+  line.setAttribute('stroke-linecap','round');
+  line.setAttribute('marker-end','url(#'+id+')');
+  svg.appendChild(line);
+}
+
+// ── NOTATION ──────────────────────────────────────────────────────────
+function buildNotation(trap, activePly) {
+  const el = document.getElementById('notation');
+  el.innerHTML = '';
+  let moveNum = 1;
+  trap.moves.forEach((m, i) => {
+    if (i % 2 === 0) {
+      const s = document.createElement('span');
+      s.className = 'mn'; s.textContent = moveNum+'.'; el.appendChild(s); moveNum++;
+    }
+    const s = document.createElement('span');
+    s.className = 'mv' + (i===activePly?' cur':i<activePly?' played':' future');
+    s.textContent = m.san; s.dataset.i = i;
+    s.onclick = () => goToPly(i);
+    el.appendChild(s);
+  });
+  const cur = el.querySelector('.cur');
+  if (cur) cur.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+
+// ── COACHING ──────────────────────────────────────────────────────────
+function buildCoaching(trap, ply) {
+  const el = document.getElementById('coaching');
+  if (ply < 0) {
+    el.innerHTML=`<div class="start-msg"><div class="bp">♟</div><div style="font-size:12px">Press <strong style="color:#aed67a">Next ▶</strong> to step through every move</div></div>`;
+    return;
+  }
+  const m = trap.moves[ply];
+  const isW = ply%2===0;
+  let html=`<span class="who-badge ${isW?'ww':'wb'}">${isW?'♔ White':'♚ Black'}</span>
+    <div class="c-move">${m.san}</div>
+    <div class="c-hl">${m.hl}</div>
+    <div class="c-txt">${m.txt}</div>`;
+  if(m.why)  html+=`<div class="c-box cb-why"><strong>Why:</strong> ${m.why}</div>`;
+  if(m.warn) html+=`<div class="c-box cb-warn"><strong>⚠</strong> ${m.warn}</div>`;
+  if(m.tip)  html+=`<div class="c-box cb-tip">💡 ${m.tip}</div>`;
+  el.innerHTML = html;
+}
+
+// ── SUMMARY ───────────────────────────────────────────────────────────
+function buildSummary(trap) {
+  const el=document.getElementById('summary');
+  if(!trap){el.classList.remove('show');return;}
+  const s=trap.summary;
+  el.innerHTML=`
+    <div class="si si-r"><span class="sl">Mistake</span>${s.mistake}</div>
+    <div class="si si-b"><span class="sl">Punishment</span>${s.punish}</div>
+    <div class="si si-g"><span class="sl">If They Avoid It</span>${s.fallback}</div>`;
+  el.classList.add('show');
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────
+function goToTrap(trap) {
+  currentTrap = trap;
+  currentPly = -1;
+  chess = new Chess();
+  document.querySelectorAll('.trap-item').forEach(e => e.classList.toggle('active', e.dataset.id===trap.id));
+  document.getElementById('st-title').textContent = trap.name;
+  document.getElementById('st-sub').textContent = trap.sub;
+  renderBoard(null,null);
+  clearArrows();
+  buildNotation(trap,-1);
+  buildCoaching(trap,-1);
+  buildSummary(trap);
+  updateNavBtns();
+}
+
+function goToPly(ply) {
+  if(!currentTrap) return;
+  chess = new Chess();
+  let lastFrom=null, lastTo=null;
+  for(let i=0; i<=ply; i++){
+    const san = currentTrap.moves[i].san;
+    // Try with decorators first, then clean
+    let result = chess.move(san);
+    if(!result) result = chess.move(san.replace(/[+#!?]/g,''));
+    if(!result) {
+      // Try to find matching move by partial SAN
+      const cleanSan = san.replace(/[+#!?]/g,'');
+      const moves = chess.moves({verbose:true});
+      const found = moves.find(m => m.san === cleanSan || m.san.replace(/[+#!?]/g,'') === cleanSan);
+      if(found) result = chess.move(found.san);
+    }
+    if(result){ lastFrom=result.from; lastTo=result.to; }
+  }
+  currentPly = ply;
+  renderBoard(lastFrom, lastTo);
+  clearArrows();
+  if(lastFrom && lastTo) {
+    const color = ply%2===0 ? '#aed67a' : '#74a8d4';
+    drawArrow(lastFrom, lastTo, color);
+  }
+  buildNotation(currentTrap, ply);
+  buildCoaching(currentTrap, ply);
+  updateNavBtns();
+}
+
+function navFirst(){ if(currentTrap){chess=new Chess();currentPly=-1;renderBoard(null,null);clearArrows();buildNotation(currentTrap,-1);buildCoaching(currentTrap,-1);updateNavBtns();} }
+function navPrev() { if(currentTrap&&currentPly>-1) goToPly(currentPly-1); }
+function navNext() { if(currentTrap&&currentPly<currentTrap.moves.length-1) goToPly(currentPly+1); }
+function navLast() { if(currentTrap) goToPly(currentTrap.moves.length-1); }
+
+function updateNavBtns(){
+  document.getElementById('b-first').disabled = !currentTrap||currentPly<0;
+  document.getElementById('b-prev').disabled  = !currentTrap||currentPly<0;
+  document.getElementById('b-next').disabled  = !currentTrap||currentPly>=(currentTrap?.moves.length-1);
+  document.getElementById('b-last').disabled  = !currentTrap||currentPly>=(currentTrap?.moves.length-1);
+  document.getElementById('nav-info').textContent = !currentTrap ? '—' : currentPly<0 ? 'Start' : `${currentPly+1}/${currentTrap.moves.length}`;
+}
+
+// ── KEYBOARD ─────────────────────────────────────────────────────────
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();navNext();}
+  if(e.key==='ArrowLeft' ||e.key==='ArrowUp')  {e.preventDefault();navPrev();}
+  if(e.key==='Home'){e.preventDefault();navFirst();}
+  if(e.key==='End') {e.preventDefault();navLast();}
+});
+
+// ── BUILD SIDEBAR ─────────────────────────────────────────────────────
+function buildSidebar(){
+  const sb=document.getElementById('sidebar');
+  const w=TRAPS.filter(t=>t.side==='White'), b=TRAPS.filter(t=>t.side==='Black');
+  function addSec(traps, label){
+    const sec=document.createElement('div'); sec.className='sb-section';
+    const lbl=document.createElement('div'); lbl.className='sb-label'; lbl.textContent=label; sec.appendChild(lbl);
+    traps.forEach(trap=>{
+      const item=document.createElement('div'); item.className='trap-item'; item.dataset.id=trap.id;
+      const dc={Beginner:'db',Intermediate:'di',Advanced:'da'}[trap.level]||'db';
+      item.innerHTML=`<div class="ti-name">${trap.name}</div><div class="ti-meta"><div class="dot ${dc}"></div>${trap.level} · ${trap.moves.length} moves</div>`;
+      item.onclick=()=>goToTrap(trap);
+      sec.appendChild(item);
+    });
+    sb.appendChild(sec);
+  }
+  addSec(w,'White Traps');
+  addSec(b,'Black Traps');
+}
+buildSidebar();
+goToTrap(TRAPS[0]);
+</script>
+</body>
+</html>
