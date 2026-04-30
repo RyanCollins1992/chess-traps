@@ -32,6 +32,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 .dd-trigger .side-pill{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:600}
 .pill-white{background:rgba(255,255,255,.1);color:#ddd;border:1px solid rgba(255,255,255,.15)}
 .pill-black{background:rgba(80,80,120,.3);color:#9090b8;border:1px solid rgba(80,80,120,.3)}
+.pill-quick{background:rgba(255,180,0,.15);color:#ffcc44;border:1px solid rgba(255,180,0,.3)}
 
 .dd-menu{
   position:absolute;top:100%;left:0;right:0;
@@ -219,7 +220,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 <div class="topbar">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#629924" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
   <h1>Chess Opening Traps</h1>
-  <span>45 traps</span>
+  <span>45 traps · 7 quick mates</span>
 </div>
 
 <div class="nav-bar-outer">
@@ -243,6 +244,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
     </button>
     <div class="dd-menu" id="menu-black" onmouseenter="cancelClose('black')" onmouseleave="scheduleClose('black')">
       <div id="dd-black-items"></div>
+    </div>
+  </div>
+  <!-- QUICK CHECKMATES dropdown -->
+  <div class="dd-group" id="dd-quick">
+    <button class="dd-trigger" id="trig-quick" onclick="toggleDD('quick')" onmouseenter="openDD('quick')" onmouseleave="scheduleClose('quick')">
+      <span class="side-pill pill-quick">⚡ QUICK MATES</span>
+      <span id="active-quick-name" style="flex:1;text-align:left;font-size:12px;color:#ffcc44;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="dd-menu" id="menu-quick" onmouseenter="cancelClose('quick')" onmouseleave="scheduleClose('quick')">
+      <div id="dd-quick-items"></div>
     </div>
   </div>
 </div>
@@ -1242,6 +1254,127 @@ moves:[
 summary:{mistake:"White brings the queen to h5 prematurely, and Black traps it with Rh6! — the queen has no safe square.",punish:"After Rh6, the queen on h5 is completely trapped. White loses the queen for a rook — decisive material loss.",fallback:"White should castle queenside and play a more strategic game in the Classical QGD. The Qh5 venture is too risky without careful calculation."}}
 ];
 
+// ── QUICK CHECKMATES ──────────────────────────────────────────────────
+const QUICK_MATES = [
+{
+  id:'qm1', moves_to_mate:2, name:"Fool's Mate",
+  sub:"2 moves — the fastest checkmate possible",
+  moves:[
+    {san:"f3",  who:"W", fen:"rnbqkbnr/pppppppp/8/8/8/5P2/PPPPP1PP/RNBQKBNR",  arrow:{f:"f2",t:"f3",c:"#e07060"}, hl:"1.f3 — The worst opening move in chess!",    txt:"f3 weakens the e1-h4 diagonal directly pointing at the White king. This is one of the worst possible opening moves and is almost never played above beginner level.",warn:"Never open with f3 or g4 — these moves expose your king to an immediate checkmate!"},
+    {san:"e5",  who:"B", fen:"rnbqkbnr/pppp1ppp/8/4p3/8/5P2/PPPPP1PP/RNBQKBNR",  arrow:{f:"e7",t:"e5",c:"#aed67a"}, hl:"1...e5 — Black takes the centre",          txt:"Black plays e5, claiming central space. Completely normal and principled. Now White makes the fatal second mistake."},
+    {san:"g4",  who:"W", fen:"rnbqkbnr/pppp1ppp/8/4p3/6P1/5P2/PPPPP2P/RNBQKBNR",  arrow:{f:"g2",t:"g4",c:"#e07060"}, hl:"2.g4?? — Opening the diagonal to the king!", txt:"g4 is the second fatal move. White has now fully opened the h4-e1 diagonal and the king is completely exposed. Black has an immediate forced checkmate.",warn:"White has played the two worst moves in chess back to back. The king is now completely defenceless on the h4-e1 diagonal."},
+    {san:"Qh4", who:"B", fen:"rnb1kbnr/pppp1ppp/8/4p3/6Pq/5P2/PPPPP2P/RNBQKBNR",  arrow:{f:"d8",t:"h4",c:"#aed67a"}, hl:"2...Qh4# — CHECKMATE in 2 moves! 👑",      txt:"Qh4# — CHECKMATE! The queen delivers checkmate in just 2 moves — the fastest possible in chess. The queen on h4 is protected by the e5 pawn. White's king cannot escape: f2 is blocked, the queen covers all escape squares. Game over in 2 moves!",tip:"The Fool's Mate is the absolute fastest checkmate in chess. It only works because White plays BOTH f3 AND g4 — opening the diagonal to their own king. If you ever see your opponent play f3 or g4 in the opening, check if Qh4 checkmates immediately!"}
+  ],
+  summary:{mistake:"White plays f3 then g4 — two consecutive moves that open the h4-e1 diagonal directly to the White king.",punish:"Qh4# — checkmate in 2 moves. The fastest possible checkmate in chess.",fallback:"Never play f3 or g4 in the opening. Play 1.e4, 1.d4, 1.Nf3 or 1.c4 instead."}
+},
+{
+  id:'qm2', moves_to_mate:4, name:"Scholar's Mate",
+  sub:"4 moves — the most famous quick checkmate",
+  moves:[
+    {san:"e4",   who:"W", fen:"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR",   arrow:{f:"e2",t:"e4",c:"#aed67a"}, hl:"1.e4 — Central control",                   txt:"White opens with e4, the most active first move. This opens lines for both the bishop and queen."},
+    {san:"e5",   who:"B", fen:"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR",   arrow:{f:"e7",t:"e5",c:"#74a8d4"}, hl:"1...e5 — Black mirrors",                   txt:"Black mirrors with e5. Completely normal — both sides have a central pawn."},
+    {san:"Bc4",  who:"W", fen:"rnbqkbnr/pppp1ppp/8/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR",   arrow:{f:"f1",t:"c4",c:"#aed67a"}, hl:"2.Bc4 — Bishop targets f7!",               txt:"Bc4 aims at f7 — the weakest square in Black's position, only defended by the king. This is the first half of the Scholar's Mate battery.",why:"f7 is called the Achilles heel of Black's position. The bishop on c4 stares straight at it."},
+    {san:"Nc6",  who:"B", fen:"r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR",   arrow:{f:"b8",t:"c6",c:"#74a8d4"}, hl:"2...Nc6 — Development, misses the threat",  txt:"Black develops the knight. Natural but Nc6 does nothing to defend f7. The trap is set."},
+    {san:"Qh5",  who:"W", fen:"r1bqkbnr/pppp1ppp/2n5/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR",   arrow:{f:"d1",t:"h5",c:"#aed67a"}, hl:"3.Qh5! — TWO threats at once!",             txt:"Qh5 creates a double threat: (1) Qxf7# — immediate checkmate, (2) Qxe5 — winning the pawn. Black must defend BOTH simultaneously. The only correct defence is g6.",warn:"The only correct defence is 3...g6 which drives the queen back. Any other move is likely to lose!"},
+    {san:"Nf6",  who:"B", fen:"r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR",   arrow:{f:"g8",t:"f6",c:"#e07060"}, hl:"3...Nf6?? — Attacks the queen but misses MATE!", txt:"Black attacks the queen with Nf6, thinking it must move. But Nf6 does NOTHING to defend f7! This is the losing blunder.",warn:"The correct move was g6! Nf6 attacks the queen but ignores the checkmate threat on f7."},
+    {san:"Qxf7", who:"W", fen:"r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR",   arrow:{f:"h5",t:"f7",c:"#aed67a"}, hl:"4.Qxf7# — CHECKMATE in 4! Scholar's Mate 👑", txt:"Qxf7# — CHECKMATE in 4 moves! The queen takes f7, protected by Bc4. The king cannot take (Bc4 guards), cannot move, nothing can block. The Scholar's Mate!",tip:"Scholar's Mate is the most common quick checkmate in chess. The lesson isn't just the checkmate — it's about double threats. Always look for checkmate BEFORE looking for material gains. When your opponent plays Qh5, immediately ask: 'Does g6 defend everything?'"}
+  ],
+  summary:{mistake:"Black plays Nf6 to attack the queen, missing that Qxf7# is immediate checkmate.",punish:"Qxf7# — checkmate in 4 moves.",fallback:"Correct defence: 3...g6 drives the queen to f3. Then Nf6 — Black is perfectly fine."}
+},
+{
+  id:'qm3', moves_to_mate:7, name:"Légal's Smothered Mate",
+  sub:"9 moves — queen sacrifice for smothered checkmate",
+  moves:[
+    {san:"e4",   who:"W", fen:"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR",   arrow:{f:"e2",t:"e4",c:"#aed67a"}, hl:"1.e4",  txt:"White opens."},
+    {san:"e5",   who:"B", fen:"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR",   arrow:{f:"e7",t:"e5",c:"#74a8d4"}, hl:"1...e5", txt:"Black mirrors."},
+    {san:"Nf3",  who:"W", fen:"rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R",   arrow:{f:"g1",t:"f3",c:"#aed67a"}, hl:"2.Nf3 — Development, attacks e5", txt:"Knight develops and attacks e5."},
+    {san:"Nc6",  who:"B", fen:"r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R",   arrow:{f:"b8",t:"c6",c:"#74a8d4"}, hl:"2...Nc6 — Defend e5",             txt:"Knight defends e5."},
+    {san:"Bc4",  who:"W", fen:"r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R",   arrow:{f:"f1",t:"c4",c:"#aed67a"}, hl:"3.Bc4 — Italian, targets f7",      txt:"Bishop to c4, eyeing f7."},
+    {san:"d6",   who:"B", fen:"r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK22R",   arrow:{f:"d7",t:"d6",c:"#74a8d4"}, hl:"3...d6 — Solid but slow",          txt:"d6 reinforces e5 — passive."},
+    {san:"Nc3",  who:"W", fen:"r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/2N2N2/PPPP1PPP/R1BQK22R",   arrow:{f:"b1",t:"c3",c:"#aed67a"}, hl:"4.Nc3 — Development, preparing the trap", txt:"Second knight developed. White is ready for the queen sacrifice if Black plays Bg4."},
+    {san:"Bg4",  who:"B", fen:"r2qkbnr/ppp2ppp/2np4/4p3/2B1P1b1/2N2N2/PPPP1PPP/R1BQK22R",   arrow:{f:"c8",t:"g4",c:"#e07060"}, hl:"4...Bg4 — The PIN! Walks into Legal's Trap!", txt:"Bg4 pins the Nf3 against the queen. Looks clever — but it's the losing move!",warn:"This natural-looking pin is the mistake that allows Legal's Trap. The knight doesn't need to be defended here!"},
+    {san:"h3",   who:"W", fen:"r2qkbnr/ppp2ppp/2np4/4p3/2B1P1b1/2N2N1P/PPPP1PPP/R1BQK22R",   arrow:{f:"h2",t:"h3",c:"#aed67a"}, hl:"5.h3 — Baiting the capture!",       txt:"h3 invites Black to trade bishop for knight. Most players take — it feels like winning material.",why:"h3 is the trap-setter. Once Black takes on f3, the queen sacrifice follows."},
+    {san:"Bxf3", who:"B", fen:"r2qkbnr/ppp2ppp/2np4/4p3/2B1P3/2N2b1P/PPPP1PPP/R1BQK22R",   arrow:{f:"g4",t:"f3",c:"#74a8d4"}, hl:"5...Bxf3 — Taking the 'free' knight", txt:"Black takes the knight. Expects normal Qxf3 recapture. The trap is set!"},
+    {san:"Qxf3", who:"W", fen:"r2qkbnr/ppp2ppp/2np4/4p3/2B1P3/2N2Q1P/PPPP1PPP/R1B1K22R",   arrow:{f:"d1",t:"f3",c:"#aed67a"}, hl:"6.Qxf3 — Normal recapture... trap hidden!", txt:"White recaptures with the queen. Looks completely normal. Now Black plays Nd4, attacking the queen..."},
+    {san:"Nd4",  who:"B", fen:"r2qkbnr/ppp2ppp/3p4/4p3/2BnP3/2N2Q1P/PPPP1PPP/R1B1K22R",   arrow:{f:"c6",t:"d4",c:"#e07060"}, hl:"6...Nd4?? — Attacking the queen... FATAL!", txt:"Nd4 attacks the queen on f3. Black expects it to run. But White SACRIFICES it with Qxf7+!!",warn:"This is the losing blunder. Nd4 attacks the queen but leaves f7 undefended."},
+    {san:"Qxf7", who:"W", fen:"r2qkb1r/ppp2Qpp/3p4/4p3/2BnP3/2N4P/PPPP1PPP/R1B1K22R",   arrow:{f:"f3",t:"f7",c:"#aed67a"}, hl:"7.Qxf7+!! — QUEEN SACRIFICE!",         txt:"Qxf7+!! White sacrifices the queen! Forces the king to f7 where it's completely exposed. Smothered mate follows.",why:"After Kxf7, Nd5+ forks king AND queen simultaneously. Then Nc7# is smothered checkmate — one of the most beautiful combinations in chess!"},
+    {san:"Kxf7", who:"B", fen:"r2q1b1r/ppp2kpp/3p4/4p3/2BnP3/2N4P/PPPP1PPP/R1B1K22R",   arrow:{f:"e8",t:"f7",c:"#74a8d4"}, hl:"7...Kxf7 — King takes, steps into the net", txt:"King captures the queen. Now the king is on f7, completely exposed. White plays Nd5+ forking king and queen!"},
+    {san:"Nd5",  who:"W", fen:"r2q1b1r/ppp2kpp/3p4/3Np3/2BnP3/7P/PPPP1PPP/R1B1K22R",   arrow:{f:"c3",t:"d5",c:"#aed67a"}, hl:"8.Nd5+ — FAMILY FORK! King AND queen!",   txt:"Nd5+ — the knight checks the king AND attacks the queen on d8 simultaneously. Family fork! Black must move the king.",why:"After Ke6, White plays Nc7# — smothered checkmate. The king on e6 is surrounded by its own pieces with no escape!"},
+    {san:"Ke6",  who:"B", fen:"r2q1b1r/ppp3pp/3pk3/3Np3/2BnP3/7P/PPPP1PPP/R1B1K22R",   arrow:{f:"f7",t:"e6",c:"#74a8d4"}, hl:"8...Ke6 — Into smothered mate!",           txt:"King retreats to e6. Surrounded by its own pieces: d6 pawn, e5 pawn, Nd4, d8 queen. White plays the stunning Nc7#!"},
+    {san:"Nc7",  who:"W", fen:"r2q1b1r/ppN3pp/3pk3/4p3/2BnP3/7P/PPPP1PPP/R1B1K22R",   arrow:{f:"d5",t:"c7",c:"#aed67a"}, hl:"9.Nc7# — SMOTHERED CHECKMATE! 🎭",         txt:"Nc7# — CHECKMATE! The king on e6 is smothered by its own army. White sacrificed a queen and won by checkmate! First recorded in 1750 by French master Sire de Légal.",tip:"Smothered mate is one of the most beautiful patterns in chess — a knight delivers checkmate to a king surrounded by its own pieces. The key sequence to memorise: Bg4 h3 Bxf3 Qxf3 Nd4 Qxf7+!! Kxf7 Nd5+ Ke6 Nc7#. Magic!"}
+  ],
+  summary:{mistake:"Black pins the Nf3 with Bg4, then plays Nd4 to attack the queen — the queen sacrifice Qxf7+!! leads to smothered checkmate.",punish:"Qxf7+ Kxf7, Nd5+ (family fork), Ke6, Nc7# — smothered mate in 9 moves.",fallback:"If Black retreats Bh5 instead of Bxf3, White plays d4 — a strong central push. Still better for White."}
+},
+{
+  id:'qm4', moves_to_mate:5, name:"Dutch Defence 5-Move Mate",
+  sub:"5 moves — punishing Black's f5 and g5",
+  moves:[
+    {san:"d4",   who:"W", fen:"rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR",   arrow:{f:"d2",t:"d4",c:"#aed67a"}, hl:"1.d4 — Queen's Pawn",                       txt:"White opens with d4."},
+    {san:"f5",   who:"B", fen:"rnbqkbnr/ppppp1pp/8/5p2/3P4/8/PPP1PPPP/RNBQKBNR",   arrow:{f:"f7",t:"f5",c:"#e07060"}, hl:"1...f5 — The Dutch Defence! Weakens f7",     txt:"f5 — the Dutch Defence. Controls e4 but immediately weakens Black's kingside, particularly the e8-h5 diagonal and the f7 square.",warn:"f5 is a risky move. It weakens Black's kingside from move 1. If Black now plays g5 as well, the Fool's Mate pattern becomes available!"},
+    {san:"Bg5",  who:"W", fen:"rnbqkbnr/ppppp1pp/8/5pB1/3P4/8/PPP1PPPP/RNBQKB1R",   arrow:{f:"c1",t:"g5",c:"#aed67a"}, hl:"2.Bg5 — Aggressive! Bishop to g5",           txt:"Bg5 develops the bishop aggressively, immediately putting pressure on Black's position. This exploits the weakness created by f5.",why:"Bg5 is very active — it prepares to capture on f6 (doubling pawns) or supports h4-h5 attacking the weakened kingside."},
+    {san:"h6",   who:"B", fen:"rnbqkbnr/ppppp1p1/7p/5pB1/3P4/8/PPP1PPPP/RNBQKB1R",   arrow:{f:"h7",t:"h6",c:"#e07060"}, hl:"2...h6?? — Attacking the bishop, but...",     txt:"h6 attacks the bishop. White retreats... but Black's kingside is now even weaker! The h6 pawn is now a target.",warn:"h6 weakens the g6 square and the entire kingside. Better to play d5, Nf6 or d6 developing normally."},
+    {san:"Bh4",  who:"W", fen:"rnbqkbnr/ppppp1p1/7p/5p2/3P3B/8/PPP1PPPP/RNBQKB1R",   arrow:{f:"g5",t:"h4",c:"#aed67a"}, hl:"3.Bh4 — Bishop retreats, still watching g5",  txt:"Bh4 retreats but keeps the bishop on the h4-e1 diagonal. The bishop on h4 now watches g5 — if Black plays g5, White has h5 and the bishop is untouchable!"},
+    {san:"g5",   who:"B", fen:"rnbqkbnr/ppppp3/7p/5pp1/3P3B/8/PPP1PPPP/RNBQKB1R",   arrow:{f:"g7",t:"g5",c:"#e07060"}, hl:"3...g5?? — FATAL! Fool's Mate pattern!",       txt:"g5 attacks the Bh4 — but this is the fatal mistake! Black has played both f5 AND g5, creating the exact same weakness as in Fool's Mate. The h4-e1 diagonal is wide open, and now White has Bg3! trapping Black in a vice.",warn:"g5 is the losing move. It mirrors exactly what White does in Fool's Mate. Black has opened the diagonal to their own king!"},
+    {san:"Bg3",  who:"W", fen:"rnbqkbnr/ppppp3/7p/5pp1/3P4/6B1/PPP1PPPP/RNBQKB1R",   arrow:{f:"h4",t:"g3",c:"#aed67a"}, hl:"4.Bg3! — Forcing open lines to Black's king!",  txt:"Bg3! White moves the bishop to g3, threatening to take on f5. If Black plays fxg4 or anything else, White plays h4 attacking g5 and Qh5+ delivers checkmate. The position is already completely lost for Black.",why:"After Bg3, the h4-e1 diagonal is opened toward Black's king, and White threatens h4 opening more lines. Black's position collapses completely."},
+    {san:"fxg4", who:"B", fen:"rnbqkbnr/ppppp3/7p/6p1/3P2p1/6B1/PPP1PPPP/RNBQKB1R",   arrow:{f:"f5",t:"g4",c:"#74a8d4"}, hl:"4...fxg4 — Black captures, but...",            txt:"Black tries to capture. But now White plays h4! cracking open the position completely."},
+    {san:"Qh5",  who:"W", fen:"rnbqkbnr/ppppp3/7p/6pQ/3P2p1/6B1/PPP1PPP1/RNBQKB1R",   arrow:{f:"d1",t:"h5",c:"#aed67a"}, hl:"5.Qh5# — CHECKMATE in 5 moves! ⚡",           txt:"Qh5# — CHECKMATE! The queen delivers checkmate on h5. Black's king is trapped: the f7 pawn blocks escape, the g5 pawn is pinned, and the queen covers all other squares. Black's early kingside pawn moves led to a 5-move checkmate!",tip:"The Dutch Defence can lead to checkmate in as few as 5 moves if Black pushes both f5 AND g5. The pattern is identical to Fool's Mate — pushing both the f-pawn and g-pawn weakens the kingside fatally. Never push both f5 and g5 in quick succession without castling first!"}
+  ],
+  summary:{mistake:"Black plays f5 then g5, creating the same kingside weakness as in Fool's Mate. The h4-e1 diagonal opens to the Black king.",punish:"Bg3 Qh5# — checkmate in 5 moves.",fallback:"Against the Dutch (1...f5), play 2.e4! (Staunton Gambit) for a powerful attack, or simply develop normally with 2.Nf3 and 3.g3."}
+},
+{
+  id:'qm5', moves_to_mate:7, name:"Blackburne-Shilling Gambit Mate",
+  sub:"7 moves — Queen sacrifice for quick checkmate",
+  moves:[
+    {san:"e4",   who:"W", fen:"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR",   arrow:{f:"e2",t:"e4",c:"#aed67a"}, hl:"1.e4",  txt:"White opens."},
+    {san:"e5",   who:"B", fen:"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR",   arrow:{f:"e7",t:"e5",c:"#74a8d4"}, hl:"1...e5", txt:"Black mirrors."},
+    {san:"Nf3",  who:"W", fen:"rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R",   arrow:{f:"g1",t:"f3",c:"#aed67a"}, hl:"2.Nf3", txt:"Knight develops."},
+    {san:"Nc6",  who:"B", fen:"r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R",   arrow:{f:"b8",t:"c6",c:"#74a8d4"}, hl:"2...Nc6 — Defends e5", txt:"Knight defends e5."},
+    {san:"Bc4",  who:"W", fen:"r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK22R",   arrow:{f:"f1",t:"c4",c:"#aed67a"}, hl:"3.Bc4 — Italian, targeting f7", txt:"Bishop to c4, eyeing f7. The Italian Game."},
+    {san:"Nd4",  who:"B", fen:"r1bqkbnr/pppp1ppp/2n5/4p3/2BnP3/5N2/PPPP1PPP/RNBQK22R",   arrow:{f:"c6",t:"d4",c:"#e07060"}, hl:"3...Nd4!? — The Blackburne-Shilling Gambit!", txt:"Nd4!? — the Blackburne-Shilling Gambit! Black puts the knight on d4, attacking the Nf3. Looks odd but sets up a devastating queen trap.",why:"Nd4 attacks Nf3 and sets a trap: if White plays Nxe5?? Black responds Qg5! attacking the knight AND the g2 pawn simultaneously."},
+    {san:"Nxe5", who:"W", fen:"r1bqkbnr/pppp1ppp/2n5/4N3/2BnP3/8/PPPP1PPP/RNBQK22R",   arrow:{f:"f3",t:"e5",c:"#e07060"}, hl:"4.Nxe5?? — Taking the pawn! The fatal mistake!", txt:"White takes the 'free' e5 pawn — the losing move! Black now plays Qg5!, attacking the knight AND g2 simultaneously.",warn:"White should play c3 or d3 instead. Nxe5 walks into the double attack Qg5!"},
+    {san:"Qg5",  who:"B", fen:"r1b1kbnr/pppp1ppp/2n5/4N1q1/2BnP3/8/PPPP1PPP/RNBQK22R",   arrow:{f:"d8",t:"g5",c:"#74a8d4"}, hl:"4...Qg5! — Double attack! Knight AND g2!",  txt:"Qg5! attacks the undefended Ne5 AND the g2 pawn simultaneously. White cannot defend both — a perfect double attack!",why:"After Qg5, if White saves the knight with Nxf7, Black plays Qxg2 threatening Rg8 and unstoppable mate. If White plays d4, Black takes the knight."},
+    {san:"Nxf7", who:"W", fen:"r1b1kbnr/pppp1Npp/2n5/6q1/2BnP3/8/PPPP1PPP/RNBQK22R",   arrow:{f:"e5",t:"f7",c:"#aed67a"}, hl:"5.Nxf7 — Desperate counterattack",           txt:"White plays Nxf7, forking the queen and rook. Trying to complicate! But Black has Qxg2! threatening Rg8 and checkmate."},
+    {san:"Qxg2", who:"B", fen:"r1b1kbnr/pppp1Npp/2n5/8/2BnP3/8/PPPPqPPP/RNBQK22R",   arrow:{f:"g5",t:"g2",c:"#74a8d4"}, hl:"5...Qxg2! — Queen invades! Threatening Rg8#!",  txt:"Qxg2! The queen takes g2, threatening Rg8+ and then checkmate. The rook on h1 is also hanging. White's position is completely lost.",why:"After Qxg2, Black threatens Rg8+ Rxg8 and the queen delivers checkmate. The White king has no safe square."},
+    {san:"Rf1",  who:"W", fen:"r1b1kbnr/pppp1Npp/2n5/8/2BnP3/8/PPPPqPPP/RNBQKR2",   arrow:{f:"h1",t:"f1",c:"#aed67a"}, hl:"6.Rf1 — White tries to defend",                txt:"White defends with Rf1. But Black now plays Qxe4+, continuing the attack."},
+    {san:"Qxe4", who:"B", fen:"r1b1kbnr/pppp1Npp/2n5/8/2B1q3/8/PPPP1PPP/RNBQKR2",   arrow:{f:"g2",t:"e4",c:"#74a8d4"}, hl:"6...Qxe4+ — Check! King attacked!",             txt:"Qxe4+! Black checks with the queen, attacking the king. White must block."},
+    {san:"Be2",  who:"W", fen:"r1b1kbnr/pppp1Npp/2n5/8/4q3/8/PPPPBPPP/RNBQKR22",   arrow:{f:"c4",t:"e2",c:"#aed67a"}, hl:"7.Be2 — Blocking the check",                   txt:"White blocks with Be2. Now Black delivers the final blow..."},
+    {san:"Nxc2", who:"B", fen:"r1b1kbnr/pppp1Npp/2n5/8/4q3/8/PPnPBPPP/RNBQKR22",   arrow:{f:"d4",t:"c2",c:"#74a8d4"}, hl:"7...Nxc2# — CHECKMATE! Knight delivers mate! 👑", txt:"Nxc2# — CHECKMATE! The knight moves to c2 delivering checkmate! The king is trapped: d1 is covered by the queen on e4, e1 by the rook on f1, d3 by the knight, and the king can't escape. A beautiful queen-sacrifice-led checkmate!",tip:"The Blackburne-Shilling Gambit is named after legendary British player Joseph Blackburne (1841-1924), who used this trick to win countless pub games. The key move is Qg5! after Nxe5 — it creates a double attack that White cannot handle. A fantastic weapon in blitz chess!"}
+  ],
+  summary:{mistake:"White plays Nxe5 greedily, walking into the double attack Qg5! which attacks the knight AND the g2 pawn simultaneously.",punish:"After Qg5 Nxf7 Qxg2 Rf1 Qxe4+ Be2 Nxc2# — checkmate in 7 moves.",fallback:"White should play c3 or d3 instead of Nxe5. Both give a solid, equal position where the Blackburne-Shilling trap doesn't work."}
+},
+{
+  id:'qm6', moves_to_mate:6, name:"Grob's Attack — Fool's Mate in 3",
+  sub:"3 moves — the fastest Grob checkmate",
+  moves:[
+    {san:"g4",   who:"W", fen:"rnbqkbnr/pppppppp/8/8/6P1/8/PPPPPP1P/RNBQKBNR",   arrow:{f:"g2",t:"g4",c:"#e07060"}, hl:"1.g4 — The Grob! One of the worst openings",   txt:"g4 — the Grob's Attack! One of the worst possible first moves for White. It immediately weakens the h4-e1 diagonal and the kingside. Almost no strong player uses it — but it can surprise unprepared opponents.",warn:"g4 on move 1 is objectively terrible. It weakens the kingside immediately. If Black knows the response, White is in serious trouble instantly!"},
+    {san:"d5",   who:"B", fen:"rnbqkbnr/ppp1pppp/8/3p4/6P1/8/PPPPPP1P/RNBQKBNR",   arrow:{f:"d7",t:"d5",c:"#74a8d4"}, hl:"1...d5 — Black takes the centre!",            txt:"Black plays d5, taking central control. Very principled. Now the h4-e1 diagonal to White's king is open AND Black has a central pawn. White is already in trouble."},
+    {san:"f3",   who:"W", fen:"rnbqkbnr/ppp1pppp/8/3p4/6P1/5P2/PPPPP2P/RNBQKBNR",   arrow:{f:"f2",t:"f3",c:"#e07060"}, hl:"2.f3?? — Both fatal pawn moves!",             txt:"f3?? Now White has played BOTH g4 AND f3 — the exact same moves as Fool's Mate but from the White side! The diagonal is wide open.",warn:"White has committed the two worst pawn moves in chess back-to-back. This is now a guaranteed checkmate for Black."},
+    {san:"e5",   who:"B", fen:"rnbqkbnr/ppp2ppp/8/3pp3/6P1/5P2/PPPPP2P/RNBQKBNR",   arrow:{f:"e7",t:"e5",c:"#74a8d4"}, hl:"2...e5 — Both central pawns for Black!",      txt:"Black plays e5. Now Black has two central pawns, a huge development advantage, and the h4-e1 diagonal is completely open to White's king."},
+    {san:"d3",   who:"W", fen:"rnbqkbnr/ppp2ppp/8/3pp3/6P1/3P1P2/PPP1P2P/RNBQKBNR",   arrow:{f:"d2",t:"d3",c:"#e07060"}, hl:"3.d3 — Trying to develop, too late",          txt:"White plays d3 trying to develop. But it's too late — the checkmate is already here."},
+    {san:"Qh4",  who:"B", fen:"rnb1kbnr/ppp2ppp/8/3pp3/6Pq/3P1P2/PPP1P2P/RNBQKBNR",   arrow:{f:"d8",t:"h4",c:"#74a8d4"}, hl:"3...Qh4# — CHECKMATE in 3 moves! ⚡",       txt:"Qh4# — CHECKMATE in just 3 moves! The same Fool's Mate pattern but from the Black side after the Grob. White played g4 and f3 — creating the exact weakness for Qh4#. The Grob's Attack delivers the fastest self-inflicted defeat!",tip:"The Grob's Attack (1.g4) is one of the few openings where White can be checkmated in 3 moves by their own poor play. If you ever face 1.g4, play 1...d5 2...e5 and if White plays f3 at any point — check if Qh4# is available! The Grob has been called 'the opening that only works when your opponent doesn't know how bad it is.'"}
+  ],
+  summary:{mistake:"White plays g4 then f3, creating the identical weakness as Fool's Mate — the h4-e1 diagonal is wide open to the White king.",punish:"Qh4# — checkmate in 3 moves. The Grob's fastest self-defeat.",fallback:"The Grob (1.g4) is not recommended at any level. If you must play it, at least don't play f3 — play Bg2 and Nc3 to keep your king somewhat safe."}
+},
+{
+  id:'qm7', moves_to_mate:8, name:"Caro-Kann Smothered Mate",
+  sub:"6 moves — Nd6# smothered checkmate",
+  moves:[
+    {san:"e4",   who:"W", fen:"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR",   arrow:{f:"e2",t:"e4",c:"#aed67a"}, hl:"1.e4",  txt:"White opens."},
+    {san:"c6",   who:"B", fen:"rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR",   arrow:{f:"c7",t:"c6",c:"#74a8d4"}, hl:"1...c6 — The Caro-Kann Defence!",             txt:"c6 — the Caro-Kann! One of the most solid defences against e4. Black prepares d5 while keeping the light-squared bishop free.",why:"The Caro-Kann is very solid — but even solid openings have traps to know!"},
+    {san:"d4",   who:"W", fen:"rnbqkbnr/pp1ppppp/2p5/8/3PP3/8/PPP2PPP/RNBQKBNR",   arrow:{f:"d2",t:"d4",c:"#aed67a"}, hl:"2.d4 — White builds the centre",               txt:"White builds the classic e4-d4 pawn centre."},
+    {san:"d5",   who:"B", fen:"rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPP2PPP/RNBQKBNR",   arrow:{f:"d7",t:"d5",c:"#74a8d4"}, hl:"2...d5 — Challenge the centre!",              txt:"d5 challenges White's e4 pawn. The classical Caro-Kann."},
+    {san:"Nc3",  who:"W", fen:"rnbqkbnr/pp2pppp/2p5/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR",   arrow:{f:"b1",t:"c3",c:"#aed67a"}, hl:"3.Nc3 — Classical Variation",                  txt:"Nc3 develops and defends e4."},
+    {san:"dxe4", who:"B", fen:"rnbqkbnr/pp2pppp/2p5/8/3Pp3/2N5/PPP2PPP/R1BQKBNR",   arrow:{f:"d5",t:"e4",c:"#74a8d4"}, hl:"3...dxe4 — Black captures",                   txt:"Black captures on e4. White recaptures with the knight."},
+    {san:"Nxe4", who:"W", fen:"rnbqkbnr/pp2pppp/2p5/8/3PN3/8/PPP2PPP/R1BQKBNR",   arrow:{f:"c3",t:"e4",c:"#aed67a"}, hl:"4.Nxe4 — Knight to e4, Classical Caro-Kann",  txt:"Knight to e4 — a powerful central outpost. This is the Classical Caro-Kann position."},
+    {san:"Nbd7", who:"B", fen:"r1bqkbnr/pp2pppp/2p5/8/3PN3/8/PPP2PPP/R1BQKBNR",   arrow:{f:"b8",t:"d7",c:"#e07060"}, hl:"4...Nbd7?? — The fatal mistake! Nd6# coming!",  txt:"Nbd7 looks like a natural developing move — but it's a blunder! The knight on d7 blocks the Black queen from defending d8, AND it creates a pin on the e-pawn. White now plays Qe2! threatening Nd6#.",warn:"The correct move is Ngf6 (not Nbd7). After Nbd7, White plays Qe2 followed by Nd6# — a smothered checkmate in just 2 more moves!"},
+    {san:"Qe2",  who:"W", fen:"r1bqkbnr/pp2pppp/2p5/8/3PN3/8/PPP1QPPP/R1B1KBNR",   arrow:{f:"d1",t:"e2",c:"#aed67a"}, hl:"5.Qe2! — Threatening Nd6# immediately!",       txt:"Qe2! White threatens Nd6# — a smothered checkmate! The queen pins the e-pawn and supports the Nd6 jump. Black cannot defend because the queen on d8 is blocked by the Nd7!",why:"Qe2 threatens Nd6+ which will be Nd6# — the knight jumps in with check and the Black king is trapped. The Nd7 blocks the d8 queen from defending."},
+    {san:"Ndf6", who:"B", fen:"r1bqkb1r/pp2pp1p/2p2np1/8/3PN3/8/PPP1QPPP/R1B1KBNR",   arrow:{f:"d7",t:"f6",c:"#74a8d4"}, hl:"5...Ndf6 — Trying to defend",                 txt:"Black tries to defend by moving the knight. But it's too late — White plays Nd6#!"},
+    {san:"Nd6",  who:"W", fen:"r1bqkb1r/pp2pp1p/2pN1np1/8/4P3/8/PPP1QPPP/R1B1KBNR",   arrow:{f:"e4",t:"d6",c:"#aed67a"}, hl:"6.Nd6# — SMOTHERED CHECKMATE! 🎭",            txt:"Nd6# — CHECKMATE! The knight delivers smothered checkmate on d6! The Black king on e8 is completely surrounded: the d7 square is covered by the Nd6, the f7 square is blocked by the pawn, and the queen pins the e7 pawn. A stunning smothered mate from the Caro-Kann!",tip:"The Caro-Kann smothered mate (Nd6#) is one of the most important patterns to know in the Classical Caro-Kann. After 4.Nxe4, NEVER play Nbd7 — always play Ngf6 or Bf5 first. The Nd7 blocks the queen from defending d8, allowing the stunning Qe2 + Nd6# combination!"}
+  ],
+  summary:{mistake:"Black plays Nbd7 (natural-looking) instead of Ngf6 or Bf5, blocking the queen from defending d8 and allowing Qe2 Nd6# smothered checkmate.",punish:"Qe2 Nd6# — smothered checkmate in 6 moves total.",fallback:"Always play 4...Ngf6 (correct) after Nxe4 in the Caro-Kann. This develops the knight actively and avoids all smothered mate tricks."}
+}
+];
+
 // ── STATE ─────────────────────────────────────────────────────────────
 const FILES=['a','b','c','d','e','f','g','h'];
 let chess=new Chess(), CT=null, CP=-1, aiHistory=[];
@@ -1437,16 +1570,50 @@ function closeDD(side){document.getElementById('menu-'+side).classList.remove('o
 function toggleDD(side){const m=document.getElementById('menu-'+side);if(m.classList.contains('open'))closeDD(side);else{closeDD(side==='white'?'black':'white');openDD(side);}}
 function scheduleClose(side){ddTimers[side]=setTimeout(()=>closeDD(side),300);}
 function cancelClose(side){clearTimeout(ddTimers[side]);}
-document.addEventListener('click',e=>{if(!e.target.closest('.dd-group')){closeDD('white');closeDD('black');}});
+document.addEventListener('click',e=>{if(!e.target.closest('.dd-group')){closeDD('white');closeDD('black');closeDD('quick');}});
 
-function updateActiveLabel(trap){
-  const side=trap.side==='White'?'white':'black';
-  const other=side==='white'?'black':'white';
-  document.getElementById('active-'+side+'-name').textContent=trap.name;
-  document.getElementById('active-'+other+'-name').textContent='';
+function updateActiveLabel(trap, isQuick){
+  if(isQuick){
+    document.getElementById('active-quick-name').textContent=trap.name;
+    document.getElementById('active-white-name').textContent='';
+    document.getElementById('active-black-name').textContent='';
+  } else {
+    const side=trap.side==='White'?'white':'black';
+    const other=side==='white'?'black':'white';
+    document.getElementById('active-'+side+'-name').textContent=trap.name;
+    document.getElementById('active-'+other+'-name').textContent='';
+    document.getElementById('active-quick-name').textContent='';
+  }
   document.querySelectorAll('.dd-item').forEach(el=>el.classList.remove('active'));
   const activeItem=document.getElementById('dditem-'+trap.id);
   if(activeItem){activeItem.classList.add('active');setTimeout(()=>activeItem.scrollIntoView({block:'nearest'}),50);}
+}
+
+function goToQuickMate(qm){
+  CT=null; CP=-1; chess=new Chess();
+  aiHistory=[];
+  const welcomeEl=document.getElementById('ai-messages');
+  if(welcomeEl){welcomeEl.innerHTML='<div class="ai-msg assistant">👋 Hi! I\'m your AI chess coach. Step through the quick checkmate moves and ask me anything about the pattern!</div>';}
+  document.getElementById('trap-title').textContent=qm.name;
+  document.getElementById('trap-sub').textContent=qm.sub;
+  updateActiveLabel(qm, true);
+  buildBoard();
+  renderBoard(null,null);
+  clearArrows();
+
+  // Use qm as a pseudo-trap for the board/notation system
+  CT = {
+    name: qm.name,
+    sub: qm.sub,
+    moves: qm.moves,
+    summary: qm.summary,
+    side: 'Both'
+  };
+  buildNotation(CT,-1);
+  buildCoaching(CT,-1);
+  buildSummary(CT);
+  updateNav();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function goToTrap(trap){
@@ -1456,7 +1623,7 @@ function goToTrap(trap){
   if(welcomeEl){welcomeEl.innerHTML='<div class="ai-msg assistant">👋 Hi! I\'m your AI chess coach. Step through any move then ask me anything — or use the <strong>Best Move</strong> buttons to get the top suggestion for either colour!</div>';}
   document.getElementById('trap-title').textContent=trap.name;
   document.getElementById('trap-sub').textContent=trap.sub;
-  updateActiveLabel(trap);
+  updateActiveLabel(trap, false);
   buildBoard();
   renderBoard(null,null);
   clearArrows();
@@ -1542,6 +1709,24 @@ function buildSelector(){
   }
   buildItems(TRAPS.filter(t=>t.side==='White'),'white');
   buildItems(TRAPS.filter(t=>t.side==='Black'),'black');
+
+  // Quick checkmates dropdown — sorted by moves_to_mate
+  const qContainer=document.getElementById('dd-quick-items');
+  qContainer.innerHTML='';
+  const sorted=[...QUICK_MATES].sort((a,b)=>a.moves_to_mate-b.moves_to_mate);
+  sorted.forEach(qm=>{
+    const item=document.createElement('div');
+    item.className='dd-item';item.id='dditem-'+qm.id;
+    item.innerHTML=`
+      <div style="flex:1;min-width:0">
+        <div class="dd-item-name">${qm.name}</div>
+        <div class="dd-item-meta">${qm.sub}</div>
+      </div>
+      <span class="dd-level" style="background:rgba(255,180,0,.15);color:#ffcc44;border:1px solid rgba(255,180,0,.3)">${qm.moves_to_mate} moves</span>
+    `;
+    item.onclick=()=>{goToQuickMate(qm);closeDD('quick');};
+    qContainer.appendChild(item);
+  });
 }
 
 // ── RESIZE ────────────────────────────────────────────────────────────
