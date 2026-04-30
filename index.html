@@ -16,16 +16,54 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 .topbar h1{font-size:15px;font-weight:600;color:#fff;flex:1}
 .topbar span{font-size:11px;color:#4a4a6a}
 
-/* TRAP SELECTOR - horizontal scroll on mobile */
-.trap-selector{background:#12122a;border-bottom:1px solid #2a2a4a;overflow-x:auto;-webkit-overflow-scrolling:touch;display:flex;gap:0;scrollbar-width:none}
-.trap-selector::-webkit-scrollbar{display:none}
-.trap-tab{flex-shrink:0;padding:10px 14px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;font-size:12px;font-weight:500;color:#5a5a7a;transition:all .15s;border-right:1px solid #1e1e3a}
-.trap-tab:hover{background:#1a1a3a;color:#9a9ab8}
-.trap-tab.active{border-bottom-color:#629924;color:#aed67a;background:#161628}
-.trap-tab .tt-level{font-size:9px;display:block;margin-top:1px;opacity:.6}
+/* DROPDOWN NAV */
+.nav-bar-outer{background:#0f0f1a;border-bottom:1px solid #2a2a4a;display:flex;align-items:stretch;gap:0;position:sticky;top:44px;z-index:90}
+.dd-group{position:relative;flex:1}
+.dd-trigger{
+  width:100%;padding:11px 16px;
+  background:transparent;border:none;border-right:1px solid #1e1e3a;
+  color:#a0a0c0;font-size:13px;font-weight:600;font-family:inherit;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  gap:6px;transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.dd-trigger:hover,.dd-trigger.open{background:#1a1a3a;color:#fff}
+.dd-trigger .arrow{font-size:9px;opacity:.5;transition:transform .2s}
+.dd-trigger.open .arrow{transform:rotate(180deg);opacity:1}
+.dd-trigger .side-pill{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:600}
+.pill-white{background:rgba(255,255,255,.1);color:#ddd;border:1px solid rgba(255,255,255,.15)}
+.pill-black{background:rgba(80,80,120,.3);color:#9090b8;border:1px solid rgba(80,80,120,.3)}
 
-/* SECTION LABEL in selector */
-.sel-label{flex-shrink:0;padding:10px 10px;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#3a3a5a;display:flex;align-items:center;border-right:1px solid #1e1e3a;background:#0e0e1e}
+.dd-menu{
+  position:absolute;top:100%;left:0;right:0;
+  background:#12122a;border:1px solid #2a2a4a;border-top:none;
+  border-radius:0 0 10px 10px;
+  box-shadow:0 8px 32px rgba(0,0,0,.6);
+  z-index:200;display:none;
+  max-height:60vh;overflow-y:auto;
+}
+.dd-menu.open{display:block}
+.dd-menu::-webkit-scrollbar{width:4px}
+.dd-menu::-webkit-scrollbar-thumb{background:#3a3a5a;border-radius:2px}
+
+.dd-section-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#3a3a5a;padding:8px 14px 4px;border-top:1px solid #1e1e3a}
+.dd-section-label:first-child{border-top:none}
+
+.dd-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 14px;cursor:pointer;
+  border-left:3px solid transparent;
+  transition:all .12s;-webkit-tap-highlight-color:transparent;
+}
+.dd-item:hover{background:#1a1a3a;border-left-color:#629924}
+.dd-item.active{background:#1a2a3a;border-left-color:#629924}
+.dd-item-name{font-size:13px;font-weight:500;color:#c0c0d8;flex:1}
+.dd-item.active .dd-item-name{color:#fff}
+.dd-item-meta{font-size:10px;color:#4a4a6a;white-space:nowrap}
+.dd-item.active .dd-item-meta{color:#7a9a5a}
+.dd-level{font-size:9px;padding:2px 6px;border-radius:100px;font-weight:600;white-space:nowrap}
+.dl-beg{background:rgba(39,174,96,.15);color:#5dba7e}
+.dl-int{background:rgba(230,126,34,.15);color:#e8a05e}
+.dl-adv{background:rgba(192,57,43,.15);color:#e07060}
 
 /* MAIN CONTENT */
 .main{display:flex;flex-direction:column;max-width:900px;margin:0 auto;padding:12px}
@@ -184,7 +222,30 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
   <span>45 traps</span>
 </div>
 
-<div class="trap-selector" id="trap-selector"></div>
+<div class="nav-bar-outer">
+  <!-- WHITE dropdown -->
+  <div class="dd-group" id="dd-white">
+    <button class="dd-trigger" id="trig-white" onclick="toggleDD('white')" onmouseenter="openDD('white')" onmouseleave="scheduleClose('white')">
+      <span class="side-pill pill-white">♔ WHITE</span>
+      <span id="active-white-name" style="flex:1;text-align:left;font-size:12px;color:#aed67a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="dd-menu" id="menu-white" onmouseenter="cancelClose('white')" onmouseleave="scheduleClose('white')">
+      <div id="dd-white-items"></div>
+    </div>
+  </div>
+  <!-- BLACK dropdown -->
+  <div class="dd-group" id="dd-black">
+    <button class="dd-trigger" id="trig-black" onclick="toggleDD('black')" onmouseenter="openDD('black')" onmouseleave="scheduleClose('black')">
+      <span class="side-pill pill-black">♚ BLACK</span>
+      <span id="active-black-name" style="flex:1;text-align:left;font-size:12px;color:#aed67a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="dd-menu" id="menu-black" onmouseenter="cancelClose('black')" onmouseleave="scheduleClose('black')">
+      <div id="dd-black-items"></div>
+    </div>
+  </div>
+</div>
 
 <div class="main">
   <div class="trap-header">
@@ -1369,18 +1430,33 @@ function resetCoachUI() {
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────
+// ── DROPDOWN NAV ──────────────────────────────────────────────────────
+const ddTimers={};
+function openDD(side){document.getElementById('menu-'+side).classList.add('open');document.getElementById('trig-'+side).classList.add('open');}
+function closeDD(side){document.getElementById('menu-'+side).classList.remove('open');document.getElementById('trig-'+side).classList.remove('open');}
+function toggleDD(side){const m=document.getElementById('menu-'+side);if(m.classList.contains('open'))closeDD(side);else{closeDD(side==='white'?'black':'white');openDD(side);}}
+function scheduleClose(side){ddTimers[side]=setTimeout(()=>closeDD(side),300);}
+function cancelClose(side){clearTimeout(ddTimers[side]);}
+document.addEventListener('click',e=>{if(!e.target.closest('.dd-group')){closeDD('white');closeDD('black');}});
+
+function updateActiveLabel(trap){
+  const side=trap.side==='White'?'white':'black';
+  const other=side==='white'?'black':'white';
+  document.getElementById('active-'+side+'-name').textContent=trap.name;
+  document.getElementById('active-'+other+'-name').textContent='';
+  document.querySelectorAll('.dd-item').forEach(el=>el.classList.remove('active'));
+  const activeItem=document.getElementById('dditem-'+trap.id);
+  if(activeItem){activeItem.classList.add('active');setTimeout(()=>activeItem.scrollIntoView({block:'nearest'}),50);}
+}
+
 function goToTrap(trap){
   CT=trap;CP=-1;chess=new Chess();
   aiHistory=[];
   const welcomeEl=document.getElementById('ai-messages');
-  if(welcomeEl){welcomeEl.innerHTML='<div class="ai-msg assistant">👋 Hi! I\'m your AI chess coach. Step through any move then ask me about the position — why the move works, what you should do next, or anything else about the opening!</div>';}
-
-  document.querySelectorAll('.trap-tab').forEach(e=>e.classList.toggle('active',e.dataset.id===trap.id));
+  if(welcomeEl){welcomeEl.innerHTML='<div class="ai-msg assistant">👋 Hi! I\'m your AI chess coach. Step through any move then ask me anything — or use the <strong>Best Move</strong> buttons to get the top suggestion for either colour!</div>';}
   document.getElementById('trap-title').textContent=trap.name;
   document.getElementById('trap-sub').textContent=trap.sub;
-  // Scroll selector to active tab
-  const activeTab=document.querySelector('.trap-tab.active');
-  if(activeTab)activeTab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  updateActiveLabel(trap);
   buildBoard();
   renderBoard(null,null);
   clearArrows();
@@ -1443,30 +1519,29 @@ document.addEventListener('touchend',e=>{
   if(Math.abs(dx)>60){dx<0?navNext():navPrev();}
 },{passive:true});
 
-// ── BUILD SELECTOR ────────────────────────────────────────────────────
+// ── BUILD DROPDOWNS ────────────────────────────────────────────────────
 function buildSelector(){
-  const sel=document.getElementById('trap-selector');
-  sel.innerHTML='';
-  const whites=TRAPS.filter(t=>t.side==='White');
-  const blacks=TRAPS.filter(t=>t.side==='Black');
-  const wLabel=document.createElement('div');
-  wLabel.className='sel-label';wLabel.textContent='♔ White';sel.appendChild(wLabel);
-  whites.forEach(t=>{
-    const tab=document.createElement('div');
-    tab.className='trap-tab';tab.dataset.id=t.id;
-    tab.innerHTML=`${t.name}<span class="tt-level">${t.level}</span>`;
-    tab.onclick=()=>goToTrap(t);
-    sel.appendChild(tab);
-  });
-  const bLabel=document.createElement('div');
-  bLabel.className='sel-label';bLabel.textContent='♚ Black';sel.appendChild(bLabel);
-  blacks.forEach(t=>{
-    const tab=document.createElement('div');
-    tab.className='trap-tab';tab.dataset.id=t.id;
-    tab.innerHTML=`${t.name}<span class="tt-level">${t.level}</span>`;
-    tab.onclick=()=>goToTrap(t);
-    sel.appendChild(tab);
-  });
+  function buildItems(traps,side){
+    const container=document.getElementById('dd-'+side+'-items');
+    container.innerHTML='';
+    ['Beginner','Intermediate','Advanced'].forEach(level=>{
+      const group=traps.filter(t=>t.level===level);
+      if(!group.length)return;
+      const lbl=document.createElement('div');
+      lbl.className='dd-section-label';lbl.textContent=level;
+      container.appendChild(lbl);
+      group.forEach(trap=>{
+        const item=document.createElement('div');
+        item.className='dd-item';item.id='dditem-'+trap.id;
+        const lvlCls={Beginner:'dl-beg',Intermediate:'dl-int',Advanced:'dl-adv'}[trap.level];
+        item.innerHTML=`<div style="flex:1;min-width:0"><div class="dd-item-name">${trap.name}</div><div class="dd-item-meta">${trap.sub}</div></div><span class="dd-level ${lvlCls}">${trap.level}</span>`;
+        item.onclick=()=>{goToTrap(trap);closeDD(side);};
+        container.appendChild(item);
+      });
+    });
+  }
+  buildItems(TRAPS.filter(t=>t.side==='White'),'white');
+  buildItems(TRAPS.filter(t=>t.side==='Black'),'black');
 }
 
 // ── RESIZE ────────────────────────────────────────────────────────────
