@@ -142,6 +142,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 .ai-quick{display:flex;flex-wrap:wrap;gap:4px;padding:4px 10px 6px;border-top:1px solid #0e0e1e}
 .ai-qbtn{font-size:10px;padding:3px 8px;border-radius:100px;border:1px solid #2a1a4a;background:transparent;color:#7a5a9a;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap}
 .ai-qbtn:active{background:#1a0a2a;color:#c07aee}
+
+/* BEST MOVE BUTTONS */
+.best-move-btn{
+  flex:1;padding:7px 10px;border-radius:7px;font-size:12px;
+  font-family:inherit;cursor:pointer;transition:all .15s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.white-btn{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);
+  color:#e0ddd8;
+}
+.white-btn:hover,.white-btn:active{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.35);}
+.black-btn{
+  background:rgba(60,60,100,.3);border:1px solid rgba(100,100,160,.3);
+  color:#9090b8;
+}
+.black-btn:hover,.black-btn:active{background:rgba(60,60,100,.5);border-color:rgba(100,100,160,.5);}
+.best-move-btn.loading{opacity:.6;cursor:not-allowed;}
+.best-move-btn strong{font-weight:700;}
+
+/* IMAGE UPLOAD BUTTON */
+.img-btn{
+  width:34px;height:34px;border-radius:6px;
+  border:1px solid #2a1a4a;background:#1a0a2a;
+  color:#9060c0;cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;-webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;transition:all .15s;align-self:flex-end;
+}
+.img-btn:hover,.img-btn:active{background:#2a1040;border-color:#7a3fa0;}
+.ai-input-row{flex-direction:column;gap:0;padding:6px 10px;}
 </style>
 </head>
 <body>
@@ -214,19 +246,50 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
           <button onclick="saveKey()" style="background:#2a0a4a;border:1px solid #7a3fa0;color:#c07aee;border-radius:5px;padding:5px 10px;font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0">Save</button>
         </div>
         <div class="ai-messages" id="ai-messages">
-          <div class="ai-msg assistant">👋 Hi! I'm your AI chess coach. Step through any move then ask me about the position — why the move works, what you should do next, or anything else about the opening!</div>
+          <div class="ai-msg assistant">👋 Hi! I'm your AI chess coach. Step through any move then ask me anything — or use the <strong>Best Move</strong> buttons to get the top suggestion for either colour!</div>
         </div>
+
+        <!-- BEST MOVE SNIPPET BUTTONS -->
+        <div style="padding:8px 10px;border-bottom:1px solid #1e1e3a;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#4a4a6a;margin-bottom:2px">⚡ Best move analysis</div>
+          <div style="display:flex;gap:6px">
+            <button class="best-move-btn white-btn" onclick="askBestMove('White')" id="bm-white">
+              ♔ Best move for <strong>White</strong>
+            </button>
+            <button class="best-move-btn black-btn" onclick="askBestMove('Black')" id="bm-black">
+              ♚ Best move for <strong>Black</strong>
+            </button>
+          </div>
+        </div>
+
         <div class="ai-quick" id="ai-quick">
           <button class="ai-qbtn" onclick="aiQuick('Why is this move good?')">Why this move?</button>
           <button class="ai-qbtn" onclick="aiQuick('What is the main idea of this opening?')">Main idea?</button>
           <button class="ai-qbtn" onclick="aiQuick('What are the key threats right now?')">Key threats?</button>
           <button class="ai-qbtn" onclick="aiQuick('How should I continue from here?')">Next plan?</button>
+          <button class="ai-qbtn" onclick="aiQuick('What mistakes should I avoid here?')">Avoid mistakes?</button>
+          <button class="ai-qbtn" onclick="aiQuick('Explain this position like I am a beginner')">Explain simply</button>
         </div>
         <div class="ai-input-row">
-          <textarea class="ai-input" id="ai-input" placeholder="Ask the AI coach anything..." rows="1"
-            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"
-            oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
-          <button class="ai-send" id="ai-send" onclick="sendAI()">➤</button>
+          <!-- Hidden file input -->
+          <input type="file" id="img-upload" accept="image/*" capture="environment" style="display:none" onchange="handleImageUpload(event)"/>
+          <!-- Image preview (shows when image selected) -->
+          <div id="img-preview-wrap" style="display:none;padding:6px 10px 0;width:100%">
+            <div style="position:relative;display:inline-block">
+              <img id="img-preview" style="max-height:80px;max-width:100%;border-radius:6px;border:1px solid #3a1a5a;display:block"/>
+              <button onclick="clearImage()" style="position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;background:#c0392b;border:none;color:#fff;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
+            </div>
+            <div style="font-size:10px;color:#7a5a9a;margin-top:3px">📷 Image ready — press ➤ to analyse</div>
+          </div>
+          <div style="display:flex;gap:6px;padding:0;width:100%;align-items:flex-end">
+            <button class="img-btn" onclick="document.getElementById('img-upload').click()" title="Upload a photo of a chess board">
+              📷
+            </button>
+            <textarea class="ai-input" id="ai-input" placeholder="Ask anything or upload a board photo 📷" rows="1"
+              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAI()}"
+              oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
+            <button class="ai-send" id="ai-send" onclick="sendAI()">➤</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1416,8 +1479,181 @@ window.addEventListener('resize',()=>{
 buildSelector();
 goToTrap(TRAPS[0]);
 
-// ── AI CHESS COACH (Claude API) ──────────────────────────────────────
-let userApiKey = '';
+// ── IMAGE UPLOAD & ANALYSIS ───────────────────────────────────────────
+let pendingImageBase64 = null;
+let pendingImageType = 'image/jpeg';
+
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Validate it's an image
+  if (!file.type.startsWith('image/')) {
+    aiAddMessage('assistant', '⚠️ Please upload an image file (JPG, PNG, etc.)');
+    return;
+  }
+
+  pendingImageType = file.type || 'image/jpeg';
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const dataUrl = e.target.result;
+    // Extract base64
+    pendingImageBase64 = dataUrl.split(',')[1];
+
+    // Show preview
+    const wrap = document.getElementById('img-preview-wrap');
+    const img  = document.getElementById('img-preview');
+    img.src = dataUrl;
+    wrap.style.display = 'block';
+
+    // Pre-fill the input with a helpful prompt if empty
+    const input = document.getElementById('ai-input');
+    if (!input.value.trim()) {
+      input.value = 'Analyse this chess position and tell me the best move.';
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 80) + 'px';
+    }
+  };
+  reader.readAsDataURL(file);
+
+  // Reset input so same file can be re-selected
+  event.target.value = '';
+}
+
+function clearImage() {
+  pendingImageBase64 = null;
+  document.getElementById('img-preview-wrap').style.display = 'none';
+  document.getElementById('img-preview').src = '';
+}
+
+// ── ENHANCED sendAI with image support ───────────────────────────────
+async function sendAI(overrideText) {
+  const input   = document.getElementById('ai-input');
+  const sendBtn = document.getElementById('ai-send');
+  const userText = overrideText || input.value.trim();
+  if (!userText && !pendingImageBase64) return;
+
+  const displayText = userText || 'Analyse this chess board image.';
+
+  if (!overrideText) { input.value = ''; input.style.height = 'auto'; }
+
+  // Check for API key
+  if (!userApiKey) {
+    aiAddMessage('user', displayText);
+    if (pendingImageBase64) {
+      // Show the image in chat
+      const imgEl = document.createElement('div');
+      imgEl.className = 'ai-msg user';
+      imgEl.innerHTML = `<img src="data:${pendingImageType};base64,${pendingImageBase64}" style="max-width:100%;border-radius:6px;margin-top:4px;display:block"/>`;
+      document.getElementById('ai-messages').appendChild(imgEl);
+      clearImage();
+    }
+    aiAddMessage('assistant', '🔑 To use the AI coach (including image analysis), tap the <strong>🔑</strong> button and paste your Anthropic API key from <strong>console.anthropic.com</strong>.');
+    return;
+  }
+
+  // Show user message + image preview in chat
+  if (pendingImageBase64) {
+    const msgWrap = document.createElement('div');
+    msgWrap.className = 'ai-msg user';
+    msgWrap.innerHTML = `${displayText}<br><img src="data:${pendingImageType};base64,${pendingImageBase64}" style="max-width:180px;border-radius:6px;margin-top:6px;display:block;border:1px solid #3a1a5a"/>`;
+    document.getElementById('ai-messages').appendChild(msgWrap);
+    document.getElementById('ai-messages').scrollTop = 9999;
+  } else {
+    aiAddMessage('user', displayText);
+  }
+
+  const thinkingDiv = aiAddMessage('assistant', '⋯ thinking...', true);
+  sendBtn.disabled = true;
+
+  try {
+    const posContext = getPositionContext();
+
+    const systemPrompt = `You are an expert chess coach. ${pendingImageBase64
+      ? 'The user has uploaded an image of a chess position. Analyse the board carefully — identify all pieces, their colours and positions, then give specific coaching advice.'
+      : 'You are currently looking at this position:'
+    }
+
+${pendingImageBase64 ? '' : posContext}
+
+Give clear, practical, encouraging advice. Keep responses concise (3-5 sentences).
+Use algebraic notation. Focus on key ideas, threats, and patterns. Be specific about piece moves.`;
+
+    // Build the message content — include image if present
+    let userContent;
+    if (pendingImageBase64) {
+      userContent = [
+        {
+          type: 'image',
+          source: {
+            type: 'base64',
+            media_type: pendingImageType,
+            data: pendingImageBase64
+          }
+        },
+        {
+          type: 'text',
+          text: displayText + (CT ? `\n\nContext: I am studying the ${CT.name} opening.` : '')
+        }
+      ];
+    } else {
+      userContent = displayText;
+    }
+
+    // Build history — for image messages we can't easily replay them, so use fresh context
+    const messages = pendingImageBase64
+      ? [{ role: 'user', content: userContent }]
+      : [...aiHistory, { role: 'user', content: userContent }];
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': userApiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 400,
+        system: systemPrompt,
+        messages: messages
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err?.error?.message || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const reply = data?.content?.[0]?.text || 'Sorry, no response received.';
+
+    thinkingDiv.remove();
+    aiAddMessage('assistant', reply);
+
+    // Only add to history if no image (images can't be replayed in history easily)
+    if (!pendingImageBase64) {
+      aiHistory.push({ role: 'user', content: displayText });
+      aiHistory.push({ role: 'assistant', content: reply });
+      if (aiHistory.length > 20) aiHistory = aiHistory.slice(-20);
+    }
+
+    // Clear image after sending
+    clearImage();
+
+  } catch (err) {
+    thinkingDiv.remove();
+    clearImage();
+    const msg = err.message.includes('401') || err.message.includes('authentication')
+      ? '🔑 Invalid API key. Tap 🔑 to re-enter your key from <strong>console.anthropic.com</strong>.'
+      : `⚠️ ${err.message || 'Could not reach AI. Check connection.'}`;
+    aiAddMessage('assistant', msg);
+  }
+
+  sendBtn.disabled = false;
+}
 
 function toggleKeyInput() {
   const row = document.getElementById('key-row');
@@ -1477,80 +1713,133 @@ function aiAddMessage(role, text, isThinking) {
   return div;
 }
 
-async function sendAI(overrideText) {
-  const input = document.getElementById('ai-input');
-  const sendBtn = document.getElementById('ai-send');
-  const userText = overrideText || input.value.trim();
-  if (!userText) return;
-
-  if (!overrideText) { input.value = ''; input.style.height = 'auto'; }
-
-  // Check for API key first
-  if (!userApiKey) {
-    aiAddMessage('user', userText);
-    aiAddMessage('assistant', '🔑 To use the AI coach, tap the <strong>🔑</strong> button in the top-right of this panel and paste your Anthropic API key. Get one free at <strong>console.anthropic.com</strong>.');
-    return;
-  }
-
-  aiAddMessage('user', userText);
-  const posContext = getPositionContext();
-  aiHistory.push({ role: 'user', content: userText });
-
-  const thinkingDiv = aiAddMessage('assistant', '⋯ thinking...', true);
-  sendBtn.disabled = true;
-
-  try {
-    const systemPrompt = `You are an expert chess coach helping a student learn chess opening traps. 
-You are currently looking at this position:
-
-${posContext}
-
-Give clear, practical, encouraging coaching advice. Keep responses concise (2-4 sentences usually). 
-Use chess notation when helpful. Focus on the key ideas, threats, and patterns.
-You can use emojis sparingly. Never be condescending.`;
-
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': userApiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 300,
-        system: systemPrompt,
-        messages: aiHistory
-      })
-    });
-
-    if (!response.ok) {
-      const err = await response.json().catch(()=>({}));
-      throw new Error(err?.error?.message || `HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-    const reply = data?.content?.[0]?.text || 'Sorry, no response received.';
-
-    thinkingDiv.remove();
-    aiAddMessage('assistant', reply);
-    aiHistory.push({ role: 'assistant', content: reply });
-    if (aiHistory.length > 20) aiHistory = aiHistory.slice(-20);
-
-  } catch (err) {
-    thinkingDiv.remove();
-    const msg = err.message.includes('401') || err.message.includes('authentication')
-      ? '🔑 Invalid API key. Tap 🔑 to re-enter your key from <strong>console.anthropic.com</strong>.'
-      : `⚠️ ${err.message || 'Could not reach AI. Check connection.'}`;
-    aiAddMessage('assistant', msg);
-  }
-
-  sendBtn.disabled = false;
-}
+// (sendAI defined above with image support)
 
 function aiQuick(text) {
   sendAI(text);
+}
+
+// ── BEST MOVE FOR A COLOUR ────────────────────────────────────────────
+function askBestMove(colour) {
+  if (!CT || CP < 0) {
+    aiAddMessage('assistant', '⚠️ Step through at least one move first, then ask for the best move.');
+    return;
+  }
+
+  // Work out whose turn it currently is
+  const turnColour = chess.turn() === 'w' ? 'White' : 'Black';
+
+  // Build a rich prompt specifically for best-move analysis
+  const fen = chess.fen();
+  const movesSoFar = CT.moves.slice(0, CP + 1)
+    .map((m, i) => {
+      const n = Math.floor(i / 2) + 1;
+      return i % 2 === 0 ? `${n}.${m.san}` : m.san;
+    }).join(' ');
+
+  // Use the minimax engine to get the actual best move first
+  const tempChess = new Chess(fen);
+  const engineMove = getBestMove(tempChess, 3);
+
+  const engineHint = engineMove
+    ? `The engine suggests: ${engineMove.from}→${engineMove.to} (${engineMove.san}).`
+    : '';
+
+  const prompt = `I am studying the ${CT.name} opening (${CT.side} side).
+
+Current position FEN: ${fen}
+Moves played so far: ${movesSoFar}
+It is currently ${turnColour}'s turn to move.
+
+The user wants to know: What is the BEST NEXT MOVE for ${colour}?
+${engineHint}
+
+Please explain:
+1. What the best move is (in algebraic notation)
+2. WHY it is the best move — what is the idea/threat/plan behind it?
+3. What ${colour} should be trying to achieve from this position
+4. Any key threats or tactics to watch out for
+
+Keep it concise and practical — 3-5 sentences max. Use chess notation.`;
+
+  // Show loading state on button
+  const btnId = colour === 'White' ? 'bm-white' : 'bm-black';
+  const btn = document.getElementById(btnId);
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = `⏳ Analysing...`;
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  // Show in chat
+  aiAddMessage('user', `What is the best move for ${colour}?`);
+
+  // Draw engine arrow on board immediately
+  if (engineMove && engineMove.from && engineMove.to) {
+    const lastFrom = document.querySelector('.hl-from')?.id?.replace('sq-','');
+    const lastTo   = document.querySelector('.hl-to')?.id?.replace('sq-','');
+    clearArrows();
+    if (lastFrom && lastTo) {
+      drawArrow(lastFrom, lastTo, CP % 2 === 0 ? '#aed67a' : '#74a8d4');
+    }
+    // Purple arrow for the suggested move
+    drawArrow(engineMove.from, engineMove.to, '#9a3fd0');
+  }
+
+  // Now ask the AI for the explanation
+  if (!userApiKey) {
+    // No API key — just show engine result with local explanation
+    const pName = engineMove ? (PIECE_NAMES[engineMove.piece] || 'Piece') : '?';
+    const moveTxt = engineMove
+      ? `The engine recommends <strong>${engineMove.san}</strong> — moving the ${pName} from ${engineMove.from} to ${engineMove.to}.${engineMove.captured ? ` This captures the ${PIECE_NAMES[engineMove.captured]}.` : ''}`
+      : 'No legal moves found in this position.';
+
+    const thinkEl = aiAddMessage('assistant',
+      `🟣 <strong>Best move for ${colour}:</strong> ${engineMove ? engineMove.san : '—'}<br><br>${moveTxt}<br><br><em>💡 Add an API key (🔑) for a full AI explanation of WHY this is the best move.</em>`
+    );
+    btn.innerHTML = origHTML;
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    return;
+  }
+
+  // With API key — get full AI explanation
+  aiHistory.push({ role: 'user', content: prompt });
+  const thinkingDiv = aiAddMessage('assistant', '⋯ analysing position...', true);
+
+  fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': userApiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 350,
+      system: `You are an expert chess coach. Give clear, practical, specific chess advice. Always mention the move in algebraic notation clearly. Be encouraging and concise.`,
+      messages: aiHistory
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    const reply = data?.content?.[0]?.text || 'Could not get a response.';
+    thinkingDiv.remove();
+    // Prepend the move notation prominently
+    const moveLabel = engineMove ? `🟣 <strong>Best move for ${colour}: ${engineMove.san}</strong><br><br>` : '';
+    aiAddMessage('assistant', moveLabel + reply);
+    aiHistory.push({ role: 'assistant', content: reply });
+    if (aiHistory.length > 20) aiHistory = aiHistory.slice(-20);
+  })
+  .catch(() => {
+    thinkingDiv.remove();
+    aiAddMessage('assistant', `🟣 <strong>Best move for ${colour}: ${engineMove ? engineMove.san : '—'}</strong><br><br>⚠️ Could not reach AI for explanation. Check your API key.`);
+  })
+  .finally(() => {
+    btn.innerHTML = origHTML;
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  });
 }
 
 // Reset AI context when moving to a new position
