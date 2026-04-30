@@ -206,6 +206,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
             <div class="ai-header-title">AI Chess Coach</div>
             <div class="ai-header-sub">Ask anything about the position</div>
           </div>
+          <button onclick="toggleKeyInput()" style="background:none;border:none;color:#5a4a7a;cursor:pointer;font-size:11px;padding:2px 6px;border-radius:4px;border:1px solid #2a1a4a" title="Set API key">🔑</button>
+        </div>
+        <div id="key-row" style="display:none;padding:6px 10px;border-bottom:1px solid #1e1e3a;gap:6px;align-items:center;flex-direction:row;flex-wrap:nowrap">
+          <input id="api-key-input" type="password" placeholder="Paste Anthropic API key (sk-ant-...)" 
+            style="flex:1;background:#0e0e1e;border:1px solid #3a1a5a;border-radius:5px;padding:5px 8px;color:#c0a0e0;font-size:11px;font-family:monospace;outline:none;min-width:0"/>
+          <button onclick="saveKey()" style="background:#2a0a4a;border:1px solid #7a3fa0;color:#c07aee;border-radius:5px;padding:5px 10px;font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0">Save</button>
         </div>
         <div class="ai-messages" id="ai-messages">
           <div class="ai-msg assistant">👋 Hi! I'm your AI chess coach. Step through any move then ask me about the position — why the move works, what you should do next, or anything else about the opening!</div>
@@ -506,7 +512,46 @@ moves:[
 {san:"Ke2",hl:"7.Ke2 — Forced king move",txt:"White's king is forced to move."},
 {san:"fxg1",hl:"7...fxg1=N!! — UNDERPROMOTION! 👑",txt:"fxg1=N!! Promote to a KNIGHT, not a queen! The knight immediately forks the king on e2. Promoting to a queen would give nothing — the knight delivers an immediate winning fork!",tip:"Underpromotion to a knight is extremely rare — and extremely effective here. Lasker's Trap is over 100 years old!"}
 ],
-summary:{mistake:"White plays e3 (natural) instead of Nf3/e4, allowing dxe3!! exf2+ fxg1=N!! winning combination.",punish:"After fxg1=N+, the knight forks king and rook — Black wins decisive material.",fallback:"White should play Nf3 or e4 instead of e3 to avoid the trap."}}
+summary:{mistake:"White plays e3 (natural) instead of Nf3/e4, allowing dxe3!! exf2+ fxg1=N!! winning combination.",punish:"After fxg1=N+, the knight forks king and rook — Black wins decisive material.",fallback:"White should play Nf3 or e4 instead of e3 to avoid the trap."}},
+
+{id:'w_london',side:'White',level:'Intermediate',name:"London System Trap",sub:"1.d4 d5 2.Bf4 — Greek Gift sacrifice on h7",
+moves:[
+{san:"d4",hl:"1.d4 — Queen's Pawn, London incoming",txt:"White opens with d4. The London System is one of the most popular openings at club level — solid, simple, and full of hidden traps.",why:"The London is loved for its flexibility. White plays the same setup against almost anything Black does: d4, Bf4, e3, Nf3, Bd3, Nbd2, and 0-0."},
+{san:"d5",hl:"1...d5 — Black mirrors in the centre",txt:"Black responds with d5, the most natural response. The London System is most commonly played against this setup."},
+{san:"Bf4",hl:"2.Bf4 — THE LONDON! Bishop developed outside the pawn chain",txt:"Bf4 — the defining move of the London System. White develops the dark-squared bishop BEFORE playing e3, which would trap it inside the pawn chain. This bishop will point at h7 for the entire game, waiting for the right moment to sacrifice.",why:"Playing Bf4 on move 2 (rather than 2.Nf3 first) is the modern London move order. It gives White more flexibility and avoids some sharp Black responses."},
+{san:"Nf6",hl:"2...Nf6 — Natural development",txt:"Black develops the knight naturally. This is the most common response. Now White continues building the London setup."},
+{san:"e3",hl:"3.e3 — Solid pawn chain",txt:"e3 supports the d4 pawn and prepares to develop the f1 bishop to d3. This is the London 'pyramid' — d4, e3, c3 form the base, and Bf4 operates actively outside it.",why:"e3 is the key structural move. It creates a solid pawn wall but keeps the bishop on f4 active — unlike d3 which would have locked it in."},
+{san:"e6",hl:"3...e6 — Black solidifies",txt:"Black plays e6, reinforcing d5 and preparing to develop the kingside bishop. This looks solid but blocks Black's dark-squared bishop — a key strategic concession in these positions."},
+{san:"Nf3",hl:"4.Nf3 — Development, completes the London setup",txt:"Nf3 develops the knight and completes White's ideal London formation. White will follow with Bd3, Nbd2, and 0-0 — a complete and harmonious setup.",why:"The London player can now choose between different attacking plans: the Greek Gift sacrifice on h7 (Bxh7+), an e4 central break, or a queenside attack with c4."},
+{san:"Bd6",hl:"4...Bd6?! — Common but walks into the Greek Gift!",txt:"Bd6 develops the bishop naturally but creates a critical weakness. The bishop on d6 blocks the queen from defending h7, AND it sits in line with White's bishop on f4 — setting up the devastating Greek Gift sacrifice.",warn:"This is one of the most common beginner mistakes in the London. Bd6 looks natural but it walks into Bxh7+! Always keep h7 defended when facing the London!"},
+{san:"Bd3",hl:"5.Bd3 — The sniper aims at h7",txt:"Bd3! White develops the bishop to d3, now pointing directly at h7. Combined with the Bf4 on the same diagonal, White has TWO bishops aimed at the Black king. The Greek Gift sacrifice is now possible at any moment. Black's king is in serious danger.",why:"Bd3 is the key preparatory move. Now White has the f4 bishop AND the d3 bishop both aiming at h7. One more piece (queen or knight) joining the attack and the sacrifice becomes overwhelming."},
+{san:"O-O",hl:"5...0-0 — Black castles into the attack!",txt:"Black castles kingside — walking straight into the Greek Gift! The king is now on g8, the h7 pawn is only defended by the king, and White has two bishops pointing at it. The sacrifice is ready.",warn:"Black should play Bxf4 first to trade off one of the attacking bishops. Castling here allows the immediate Bxh7+!"},
+{san:"Bxh7",hl:"6.Bxh7+!! — THE GREEK GIFT SACRIFICE! Bishop lands on h7",txt:"Bxh7+!! White sacrifices the bishop on h7 — the famous Greek Gift! The king is FORCED to take. After Kxh7, White plays Ng5+ chasing the king into a mating net. This is one of the most famous tactical patterns in all of chess.",why:"The Greek Gift works here because: (1) the queen can come to h5 with check, (2) the knight on g5 will join the attack, (3) the bishop on f4 covers key squares. Black's king has no safe haven."},
+{san:"Kxh7",hl:"6...Kxh7 — King forced to take",txt:"Black's king must take the bishop — declining it loses material. The king steps to h7, completely exposed. White now plays Ng5+ to drive it further into the open.",warn:"If Black plays Kh8 instead of taking, White plays Ng5 and the attack continues with Qh5 and overwhelming pressure. Black must take."},
+{san:"Ng5",hl:"7.Ng5+ — Knight joins! King is chased",txt:"Ng5+! The knight leaps to g5 with check, attacking the king and threatening Qh5#. The king must retreat to g6, g8, or h6 — all lead to disasters.",why:"The knight on g5 creates a deadly threat of Qh5+ followed by Qh7# or Qxf7#. White's attack is completely overwhelming."},
+{san:"Kg6",hl:"7...Kg6 — King walks to g6, into the mating net",txt:"King retreats to g6. Now White plays Qd3+ forcing the king further or Qg4 threatening multiple checkmates. The king on g6 is in a mating net — White has Qg4+, Nh7+, and many threats.",tip:"The Greek Gift sacrifice (Bxh7+ Kxh7 Ng5+ Kg6) is one of the most important patterns to know in chess. If you see Bd3 + Bf4 pointed at h7 with the enemy king castled — always calculate Bxh7+! It works far more often than you'd think."}
+],
+summary:{mistake:"Black plays Bd6 and then castles kingside, allowing Bxh7+! — the Greek Gift sacrifice. The bishop + knight + queen create an unstoppable mating attack.",punish:"After Bxh7+ Kxh7 Ng5+ Kg6, White has Qg4+ and the king is caught in a mating net. White wins decisive material or checkmates.",fallback:"If Black plays Bxf4 (trading off the Bf4), the sacrifice doesn't work. White recaptures exf4 and has a solid position with the long-term plan of e4 central break."}},
+
+{id:'b_kid',side:'Black',level:'Intermediate',name:"King's Indian Defence",sub:"1.d4 Nf6 2.c4 g6 — explosive kingside attack",
+moves:[
+{san:"d4",hl:"1.d4 — White builds a pawn centre",txt:"White opens with d4, fighting for the centre. The King's Indian Defence is Black's most dynamic and aggressive response to d4.",why:"The KID has been the weapon of choice for the greatest attacking players in chess history: Fischer, Kasparov, Tal, Bronstein. It leads to explosive positions where Black counterattacks rather than matching White pawn for pawn."},
+{san:"Nf6",hl:"1...Nf6 — The KID begins! Fight for the centre with pieces",txt:"Nf6 — the first move of the King's Indian. Black fights for the centre with a piece rather than a pawn. The knight attacks d5 and e4, and prepares the kingside fianchetto.",why:"Nf6 is flexible — it can lead to the KID, Grünfeld, Nimzo-Indian, or several other openings depending on how White responds. It's the most popular response to 1.d4."},
+{san:"c4",hl:"2.c4 — White adds another central pawn",txt:"c4 reinforces d4 and claims queenside space. White is building a massive pawn centre. Black will NOT try to match this with pawns — instead, Black lets White build the centre and then attacks it with pieces.",why:"c4 is the most ambitious response. White controls d5 with TWO pawns, but this also means White's pawns can become targets if Black plays correctly."},
+{san:"g6",hl:"2...g6 — Fianchetto! The KID hallmark move",txt:"g6! Black prepares to fianchetto the dark-squared bishop to g7 — the most powerful piece in the King's Indian. This diagonal bishop will become a monster, controlling the long h8-a1 diagonal and supporting Black's kingside attack for the whole game.",why:"The g7 bishop is Black's most powerful piece in the KID. It controls the long diagonal, supports the e5 pawn break, and often participates directly in mating attacks on the White king."},
+{san:"Nc3",hl:"3.Nc3 — White develops, supporting d4 and e4",txt:"Nc3 defends d4 and prepares e4. White is setting up the Classical KID — the most popular and deeply analysed variation."},
+{san:"Bg7",hl:"3...Bg7 — The dragon! Bishop fianchettoed",txt:"Bg7 — the fianchetto is complete! The bishop on g7 is now one of the most powerful pieces on the board. It controls the entire h8-a1 diagonal and will breathe fire for the rest of the game. This is why the KID is called 'explosive' — this bishop makes every Black attack more dangerous.",why:"The Bg7 in the KID is compared to a sleeping dragon. It looks quiet at first but becomes devastating once Black opens the position with e5 or f5. Bobby Fischer called his Bg7 his 'sniping rifle'."},
+{san:"e4",hl:"4.e4 — White completes the massive pawn centre",txt:"e4! White now controls d5, e4, d4, and c4 — four central squares with pawns. This looks overwhelming. But Black has a plan: castle, play d6 and e5, and then attack!",warn:"White's massive centre looks powerful but it's also a target. Black's plan is to undermine it with the e5 break, then launch a kingside attack while White attacks on the queenside."},
+{san:"d6",hl:"4...d6 — Support for the e5 break",txt:"d6 is the KID's defining move. It supports e5 and reinforces the Black position in the centre. Black is in no rush — every move is preparation for the coming counterattack.",why:"d6 is essential. It prevents White from playing e5 and supports Black's main plan of e5. It also gives the dark-squared bishop on g7 more scope."},
+{san:"Nf3",hl:"5.Nf3 — Classical KID — White develops",txt:"Nf3 completes White's development and prepares castling. This is the Classical Variation — the most popular and deeply analysed line of the KID, chosen by Magnus Carlsen, Garry Kasparov and countless other champions.",},
+{san:"O-O",hl:"5...0-0 — Black castles! Attack begins",txt:"Black castles kingside immediately — the king is safe and the rook is ready to support the coming f5-f4 kingside storm. Black is now ready to unleash the full King's Indian counterattack with e5.",why:"Castling before e5 is the most accurate move order. The king is safe, and now Black threatens the powerful e5 break. After e5 and d5, the position becomes a race: White attacks queenside, Black attacks kingside."},
+{san:"Be2",hl:"6.Be2 — Classical Variation — White prepares to castle",txt:"Be2 is the Classical Variation — solid and principled. White develops the bishop quietly and prepares to castle. This leads to the most theoretical and deeply analysed lines of the KID.",why:"Be2 is less aggressive than Bd3 or f3, but very solid. White's plan: castle, then choose between d5 (closing the centre) or dxe5 (exchanging) based on Black's response."},
+{san:"e5",hl:"6...e5! — The KID central break! The counterattack begins!",txt:"e5!! This is the move Black has been preparing since move 1. e5 attacks White's d4 pawn and claims central space. Black is saying: 'I've let you build the centre — now I'm going to attack it.' The game is about to become completely unbalanced.",why:"e5 is the most important move in the KID. After this, White must decide: take on e5 (which gives Black strong central control), close with d5 (leading to the famous Mar del Plata race), or ignore it. Every choice leads to sharp, complex positions."},
+{san:"O-O",hl:"7.0-0 — White castles, the race begins",txt:"White castles. Now both kings are safe on opposite sides — or rather, both sides will attack the other's king! White will push queenside with b4, c5, and Black will push kingside with Nc6, f5, f4, g5. This is the famous KID 'race' that produces some of the most exciting games in chess.",why:"The typical KID middlegame is a race between White's queenside attack (c5, b5, a5) and Black's kingside attack (f5, f4, g5, g4, h5, h4). Whoever breaks through first usually wins. It requires precise play on both sides."},
+{san:"Nc6",hl:"7...Nc6 — Knight pressures d4",txt:"Nc6 develops the last minor piece and puts immediate pressure on d4. White must now decide whether to close the centre with d5 or maintain the tension. After d5, the classic KID race begins.",why:"Nc6 is the main move. The knight pressures d4, prepares to go to d4 if White exchanges, and supports the e5 pawn. After White plays d5, the knight will reroute to f6-d7-f8-g6 heading for f4 or h5."},
+{san:"d5",hl:"8.d5 — White closes the centre — Mar del Plata!",txt:"d5! White closes the centre — this is the Mar del Plata Variation, the most famous KID position. White's plan: attack on the queenside with c5, b4, a4, and eventually open the c-file. Black's plan: attack on the kingside with Nd7, f5, f4, g5, h5, h4, and crash through to the White king.",why:"After d5, the position becomes a race. White goes queenside (c5, b4), Black goes kingside (f5, f4, g5). Both sides ignore the other's attack and race to checkmate. This creates some of the most exciting chess imaginable — Fischer, Kasparov, and Tal all produced brilliant KID masterpieces from this position.",tip:"The King's Indian is the opening of choice for aggressive, tactical players. If you love attacking chess, learn the KID — it produces more brilliant games than almost any other opening. The key idea: let White have the centre, then attack the White king with everything you have!"}
+],
+summary:{mistake:"White tries to hold the massive pawn centre passively, allowing Black's e5 break and then the unstoppable f5-f4-g5 kingside pawn storm.",punish:"After d5, Black plays Nd7, f5, f4, g5 — the kingside attack crashes through before White's queenside counterplay can succeed.",fallback:"If White plays dxe5 instead of d5, Black plays dxe5 with a solid symmetrical centre and the powerful Bg7 bishop. Still excellent for Black."}}
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────
@@ -808,6 +853,27 @@ buildSelector();
 goToTrap(TRAPS[0]);
 
 // ── AI CHESS COACH (Claude API) ──────────────────────────────────────
+let userApiKey = '';
+
+function toggleKeyInput() {
+  const row = document.getElementById('key-row');
+  row.style.display = row.style.display === 'none' ? 'flex' : 'none';
+  if (row.style.display === 'flex') {
+    const inp = document.getElementById('api-key-input');
+    if (userApiKey) inp.value = userApiKey;
+    inp.focus();
+  }
+}
+
+function saveKey() {
+  const inp = document.getElementById('api-key-input');
+  userApiKey = inp.value.trim();
+  document.getElementById('key-row').style.display = 'none';
+  if (userApiKey) {
+    aiAddMessage('assistant', '✅ API key saved! You can now ask me anything about the chess position.');
+  }
+}
+
 function getPositionContext() {
   // Build a rich context string about the current position
   if (!CT) return 'No opening selected yet.';
@@ -853,17 +919,19 @@ async function sendAI(overrideText) {
   const userText = overrideText || input.value.trim();
   if (!userText) return;
 
-  // Clear input
   if (!overrideText) { input.value = ''; input.style.height = 'auto'; }
 
-  // Add user message to UI
-  aiAddMessage('user', userText);
+  // Check for API key first
+  if (!userApiKey) {
+    aiAddMessage('user', userText);
+    aiAddMessage('assistant', '🔑 To use the AI coach, tap the <strong>🔑</strong> button in the top-right of this panel and paste your Anthropic API key. Get one free at <strong>console.anthropic.com</strong>.');
+    return;
+  }
 
-  // Add to history
+  aiAddMessage('user', userText);
   const posContext = getPositionContext();
   aiHistory.push({ role: 'user', content: userText });
 
-  // Show thinking indicator
   const thinkingDiv = aiAddMessage('assistant', '⋯ thinking...', true);
   sendBtn.disabled = true;
 
@@ -874,36 +942,44 @@ You are currently looking at this position:
 ${posContext}
 
 Give clear, practical, encouraging coaching advice. Keep responses concise (2-4 sentences usually). 
-Use chess notation when helpful. Focus on the key ideas, threats, and patterns — not just the moves.
-You can use emojis sparingly to make it friendly. Never be condescending.`;
+Use chess notation when helpful. Focus on the key ideas, threats, and patterns.
+You can use emojis sparingly. Never be condescending.`;
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': userApiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
         system: systemPrompt,
         messages: aiHistory
       })
     });
 
-    const data = await response.json();
-    const reply = data?.content?.[0]?.text || 'Sorry, I could not get a response. Please try again.';
+    if (!response.ok) {
+      const err = await response.json().catch(()=>({}));
+      throw new Error(err?.error?.message || `HTTP ${response.status}`);
+    }
 
-    // Remove thinking indicator, add real reply
+    const data = await response.json();
+    const reply = data?.content?.[0]?.text || 'Sorry, no response received.';
+
     thinkingDiv.remove();
     aiAddMessage('assistant', reply);
-
-    // Add assistant reply to history
     aiHistory.push({ role: 'assistant', content: reply });
-
-    // Keep history manageable (last 10 exchanges)
     if (aiHistory.length > 20) aiHistory = aiHistory.slice(-20);
 
   } catch (err) {
     thinkingDiv.remove();
-    aiAddMessage('assistant', '⚠️ Could not connect to the AI. Check your internet connection and try again.');
+    const msg = err.message.includes('401') || err.message.includes('authentication')
+      ? '🔑 Invalid API key. Tap 🔑 to re-enter your key from <strong>console.anthropic.com</strong>.'
+      : `⚠️ ${err.message || 'Could not reach AI. Check connection.'}`;
+    aiAddMessage('assistant', msg);
   }
 
   sendBtn.disabled = false;
