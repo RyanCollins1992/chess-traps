@@ -752,100 +752,174 @@ window.addEventListener('resize',()=>{
 buildSelector();
 goToTrap(TRAPS[0]);
 
-// ── STOCKFISH COACH ───────────────────────────────────────────────────
-let stockfish = null;
-let coachArrowFrom = null;
-let coachArrowTo = null;
-let sfReady = false;
-
-// Piece type labels for coach explanation
+// ── PURE JS CHESS ENGINE (no Web Workers, works everywhere) ──────────
+// Piece values
 const PIECE_NAMES = {p:'Pawn',n:'Knight',b:'Bishop',r:'Rook',q:'Queen',k:'King'};
+const PIECE_VAL   = {p:100, n:320, b:330, r:500, q:900, k:20000};
 
-function initStockfish() {
-  if (stockfish) return;
-  try {
-    // Load Stockfish as a Web Worker via CDN
-    stockfish = new Worker('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.2/stockfish.js');
-    stockfish.onmessage = handleSFMessage;
-    stockfish.onerror = () => { sfReady = false; showCoachError('Engine failed to load. Try refreshing.'); };
-    stockfish.postMessage('uci');
-  } catch(e) {
-    showCoachError('Web Workers not supported in this browser.');
+// Piece-square tables (encourage good piece placement)
+const PST = {
+  p: [
+     0,  0,  0,  0,  0,  0,  0,  0,
+    50, 50, 50, 50, 50, 50, 50, 50,
+    10, 10, 20, 30, 30, 20, 10, 10,
+     5,  5, 10, 25, 25, 10,  5,  5,
+     0,  0,  0, 20, 20,  0,  0,  0,
+     5, -5,-10,  0,  0,-10, -5,  5,
+     5, 10, 10,-20,-20, 10, 10,  5,
+     0,  0,  0,  0,  0,  0,  0,  0
+  ],
+  n: [
+   -50,-40,-30,-30,-30,-30,-40,-50,
+   -40,-20,  0,  0,  0,  0,-20,-40,
+   -30,  0, 10, 15, 15, 10,  0,-30,
+   -30,  5, 15, 20, 20, 15,  5,-30,
+   -30,  0, 15, 20, 20, 15,  0,-30,
+   -30,  5, 10, 15, 15, 10,  5,-30,
+   -40,-20,  0,  5,  5,  0,-20,-40,
+   -50,-40,-30,-30,-30,-30,-40,-50
+  ],
+  b: [
+   -20,-10,-10,-10,-10,-10,-10,-20,
+   -10,  0,  0,  0,  0,  0,  0,-10,
+   -10,  0,  5, 10, 10,  5,  0,-10,
+   -10,  5,  5, 10, 10,  5,  5,-10,
+   -10,  0, 10, 10, 10, 10,  0,-10,
+   -10, 10, 10, 10, 10, 10, 10,-10,
+   -10,  5,  0,  0,  0,  0,  5,-10,
+   -20,-10,-10,-10,-10,-10,-10,-20
+  ],
+  r: [
+     0,  0,  0,  0,  0,  0,  0,  0,
+     5, 10, 10, 10, 10, 10, 10,  5,
+    -5,  0,  0,  0,  0,  0,  0, -5,
+    -5,  0,  0,  0,  0,  0,  0, -5,
+    -5,  0,  0,  0,  0,  0,  0, -5,
+    -5,  0,  0,  0,  0,  0,  0, -5,
+    -5,  0,  0,  0,  0,  0,  0, -5,
+     0,  0,  0,  5,  5,  0,  0,  0
+  ],
+  q: [
+   -20,-10,-10, -5, -5,-10,-10,-20,
+   -10,  0,  0,  0,  0,  0,  0,-10,
+   -10,  0,  5,  5,  5,  5,  0,-10,
+    -5,  0,  5,  5,  5,  5,  0, -5,
+     0,  0,  5,  5,  5,  5,  0, -5,
+   -10,  5,  5,  5,  5,  5,  0,-10,
+   -10,  0,  5,  0,  0,  0,  0,-10,
+   -20,-10,-10, -5, -5,-10,-10,-20
+  ],
+  k: [
+   -30,-40,-40,-50,-50,-40,-40,-30,
+   -30,-40,-40,-50,-50,-40,-40,-30,
+   -30,-40,-40,-50,-50,-40,-40,-30,
+   -30,-40,-40,-50,-50,-40,-40,-30,
+   -20,-30,-30,-40,-40,-30,-30,-20,
+   -10,-20,-20,-20,-20,-20,-20,-10,
+    20, 20,  0,  0,  0,  0, 20, 20,
+    20, 30, 10,  0,  0, 10, 30, 20
+  ]
+};
+
+function squareIndex(sq) {
+  const f = FILES.indexOf(sq[0]);
+  const r = 8 - parseInt(sq[1]);
+  return r * 8 + f;
+}
+
+function evalBoard(ch) {
+  if (ch.in_checkmate()) return ch.turn()==='w' ? -99999 : 99999;
+  if (ch.in_draw()) return 0;
+  let score = 0;
+  const board = ch.board();
+  for (let r=0;r<8;r++) {
+    for (let f=0;f<8;f++) {
+      const p = board[r][f];
+      if (!p) continue;
+      const idx = r*8+f;
+      const pstIdx = p.color==='w' ? idx : (7-r)*8+f;
+      const val = PIECE_VAL[p.type] + (PST[p.type]?PST[p.type][pstIdx]:0);
+      score += p.color==='w' ? val : -val;
+    }
+  }
+  return score;
+}
+
+function minimax(ch, depth, alpha, beta, maximising) {
+  if (depth===0 || ch.game_over()) return evalBoard(ch);
+  const moves = ch.moves();
+  // Move ordering: captures first for better pruning
+  moves.sort((a,b)=> (b.includes('x')?1:0)-(a.includes('x')?1:0));
+  if (maximising) {
+    let best=-Infinity;
+    for (const m of moves) {
+      ch.move(m);
+      best = Math.max(best, minimax(ch,depth-1,alpha,beta,false));
+      ch.undo();
+      alpha = Math.max(alpha,best);
+      if (beta<=alpha) break;
+    }
+    return best;
+  } else {
+    let best=Infinity;
+    for (const m of moves) {
+      ch.move(m);
+      best = Math.min(best, minimax(ch,depth-1,alpha,beta,true));
+      ch.undo();
+      beta = Math.min(beta,best);
+      if (beta<=alpha) break;
+    }
+    return best;
   }
 }
 
-function handleSFMessage(event) {
-  const msg = event.data;
-  if (msg === 'uciok') { stockfish.postMessage('isready'); return; }
-  if (msg === 'readyok') { sfReady = true; return; }
-
-  // Parse bestmove
-  if (msg.startsWith('bestmove')) {
-    const parts = msg.split(' ');
-    const bestMove = parts[1];
-    if (!bestMove || bestMove === '(none)') {
-      showCoachError('No legal moves available.');
-      return;
-    }
-    // bestmove is in UCI format: e.g. "e2e4", "g1f3", "e7e8q"
-    const from = bestMove.slice(0, 2);
-    const to   = bestMove.slice(2, 4);
-    const promo = bestMove.length > 4 ? bestMove[4] : null;
-
-    // Get piece info from current chess position
-    const piece = chess.get(from);
-    const captured = chess.get(to);
-    coachArrowFrom = from;
-    coachArrowTo = to;
-
-    // Redraw arrows: keep last-move arrow + add purple coach arrow
-    const lastFrom = document.querySelector('.hl-from')?.id?.replace('sq-','');
-    const lastTo   = document.querySelector('.hl-to')?.id?.replace('sq-','');
-    clearArrows();
-    if (lastFrom && lastTo) {
-      const color = CP%2===0 ? '#aed67a' : '#74a8d4';
-      drawArrow(lastFrom, lastTo, color);
-    }
-    drawArrow(from, to, '#9a3fd0'); // purple coach arrow
-
-    // Build coach explanation
-    const pName = piece ? PIECE_NAMES[piece.type] : 'Piece';
-    const side = chess.turn() === 'w' ? 'White' : 'Black';
-    let explanation = `Move the <strong>${pName}</strong> from <strong>${from}</strong> to <strong>${to}</strong>.`;
-    if (captured) explanation += ` This captures the ${PIECE_NAMES[captured.type]}.`;
-    if (promo) explanation += ` Promote to a ${PIECE_NAMES[promo]}!`;
-
-    // Add coach suggestion to the coaching card
-    const existingBox = document.getElementById('coach-suggestion');
-    if (existingBox) existingBox.remove();
-    const coachCard = document.getElementById('coach-card');
-    const box = document.createElement('div');
-    box.id = 'coach-suggestion';
-    box.className = 'c-box cb-coach';
-    box.innerHTML = `<strong>🟣 Coach suggests:</strong> <span style="font-family:monospace;font-weight:700;font-size:14px;color:#d0a0ff">${from}→${to}</span><br><span style="margin-top:4px;display:block">${explanation}</span>`;
-    coachCard.appendChild(box);
-
-    // Update button state
-    const btn = document.getElementById('coach-btn');
-    btn.className = 'coach-btn done';
-    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg> Coach: ${from}→${to} (tap to refresh)`;
-  }
-
-  // Parse eval info for depth feedback
-  if (msg.includes('score cp')) {
-    const match = msg.match(/score cp (-?\d+)/);
-    if (match) {
-      const cp = parseInt(match[1]);
-      const pawn = (cp / 100).toFixed(1);
-      const evalEl = document.getElementById('coach-eval');
-      if (!evalEl) {
-        const btn = document.getElementById('coach-btn');
-        if (btn && btn.className.includes('thinking')) {
-          btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Analysing... eval: ${cp > 0 ? '+' : ''}${pawn}`;
-        }
-      }
+function getBestMove(ch, depth) {
+  const moves = ch.moves({verbose:true});
+  if (!moves.length) return null;
+  const isWhite = ch.turn()==='w';
+  let bestMove = null, bestScore = isWhite ? -Infinity : Infinity;
+  // Move ordering: captures first
+  moves.sort((a,b)=> (b.captured?1:0)-(a.captured?1:0));
+  for (const m of moves) {
+    ch.move(m.san);
+    const score = minimax(ch, depth-1, -Infinity, Infinity, !isWhite);
+    ch.undo();
+    if (isWhite ? score>bestScore : score<bestScore) {
+      bestScore = score;
+      bestMove = m;
     }
   }
+  return bestMove;
+}
+
+function showCoachResult(move) {
+  if (!move) { showCoachError('No legal moves found.'); return; }
+  const from = move.from, to = move.to;
+  // Redraw arrows
+  const lastFrom = document.querySelector('.hl-from')?.id?.replace('sq-','');
+  const lastTo   = document.querySelector('.hl-to')?.id?.replace('sq-','');
+  clearArrows();
+  if (lastFrom && lastTo) drawArrow(lastFrom, lastTo, CP%2===0?'#aed67a':'#74a8d4');
+  drawArrow(from, to, '#9a3fd0');
+
+  // Build explanation
+  const pName = PIECE_NAMES[move.piece] || 'Piece';
+  let explanation = `Move the <strong>${pName}</strong> from <strong>${from}</strong> to <strong>${to}</strong>.`;
+  if (move.captured) explanation += ` Captures the ${PIECE_NAMES[move.captured]}.`;
+  if (move.promotion) explanation += ` Promote to a ${PIECE_NAMES[move.promotion]}!`;
+
+  const prev = document.getElementById('coach-suggestion');
+  if (prev) prev.remove();
+  const coachCard = document.getElementById('coach-card');
+  const box = document.createElement('div');
+  box.id = 'coach-suggestion';
+  box.className = 'c-box cb-coach';
+  box.innerHTML = `<strong>🟣 Coach suggests:</strong> <span style="font-family:monospace;font-weight:700;font-size:14px;color:#d0a0ff">${from}→${to}</span><br><span style="margin-top:4px;display:block">${explanation}</span>`;
+  coachCard.appendChild(box);
+
+  const btn = document.getElementById('coach-btn');
+  btn.className = 'coach-btn done';
+  btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg> Coach: ${from}→${to} (tap to refresh)`;
 }
 
 function askCoach() {
@@ -853,33 +927,22 @@ function askCoach() {
     showCoachError('Step through at least one move first, then ask the coach.');
     return;
   }
-
   const btn = document.getElementById('coach-btn');
   btn.className = 'coach-btn thinking';
   btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> Coach is thinking...`;
-
-  // Remove previous suggestion
   const prev = document.getElementById('coach-suggestion');
   if (prev) prev.remove();
 
-  if (!stockfish) {
-    initStockfish();
-    // Wait for ready then analyse
-    const waitReady = setInterval(() => {
-      if (sfReady) { clearInterval(waitReady); runAnalysis(); }
-    }, 100);
-    // Timeout after 5s
-    setTimeout(() => { clearInterval(waitReady); if (!sfReady) showCoachError('Engine took too long to load. Try again.'); }, 5000);
-  } else {
-    runAnalysis();
-  }
-}
-
-function runAnalysis() {
-  if (!sfReady || !stockfish) { showCoachError('Engine not ready yet.'); return; }
-  const fen = chess.fen();
-  stockfish.postMessage('position fen ' + fen);
-  stockfish.postMessage('go movetime 1500'); // think for 1.5 seconds
+  // Use setTimeout so the UI updates before the computation runs
+  setTimeout(() => {
+    try {
+      const tempChess = new Chess(chess.fen());
+      const move = getBestMove(tempChess, 3); // depth 3 — fast and smart
+      showCoachResult(move);
+    } catch(e) {
+      showCoachError('Engine error. Try again.');
+    }
+  }, 50);
 }
 
 function showCoachError(msg) {
@@ -896,9 +959,6 @@ function showCoachError(msg) {
   box.innerHTML = `<strong>⚠</strong> ${msg}`;
   coachCard.appendChild(box);
 }
-
-// Pre-init engine on page load for faster response
-setTimeout(initStockfish, 1000);
 </script>
 </body>
 </html>
