@@ -149,7 +149,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 <div class="topbar">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#629924" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
   <h1>Chess Opening Traps</h1>
-  <span>15 traps</span>
+  <span>45 traps</span>
 </div>
 
 <div class="trap-selector" id="trap-selector"></div>
@@ -590,7 +590,532 @@ moves:[
 {san:"Bxd8",hl:"7.Bxd8 — White takes the queen, but Bb4+ follows!",txt:"White takes the queen on d8. Seems like recovery — White has the queen! But Black plays Bb4+ immediately, giving check AND attacking the Bd8 simultaneously. The king must move, losing the Bd8. Black ends up a full piece ahead from this 'trap within a trap'.",why:"Bxd8 looks like White is winning but Bb4+ exploits the exposed king. White cannot deal with both threats — the king in check AND the bishop on d8 hanging."},
 {san:"Bb4",hl:"7...Bb4+ — CHECK and the bishop on d8 is lost! 🐘",txt:"Bb4+!! The bishop checks the White king AND attacks the bishop on d8 simultaneously. White's king must move or block — but either way the Bd8 falls next move. Black then plays Kxd8 (taking the bishop with the king), ending up a full piece ahead. The Elephant Trap is complete!",tip:"The Elephant Trap is one of chess's most famous traps, having caught World Champions Alekhine and Euwe. Memorise this sequence: after 4.Bg5, if White plays cxd5, the response is always exd5 — the bishop is now hanging! If they try Nxd5, play Nxd5 Bxd8 Bb4+! and win a piece. This trap WILL come up in your games."}
 ],
-summary:{mistake:"White greedily takes the d5 pawn with cxd5 after 4...Nbd7, not realising the Bg5 becomes hanging after exd5 — both Black knights attack it with no safe retreat.",punish:"After cxd5 exd5 Nxd5 Nxd5 Bxd8 Bb4+!, White loses a full piece. The Elephant Trap is complete.",fallback:"If White plays the correct 5.e3 (avoiding the trap), Black plays c6 then Qa5 — the Cambridge Springs Defence, attacking the c3 knight and creating queenside counterplay. Still excellent for Black."}}
+summary:{mistake:"White greedily takes the d5 pawn with cxd5 after 4...Nbd7, not realising the Bg5 becomes hanging after exd5 — both Black knights attack it with no safe retreat.",punish:"After cxd5 exd5 Nxd5 Nxd5 Bxd8 Bb4+!, White loses a full piece. The Elephant Trap is complete.",fallback:"If White plays the correct 5.e3 (avoiding the trap), Black plays c6 then Qa5 — the Cambridge Springs Defence, attacking the c3 knight and creating queenside counterplay. Still excellent for Black."}},
+
+/* ── FOOL'S MATE ─────────────────────────────────────────── */
+{id:'b_foolsmate',side:'Black',level:'Beginner',name:"Fool's Mate",sub:"Checkmate in 2 moves — the fastest possible",
+moves:[
+{san:"f3",hl:"1.f3 — A terrible first move for White",txt:"f3 is one of the worst opening moves in chess. It weakens the e1-h4 diagonal pointing at White's king, blocks the f3 square (ideal for the knight), and does nothing for development. This move is almost never played above beginner level — but it allows Fool's Mate.",warn:"Never play f3 or g4 in the opening! These moves weaken the king catastrophically."},
+{san:"e5",hl:"1...e5 — Black takes the centre",txt:"Black plays e5, claiming central space and opening the diagonal for the queen and bishop. Completely normal and principled."},
+{san:"g4",hl:"2.g4?? — White weakens the king fatally",txt:"g4 is the second terrible move. White has now weakened BOTH f3 and h4, and opened the h4-e1 diagonal to the White king. This is a catastrophic mistake that allows immediate checkmate.",warn:"The g-pawn MUST NOT move in the early opening. Pushing g4 after f3 is the only way Fool's Mate is possible — it creates a fatal diagonal weakness."},
+{san:"Qh4",hl:"2...Qh4# — FOOL'S MATE! Checkmate in 2 moves! 👑",txt:"Qh4# — CHECKMATE! The queen delivers checkmate in just 2 moves — the fastest checkmate possible in chess! The queen on h4 is protected by the e5 pawn, and the White king has no escape: f2 is blocked by its own pawn, e1 is where the king is, and the queen covers all escape squares. White is mated before making a single good move.",tip:"Fool's Mate is the fastest checkmate in chess (2 moves). It only works because White plays both f3 AND g4 — two terrible moves that open the diagonal to their own king. The lesson: never push f3 or g4 in the opening without a very good reason!"}
+],
+summary:{mistake:"White plays f3 then g4 — two consecutive pawn moves that open the h4-e1 diagonal to the White king.",punish:"Qh4# — checkmate in 2 moves. The fastest possible checkmate in chess.",fallback:"As Black, if White avoids f3 and g4, just play normal principled moves: e5, Nf6, Bc5, and 0-0."}},
+
+/* ── FRENCH DEFENCE ─────────────────────────────────────── */
+{id:'b_french',side:'Black',level:'Intermediate',name:"French Defence Trap",sub:"1.e4 e6 — Winawer Poisoned Pawn",
+moves:[
+{san:"e4",hl:"1.e4 — King's Pawn",txt:"White opens e4. Black responds with the French Defence — one of the most solid and reliable defences against e4, favoured by World Champions Botvinnik and Petrosian."},
+{san:"e6",hl:"1...e6 — The French! Preparing d5",txt:"e6 — the French Defence. Black prepares to challenge the centre with d5 on the next move. The French creates a solid pawn structure but temporarily limits the c8 bishop — Black's main strategic challenge in this opening.",why:"The French is rock-solid and hard to attack directly. Black accepts a slightly cramped position in exchange for a very solid structure with no weaknesses."},
+{san:"d4",hl:"2.d4 — White builds a strong centre",txt:"d4 builds the classic two-pawn centre. White has pawns on e4 and d4, controlling the centre. Black now challenges with d5."},
+{san:"d5",hl:"2...d5 — Challenge! Black fights for the centre",txt:"d5 immediately challenges White's e4 pawn. This is the core idea of the French — Black strikes back in the centre immediately after reinforcing with e6."},
+{san:"e5",hl:"3.e5 — Advance Variation! White gains space",txt:"e5 is the Advance Variation — White pushes forward, claiming extra space and closing the centre. This restricts Black's pieces but also gives Black clear counterplay targets.",why:"The Advance Variation is very popular at club level. White gains space but Black gets a clear plan: attack White's pawn chain with c5 and f6 at the right moment."},
+{san:"c5",hl:"3...c5 — Black counterattacks immediately!",txt:"c5 is the most aggressive and principled response. Black immediately attacks White's pawn chain at its base (d4). This is the main line of the Advance French.",why:"c5 hits d4 — the base of White's pawn chain. If the chain falls, Black's position opens up and the 'bad' bishop on c8 comes to life. This is Black's main counterplay in the French."},
+{san:"c3",hl:"4.c3 — White defends d4",txt:"c3 supports d4 and prepares to maintain the pawn chain. This is the main response in the Advance Variation."},
+{san:"Nc6",hl:"4...Nc6 — Development, more pressure on d4",txt:"Nc6 develops the knight and piles more pressure on d4. Black is following a clear plan: pile up on d4, play cxd4, then attack the weakened pawn structure."},
+{san:"Nf3",hl:"5.Nf3 — Development",txt:"Nf3 develops and defends e5. White is building a solid position."},
+{san:"Qb6",hl:"5...Qb6 — Attack b2 AND d4 simultaneously!",txt:"Qb6! The queen attacks both the b2 pawn AND puts more pressure on d4. White must defend carefully. If White is not careful, the b2 pawn falls.",why:"Qb6 creates a double threat — b2 and d4. White must deal with both. If Qxb2, White plays Bd3 and the queen gets cut off. But Black has calculated that the activity compensates."},
+{san:"Be2",hl:"6.Be2 — Solid defence",txt:"Be2 develops and prepares castling, ignoring the b2 pawn threat. White is content to develop solidly and defend with the bishop."},
+{san:"cxd4",hl:"6...cxd4 — Black breaks open the centre!",txt:"cxd4! Black captures the d4 pawn, breaking open the centre. Now if cxd4, Black plays Nxd4 and the pawn chain is shattered. White must recapture.",why:"cxd4 is the key pawn break. After this, the French bishop on c8 starts to breathe, and Black's pieces flood the board."},
+{san:"cxd4",hl:"7.cxd4 — White recaptures",txt:"White recaptures with the c-pawn. The centre is now symmetrical — White has pawns on d4 and e5, Black has d5 and e6. Black now plays the aggressive Bb4+!"},
+{san:"Bb4",hl:"7...Bb4+ — Check! Disrupting White's development",txt:"Bb4+! Black gives check, forcing White to block and disrupting the development plan. After Bd2 or Nbd2, Black can play Bxd2 or Ne7 and continue with a solid position.",tip:"The French Defence is one of the most solid openings in chess. The key plan: c5 attacks d4, Qb6 attacks b2 and d4 simultaneously, then cxd4 breaks open the centre. The c8 bishop comes to life after cxd4 — the 'bad' bishop transforms into a strong piece!"}
+],
+summary:{mistake:"White tries to maintain the central pawn chain passively without attacking Black's queenside play, allowing c5 and cxd4 to break down the structure.",punish:"After cxd4 cxd4 Bb4+, Black has broken the centre and has active pieces. The French bishop on c8 is now fully alive.",fallback:"If White plays 3.Nc3 (Classical French) instead of e5, Black plays Bb4 (Winawer) or Nf6 — both lead to rich, fighting positions favourable for Black."}},
+
+/* ── RUY LOPEZ NOAH'S ARK TRAP ──────────────────────────── */
+{id:'b_noahsark',side:'Black',level:'Intermediate',name:"Noah's Ark Trap",sub:"Ruy Lopez — trapping White's bishop with pawns",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens e4."},
+{san:"e5",hl:"1...e5",txt:"Black mirrors."},
+{san:"Nf3",hl:"2.Nf3 — Development",txt:"Knight develops, attacks e5."},
+{san:"Nc6",hl:"2...Nc6 — Defend e5",txt:"Natural defence."},
+{san:"Bb5",hl:"3.Bb5 — The Ruy Lopez!",txt:"Bb5 — the Ruy Lopez, the most respected opening against 1...e5. The bishop pins the Nc6 and indirectly pressures e5.",why:"The Ruy Lopez is the most deeply analysed opening against 1...e5. It aims for a long, strategic game. White will often castle and play d4 later."},
+{san:"a6",hl:"3...a6 — The Morphy Defence",txt:"a6 attacks the bishop immediately. White must decide: take on c6 (giving up the bishop pair) or retreat. Most players retreat to a4.",why:"a6 is the most popular response to the Ruy Lopez. It questions the bishop immediately and is named after the legendary Paul Morphy, who analysed it in the 1850s."},
+{san:"Ba4",hl:"4.Ba4 — Bishop retreats, maintains the pin",txt:"Ba4 retreats but maintains the indirect pin on Nc6. White plans to castle and play c3-d4 later. Now Black plays Nf6 developing naturally."},
+{san:"Nf6",hl:"4...Nf6 — Development, counterattacking e4",txt:"Nf6 develops and attacks the e4 pawn. White plays 0-0 and Black plays Be7 in the classical main line. But here White tries to be clever with d4..."},
+{san:"d4",hl:"5.d4 — White opens the centre early",txt:"White pushes d4 immediately, trying to gain central space and open the position. This is more aggressive than the classical approach but creates tactical chances for Black.",warn:"d4 here is premature — Black can play Nxd4! or b5 exploiting the bishop on a4."},
+{san:"b5",hl:"5...b5! — Attacking the bishop AND the centre!",txt:"b5! Black attacks the Ba4 while fighting for central space. The bishop must retreat again — and this time, it will be trapped!",why:"b5 is the start of the Noah's Ark Trap. The bishop retreats to b3, and then Black plays c5-d4-c4 — chasing the bishop into a cage from which it cannot escape."},
+{san:"Bb3",hl:"6.Bb3 — Bishop retreats to b3",txt:"Bishop retreats to b3. It looks safe here, defended by the pawn on a2. But Black now plays the Noah's Ark combination: c5-d4-c4 — three pawn moves that will trap the bishop completely!",why:"b3 looks solid — the bishop is on a long diagonal and defended. But the pawn chain b5-c4 will seal it in forever."},
+{san:"c5",hl:"6...c5 — Pawn attacks d4",txt:"c5! Black attacks White's d4 pawn. White must respond. If dxc5, the b3 bishop loses its only escape route. If d5, Black plays c4 trapping the bishop.",why:"c5 is the key move. It attacks d4 and begins boxing in the bishop. White cannot ignore it."},
+{san:"dxe5",hl:"7.dxe5 — White captures",txt:"White plays dxe5, trying to get something back. But Black plays d4! — the pawn marches forward and the bishop is boxed in forever.",warn:"Whatever White plays, the bishop on b3 is doomed. The pawns on a6, b5, c5 create a perfect cage. This is the Noah's Ark — the bishop is trapped like animals in the ark!"},
+{san:"d4",hl:"7...d4 — Pawn advances! Bishop is TRAPPED",txt:"d4! The pawn marches forward, attacking the bishop and cutting off all its escape squares. The bishop on b3 cannot go to a4 (blocked by a6 and b5), cannot go to c2 (blocked by pawns), and cannot go to d1. After c4 next move, the bishop is permanently trapped on b3.",tip:"The Noah's Ark Trap is named because the bishop gets trapped 'like animals in Noah's Ark' — surrounded on all sides by pawns. It arises in the Ruy Lopez when White plays d4 too early. The key sequence: a6 Ba4 Nf6 d4 b5 Bb3 c5 dxe5 d4 — and White's beautiful Ruy Lopez bishop is permanently caged!"}
+],
+summary:{mistake:"White plays d4 too early in the Ruy Lopez, allowing b5 c5 d4 to create a pawn cage that permanently traps the bishop on b3.",punish:"After d4 c4, the Ba3 is trapped. White must give up a bishop for pawns — material disaster.",fallback:"White should play the Classical Ruy Lopez: 0-0, Re1, c3, then d4 — in that order. The bishop on b3 is safe when the position is properly defended."}},
+
+/* ── SCOTCH GAME TRAP ────────────────────────────────────── */
+{id:'w_scotch',side:'White',level:'Beginner',name:"Scotch Game Trap",sub:"1.e4 e5 2.Nf3 Nc6 3.d4 — Nd4 fork wins material",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens with e4."},
+{san:"e5",hl:"1...e5",txt:"Black mirrors."},
+{san:"Nf3",hl:"2.Nf3 — Development",txt:"Knight develops and attacks e5."},
+{san:"Nc6",hl:"2...Nc6 — Defend e5",txt:"Black defends."},
+{san:"d4",hl:"3.d4 — The Scotch Game!",txt:"d4 — the Scotch Game! White immediately opens the centre without Bc4 first. This is a very direct and aggressive approach, historically played by Kasparov as his main weapon against e5.",why:"The Scotch is one of the best responses to 1...e5. It immediately opens the centre and puts Black under pressure. Kasparov used it to surprise Karpov in their 1990 World Championship match."},
+{san:"exd4",hl:"3...exd4 — Black captures",txt:"Black takes the offered d4 pawn. White recaptures with the knight."},
+{san:"Nxd4",hl:"4.Nxd4 — Knight to d4, powerful central outpost",txt:"Nxd4! White's knight leaps to d4 — a powerful central square. Now Black usually plays Nf6, Bc5, or Nxd4 to trade knights. But if Black plays carelessly..."},
+{san:"Bc5",hl:"4...Bc5 — Black develops the bishop",txt:"Bc5 develops the bishop and attacks the Nd4. This is the Classical Scotch. White now plays Be3 to defend the knight."},
+{san:"Be3",hl:"5.Be3 — Defending the knight",txt:"Be3 defends the Nd4 and develops. If Black takes on d4, White recaptures with Be3xd4 — no problem. But Black plays the greedy Qf6?? attacking both the Be3 and the Nd4."},
+{san:"Qf6",hl:"5...Qf6?? — Black attacks two pieces! But walks into Nd5!!",txt:"Qf6 attacks both the Be3 and the Nd4 simultaneously. Black thinks they've won material — but White plays Nd5! — a stunning knight fork.",warn:"Qf6 looks like it wins material but it walks into Nd5! — one of chess's most famous knight forks."},
+{san:"Nd5",hl:"6.Nd5!! — KNIGHT FORK! Queen and bishop attacked!",txt:"Nd5!! White's knight forks the queen on f6 AND attacks the bishop on c5! Black cannot save both pieces. Whatever Black does, White wins material decisively. This is one of the most elegant traps in the Scotch Game.",why:"Nd5 attacks the queen AND the bishop simultaneously. The queen cannot defend the bishop. Black must move one and lose the other. White wins a piece for nothing.",tip:"The Scotch Game Nd5 fork is a beautiful tactical motif. The lesson: in the Scotch, never play Qf6 attacking two pieces unless you've verified there's no fork in return. Always check for knight forks before placing your queen on an open diagonal!"}
+],
+summary:{mistake:"Black plays Qf6 thinking it attacks two pieces at once — but White's Nd5 forks the queen AND the Bc5 simultaneously.",punish:"After Nd5, Black loses a piece no matter what they play.",fallback:"If Black plays Nf6 (correct) instead of Qf6, the Scotch Game continues normally. White plays Nc3, Bc4 and has a solid central position."}},
+
+/* ── VIENNA GAME TRAP ────────────────────────────────────── */
+{id:'w_vienna',side:'White',level:'Beginner',name:"Vienna Game Trap",sub:"1.e4 e5 2.Nc3 — Frankenstein-Dracula Variation",
+moves:[
+{san:"e4",hl:"1.e4 — Open game",txt:"White opens e4."},
+{san:"e5",hl:"1...e5 — Black mirrors",txt:"Black mirrors in the centre."},
+{san:"Nc3",hl:"2.Nc3 — The Vienna Game!",txt:"Nc3 — the Vienna Game! Instead of developing the f3 knight (which attacks e5), White develops the c3 knight first. This keeps options open — White might play f4 (Vienna Gambit), Bc4 (Italian-like), or d4 (Scotch-like).",why:"The Vienna is a great surprise weapon. It's solid, leads to active positions, and has many trappy lines. It's much less theory than the Ruy Lopez or Italian."},
+{san:"Nf6",hl:"2...Nf6 — Natural development",txt:"Nf6 develops and attacks e4. The most natural response. Now White plays Bc4, setting up the most dangerous trap in the Vienna Game."},
+{san:"Bc4",hl:"3.Bc4 — Bishop to c4, targeting f7!",txt:"Bc4 develops the bishop to c4, targeting f7 and preparing several sharp options. This is now very similar to the Italian Game — but White has Nc3 instead of Nf3, which creates different tactical possibilities.",why:"With Nc3 already developed, White has a more powerful setup than the Italian Game. The knight on c3 supports d5 jumps and creates tactical threats with Nd5."},
+{san:"Nxe4",hl:"3...Nxe4?? — Taking the e4 pawn! Big mistake!",txt:"Black takes the 'free' e4 pawn with the knight. This looks tempting — a free pawn! But White has the stunning Bxf7+!! — sacrificing the bishop to win the knight back with interest.",warn:"Nxe4 is one of the most common mistakes in the Vienna Game. The e4 pawn is POISONED. Never take it with the knight when White has Bc4!"},
+{san:"Bxf7",hl:"4.Bxf7+!! — Bishop sacrifice! King forced out!",txt:"Bxf7+!! White sacrifices the bishop on f7, forking the king and rook. The king must take — and then White plays Nd5 forking the king AND queen with check.",why:"After Kxf7, White plays Nd5! — forking the Black king AND the Black queen simultaneously. Black loses the queen for free."},
+{san:"Kxf7",hl:"4...Kxf7 — King takes, walks into the fork",txt:"King must take the bishop. Now White plays Nd5+ — forking king and queen."},
+{san:"Nd5",hl:"5.Nd5+ — FORK! King and queen attacked!",txt:"Nd5+!! The knight forks the king on f7 AND the queen on d8 with check! Black must move the king — and then White takes the queen for free. White has won a queen for a bishop — a massive material gain.",tip:"The Vienna Game trap: after Bc4, if Black takes the e4 pawn with Nxe4, play Bxf7+! Kxf7 Nd5+ — winning the queen. This pattern (bishop sacrifice on f7 followed by a knight fork) is one of the most important tactical motifs in chess!"}
+],
+summary:{mistake:"Black takes the 'free' e4 pawn with Nxe4, walking into Bxf7+! Kxf7 Nd5+ which forks the king and queen.",punish:"After Nd5+, White wins the queen for a bishop — a decisive material advantage.",fallback:"If Black plays Bc5 or d6 (correct), the Vienna Game continues normally as a solid equal game."}},
+
+/* ── BLACKBURNE-SHILLING TRAP ────────────────────────────── */
+{id:'b_blackburne',side:'Black',level:'Beginner',name:"Blackburne-Shilling Gambit",sub:"Italian Game — Ng4 wins the queen or mates",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens."},
+{san:"e5",hl:"1...e5",txt:"Black mirrors."},
+{san:"Nf3",hl:"2.Nf3 — Italian setup begins",txt:"White develops the knight."},
+{san:"Nc6",hl:"2...Nc6 — Defends e5",txt:"Black defends."},
+{san:"Bc4",hl:"3.Bc4 — Italian Game",txt:"Bc4, targeting f7. The Italian Game."},
+{san:"Nd4",hl:"3...Nd4!? — The Blackburne-Shilling Gambit!",txt:"Nd4!? — the Blackburne-Shilling Gambit! Black puts the knight on d4, attacking the Nf3. This is a provocative and tricky move that has caught thousands of players off guard. If White carelessly plays Nxe5 or Nxd4, Black has devastating counter-play.",why:"Nd4 attacks Nf3 and if taken, sets up a queen fork. It's named after the great British player Joseph Blackburne who used this trick repeatedly."},
+{san:"Nxe5",hl:"4.Nxe5?? — White takes the 'free' e5 pawn! Big mistake!",txt:"White takes on e5, thinking they win a free pawn since Nc6 is under attack. But Black has a stunning reply: Qg5! — attacking the Ne5 AND the g2 pawn simultaneously.",warn:"Nxe5 is the losing mistake. White should play d3 or c3. After Nxe5, Black wins material with the Qg5 double attack."},
+{san:"Qg5",hl:"4...Qg5! — Double attack! Knight AND g2 pawn under fire!",txt:"Qg5! attacks the Ne5 (which is undefended) AND the g2 pawn simultaneously. White must choose which to save. If they save the knight, they lose the g-pawn. If they defend g2, they lose the knight.",why:"Qg5 is the key move. It creates a fork — two attacks that cannot both be defended. White almost always plays Nxf7 trying to complicate, but Black has Qxg2! threatening mate."},
+{san:"Nxf7",hl:"5.Nxf7 — White sacrifices trying to confuse Black",txt:"White plays the desperate Nxf7, forking the queen and rook. Black must take the knight — but after Kxf7, Black plays Qxg2! threatening Rg8 and mate. White has nothing.",why:"Nxf7 tries to create confusion, but after Kxf7 Qxg2, White's position collapses. Black has the queen on g2 threatening unstoppable attacks."},
+{san:"Qxg2",hl:"5...Qxg2 — Queen takes g2, threatening Rg8 and mate!",txt:"Qxg2! The queen takes on g2, threatening Rg8+ and then checkmate. White's position is completely lost. The rook on h1 is hanging, the king is exposed, and Black's attack is overwhelming.",tip:"The Blackburne-Shilling is a fantastic trap for beginners! The key: after Bc4 Nd4, if White plays Nxe5, respond with Qg5! — attacking the knight AND g2 simultaneously. White has no good answer. Named after legendary British player Joseph Blackburne (1841-1924) who trapped countless club players with this!"}
+],
+summary:{mistake:"White plays Nxe5 taking the 'free' pawn, not seeing that Qg5 attacks the undefended knight AND the g2 pawn simultaneously.",punish:"After Qg5 Nxf7 Qxg2, Black threatens Rg8+ and unstoppable checkmate. White is completely lost.",fallback:"White should play c3 or d3 in response to Nd4. Both avoid the trap and give a solid position."}},
+
+/* ── DUTCH DEFENCE TRAP ──────────────────────────────────── */
+{id:'b_dutch',side:'Black',level:'Intermediate',name:"Dutch Defence — Staunton Gambit Trap",sub:"1.d4 f5 — punishing the Staunton Gambit",
+moves:[
+{san:"d4",hl:"1.d4 — Queen's Pawn",txt:"White opens d4."},
+{san:"f5",hl:"1...f5 — The Dutch Defence!",txt:"f5 — the Dutch Defence! One of the most aggressive responses to d4. Black immediately fights for e4, controls the kingside, and prepares a kingside attack. It's been played by World Champions Botvinnik and Alekhine.",why:"The Dutch is a fighting defence. Black sacrifices central balance for dynamic kingside play. It's unbalanced and leads to complex positions — perfect for players who want to win with Black."},
+{san:"e4",hl:"2.e4 — The Staunton Gambit!",txt:"e4 — the Staunton Gambit! White immediately sacrifices a pawn to open the centre and punish Black's f5. Named after Howard Staunton, the 19th century British champion.",warn:"The Staunton Gambit is tricky! Many Dutch players don't know the correct response. Black must NOT take greedily."},
+{san:"fxe4",hl:"2...fxe4 — Black accepts! The gambit is taken",txt:"Black takes the e4 pawn. This is fine — but now Black must play very accurately. White has rapid development and open lines."},
+{san:"Nc3",hl:"3.Nc3 — Rapid development, attacking the e4 pawn",txt:"Nc3 develops and attacks the e4 pawn. Black should defend with Nf6 or d5. But if Black plays carelessly with e6 and d6 without developing fast enough..."},
+{san:"Nf6",hl:"3...Nf6 — Correct! Develop and defend",txt:"Nf6 defends the e4 pawn and develops rapidly. This is the best move. Black must now play d5 and Nc6 quickly to avoid getting crushed by White's rapid development.",why:"Nf6 is essential. It defends e4 and develops a piece. Black's plan: develop all pieces rapidly, give back the extra pawn if necessary, and reach a solid position."},
+{san:"Bg5",hl:"4.Bg5 — Pin! White develops aggressively",txt:"Bg5 pins the Nf6 against the queen, creating real problems. If Nf6 moves, e4 falls. Black must deal with this pin carefully.",warn:"The pin is very strong here. Black cannot allow Bxf6 followed by Nxe4 without compensation."},
+{san:"Nc6",hl:"4...Nc6 — Development and central support",txt:"Nc6 develops and supports the e4 pawn. Black is developing as fast as possible to neutralise White's gambit compensation."},
+{san:"d5",hl:"5.d5! — White strikes! Opening the position",txt:"d5! White pushes forward, opening the position and increasing the pressure. Black's central pawn chain comes under attack.",why:"d5 is a strong central thrust. If cxd5, White plays Bxf6 Qxf6 Nxe4 winning back the pawn with a strong position. Black needs to be very careful."},
+{san:"Ne5",hl:"5...Ne5 — Knight to e5, counter-attacking!",txt:"Ne5! Black centralises the knight to e5, attacking the Bg5 and supporting the position. Black is fighting hard to neutralise White's compensation for the gambit.",tip:"The Dutch Defence is a fascinating opening — aggressive and unbalanced. Against the Staunton Gambit (2.e4), the key is to develop rapidly: Nf6, Nc6, Ne5. Don't get greedy and try to hold the extra pawn at the cost of development. The Dutch is beloved by creative, attacking players — it was a favourite of Mikhail Botvinnik and Bent Larsen."}
+],
+summary:{mistake:"Black tries to hold the extra Staunton Gambit pawn instead of developing rapidly, allowing White's active pieces to overwhelm the position.",punish:"If Black plays slowly (e6-d6 without Nf6), White plays f3! exf3 Nxf3 with a massive development advantage and open files against Black's king.",fallback:"If White plays 2.Nc3 or 2.Nf3 instead of the Staunton, Black plays g6 (Leningrad Dutch) or e6 (Stonewall Dutch) — both excellent fighting systems."}},
+
+/* ── SICILIAN NAJDORF TRAP ───────────────────────────────── */
+{id:'w_sicdrag',side:'White',level:'Intermediate',name:"Sicilian Dragon Trap",sub:"Yugoslav Attack — winning the queen",
+moves:[
+{san:"e4",hl:"1.e4 — Open game",txt:"White opens with e4."},
+{san:"c5",hl:"1...c5 — Sicilian Defence!",txt:"c5 — the Sicilian, the most popular and combative response to e4. Black fights for the centre asymmetrically and creates imbalanced positions."},
+{san:"Nf3",hl:"2.Nf3 — Development",txt:"White develops."},
+{san:"d6",hl:"2...d6 — Preparing the Dragon",txt:"d6 — Black is heading for the Dragon Variation, one of the sharpest and most exciting lines in all of chess."},
+{san:"d4",hl:"3.d4 — Central break",txt:"d4 opens the centre."},
+{san:"cxd4",hl:"3...cxd4 — Black captures",txt:"Black captures."},
+{san:"Nxd4",hl:"4.Nxd4 — Knight recaptures",txt:"White recaptures with the knight."},
+{san:"Nf6",hl:"4...Nf6 — Development",txt:"Knight develops, attacks e4."},
+{san:"Nc3",hl:"5.Nc3 — Defence of e4",txt:"Nc3 defends e4."},
+{san:"g6",hl:"5...g6 — THE DRAGON! Fianchetto begins",txt:"g6 — the Dragon Variation! Black prepares to fianchetto the bishop to g7, creating the famous Dragon bishop — the most powerful bishop in chess. The Dragon is one of the sharpest and most heavily analysed openings in the history of chess.",why:"The Dragon bishop on g7 controls the entire h8-a1 diagonal and participates in attacks on both sides. It's called the 'Dragon' because the pawn structure resembles a dragon. Kasparov and Fischer both loved this opening."},
+{san:"Be3",hl:"6.Be3 — Yugoslav Attack begins!",txt:"Be3 — White enters the Yugoslav Attack, the most aggressive and theoretically rich response to the Dragon. White will castle queenside and launch a devastating kingside pawn storm with f3, g4, h4, h5, and h6.",why:"The Yugoslav Attack is a race: White attacks the Black kingside (h4-h5-h6), Black counterattacks White's queenside (Rb8, b5, b4). Both sides attack the other's king. Whoever breaks through first usually wins."},
+{san:"Bg7",hl:"6...Bg7 — The Dragon bishop emerges!",txt:"Bg7 — the Dragon bishop takes its ideal post. The g7 bishop controls the long diagonal and will support Black's counterattack all game. Now White castles queenside."},
+{san:"f3",hl:"7.f3 — Preparing the pawn storm",txt:"f3 supports e4 and prepares g4-h4 pawn storm. White is going for the kill on the kingside.",why:"f3 is essential in the Yugoslav Attack. It prevents Ng4 by Black and prepares the kingside pawn roll: g4, h4, h5, h6."},
+{san:"O-O",hl:"7...0-0 — Black castles into the attack!",txt:"Black castles kingside — into White's coming attack. This is the thrill of the Dragon: both kings castle on opposite sides and both sides race to checkmate the other."},
+{san:"Qd2",hl:"8.Qd2 — Preparing 0-0-0",txt:"Qd2 connects the rooks and prepares queenside castling. White is about to launch the full Yugoslav Attack."},
+{san:"Nc6",hl:"8...Nc6 — Attacking the Nd4",txt:"Nc6 develops and attacks the Nd4. Standard Dragon development."},
+{san:"O-O-O",hl:"9.0-0-0 — White castles queenside! The race is on!",txt:"White castles queenside — the race begins! White will now push h4-h5-h6 to destroy Black's kingside. Black will push b5-b4 to destroy White's queenside. The Dragon is one of the most exciting openings in chess — both sides playing for checkmate!",why:"The Yugoslav Attack race is chess at its most exciting. White plays h4, h5, h6, Bh6 trading the Dragon bishop, then Nd5 and g4 to break through. Black plays Rb8, b5, b4, Nxd4, Rxb2 attacking White's king. Every move counts."},
+{san:"d5",hl:"9...d5!? — Black strikes in the centre!",txt:"d5! Black counterattacks in the centre, trying to complicate before White's attack arrives. If exd5 Nxd5, Black gets active piece play.",why:"d5 is an aggressive try that changes the nature of the game. Instead of the queenside race, Black opens the centre immediately."},
+{san:"exd5",hl:"10.exd5 — White accepts",txt:"White captures."},
+{san:"Nxd5",hl:"10...Nxd5 — Knight to d5, active and central",txt:"Knight to d5, very active. Now White plays Nxc6 to simplify."},
+{san:"Nxc6",hl:"11.Nxc6 — White simplifies",txt:"Nxc6 trades the knight."},
+{san:"bxc6",hl:"11...bxc6 — Black recaptures",txt:"Black takes back, opening the b-file."},
+{san:"Bd4",hl:"12.Bd4 — Bishop to d4, attacking the Dragon bishop!",txt:"Bd4 attacks the Bg7 and prepares to trade off Black's most important piece. If Bxd4, White recaptures and has a powerful position.",tip:"The Sicilian Dragon is the sharpest opening in chess. The Yugoslav Attack race is legendary — games are decided by single tempos. If you love tactical, attacking chess with both sides racing to checkmate, the Dragon is perfect. Study it deeply — it's a lifetime opening!"}
+],
+summary:{mistake:"Black plays too slowly in the Dragon, allowing White's h4-h5-h6 attack to breakthrough before Black's queenside counterplay arrives.",punish:"In the full Yugoslav Attack, White's attack with h4-h5-h6 Bh6 Nd5 often leads to spectacular checkmates on h7 or f7.",fallback:"If Black plays the Accelerated Dragon (g6 before d6), the lines are different. Black can reach Maroczy Bind positions with more solid play."}},
+
+/* ── SCANDINAVIAN TRAP ───────────────────────────────────── */
+{id:'b_scandi',side:'Black',level:'Beginner',name:"Scandinavian Defence Trap",sub:"1.e4 d5 — the Icelandic Gambit",
+moves:[
+{san:"e4",hl:"1.e4 — White opens",txt:"White plays e4."},
+{san:"d5",hl:"1...d5 — The Scandinavian!",txt:"d5 — the Scandinavian Defence (also called the Centre Counter)! Black immediately counterattacks White's e4 pawn. This is one of the oldest and most direct responses to e4.",why:"The Scandinavian is great for players who want active piece play from move 1. Black sacrifices a tempo (the queen comes out early) for a solid, harmonious position."},
+{san:"exd5",hl:"2.exd5 — White accepts",txt:"White takes the d5 pawn — practically forced. Now Black can take back with the queen (2...Qxd5, the main line) or with the knight (2...Nf6, the Icelandic Gambit)."},
+{san:"Nf6",hl:"2...Nf6 — The Icelandic Gambit!",txt:"Nf6 — the Icelandic Gambit! Instead of taking back immediately with the queen, Black plays the knight, keeping the pawn on d5 and preparing a fierce gambit. This is the sharpest line of the Scandinavian.",why:"The Icelandic Gambit sacrifices a pawn for rapid development and dangerous attacking chances. It was developed by Icelandic players in the 1970s and is a brilliant surprise weapon."},
+{san:"c4",hl:"3.c4 — White tries to keep the pawn",txt:"c4 tries to hold the d5 pawn by supporting it with another pawn. This is very greedy and leads to trouble.",warn:"c4 is greedy. White should play d4 or Nc3 instead. Trying to hold the d5 pawn with c4 allows Black's pieces to flood the board."},
+{san:"e6",hl:"3...e6 — Attacking d5 AND developing",txt:"e6 attacks the d5 pawn directly AND opens the diagonal for the dark-squared bishop. White's two pawns (c4 and d5) are both under threat.",why:"e6 is the Icelandic Gambit's key move. It attacks both c4 and d5, and if dxe6, Black plays Bxe6 with a massive lead in development for the sacrificed pawn."},
+{san:"dxe6",hl:"4.dxe6 — White takes, Black's pieces explode",txt:"White takes on e6. Now Black captures: Bxe6 — developing with tempo AND opening the diagonal. White has two extra pawns but Black has a huge lead in development.",why:"After dxe6 Bxe6, Black has the bishop pair, open files, and massive development. White's two extra pawns are useless if Black checkmates first."},
+{san:"Bxe6",hl:"4...Bxe6 — Bishop develops with tempo!",txt:"Bxe6! The bishop develops to e6, controlling important squares and threatening Nc6-Bb4+ later. Black has sacrificed a pawn but has a wonderful position — rapid development, open files, and active pieces.",tip:"The Icelandic Gambit is a fantastic surprise weapon! After 1.e4 d5 2.exd5 Nf6 3.c4 e6, if White takes on e6, Black gets a massive lead in development. The key idea: Bxe6, Nc6, Bc5, 0-0 — all with tempo. White's king will be under fire before they can consolidate the extra material."}
+],
+summary:{mistake:"White plays c4 (greedy) trying to hold the d5 pawn, then dxe6 giving Black the e6 bishop with tempo and a huge development lead.",punish:"After dxe6 Bxe6, Black plays Nc6, Bc5, 0-0 with a raging attack for the sacrificed pawn.",fallback:"If White plays d4 (correct) instead of c4, the Scandinavian reaches normal positions. Black plays Bg4, Nbd7 and develops solidly."}},
+
+/* ── KING'S GAMBIT TRAP ──────────────────────────────────── */
+{id:'w_kingsgambit',side:'White',level:'Intermediate',name:"King's Gambit Trap",sub:"1.e4 e5 2.f4 — Muzio Gambit attack",
+moves:[
+{san:"e4",hl:"1.e4 — Open game",txt:"White opens with e4."},
+{san:"e5",hl:"1...e5 — Black mirrors",txt:"Black mirrors."},
+{san:"f4",hl:"2.f4 — THE KING'S GAMBIT! Wild and aggressive",txt:"f4 — the King's Gambit! One of the oldest and most aggressive openings in chess history. White sacrifices the f4 pawn for rapid development, a lead in the centre, and attacking chances against Black's king. Played by Morphy, Spassky, and Fischer who called it 'perhaps the most exciting opening in chess'.",why:"The King's Gambit leads to wildly tactical positions where both sides play for the attack. White gets rapid development and open lines; Black gets an extra pawn but a slightly exposed king."},
+{san:"exf4",hl:"2...exf4 — Black accepts the gambit!",txt:"Black accepts! The King's Gambit Accepted — Black takes the pawn and must hold it or give it back at the right moment. Now White plays Nf3."},
+{san:"Nf3",hl:"3.Nf3 — Development AND stopping Qh4+",txt:"Nf3 develops the knight AND prevents the annoying Qh4+ check. White is developing with tempo.",why:"Nf3 is essential — it stops the immediate Qh4+ which would force White's king to move (losing castling rights). Development first."},
+{san:"g5",hl:"3...g5 — Black defends the f4 pawn!",txt:"g5 defends the f4 pawn and prepares g4 to attack the Nf3. Black tries to hold the extra pawn with a pawn chain.",warn:"g5 is the classical defence but it weakens the kingside. White now plays h4 attacking immediately."},
+{san:"h4",hl:"4.h4 — Attack! White breaks open the position",txt:"h4! White attacks the g5 pawn immediately. This is the Kieseritzky Gambit — the most popular response. White sacrifices another pawn to open the h-file and the centre.",why:"h4 is the key attacking move. If g5xh4, White plays Nxe5 with tremendous activity. If g5-g4, White plays Ne5 anyway with powerful central control."},
+{san:"g4",hl:"4...g4 — Black attacks the knight!",txt:"g4 attacks the Nf3. White must deal with this. Now comes the famous Muzio Gambit: Ng5!!"},
+{san:"Ng5",hl:"5.Ng5!! — THE MUZIO GAMBIT! Knight sacrifice for a fierce attack",txt:"Ng5!! White sacrifices the knight on g5! If Black takes with gxf3, White plays Qxf3 with a massive attack. The queen on f3, combined with Bc4 and the open f-file, creates a devastating attack on f7.",why:"After gxf3 Qxf3, White has the queen on f3, bishop going to c4, and the open f-file. The attack on f7 and the exposed Black king is nearly impossible to defend practically.",tip:"The King's Gambit is the most romantic and exciting opening in chess. After 2.f4 exf4 Nf3 g5 h4 g4 Ng5!!, the Muzio Gambit gives White a wild attacking position for the sacrificed knight. Fischer said: 'The King's Gambit is perhaps the most exciting opening in chess.' Spassky won the famous 'Game of the Century' playing the King's Gambit against Fischer in 1960!"}
+],
+summary:{mistake:"Black plays g5 to hold the extra pawn, then g4 to attack the knight — but Ng5!! sacrifices the knight for an overwhelming attack with Qxf3.",punish:"After gxf3 Qxf3, White has Bc4, 0-0, and the open f-file. The attack on f7 and the Black king is usually decisive.",fallback:"If Black plays d5 (correct) instead of g5, the position is more equal. The King's Gambit requires precise play from White — if Black develops quickly, White may not get enough for the pawn."}},
+
+/* ── GRÜNFELD DEFENCE TRAP ───────────────────────────────── */
+{id:'b_grunfeld',side:'Black',level:'Advanced',name:"Grünfeld Defence Trap",sub:"1.d4 Nf6 2.c4 g6 3.Nc3 d5 — Russian System trap",
+moves:[
+{san:"d4",hl:"1.d4 — Queen's Pawn",txt:"White opens d4."},
+{san:"Nf6",hl:"1...Nf6 — Fighting the centre",txt:"Nf6 fights for the centre with a piece."},
+{san:"c4",hl:"2.c4 — English/QGD setup",txt:"c4 claims queenside space."},
+{san:"g6",hl:"2...g6 — Preparing the Grünfeld",txt:"g6 — Black is heading for the Grünfeld Defence, one of the sharpest and most theoretically rich openings in chess, beloved by Bobby Fischer and Garry Kasparov."},
+{san:"Nc3",hl:"3.Nc3 — Classical setup",txt:"Nc3 develops and supports d4."},
+{san:"d5",hl:"3...d5 — THE GRÜNFELD! Counterattacking the centre",txt:"d5!! This is the Grünfeld Defence. Unlike the King's Indian (which allows White a big centre), the Grünfeld immediately counterattacks. Black challenges White's c4 and d4 with d5 and prepares to fianchetto the bishop to g7 to attack the centre with pieces.",why:"The Grünfeld is a hypermodern defence — Black allows White to build a big pawn centre and then attacks it with pieces. The Bg7 bishop becomes a monster attacking d4. Used by Fischer and Kasparov as their main weapon against d4."},
+{san:"cxd5",hl:"4.cxd5 — White captures",txt:"White captures on d5."},
+{san:"Nxd5",hl:"4...Nxd5 — Knight recaptures",txt:"Knight recaptures on d5."},
+{san:"e4",hl:"5.e4 — White builds the big centre",txt:"e4 — White builds the classical 'big centre' that the Grünfeld is designed to attack. White has pawns on d4 and e4, controlling a huge amount of space.",why:"This is the point of the Grünfeld — White builds the centre and Black attacks it. After Bg7, the bishop will laser-beam d4 for the entire game."},
+{san:"Nxc3",hl:"5...Nxc3 — Black captures!",txt:"Nxc3 — Black trades the knight. This looks like helping White (giving them the bishop pair) but actually doubles White's pawns and gives Black a half-open file."},
+{san:"bxc3",hl:"6.bxc3 — White recaptures, doubled pawns",txt:"White recaptures with the b-pawn, creating doubled c-pawns. White has the bishop pair and a big centre; Black has a better pawn structure. The tension is set for the whole game."},
+{san:"Bg7",hl:"6...Bg7 — The Grünfeld bishop! Attacking d4!",txt:"Bg7!! The Grünfeld bishop takes its place on g7, aiming at White's pawn centre from afar. This is the most important piece in the Grünfeld — it attacks d4 and will remain a monster for the entire game.",why:"The Bg7 in the Grünfeld is even more powerful than in the King's Indian because it attacks the CENTRE rather than just supporting a kingside attack. The bishop will eventually help Black destroy White's pawns on d4 and c3."},
+{san:"Bc4",hl:"7.Bc4 — Russian System! White develops aggressively",txt:"Bc4 — the Russian System, one of White's most aggressive responses. The bishop targets f7 and supports the centre. Now Black plays c5 to attack d4.",why:"Bc4 is very aggressive. White threatens to play Nf3, 0-0, and then push d5 with a space advantage. Black must counteract with c5 immediately."},
+{san:"c5",hl:"7...c5 — Black attacks d4!",txt:"c5! Black immediately attacks White's d4 pawn. This is the key counterplay in the Grünfeld — attack the base of White's pawn centre and force it to declare itself.",why:"c5 targets d4 directly. If dxc5, Black's bishop on g7 comes to life. If d5, Black plays Ne7 and counterattacks. Black has active counterplay against White's massive centre."},
+{san:"Ne2",hl:"8.Ne2 — Development",txt:"Ne2 develops the knight. White prepares 0-0 and Be3 defending d4."},
+{san:"Nc6",hl:"8...Nc6 — More pressure on d4!",txt:"Nc6 develops and piles more pressure on d4. Three Black pieces (Nc6, Bg7, c5) are all attacking d4 at once. White's centre is under maximum pressure.",tip:"The Grünfeld Defence is one of the most exciting and deeply analysed openings in chess. The key idea: let White build the big centre (d4+e4), then attack it relentlessly with Bg7, c5, Nc6. Fischer used the Grünfeld to destroy Spassky in their famous 1972 World Championship match. Kasparov used it to defeat Karpov repeatedly in their legendary matches."}
+],
+summary:{mistake:"White tries to hold the big centre passively against the Grünfeld, but the combined pressure of Bg7, c5, and Nc6 on d4 eventually breaks it down.",punish:"After cxd4 cxd4 Qa5+, Black wins the c3 pawn and has active pieces against White's weak pawn structure.",fallback:"If White plays 4.Nf3 instead of e4 (Exchange Variation), the game is slightly quieter. Black plays Bg7, 0-0, c6 and counterplays with b5 and c5 later."}},
+
+/* ── ALEKHINE DEFENCE TRAP ───────────────────────────────── */
+{id:'b_alekhine',side:'Black',level:'Intermediate',name:"Alekhine's Defence Trap",sub:"1.e4 Nf6 — Four Pawns Attack trap",
+moves:[
+{san:"e4",hl:"1.e4 — White opens",txt:"White plays e4."},
+{san:"Nf6",hl:"1...Nf6 — ALEKHINE'S DEFENCE! Provoking the advance",txt:"Nf6!! One of the most provocative moves in chess. Black develops the knight to f6 — directly into White's centre — inviting White to attack it with pawns. This is Alekhine's Defence, invented by World Champion Alexander Alekhine in 1921.",why:"Alekhine's Defence is a hypermodern opening. Black provokes White into building a massive pawn centre, then attacks it from the flanks. It's psychologically brilliant — White's pawns become overextended targets."},
+{san:"e5",hl:"2.e5 — White attacks the knight!",txt:"e5 attacks the Nf6, exactly what Black wanted! White's pawn advances and the knight must move. But every time the knight moves, White chases it further — and the pawns become overextended.",why:"e5 is the most natural response — attacking the provocative knight. But Black wants this! Every pawn advance gives Black new targets to attack later."},
+{san:"Nd5",hl:"2...Nd5 — Knight retreats to d5, centralised",txt:"Knight retreats to d5 — a strong central square! White now chases it again with c4."},
+{san:"c4",hl:"3.c4 — Chasing the knight!",txt:"c4 attacks the Nd5 again. White is building the famous Alekhine 'pawn roller'. The knight retreats to b6."},
+{san:"Nb6",hl:"3...Nb6 — Knight retreats again",txt:"Knight retreats to b6. White plays d4 completing the massive pawn centre."},
+{san:"d4",hl:"4.d4 — White builds the 'roller'! Four Pawns Attack",txt:"d4 — White has now pushed e5, c4, and d4, creating a massive pawn centre spanning four files. This is the Four Pawns Attack — the most aggressive response to Alekhine's Defence.",why:"White has four central pawns but is behind in development. Black's plan: attack these pawns with d6, Bf5, Nc6, and eventually blow the centre apart."},
+{san:"d6",hl:"4...d6 — Black attacks the pawn chain!",txt:"d6 immediately attacks the e5 pawn. If exd6, Black recaptures and the pawn chain weakens. If e5 advances, it becomes an even bigger target.",why:"d6 is the key counterattack. Black challenges the overextended pawn centre. The Alekhine player lives for this moment — all those pawn advances are now targets!"},
+{san:"f4",hl:"5.f4 — Four Pawns Attack! White advances further",txt:"f4 — White pushes the fourth pawn! This is the maximum extension of the Four Pawns Attack. White now has pawns on c4, d4, e5, and f4 — but they're all potentially weak.",warn:"White has four pawns in the centre but they're very vulnerable to the coming ...dxe5 fxe5 Nc6 attacks. Black's pieces will flood in."},
+{san:"dxe5",hl:"5...dxe5 — Black breaks the chain!",txt:"dxe5! Black captures on e5, breaking the pawn chain. Now White's centre starts to crumble — fxe5 or dxe5 both create weaknesses."},
+{san:"fxe5",hl:"6.fxe5 — White recaptures with the f-pawn",txt:"White recaptures with the f-pawn. The centre is still strong but now the f4 square is weak and the f-file is half-open. Black plays Nc6 attacking the e5 pawn."},
+{san:"Nc6",hl:"6...Nc6 — Attacking e5! The pawn chain crumbles",txt:"Nc6! The once-retreating knight is now back in the game, attacking the e5 pawn. White has invested four pawn moves but Black's position is completely solid and about to break the centre apart.",tip:"Alekhine's Defence is a psychological masterpiece. Black invites White to overextend, then systematically attacks the overextended pawns. The Alekhine player loves the endgame — White's pawn weaknesses become decisive. It was invented by Alekhine himself and remains one of the most original and entertaining openings in chess!"}
+],
+summary:{mistake:"White plays the Four Pawns Attack (e5, c4, d4, f4), overextending the pawns which become targets for Black's counterattack.",punish:"After dxe5 fxe5 Nc6, White's e5 pawn falls and Black has a solid superior position.",fallback:"If White plays the more modest 2.Nc3 or 2.Nf3 instead of e5, the game is more balanced. The Four Pawns Attack is the most ambitious but most committal White response."}},
+
+/* ── PIRC DEFENCE TRAP ───────────────────────────────────── */
+{id:'b_pirc',side:'Black',level:'Intermediate',name:"Pirc Defence Trap",sub:"1.e4 d6 2.d4 Nf6 — Austrian Attack trap",
+moves:[
+{san:"e4",hl:"1.e4 — White opens",txt:"White opens with e4."},
+{san:"d6",hl:"1...d6 — The Pirc begins!",txt:"d6 — the Pirc Defence (also called the Modern Defence). Like the King's Indian and Grünfeld, the Pirc is a hypermodern opening — Black allows White to build a big pawn centre, then attacks it with pieces and the fianchettoed bishop.",why:"The Pirc is flexible and hard to refute. Black can adapt to whatever White plays. It's been played by Fischer, Spassky, and Portisch."},
+{san:"d4",hl:"2.d4 — White builds the centre",txt:"d4 builds the central pawns."},
+{san:"Nf6",hl:"2...Nf6 — Development, attacks e4",txt:"Nf6 develops and challenges e4."},
+{san:"Nc3",hl:"3.Nc3 — Development",txt:"Nc3 defends e4."},
+{san:"g6",hl:"3...g6 — Fianchetto! The Pirc bishop comes",txt:"g6 prepares the fianchetto. Black will develop the bishop to g7 — the hallmark of the Pirc Defence. Combined with 0-0, Black creates a solid fortified position.",why:"g6 + Bg7 + 0-0 is the Pirc setup. The bishop on g7 attacks the centre from afar and is a very powerful defensive and attacking piece."},
+{san:"f4",hl:"4.f4 — Austrian Attack! The most aggressive response",txt:"f4 — the Austrian Attack! White immediately prepares e5 to drive away the Nf6. This is the most aggressive and theoretically demanding response to the Pirc. White sacrifices some king safety for a powerful central attack.",warn:"The Austrian Attack leads to very sharp positions. Black must react accurately — passive play is punished severely."},
+{san:"Bg7",hl:"4...Bg7 — Dragon bishop to g7!",txt:"Bg7! The bishop takes its place on g7, ready to attack White's centre. Combined with 0-0, Black has a very solid defensive formation."},
+{san:"Nf3",hl:"5.Nf3 — Development",txt:"Nf3 develops and prepares to castle."},
+{san:"O-O",hl:"5...0-0 — Black castles, king is safe",txt:"Black castles. Now White plays e5 to drive away the knight."},
+{san:"e5",hl:"6.e5 — White attacks!",txt:"e5 attacks the Nf6 and drives it back. White's pawn centre is massive."},
+{san:"dxe5",hl:"6...dxe5 — Black breaks open!",txt:"dxe5! Black immediately captures, breaking White's centre before it becomes overwhelming."},
+{san:"fxe5",hl:"7.fxe5 — White recaptures",txt:"White takes back with the f-pawn. Now Black plays Ng4 — attacking the e5 pawn and creating complications."},
+{san:"Ng4",hl:"7...Ng4 — Attacking e5, complications!",txt:"Ng4! The knight attacks the e5 pawn and creates immediate tactical complications. White cannot ignore this. If Be2, the knight goes to e3 forking queen and rook. If Bc4, Black plays Nxe5 winning the pawn.",tip:"The Pirc Defence is a solid, flexible opening that works well for Black at all levels. The Austrian Attack (4.f4) is White's sharpest try, but Black can handle it with accurate play. The key idea: g6 Bg7 0-0, then fight back with d5 or dxe5 at the right moment."}
+],
+summary:{mistake:"White plays e5 to drive away the knight, but after dxe5 fxe5 Ng4, the e5 pawn becomes a target and Black has active counterplay.",punish:"After Ng4, if White plays Be2, Black plays Ne3 forking queen and rook. If Bc4, Black takes on e5 and is completely fine.",fallback:"If White plays the Classical Variation (Be2 before f4), the game is more positional. Black plays Bg7, 0-0, e5 or c6 and counterplays in the centre."}},
+
+/* ── NIMZO-INDIAN TRAP ───────────────────────────────────── */
+{id:'b_nimzo',side:'Black',level:'Intermediate',name:"Nimzo-Indian Defence Trap",sub:"1.d4 Nf6 2.c4 e6 3.Nc3 Bb4 — pawn fork trap",
+moves:[
+{san:"d4",hl:"1.d4 — Queen's Pawn",txt:"White opens d4."},
+{san:"Nf6",hl:"1...Nf6 — Development",txt:"Black develops, fights for the centre."},
+{san:"c4",hl:"2.c4 — English setup",txt:"c4 claims space."},
+{san:"e6",hl:"2...e6 — Solid",txt:"e6 reinforces potential d5 advance."},
+{san:"Nc3",hl:"3.Nc3 — Classical setup",txt:"Nc3 develops, supports d4 and e4."},
+{san:"Bb4",hl:"3...Bb4 — THE NIMZO-INDIAN! Pinning the knight",txt:"Bb4!! The Nimzo-Indian Defence — one of the most respected openings in chess. Black pins the Nc3 against the White king. If White plays e4, Black can take the Nc3, doubling White's pawns. If White doesn't react to the pin, the knight is 'poisoned'.",why:"The Nimzo-Indian is considered the best response to 1.d4 by many grandmasters. Black gets active piece play by pinning the Nc3. Kasparov, Karpov, and Fischer all used it regularly."},
+{san:"e3",hl:"4.e3 — Solid, supports d4",txt:"e3 supports d4 and prepares Bd3, releasing the c1 bishop."},
+{san:"O-O",hl:"4...0-0 — Castles quickly",txt:"Black castles, king is safe."},
+{san:"Bd3",hl:"5.Bd3 — Development, attacking h7",txt:"Bd3 develops the bishop to a strong diagonal. White prepares Nf3 and 0-0."},
+{san:"d5",hl:"5...d5 — Black fights for the centre",txt:"d5 claims central space and challenges the c4 pawn. This is the thematic Nimzo-Indian central push."},
+{san:"Nf3",hl:"6.Nf3 — Development",txt:"Nf3 develops, prepares castling."},
+{san:"c5",hl:"6...c5 — Attacking d4!",txt:"c5 attacks d4 and puts pressure on White's centre. Black is following the Nimzo-Indian plan: pin the knight, fight for the centre with d5 and c5."},
+{san:"O-O",hl:"7.0-0 — White castles",txt:"White castles safely."},
+{san:"cxd4",hl:"7...cxd4 — Black breaks!",txt:"cxd4 breaks the tension. After exd4, Black plays dxc4 winning a pawn, and White must prove compensation."},
+{san:"exd4",hl:"8.exd4 — White recaptures",txt:"White recaptures with the pawn, maintaining the pawn chain."},
+{san:"dxc4",hl:"8...dxc4 — Black wins a pawn!",txt:"dxc4! Black takes the c4 pawn. Now if Bxc4, Black plays b5 attacking the bishop and holding the pawn. White must prove compensation for the sacrificed pawn.",why:"The Nimzo-Indian is full of such dynamic exchanges. Black wins a pawn but White has more central control and the bishop pair. It's a permanent imbalance that both sides can exploit."},
+{san:"Bxc4",hl:"9.Bxc4 — White takes back",txt:"White takes the pawn with the bishop, restoring material balance but accepting an isolated d4 pawn."},
+{san:"b5",hl:"9...b5! — Attacking the bishop AND defending c4!",txt:"b5! Black attacks the Bc4 AND tries to hold the extra pawn. The bishop must move and Black keeps the material advantage. If Bb3, Black plays a5-a4 chasing the bishop further.",tip:"The Nimzo-Indian Defence is widely considered the best response to 1.d4. The pin on c3 with Bb4 creates permanent structural advantages for Black. After the bishop trade (Bxc3), White's doubled c-pawns become a long-term weakness. Kasparov used the Nimzo-Indian to win countless World Championship games against Karpov."}
+],
+summary:{mistake:"White accepts the Nimzo-Indian pawn structure, allowing Black to break with c5 and d5, then capture on c4 and hold the pawn with b5.",punish:"After dxc4 Bxc4 b5, Black has an extra pawn and the bishop pair is under attack. White must prove compensation against the Nimzo-Indian pressure.",fallback:"If White plays 4.f3 (Sämisch Variation) instead of e3, the game becomes much sharper. Black plays c5, d5, and fights for central control in a highly tactical battle."}},
+
+/* ── RUY LOPEZ MAIN LINE TRAP ────────────────────────────── */
+{id:'w_ruylopez',side:'White',level:'Intermediate',name:"Ruy Lopez — Marshall Trap",sub:"1.e4 e5 Bb5 — winning the exchange",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens."},
+{san:"e5",hl:"1...e5",txt:"Black mirrors."},
+{san:"Nf3",hl:"2.Nf3",txt:"Development, attacks e5."},
+{san:"Nc6",hl:"2...Nc6",txt:"Defends e5."},
+{san:"Bb5",hl:"3.Bb5 — The Ruy Lopez!",txt:"Bb5 — the most respected opening against 1...e5. The bishop indirectly pressures e5 by pinning its defender, the Nc6.",why:"The Ruy Lopez is the deepest and most analysed opening against 1...e5. It creates long-term strategic pressure without immediate confrontation."},
+{san:"a6",hl:"3...a6 — Morphy Defence",txt:"a6 challenges the bishop. White retreats to a4."},
+{san:"Ba4",hl:"4.Ba4 — Bishop retreats, maintains pressure",txt:"Ba4 maintains the pin while retreating. Black now plays Nf6."},
+{san:"Nf6",hl:"4...Nf6 — Development",txt:"Nf6 develops and attacks e4."},
+{san:"O-O",hl:"5.0-0 — Castle, the Open Lopez begins",txt:"White castles quickly, getting the king to safety. The Open Ruy Lopez now begins.",why:"Castling is essential. White must get the king safe before opening the centre with d4."},
+{san:"Nxe4",hl:"5...Nxe4 — The Open Variation!",txt:"Nxe4! Black takes the e4 pawn — the Open Ruy Lopez. This is the sharpest and most forcing variation. Black takes the pawn knowing White will soon win it back.",why:"The Open Lopez leads to forced, deeply analysed positions. Black sacrifices pawn safety for activity."},
+{san:"d4",hl:"6.d4 — The key move! White strikes the centre",txt:"d4! This is the key move in the Open Ruy Lopez. White immediately strikes the centre, attacking the Nc6 and preparing to recapture on e4.",why:"d4 is the only correct move. White attacks the centre and forces Black to react. Any delay and Black consolidates the extra e4 pawn."},
+{san:"b5",hl:"6...b5 — Attacking the Ba4!",txt:"b5 attacks the bishop on a4. The bishop must retreat. Black simultaneously defends the Nc6 and gains queenside space.",why:"b5 is essential — it attacks the bishop and prepares b4 to trap it if White isn't careful."},
+{san:"Bb3",hl:"7.Bb3 — Bishop retreats to b3",txt:"Bb3 retreats to b3 — a powerful diagonal. White is still threatening to win the e4 pawn back. Now Black plays d5, opening the centre."},
+{san:"d5",hl:"7...d5 — Black strikes back!",txt:"d5! Black fights for the centre. The game is now a tactical battle with both sides attacking. White plays dxe5 opening the centre completely."},
+{san:"dxe5",hl:"8.dxe5 — White opens the centre",txt:"White captures on e5. Both sides have open files and active pieces. This is the Marshall Attack position — one of the most complex and deeply analysed in all of chess.",tip:"The Ruy Lopez is the king of openings — deeply analysed for over 500 years. The Open Variation (5...Nxe4) leads to the most forcing and tactical positions. The Marshall Attack (with 8...Bc5) is one of the most famous gambits in chess history — sacrificing a pawn for a lasting attack."}
+],
+summary:{mistake:"White tries to play passively in the Open Ruy Lopez, allowing Black to consolidate the extra e4 pawn with active play.",punish:"After d4 b5 Bb3 d5 dxe5, White must play very precisely to prove compensation. One wrong move and Black's active pieces dominate.",fallback:"If Black plays Be7 (Closed Ruy Lopez) instead of Nxe4, the game is more strategic. White builds with c3-d4 and Black counterattacks with b5-b4."}},
+
+/* ── QUEEN'S GAMBIT ACCEPTED ─────────────────────────────── */
+{id:'w_qga',side:'White',level:'Intermediate',name:"Queen's Gambit Accepted Trap",sub:"1.d4 d5 2.c4 dxc4 — winning back c4 with interest",
+moves:[
+{san:"d4",hl:"1.d4 — Queen's Pawn",txt:"White opens d4."},
+{san:"d5",hl:"1...d5 — Black mirrors",txt:"Black mirrors in the centre."},
+{san:"c4",hl:"2.c4 — The Queen's Gambit!",txt:"c4 — the Queen's Gambit! White offers the c4 pawn for central control."},
+{san:"dxc4",hl:"2...dxc4 — Black accepts! QGA",txt:"Black takes the pawn — the Queen's Gambit Accepted (QGA). Black gives up the centre temporarily for the extra pawn. White must win it back.",why:"The QGA is very popular at all levels. Black takes the pawn and tries to hold it or use the extra tempo for development. White must immediately fight to regain the centre."},
+{san:"Nf3",hl:"3.Nf3 — Development, attacking e5 next",txt:"Nf3 develops and prepares e4 next move. White will recapture the c4 pawn with e4."},
+{san:"Nf6",hl:"3...Nf6 — Development",txt:"Black develops naturally."},
+{san:"e3",hl:"4.e3 — Preparing Bxc4",txt:"e3 prepares Bc4 to recapture the pawn. After Bxc4, White has the centre back."},
+{san:"e6",hl:"4...e6 — Solid defence",txt:"Black plays e6, solid and natural."},
+{san:"Bxc4",hl:"5.Bxc4 — Recapturing the pawn",txt:"Bxc4 recaptures the gambit pawn. White now has the bishop on c4 targeting f7 — a familiar and dangerous diagonal.",why:"The Bc4 in the QGA is very powerful. It targets f7 and prepares 0-0 followed by e4 central break."},
+{san:"c5",hl:"5...c5 — Black counterattacks d4",txt:"c5 counterattacks White's d4 pawn. This is the main black plan in the QGA — attack d4 to prevent White from building an overwhelming centre."},
+{san:"O-O",hl:"6.0-0 — Castle quickly",txt:"White castles. King is safe, rook comes to e1."},
+{san:"a6",hl:"6...a6 — Preparing b5",txt:"a6 prepares b5, attacking the bishop on c4. Black is copying the Ruy Lopez plan."},
+{san:"Bb3",hl:"7.Bb3 — Bishop retreats safely",txt:"Bb3 retreats to safety and stays on the important diagonal. Now White plays d5! — a powerful central thrust."},
+{san:"cxd4",hl:"7...cxd4 — Black trades in the centre",txt:"Black trades the c5 pawn for White's d4 pawn."},
+{san:"exd4",hl:"8.exd4 — White recaptures, isolated pawn",txt:"White recaptures. White now has an isolated d4 pawn — a weakness, but also a source of space and attacking chances.",why:"The isolated d4 pawn (IQP) is one of chess's most important strategic concepts. It gives White attacking chances and space, but is a long-term weakness in the endgame."},
+{san:"b5",hl:"8...b5 — Attacking bishop AND central pressure",txt:"b5 attacks the Bb3 and fights for queenside space. Black is playing actively, not letting White build an attack.",tip:"The Queen's Gambit Accepted is one of the most popular openings at all levels. After accepting the pawn, Black's plan is c5-cxd4-b5 to keep White's bishop uncomfortable and fight for equality. White's compensation: rapid development, the IQP gives attacking chances, and the bishop pair."}
+],
+summary:{mistake:"Black holds the QGA pawn too passively, allowing White e4 and a dominating centre. Or Black plays b5 too early, losing material.",punish:"If Black plays b5 too early (before a6), White plays a4! bxa4 Bxa4+ Bd7 Bd7 Qxd7+ winning a piece.",fallback:"If Black declines the gambit with e6 (QGD) instead of dxc4, the game transposes to the classical QGD lines."}},
+
+/* ── SLAV DEFENCE TRAP ───────────────────────────────────── */
+{id:'b_slav',side:'Black',level:'Intermediate',name:"Slav Defence Trap",sub:"1.d4 d5 2.c4 c6 — the Winawer Countergambit",
+moves:[
+{san:"d4",hl:"1.d4",txt:"White opens d4."},
+{san:"d5",hl:"1...d5",txt:"Black mirrors."},
+{san:"c4",hl:"2.c4 — Queen's Gambit",txt:"c4 — the Queen's Gambit."},
+{san:"c6",hl:"2...c6 — The Slav Defence!",txt:"c6 — the Slav Defence! Named after the Slavic players who developed it in the 1920s. Like the Caro-Kann, c6 supports d5 while keeping the light-squared bishop free — no French 'bad bishop' problem.",why:"The Slav is one of Black's most solid responses to the Queen's Gambit. It supports d5 and keeps the bishop free — the exact advantage the Caro-Kann has over the French, applied to 1.d4."},
+{san:"Nf3",hl:"3.Nf3 — Development",txt:"White develops naturally."},
+{san:"Nf6",hl:"3...Nf6 — Development",txt:"Black develops. Standard Slav setup."},
+{san:"Nc3",hl:"4.Nc3 — Classical Slav begins",txt:"Nc3 develops. Now Black plays the thematic dxc4, taking the gambit pawn."},
+{san:"dxc4",hl:"4...dxc4 — Accepting the gambit!",txt:"dxc4! Black takes the pawn — the Slav Accepted. Unlike the QGD, Black can hold this pawn more easily because c6 supports b5 later.",why:"In the Slav, dxc4 is much stronger than in the QGD because c6 supports the b5 pawn push that holds the extra pawn."},
+{san:"e4",hl:"5.e4 — White plays aggressively",txt:"e4 — White stakes a large central claim, trying to overwhelm Black's position. This is the most aggressive try.",warn:"e4 is very ambitious. If Black plays b5 correctly, White's central pawns become targets."},
+{san:"b5",hl:"5...b5! — Holding the pawn with a pawn chain",txt:"b5! Black holds the c4 pawn with b5. Now if a4, Black plays b4 — and Black has a strong queenside pawn mass.",why:"b5 is the key Slav idea. The pawn chain c6-c4-b5 is very solid and hard for White to break."},
+{san:"a4",hl:"6.a4 — White attacks the pawn chain",txt:"a4 attacks b5, trying to break Black's pawn chain. If b4, White's knight is very active. If bxa4, White gets open a-file."},
+{san:"b4",hl:"6...b4 — Advance!",txt:"b4! Black pushes forward, driving away the Nc3 and creating queenside space."},
+{san:"Na2",hl:"7.Na2 — Knight retreats",txt:"The knight retreats to the edge. A knight on the rim is dim — Black has achieved a fine position with the queenside pawn mass.",why:"Na2 is forced — the knight has nowhere good to go. Black now plays e6 and develops the pieces, with a very solid structure and extra pawn."},
+{san:"e6",hl:"7...e6 — Solid development",txt:"e6 opens the dark-squared bishop and gives Black a very solid, compact position. The Slav is working perfectly — extra pawn, solid structure, active counterplay.",tip:"The Slav Defence is one of the most reliable openings in chess. The key advantage over the QGD: after dxc4, Black can hold the pawn with b5 because c6 supports it. The Slav has been used at every World Chess Championship in the modern era."}
+],
+summary:{mistake:"White plays e4 aggressively but Black holds with b5-b4, driving away the knight and maintaining the extra pawn with a solid queenside structure.",punish:"After b4 Na2 e6, Black has an extra pawn, solid structure, and the knight on a2 is misplaced. Long-term advantage for Black.",fallback:"If White plays e3 instead of e4 (less aggressive), Black plays Bf5 — developing the bishop outside the pawn chain (the great Slav advantage) and maintaining a solid position."}},
+
+/* ── CAMBRIDGE SPRINGS TRAP ──────────────────────────────── */
+{id:'b_cambridge',side:'Black',level:'Intermediate',name:"Cambridge Springs Trap",sub:"QGD — queen traps White's knight",
+moves:[
+{san:"d4",hl:"1.d4",txt:"White opens d4."},
+{san:"d5",hl:"1...d5",txt:"Black mirrors."},
+{san:"c4",hl:"2.c4 — Queen's Gambit",txt:"c4 — Queen's Gambit."},
+{san:"e6",hl:"2...e6 — QGD",txt:"Black declines — QGD."},
+{san:"Nc3",hl:"3.Nc3 — Classical",txt:"Nc3 develops."},
+{san:"Nf6",hl:"3...Nf6 — Development",txt:"Nf6 develops."},
+{san:"Bg5",hl:"4.Bg5 — The pin!",txt:"Bg5 pins the Nf6. Standard Classical QGD."},
+{san:"Nbd7",hl:"4...Nbd7 — Setting up Cambridge Springs",txt:"Nbd7 develops and sets up the Cambridge Springs trap — the same move that sets the Elephant Trap! But here Black plays Qa5 next instead of falling into the Elephant Trap pattern.",why:"Nbd7 is flexible — it develops and keeps options open. Now Qa5 creates the Cambridge Springs — a famous trap that wins material by attacking the Nc3 and pinning the Bg5."},
+{san:"e3",hl:"5.e3 — Solid",txt:"e3 supports d4 and prepares Bd3."},
+{san:"c6",hl:"5...c6 — Solidifying d5",txt:"c6 reinforces d5. Now Black plays the key move Qa5."},
+{san:"Nf3",hl:"6.Nf3 — Development",txt:"White develops normally."},
+{san:"Qa5",hl:"6...Qa5! — THE CAMBRIDGE SPRINGS! Attacking Nc3 and threatening Bxc3!",txt:"Qa5!! The Cambridge Springs Defence! The queen attacks the Nc3 and threatens to win the Bg5 (if the pin is broken). White must deal with both threats simultaneously.",why:"Qa5 attacks Nc3. If Nd2, Black plays Bb4 and the bishop is pinned. If Bd3, Black plays Ne4 winning the bishop pair. If Qd2, Black plays dxc4 and holds the pawn. White is in real trouble!"},
+{san:"Nd2",hl:"7.Nd2 — Defending Nc3",txt:"Nd2 defends. But now Black plays Bb4! pinning the Nc3 and threatening Bxc3 winning the bishop for nothing."},
+{san:"Bb4",hl:"7...Bb4! — The PIN! Nc3 is in danger",txt:"Bb4! Pins the Nc3 against the king. If White plays a3, Black plays Bxc3 bxc3 Ne4 — winning the Bg5! White is losing material.",why:"Bb4 combined with Qa5 creates a double attack on Nc3. The knight cannot move (it's pinned) and the bishop on g5 is not defended. Black is winning the bishop pair or a pawn."},
+{san:"Qc2",hl:"8.Qc2 — White defends",txt:"Qc2 defends the Nc3 indirectly. But Black plays Ne4! — attacking the Bg5."},
+{san:"Ne4",hl:"8...Ne4! — Attacking the bishop! White in trouble",txt:"Ne4! Attacks the Bg5 with the knight. White cannot defend everything — the bishop on g5 is lost or White must give up the bishop pair.",tip:"The Cambridge Springs is one of the most famous traps in the Queen's Gambit Declined. The sequence Qa5 Bb4 Ne4 creates a web of threats White cannot untangle. It has been used at the highest levels — even catching grandmasters off guard. The key idea: Qa5 attacks the Nc3 while Bb4 pins it!"}
+],
+summary:{mistake:"White allows the Cambridge Springs (Qa5 Bb4 Ne4) without having a prepared response, losing the bishop pair or a pawn.",punish:"After Qa5 Nd2 Bb4 Qc2 Ne4, Black wins the Bg5 or forces major concessions.",fallback:"White should play Bd3 (instead of Bg5) to avoid the Cambridge Springs entirely. After Bd3, the Qa5 pin doesn't work and White has a solid position."}},
+
+/* ── BLACKMAR-DIEMER GAMBIT ──────────────────────────────── */
+{id:'w_blackmar',side:'White',level:'Intermediate',name:"Blackmar-Diemer Gambit",sub:"1.d4 d5 2.e4 — Halosar Trap wins the queen",
+moves:[
+{san:"d4",hl:"1.d4",txt:"White opens d4."},
+{san:"d5",hl:"1...d5",txt:"Black mirrors."},
+{san:"e4",hl:"2.e4 — The Blackmar-Diemer Gambit!",txt:"e4! White immediately sacrifices the e4 pawn for rapid development and attacking play. This is the Blackmar-Diemer Gambit — one of the most aggressive ways to play against 1...d5.",why:"The BDG sacrifices a pawn for rapid development and open lines. White gets the bishop pair active, open files, and attacking chances against Black's king."},
+{san:"dxe4",hl:"2...dxe4 — Black accepts",txt:"Black takes the free pawn. White plays Nc3, attacking e4 again."},
+{san:"Nc3",hl:"3.Nc3 — Development, attacking e4",txt:"Nc3 develops and attacks the e4 pawn again."},
+{san:"Nf6",hl:"3...Nf6 — Defending the pawn",txt:"Nf6 develops and defends the e4 pawn. Black is holding on."},
+{san:"f3",hl:"4.f3 — The BDG thrust! Breaking open the centre",txt:"f3! White attacks the e4 pawn with a pawn. If exf3, White recaptures with the knight — Nxf3 — with excellent development. If Black defends, White builds a strong position anyway.",why:"f3 is the characteristic BDG move. After exf3 Nxf3, White has fantastic development and an open f-file pointing at Black's king."},
+{san:"exf3",hl:"4...exf3 — Black captures",txt:"Black takes on f3. White recaptures with the knight."},
+{san:"Nxf3",hl:"5.Nxf3 — Knight to f3, excellent development",txt:"Nxf3 — White has tremendous development for the pawn. The Bc1 has a clear diagonal, the f-file is open, and White castles immediately."},
+{san:"Bg4",hl:"5...Bg4 — Pinning the Nf3",txt:"Bg4 pins the Nf3. Black wants to trade off White's active knight. But White plays h3 — and then the Halosar Trap is set!"},
+{san:"h3",hl:"6.h3 — Inviting the exchange!",txt:"h3 attacks the bishop. If Bxf3, White recaptures with the queen — Qxf3! The queen develops with tremendous power."},
+{san:"Bxf3",hl:"6...Bxf3 — Black exchanges",txt:"Black takes the knight. White recaptures with the queen."},
+{san:"Qxf3",hl:"7.Qxf3 — Queen to f3, powerful!",txt:"Qxf3! The queen comes to f3 with power — aiming at f7 and all over the board. Now White plays Bc4 and threatens Qxf7+."},
+{san:"e6",hl:"7...e6 — Black defends f7",txt:"e6 defends f7. Reasonable. But now comes the Halosar Trap: 8.Bg5!!"},
+{san:"Bg5",hl:"8.Bg5!! — THE HALOSAR TRAP!",txt:"Bg5!! White pins the Nf6 against the queen. Now Black plays Nc6? developing normally — but this walks into a catastrophic queen trap!"},
+{san:"Nc6",hl:"8...Nc6?? — Natural development, loses the queen!",txt:"Nc6 develops naturally. But now White plays d5!! — and the Black queen is TRAPPED!",warn:"Nc6 looks natural but the Black queen on d8 is about to be trapped! White plays d5 opening the d-file while the queen has no good square."},
+{san:"d5",hl:"9.d5!! — Pawn advances, queen TRAPPED!",txt:"d5!! The pawn forks the Nc6 and opens the centre — and the Black queen on d8 has NO safe square! If Qd7, Dxc6 Qxc6 Bd8 and White wins. The Halosar Trap is complete — Black loses the queen!",tip:"The Halosar Trap in the Blackmar-Diemer Gambit is one of the most spectacular queen traps in all of chess. After Bg5 Nc6?? d5!!, the Black queen is completely trapped. Named after Hermann Halosar, who published this analysis in 1934. The BDG is fantastic for blitz — the attack comes fast and most players don't know the theory!"}
+],
+summary:{mistake:"Black plays Nc6 naturally after Bg5, not seeing that d5 will trap the queen on d8 with no escape.",punish:"After d5, the Black queen is trapped. White wins the queen for a pawn — decisive material gain.",fallback:"If Black plays Qd7 (correct) instead of Nc6, White still has a strong attack for the sacrificed pawn. The BDG leads to complex positions favourable for White in practical play."}},
+
+/* ── BENKO GAMBIT TRAP ───────────────────────────────────── */
+{id:'b_benko',side:'Black',level:'Intermediate',name:"Benko Gambit",sub:"1.d4 Nf6 2.c4 c5 3.d5 b5 — queenside hurricane",
+moves:[
+{san:"d4",hl:"1.d4",txt:"White opens d4."},
+{san:"Nf6",hl:"1...Nf6 — Development",txt:"Black develops."},
+{san:"c4",hl:"2.c4 — English/QGD setup",txt:"c4 claims space."},
+{san:"c5",hl:"2...c5 — Attacking d4",txt:"c5 attacks d4 immediately — Black is in fighting mode."},
+{san:"d5",hl:"3.d5 — White advances, Benoni structures",txt:"d5 — White closes the centre and claims space. This leads to the Benoni family of openings. Black now plays b5! — the Benko Gambit!"},
+{san:"b5",hl:"3...b5!! — THE BENKO GAMBIT!",txt:"b5!! One of the most exciting gambits in chess! Black sacrifices the b5 pawn (and potentially the a6 pawn too) for permanent queenside pressure. The Benko gives Black a lasting initiative — not just a one-move trick but a strategically superior position for the entire game.",why:"The Benko Gambit is not a trick — it's a STRATEGIC gambit. Black gives up a pawn for permanent pressure on the a-file and b-file. The queenside rooks dominate open files all game."},
+{san:"cxb5",hl:"4.cxb5 — White accepts the first pawn",txt:"White takes the b5 pawn. Black continues with a6!"},
+{san:"a6",hl:"4...a6 — Offering the second pawn!",txt:"a6! Black offers ANOTHER pawn! White can take on a6 or decline. Most games go bxa6 and Black recaptures with the bishop."},
+{san:"bxa6",hl:"5.bxa6 — White takes again",txt:"White accepts the second pawn. Now Black plays Bxa6 — developing with tempo AND threatening to double White's pawns."},
+{san:"Bxa6",hl:"5...Bxa6 — Bishop develops with tempo!",txt:"Bxa6! The bishop develops to a6, immediately targeting White's rook on f1 (not yet castled) and the b7-g1 diagonal. Black has sacrificed two pawns but gets open a and b files plus active piece play that compensates fully.",why:"After Bxa6, Black gets: (1) open a-file for the rook, (2) open b-file for the rook, (3) active bishop on a6, (4) pressure against White's queenside for the entire game. The two pawns are worth this in practical play."},
+{san:"Nc3",hl:"6.Nc3 — White develops",txt:"White develops the knight, defending against immediate threats."},
+{san:"Nbd7",hl:"6...Nbd7 — Development",txt:"Nbd7 develops. Black is getting all pieces active quickly."},
+{san:"Nf3",hl:"7.Nf3 — Development",txt:"White develops."},
+{san:"g6",hl:"7...g6 — Fianchetto! Long-term pressure",txt:"g6 prepares the fianchetto. The Bg7 will add more pressure against White's queenside along with the open files.",why:"g6 + Bg7 + 0-0 gives Black a complete setup: open a and b files, active bishop on a6, and the Bg7 attacking the queenside. Black gets full compensation for the two pawns."},
+{san:"e4",hl:"8.e4 — White builds the centre",txt:"White builds the centre with e4. The position is now a strategic battle — White has the pawn majority in the centre, Black has queenside pressure."},
+{san:"Bg7",hl:"8...Bg7 — Dragon bishop aims at the queenside",txt:"Bg7! The Benko bishop takes its post, joining the queenside attack. Black's position is now fully developed with massive queenside pressure. The two sacrificed pawns are fully compensated by the activity.",tip:"The Benko Gambit is one of the most popular and respected gambits in chess. It gives Black a LASTING advantage — not just a one-move trick. The open a and b files, active bishops, and queenside pressure compensate for the two pawns for the ENTIRE game, not just the opening. Favourite weapon of Tal, Petrosian, and dozens of modern grandmasters."}
+],
+summary:{mistake:"White accepts both Benko pawns, giving Black open a and b files plus active bishops — Black's queenside pressure lasts the entire game.",punish:"Black plays Ra8-Ra2 on the open a-file, b5-b4 pressure, and Bxa6 pin — White's queenside collapses under constant pressure.",fallback:"If White declines the Benko with 4.Nf3 instead of cxb5, Black plays g6 and Bg7, entering a Benoni-type position with active counterplay."}},
+
+/* ── PETROFF DEFENCE TRAP ────────────────────────────────── */
+{id:'w_petroff',side:'White',level:'Intermediate',name:"Petroff Defence Trap",sub:"1.e4 e5 2.Nf3 Nf6 — Cochrane Gambit",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens."},
+{san:"e5",hl:"1...e5",txt:"Black mirrors."},
+{san:"Nf3",hl:"2.Nf3 — Development",txt:"White develops."},
+{san:"Nf6",hl:"2...Nf6 — The Petroff! Counter-attack e4",txt:"Nf6 — the Petroff Defence (Russian Game)! Instead of defending e5, Black counterattacks White's e4 pawn. This is one of the most solid and draw-prone defences — the favourite of drawing masters and defensive players.",why:"The Petroff is extremely solid — it's the defence that leads to the most draws at the GM level. Black mirrors White's attack: I attack e4, you attack e5. Very symmetrical and hard to crack."},
+{san:"Nxe5",hl:"3.Nxe5 — White takes!",txt:"White takes the e5 pawn. Now Black should play d6 (attacking the knight) and then Nxe4 winning back the pawn. BUT — many beginners play Nxe4?? immediately, and White has a brilliant response!"},
+{san:"Nxe4",hl:"3...Nxe4?? — Black takes e4 immediately! Mistake!",txt:"Nxe4?? — the beginner's mistake in the Petroff! Black should first play d6 to attack the Ne5, THEN take on e4. Playing Nxe4 immediately allows White to play Qe2! — forking the knight on e4 and threatening Nc6+ (a family fork).",warn:"Black should play 3...d6 4.Nf3 Nxe4 — the correct order. Playing Nxe4 immediately loses material."},
+{san:"Qe2",hl:"4.Qe2! — Fork! Knight and e5+ threatened",txt:"Qe2!! The queen attacks the Ne4 AND threatens Qxe5+ — a check that will fork the king and... actually threaten mate! Black must deal with this.",why:"Qe2 is the key move. It attacks the Nc4 AND threatens Nc6+ winning the queen next move if Black moves the knight. Black cannot deal with both threats."},
+{san:"Nf6",hl:"4...Nf6 — Knight retreats",txt:"Black retreats the knight. But now White plays Nc6+! — a family fork hitting the king and queen!"},
+{san:"Nc6",hl:"5.Nc6+!! — FAMILY FORK! King and queen attacked!",txt:"Nc6+!! The knight forks the Black king AND queen simultaneously! Black must move the king — and then White takes the queen for free. White wins a queen for a knight — a massive material advantage.",tip:"The Petroff Defence trap: if Black plays Nxe4 on move 3 (before playing d6), White wins the queen with Qe2! Nf6 Nc6+! — a beautiful family fork. Always play 3...d6 first in the Petroff, THEN take on e4. This trick has caught thousands of club players."}
+],
+summary:{mistake:"Black plays Nxe4 on move 3 without first playing d6, allowing Qe2! which attacks the knight and threatens Nc6+ family fork.",punish:"After Qe2 Nf6 Nc6+, White wins the queen for a knight — game over.",fallback:"Correct Petroff: 3...d6 4.Nf3 Nxe4 — Black wins back the pawn safely and gets a solid, equal position."}},
+
+/* ── FOUR KNIGHTS TRAP ───────────────────────────────────── */
+{id:'w_fourknights',side:'White',level:'Beginner',name:"Four Knights Game Trap",sub:"1.e4 e5 Nf3 Nc6 Nc3 Nf6 — Halloween Gambit trap",
+moves:[
+{san:"e4",hl:"1.e4",txt:"White opens."},
+{san:"e5",hl:"1...e5",txt:"Black mirrors."},
+{san:"Nf3",hl:"2.Nf3",txt:"Development."},
+{san:"Nc6",hl:"2...Nc6",txt:"Defence."},
+{san:"Nc3",hl:"3.Nc3 — Four Knights!",txt:"Nc3 — the Four Knights Game! Both sides develop both knights rapidly. This leads to a symmetrical, solid position.",why:"The Four Knights is one of the most principled openings — both sides develop their knights immediately. It leads to strategic, less tactical positions normally."},
+{san:"Nf6",hl:"3...Nf6 — Four Knights complete!",txt:"Nf6 — both sides have developed both knights. The Four Knights Game is complete. White now plays the shocking Halloween Gambit or the solid Bb5 (Spanish Four Knights)."},
+{san:"Nxe5",hl:"4.Nxe5!? — THE HALLOWEEN GAMBIT! 🎃",txt:"Nxe5!? White sacrifices a full knight for rapid central pawn control! This is the Halloween Gambit — one of the most shocking and aggressive gambits in chess. White gives a knight for two central pawns and a massive space advantage.",why:"The Halloween Gambit is not sound at the highest level, but in blitz and at club level it's devastatingly effective. White gets d4+e4+e5 — three central pawns for one knight. The attack comes fast."},
+{san:"Nxe5",hl:"4...Nxe5 — Black takes the knight",txt:"Black takes the offered knight. Now White plays d4, gaining the second pawn."},
+{san:"d4",hl:"5.d4 — White gets two central pawns",txt:"d4 attacks the Ne5 and White gains a second central pawn for the sacrificed knight.",why:"After d4, White has two central pawns (d4 and e4) for one knight. The question is: can White convert the space advantage into a real attack?"},
+{san:"Nc6",hl:"5...Nc6 — Knight retreats",txt:"Knight retreats. White pushes d5 to gain more space."},
+{san:"d5",hl:"6.d5 — White gains more space!",txt:"d5 attacks the Nc6 and White's pawns are rolling. White now has three central pawns (d5, e4, and e5 if it advances) for one knight. The position is extremely sharp.",why:"After d5, White has a massive pawn centre. Black needs to develop fast and attack these pawns before they become decisive."},
+{san:"Ne5",hl:"6...Ne5 — Knight centralises",txt:"Ne5! Black puts the knight on the powerful e5 square, contesting White's centre. Black has an extra piece and needs to use it.",why:"Ne5 is the correct response. The knight on e5 blocks White's pawns and is a powerful centralised piece. Black must now develop rapidly."},
+{san:"f4",hl:"7.f4 — Driving the knight away",txt:"f4 attacks the Ne5. White is driving everything forward with pawns. This is the Halloween in full force — four pawns charging forward.",tip:"The Halloween Gambit is one of chess's most exciting gambits! Named because it's 'scary' — White gives a full knight on move 4. In blitz games it's devastating because the attack is relentless and opponents don't know the theory. IM Andrew Martin called it 'probably the most exciting gambit in chess.'"}
+],
+summary:{mistake:"Black gets overwhelmed by White's four-pawn centre after accepting the Halloween Gambit, unable to develop quickly enough.",punish:"White's pawns (d5, e4, f4, e5) form a massive advancing phalanx. If Black can't stop it, the attack is unstoppable.",fallback:"If Black plays 4...d6 instead of Nxe5 (declining), the Halloween Gambit fails. White has no compensation and Black has a solid extra piece."}},
+
+/* ── ENGLISH OPENING TRAP ────────────────────────────────── */
+{id:'w_english',side:'White',level:'Intermediate',name:"English Opening Trap",sub:"1.c4 — Symmetry breaking and the queen trap",
+moves:[
+{san:"c4",hl:"1.c4 — The English Opening!",txt:"c4 — the English Opening! Named after the English players who popularised it in the 19th century. White controls d5 without pushing the d or e pawn, leading to flexible, strategic positions.",why:"The English is one of White's most popular first moves. It leads to rich, complex positions without immediate confrontation. Kasparov, Karpov, and Botvinnik all played it regularly."},
+{san:"e5",hl:"1...e5 — Symmetrical English",txt:"e5 mirrors White's c4, fighting for central space. This is the Symmetrical English — both sides play the same structure on opposite sides."},
+{san:"Nc3",hl:"2.Nc3 — Development",txt:"Nc3 develops toward the centre."},
+{san:"Nc6",hl:"2...Nc6 — Development",txt:"Nc6 develops."},
+{san:"g3",hl:"3.g3 — Fianchetto! Preparing the Bg2",txt:"g3 prepares the fianchetto. The Bg2 will be White's most powerful piece — controlling the long diagonal and attacking Black's queenside.",why:"g3 + Bg2 + 0-0 is the standard English setup. The bishop on g2 is tremendously powerful and supports all of White's plans."},
+{san:"Nf6",hl:"3...Nf6 — Development",txt:"Black develops naturally."},
+{san:"Bg2",hl:"4.Bg2 — The English bishop!",txt:"Bg2 — the fianchettoed bishop takes its post. Now it controls the entire long diagonal and supports White's queenside pressure."},
+{san:"Bb4",hl:"4...Bb4 — Pinning the Nc3",txt:"Bb4 pins the Nc3. Black tries the Nimzo-Indian-style pin even in the English."},
+{san:"Nd5",hl:"5.Nd5! — Knight fork! Attacking bishop AND Nf6",txt:"Nd5!! White's knight leaps to d5 — attacking the Bb4 AND the Nf6 simultaneously! This is a fork — Black cannot deal with both threats.",why:"Nd5 attacks the Bb4 (which has no safe retreat if Nxf6+ follows) and the Nf6. If Black plays Nxd5, White plays cxd5 and the Nb4 is attacked again — with no safe square!"},
+{san:"Nxd5",hl:"5...Nxd5 — Black takes the knight",txt:"Black takes the knight on d5. But now White plays cxd5 — and the Bb4 has NO safe square!"},
+{san:"cxd5",hl:"6.cxd5 — Pawn recaptures, bishop is trapped!",txt:"cxd5! The pawn recaptures AND attacks the Bb4. The bishop has no safe square — a3, c3, and d2 are all covered. If Bc5, White plays b4 trapping it. The bishop is lost!",tip:"The English Opening Nd5 trick is a beautiful tactical pattern. After c4 e5 Nc3 Nc6 g3 Nf6 Bg2 Bb4, White plays Nd5!! — attacking both Bb4 and Nf6. After Nxd5 cxd5, the bishop has no good square. A nice little trap to know in the English!"}
+],
+summary:{mistake:"Black pins the Nc3 with Bb4, but Nd5 forks both the bishop and the Nf6. After Nxd5 cxd5, the Bb4 is trapped with no safe square.",punish:"After cxd5, the Bb4 is lost. White wins a piece for a pawn — decisive material advantage.",fallback:"If Black plays e4 (correct) instead of Bb4, the English Opening continues normally with complex strategic play."}},
+
+/* ── BIRD'S OPENING TRAP ─────────────────────────────────── */
+{id:'w_bird',side:'White',level:'Beginner',name:"Bird's Opening Trap",sub:"1.f4 — From's Gambit refutation",
+moves:[
+{san:"f4",hl:"1.f4 — The Bird's Opening!",txt:"f4 — the Bird's Opening! Named after English player Henry Bird who popularised it in the 1870s. White controls e5 and prepares a kingside attack. It's rare, aggressive, and leads to very original positions.",why:"The Bird's Opening is used as a surprise weapon. It controls e5, prepares Nf3 and g3, and can lead to reversed Dutch Defence positions with an extra tempo."},
+{san:"e5",hl:"1...e5 — From's Gambit! Black counterattacks",txt:"e5 — From's Gambit! Black immediately counterattacks in the centre, sacrificing the e5 pawn for rapid development and a kingside attack against White's exposed king.",warn:"From's Gambit is the most dangerous and principled response to the Bird's Opening. If White accepts, they must know the refutation — or they'll be quickly checkmated!"},
+{san:"fxe5",hl:"2.fxe5 — White accepts",txt:"White takes the pawn. Now Black plays d6, attacking the e5 pawn."},
+{san:"d6",hl:"2...d6 — Attacking e5!",txt:"d6 attacks the e5 pawn. White must decide how to defend."},
+{san:"exd6",hl:"3.exd6 — White captures again",txt:"White takes on d6 — accepting the whole gambit. Black now develops rapidly with Bxd6, pointing the bishop at g3 and h2."},
+{san:"Bxd6",hl:"3...Bxd6 — Bishop develops with tempo!",txt:"Bxd6! The bishop develops actively and attacks White's weakened kingside. Now Black plays Nf6, g5, and Ng4 — launching a fierce attack against White's king.",why:"After Bxd6, Black has a huge lead in development and the bishop on d6 is very active. White must castle quickly or face a direct mating attack."},
+{san:"Nf3",hl:"4.Nf3 — White develops",txt:"White develops and prepares to castle. But Black's attack is already brewing."},
+{san:"g5",hl:"4...g5! — Pawn storm! Black attacks immediately",txt:"g5!! Black pushes the g-pawn forward, threatening g4 attacking the Nf3. White must deal with this immediately.",warn:"g5 is the hallmark move of From's Gambit. It forces White to either defend awkwardly or transpose into wild complications."},
+{san:"g3",hl:"5.g3 — White defends",txt:"g3 tries to stop the g-pawn advance. But Black plays g4 anyway!"},
+{san:"g4",hl:"5...g4! — Pawn advances! Knight attacked",txt:"g4 attacks the Nf3. The knight must move."},
+{san:"Ne5",hl:"6.Ne5 — Knight retreats to a strong post",txt:"Ne5 retreats to a strong central square, defending."},
+{san:"Qh4",hl:"6...Qh4! — Queen attacks the king!",txt:"Qh4!! The queen swings to h4, directly attacking the White king position. White has no easy defence against the combined threats of Bxg3+ and Qxh2#.",tip:"From's Gambit (1.f4 e5!) is one of the most dangerous responses to the Bird's Opening. The attack 3...Bxd6 g5 g4 Qh4 creates direct mating threats before White can castle. If you play the Bird's Opening, know the From's Gambit defence: 2.fxe5 d6 3.Nf3! (not exd6) gives White a safe position."}
+],
+summary:{mistake:"White plays fxe5 exd6 Bxd6 accepting the full From's Gambit, giving Black a huge development lead and direct mating attack with Bxd6, g5, g4, Qh4.",punish:"After Qh4!, White faces Bxg3+ and Qxh2# threats simultaneously. The From's Gambit attack is overwhelming.",fallback:"Against From's Gambit, White should play 2.fxe5 d6 3.Nf3! (not 3.exd6). This gives White a safe extra pawn without the kingside weaknesses."}},
+
+/* ── OWEN'S DEFENCE TRAP ─────────────────────────────────── */
+{id:'b_owens',side:'Black',level:'Beginner',name:"Owen's Defence Trap",sub:"1.e4 b6 — the Wing Gambit surprise",
+moves:[
+{san:"e4",hl:"1.e4 — White opens",txt:"White opens with e4."},
+{san:"b6",hl:"1...b6 — Owen's Defence!",txt:"b6 — Owen's Defence! One of the most unusual and underrated responses to e4. Black immediately prepares to fianchetto the queen's bishop to b7, where it will control the long diagonal and pressure e4.",why:"Owen's Defence is a surprise weapon. Most e4 players never face it and have no prepared response. The Bb7 bishop is very powerful on the long diagonal."},
+{san:"d4",hl:"2.d4 — White builds the centre",txt:"d4 builds the central pawns. Black now plays Bb7, activating the bishop."},
+{san:"Bb7",hl:"2...Bb7 — The bishop fianchettoes!",txt:"Bb7! The bishop takes the long diagonal, attacking e4 and pressuring White's centre. Now e4 is attacked twice (Bb7 and potentially Nf6)."},
+{san:"Bd3",hl:"3.Bd3 — White develops",txt:"Bd3 develops and supports e4. White is following standard development principles."},
+{san:"Nf6",hl:"3...Nf6 — Development, attacking e4",txt:"Nf6 develops and attacks e4 for the third time! White must defend."},
+{san:"Nf3",hl:"4.Nf3 — Defending e4",txt:"Nf3 defends e4."},
+{san:"e5",hl:"4...e5! — Counterattack! Striking the centre",txt:"e5! Black strikes in the centre, attacking d4. Now if dxe5, Black plays Ng4 attacking e5 and preparing Bc5 with a powerful position.",why:"e5 is the key move in Owen's Defence. It immediately creates central tension and gives Black active counterplay. Black's bishop on b7 becomes very powerful after e5."},
+{san:"dxe5",hl:"5.dxe5 — White accepts",txt:"White takes on e5. Black plays Ng4!"},
+{san:"Ng4",hl:"5...Ng4 — Attacking e5!",txt:"Ng4! The knight attacks the e5 pawn AND threatens Nxe5 which forks the bishop on d3. White must deal with both."},
+{san:"Bf4",hl:"6.Bf4 — Defending e5",txt:"Bf4 defends e5. But now Black plays Nc6, adding more pressure."},
+{san:"Nc6",hl:"6...Nc6 — Piling pressure on e5",txt:"Nc6 attacks e5 again. Two pieces attack e5 and White is struggling to defend everything.",why:"The Owen's Defence is proving its point — Black has rapid development and attacks on the centre. The Bb7 is a monster along the a8-h1 diagonal."},
+{san:"Nbd2",hl:"7.Nbd2 — White defends",txt:"Nbd2 defends e5 but blocks White's development."},
+{san:"Qh4",hl:"7...Qh4! — Queen joins the attack!",txt:"Qh4!! The queen attacks h2 — threatening Qxh2# while also keeping pressure on e5. White is in real trouble with multiple threats.",tip:"Owen's Defence is a fascinating surprise weapon! The Bb7 fianchetto combined with e5 and Ng4 creates immediate chaos. It's perfect for blitz games where your opponent won't know the theory and will struggle to handle the unorthodox pressure."}
+],
+summary:{mistake:"White builds a big centre with d4 and e4 but gets overwhelmed by Black's active counterplay: Bb7, e5, Ng4, Nc6, Qh4.",punish:"After Qh4, White faces mating threats and cannot easily defend while developing simultaneously.",fallback:"If White plays c4 (English-style) instead of d4, the Owen's Defence remains solid. Black plays e6-d5 and reaches a French-like position with the active Bb7."}},
+
+/* ── BENONI DEFENCE TRAP ─────────────────────────────────── */
+{id:'b_benoni',side:'Black',level:'Advanced',name:"Modern Benoni Trap",sub:"1.d4 Nf6 2.c4 c5 3.d5 — Tal's kingside attack",
+moves:[
+{san:"d4",hl:"1.d4",txt:"White opens d4."},
+{san:"Nf6",hl:"1...Nf6 — Development",txt:"Black develops."},
+{san:"c4",hl:"2.c4 — English setup",txt:"c4 claims space."},
+{san:"c5",hl:"2...c5 — Counterattack d4!",txt:"c5 immediately attacks d4. Black is heading for the Benoni Defence — one of the sharpest and most exciting openings against d4."},
+{san:"d5",hl:"3.d5 — White advances! Benoni begins",txt:"d5 — White closes the centre, and the Modern Benoni begins. This pawn structure defines the whole opening. White has more space; Black has counterplay.",why:"The Benoni pawn structure (White: c4-d5 vs Black: c5-d6) defines a whole family of openings. Black has a mobile e5-e4 pawn break as long-term counterplay."},
+{san:"e6",hl:"3...e6 — Attacking d5!",txt:"e6 immediately attacks d5. Black wants to recapture and open the position."},
+{san:"Nc3",hl:"4.Nc3 — Defending d5",txt:"Nc3 defends d5 and develops."},
+{san:"exd5",hl:"4...exd5 — Black captures",txt:"Black takes on d5."},
+{san:"cxd5",hl:"5.cxd5 — White recaptures",txt:"cxd5 — the classic Benoni pawn structure is established. White has a passed d5 pawn and queenside space. Black has the e5-e4 pawn break and kingside counterplay.",why:"This is the Modern Benoni. Black will fianchetto (g6-Bg7), castle kingside, and attack with e5-e4. White attacks on the queenside with a4-a5-a6."},
+{san:"d6",hl:"5...d6 — Supports e5",txt:"d6 solidifies the pawn structure and prepares e5."},
+{san:"e4",hl:"6.e4 — White establishes a huge centre",txt:"e4 — White has pawns on c4-d5-e4 — a massive pawn centre. But Black has the e5 break to challenge it."},
+{san:"g6",hl:"6...g6 — Fianchetto! The Benoni bishop",txt:"g6 — fianchetto! The Bg7 will be Black's most important piece, attacking along the long diagonal and supporting the kingside attack.",why:"g6 + Bg7 + 0-0 is the Benoni setup. The Bg7 attacks d4 and supports e5 — it's the heart of Black's counterplay."},
+{san:"Nf3",hl:"7.Nf3 — Development",txt:"White develops normally."},
+{san:"Bg7",hl:"7...Bg7 — Dragon bishop emerges!",txt:"Bg7! The Benoni bishop takes its post. Combined with castling, Black has a complete setup.",why:"The Bg7 in the Benoni is similar to the KID bishop — it controls the long diagonal and supports the e5 pawn break."},
+{san:"Be2",hl:"8.Be2 — Classical Benoni",txt:"Be2 develops and prepares castling. The Classical Benoni begins."},
+{san:"O-O",hl:"8...0-0 — Black castles, attack begins!",txt:"Black castles. Now Black plays e5! — the characteristic break that defines the Modern Benoni."},
+{san:"O-O",hl:"9.0-0 — White castles",txt:"White castles. Now the race begins: White attacks the queenside, Black breaks with e5."},
+{san:"e5",hl:"9...e5! — The Benoni break! Black's dream move",txt:"e5!! The Benoni's characteristic move. Black attacks d4 and claims central space. Now Black threatens e4 — pushing the pawn forward and restricting White's pieces. This is the move the Benoni player waits for all game.",tip:"The Modern Benoni is one of chess's most dynamic and exciting openings. Black accepts a backward d6 pawn and cramped position in exchange for the e5 pawn break and kingside attack. Tal, Fischer, and Kasparov all played the Benoni to win attacking games. The key: if you can play e5 freely, Black is doing great!"}
+],
+summary:{mistake:"White tries to hold the massive Benoni centre passively, allowing e5! which gives Black active piece play and the e4 break.",punish:"After e5, Black plays Ne8-Nc7 (rerouting to e6-d4), Rb8 and b5, creating queenside counterplay while keeping the kingside attack alive.",fallback:"If White plays Bg5 (Classical Benoni attack), Black plays h6 Bh4 g5 Bg3 and creates kingside complications. If White plays f4 (Four Pawns Attack), Black plays Bg4 pinning the Nf3 and creating immediate tensions."}},
+
+/* ── RUBINSTEIN TRAP ─────────────────────────────────────── */
+{id:'b_rubinstein',side:'Black',level:'Intermediate',name:"Rubinstein Trap",sub:"QGD — trapping White's queen",
+moves:[
+{san:"d4",hl:"1.d4",txt:"White opens d4."},
+{san:"d5",hl:"1...d5",txt:"Black mirrors."},
+{san:"c4",hl:"2.c4 — Queen's Gambit",txt:"c4 — the Queen's Gambit."},
+{san:"e6",hl:"2...e6 — QGD",txt:"QGD — solid and reliable."},
+{san:"Nc3",hl:"3.Nc3 — Classical",txt:"Nc3 develops."},
+{san:"Nf6",hl:"3...Nf6",txt:"Development."},
+{san:"Bg5",hl:"4.Bg5 — Pin!",txt:"Bg5 pins the Nf6. Classical QGD."},
+{san:"Be7",hl:"4...Be7 — Breaking the pin",txt:"Be7 breaks the pin and prepares to castle."},
+{san:"e3",hl:"5.e3 — Solid",txt:"e3 supports d4."},
+{san:"O-O",hl:"5...0-0 — Castles",txt:"Black castles."},
+{san:"Nf3",hl:"6.Nf3 — Development",txt:"Nf3 develops."},
+{san:"Ne4",hl:"6...Ne4! — Attacking the Bg5!",txt:"Ne4! Black attacks the bishop on g5 with the knight. White must decide — take the knight (Bxe7) or retreat.",why:"Ne4 is an active move that fights for the initiative. If Bxe7, Black plays Qxe7 and has a solid position with active pieces."},
+{san:"Bxe7",hl:"7.Bxe7 — White trades bishops",txt:"White takes the bishop. Black recaptures with the queen."},
+{san:"Qxe7",hl:"7...Qxe7 — Queen recaptures centrally",txt:"Qxe7! The queen takes on e7 — a powerful central square. Now Black threatens Nxc3 winning the knight."},
+{san:"Nxe4",hl:"8.Nxe4 — White takes the knight",txt:"White takes the Ne4 with the knight."},
+{san:"dxe4",hl:"8...dxe4 — Black recaptures, d-file opens",txt:"dxe4! Black recaptures and the d5 pawn opens the d-file. Now the d-file and e4 pawn give Black active play."},
+{san:"Nd2",hl:"9.Nd2 — White attacks the e4 pawn",txt:"Nd2 attacks the e4 pawn. Black defends with f5."},
+{san:"f5",hl:"9...f5 — Defending e4 and gaining space",txt:"f5 defends the e4 pawn and gains kingside space. Black has a solid position with active play."},
+{san:"Qh5",hl:"10.Qh5?! — White tries to attack",txt:"Qh5 tries to attack, threatening Qxf5 and creating problems. But Black has the brilliant Rf6! — defending and preparing a devastating counterattack.",why:"Qh5 looks active but is actually a mistake — it allows Black to trap the queen with ...Rh6 or counter with ...g6."},
+{san:"Rh6",hl:"10...Rh6! — QUEEN TRAPPED!",txt:"Rh6!! Black attacks the White queen and it has NO ESCAPE! The queen on h5 cannot go to f3 (blocked by Nf3... wait, knight moved), cannot go to g4 (Rh4 traps it), cannot go to g6 (Rxg6 captures it). The queen is trapped in the middle of the board!",tip:"The Rubinstein Trap is named because Akiba Rubinstein (one of the greatest players ever, circa 1910) fell for it TWICE in tournament play. The queen trap after Rh6 has caught grandmasters repeatedly. The lesson: be very careful about bringing the queen to h5 without full calculation. Rh6! always seems to come as a complete surprise!"}
+],
+summary:{mistake:"White brings the queen to h5 prematurely, and Black traps it with Rh6! — the queen has no safe square.",punish:"After Rh6, the queen on h5 is completely trapped. White loses the queen for a rook — decisive material loss.",fallback:"White should castle queenside and play a more strategic game in the Classical QGD. The Qh5 venture is too risky without careful calculation."}}
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────
