@@ -304,8 +304,365 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 /* FP actions */
 .fp-actions{display:flex;gap:8px;flex-wrap:wrap}
 .fp-notation{background:#08081a;border-radius:8px;padding:8px 10px;display:flex;flex-wrap:wrap;align-items:baseline;gap:1px;font-family:monospace;font-size:12px;line-height:2;min-height:34px;max-height:80px;overflow-y:auto}
+
+/* ═══════════════════════════════════════════════════
+   NEW FEATURES CSS
+═══════════════════════════════════════════════════ */
+
+/* ── Mode tabs extras ── */
+.mode-btn.pulse{animation:modePulse 2s ease-in-out infinite}
+@keyframes modePulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 8px rgba(90,153,16,.6)}}
+
+/* ── PROGRESS TRACKER ── */
+.progress-bar-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px}
+.progress-bar-label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;margin-bottom:6px;display:flex;justify-content:space-between}
+.progress-bar-track{background:var(--dim);border-radius:100px;height:7px;overflow:hidden}
+.progress-bar-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .5s ease}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
+.stat-num{font-size:22px;font-weight:800;color:#fff;line-height:1}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.05em}
+.stat-card.gold .stat-num{color:var(--gold)}
+.stat-card.green .stat-num{color:var(--accent2)}
+.stat-card.purple .stat-num{color:var(--coach2)}
+
+/* ── PUZZLE MODE ── */
+.puzzle-wrap{max-width:960px;margin:0 auto;padding:12px}
+.puzzle-hdr{padding:10px 0 14px;border-bottom:1px solid var(--border);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.puzzle-badge{width:44px;height:44px;background:linear-gradient(135deg,#c05010,#801a00);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(200,80,16,.3)}
+.puzzle-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.puzzle-layout{flex-direction:column}}
+.puzzle-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.puzzle-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.puzzle-type-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border-radius:100px;margin-bottom:8px}
+.pt-fork{background:rgba(200,80,16,.2);color:#e8804a;border:1px solid rgba(200,80,16,.3)}
+.pt-pin{background:rgba(80,80,200,.2);color:#8888ee;border:1px solid rgba(80,80,200,.3)}
+.pt-skewer{background:rgba(180,30,180,.2);color:#cc66cc;border:1px solid rgba(180,30,180,.3)}
+.pt-mate{background:rgba(200,30,30,.2);color:#ee6666;border:1px solid rgba(200,30,30,.3)}
+.pt-back{background:rgba(30,150,30,.2);color:#66cc66;border:1px solid rgba(30,150,30,.3)}
+.pt-combo{background:rgba(180,140,0,.2);color:#ccaa30;border:1px solid rgba(180,140,0,.3)}
+.puzzle-task{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+.puzzle-side{font-size:12px;color:var(--muted)}
+.puzzle-result{border-radius:8px;padding:10px 12px;font-size:13px;font-weight:600;margin-top:8px;display:none}
+.puzzle-result.correct{background:#04100a;border:1px solid var(--accent);color:var(--accent2);display:block}
+.puzzle-result.wrong{background:#100404;border:1px solid var(--warn);color:#cc6060;display:block}
+.puzzle-streak{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.streak-fire{font-size:18px}
+.puzzle-btn{padding:9px 18px;border-radius:8px;border:none;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s}
+.puzzle-btn-primary{background:linear-gradient(135deg,#c05010,#e07030);color:#fff}
+.puzzle-btn-primary:hover{background:linear-gradient(135deg,#d06020,#f08040)}
+.puzzle-btn-secondary{background:var(--bg3);border:1px solid var(--border2);color:var(--text)}
+.puzzle-actions{display:flex;gap:8px;flex-wrap:wrap}
+.puzzle-progress-row{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+.puzzle-dots{display:flex;gap:4px}
+.pdot{width:9px;height:9px;border-radius:50%;background:var(--dim);transition:background .3s}
+.pdot.correct{background:var(--accent)}
+.pdot.wrong{background:var(--warn)}
+.pdot.current{background:var(--gold);animation:pulse 1s infinite}
+
+/* ── OPENING QUIZ ── */
+.quiz-wrap{max-width:960px;margin:0 auto;padding:12px}
+.quiz-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.quiz-layout{flex-direction:column}}
+.quiz-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.quiz-question{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.quiz-q-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:6px}
+.quiz-q-text{font-size:15px;font-weight:700;color:#fff;line-height:1.4}
+.quiz-options{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{padding:10px 14px;border-radius:8px;border:1.5px solid var(--border2);background:var(--bg3);color:var(--text);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;text-align:left;transition:all .15s}
+.quiz-opt:hover:not(:disabled){border-color:var(--accent);background:#0a180a}
+.quiz-opt.correct{border-color:var(--accent)!important;background:#04100a!important;color:var(--accent2)!important}
+.quiz-opt.wrong{border-color:var(--warn)!important;background:#100404!important;color:#cc6060!important}
+.quiz-opt:disabled{cursor:not-allowed;opacity:.7}
+.quiz-score{font-size:28px;font-weight:800;color:#fff;text-align:center}
+.quiz-score-sub{font-size:13px;color:var(--muted);text-align:center;margin-top:4px}
+
+/* ── ANALYSER ── */
+.analyser-wrap{max-width:960px;margin:0 auto;padding:12px}
+.analyser-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.analyser-layout{flex-direction:column}}
+.analyser-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.fen-input-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.fen-input-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.fen-inp{width:100%;background:#08081a;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none}
+.fen-inp:focus{border-color:var(--coach)}
+.pgn-inp{width:100%;background:#08081a;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none;resize:vertical;min-height:80px}
+.pgn-inp:focus{border-color:var(--coach)}
+.analyser-nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.analyser-eval{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--text);min-height:60px}
+.analyser-eval strong{color:var(--coach2)}
+
+/* ── PROMOTION MODAL ── */
+.promo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9000;display:flex;align-items:center;justify-content:center;display:none}
+.promo-overlay.vis{display:flex}
+.promo-modal{background:#141428;border:1px solid var(--border2);border-radius:12px;padding:20px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.9)}
+.promo-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px}
+.promo-pieces{display:flex;gap:10px;justify-content:center}
+.promo-piece{width:60px;height:60px;border-radius:10px;border:2px solid var(--border2);background:var(--bg3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.promo-piece:hover{border-color:var(--accent);background:#0a180a}
+.promo-piece svg{width:44px;height:44px}
+
+/* ── MOVE TIMER ── */
+.timer-bar{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;display:flex;align-items:center;gap:12px}
+.timer-clock{font-size:20px;font-weight:800;font-family:monospace;color:#fff;min-width:50px}
+.timer-clock.low{color:var(--warn);animation:pulse .5s infinite}
+.timer-label{font-size:11px;color:var(--muted);flex:1}
+.timer-toggle{font-size:11px;padding:4px 10px;border-radius:100px;border:1px solid var(--dim);background:transparent;color:var(--muted);cursor:pointer}
+.timer-toggle.active{border-color:var(--accent);color:var(--accent2)}
+
+/* ── MISTAKE REVIEW ── */
+.review-card{background:#0c0414;border:1px solid var(--coach);border-radius:10px;padding:12px 14px}
+.review-title{font-size:12px;font-weight:700;color:var(--coach2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.review-item{font-size:12px;color:#9080b0;line-height:1.6;padding:5px 8px;border-left:2px solid var(--coach);margin-bottom:4px;border-radius:0 4px 4px 0;background:#0a0220}
+
+/* ── SOUND toggle ── */
+.sound-toggle{position:fixed;bottom:14px;right:14px;width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:500;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.sound-toggle:hover{border-color:var(--accent);color:var(--accent2)}
+
 /* Playable board extras */
 .board-label-top{text-align:center;font-size:11px;color:var(--muted);padding:4px 0 2px;font-weight:600}
+
+/* ══ TOPBAR SCROLLABLE ON MOBILE ══ */
+.mode-switcher{display:flex;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;overflow-x:auto;overflow-y:hidden;max-width:calc(100vw - 180px);scrollbar-width:none}
+.mode-switcher::-webkit-scrollbar{display:none}
+
+/* ══ ROADMAP ══ */
+.roadmap-page{max-width:960px;margin:0 auto;padding:12px}
+.roadmap-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:18px}
+.roadmap-hdr h2{font-size:22px;font-weight:800;color:#fff}
+.roadmap-hdr p{font-size:13px;color:var(--muted);margin-top:4px}
+.elo-band{margin-bottom:20px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.elo-band-hdr{padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.elo-range-pill{font-size:12px;font-weight:800;padding:4px 12px;border-radius:100px;flex-shrink:0}
+.elo-band-title{font-size:15px;font-weight:700;color:#fff;flex:1}
+.elo-band-sub{font-size:11px;color:rgba(255,255,255,.5)}
+.elo-band-arrow{font-size:11px;opacity:.5;transition:transform .25s}
+.elo-band.open .elo-band-arrow{transform:rotate(180deg)}
+.elo-band-body{display:none;padding:0 0 4px}
+.elo-band.open .elo-band-body{display:block}
+/* ELO band colour theming */
+.elo-600  .elo-band-hdr{background:#0f1a0f} .elo-600  .elo-range-pill{background:#1d4d1d;color:#6dcc6d}
+.elo-800  .elo-band-hdr{background:#0f160f} .elo-800  .elo-range-pill{background:#2a5a1a;color:#8ddd5d}
+.elo-1000 .elo-band-hdr{background:#161200} .elo-1000 .elo-range-pill{background:#5a4a00;color:#ddcc30}
+.elo-1200 .elo-band-hdr{background:#160a00} .elo-1200 .elo-range-pill{background:#6a3000;color:#ee8840}
+.elo-1500 .elo-band-hdr{background:#160008} .elo-1500 .elo-range-pill{background:#6a0020;color:#ee4060}
+.elo-1800 .elo-band-hdr{background:#0c0018} .elo-1800 .elo-range-pill{background:#400080;color:#cc80ff}
+.elo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border)}
+.elo-card{background:var(--bg2);padding:12px 14px;cursor:pointer;transition:background .12s}
+.elo-card:hover{background:var(--bg3)}
+.elo-card-top{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.elo-card-icon{font-size:18px;flex-shrink:0}
+.elo-card-name{font-size:13px;font-weight:700;color:#fff}
+.elo-card-side{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:700;flex-shrink:0}
+.elo-card-desc{font-size:11px;color:var(--muted);line-height:1.5}
+.elo-card-why{font-size:11px;color:var(--accent2);margin-top:4px;font-style:italic}
+.elo-card-study-btn{display:inline-block;margin-top:7px;font-size:10px;padding:3px 9px;border-radius:100px;border:1px solid var(--accent);color:var(--accent2);background:transparent;cursor:pointer;font-family:inherit}
+.elo-card-study-btn:hover{background:#0a180a}
+
+/* ══ PROGRESS ══ */
+.progress-page{max-width:960px;margin:0 auto;padding:12px}
+.progress-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:18px}
+.progress-hdr h2{font-size:22px;font-weight:800;color:#fff}
+.stats-grid-big{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.stat-num{font-size:28px;font-weight:800;color:#fff;line-height:1}
+.stat-lbl{font-size:10px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
+.stat-card.gold .stat-num{color:var(--gold)}
+.stat-card.green .stat-num{color:var(--accent2)}
+.stat-card.purple .stat-num{color:var(--coach2)}
+.stat-card.red .stat-num{color:#ee6060}
+.progress-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.progress-section-hdr{padding:10px 14px;background:#0b0b1e;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.progress-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border)}
+.progress-item:last-child{border-bottom:none}
+.progress-item-name{font-size:12px;color:var(--text);flex:1}
+.progress-item-bar{flex:2;background:var(--dim);border-radius:100px;height:6px;overflow:hidden}
+.progress-item-fill{height:100%;border-radius:100px;background:var(--accent);transition:width .5s}
+.progress-item-pct{font-size:11px;color:var(--muted);min-width:35px;text-align:right}
+.reset-btn{padding:7px 14px;border-radius:7px;border:1px solid var(--warn);background:transparent;color:#cc6060;font-size:12px;cursor:pointer;font-family:inherit}
+
+/* ══ PUZZLE ══ */
+.puzzle-page{max-width:960px;margin:0 auto;padding:12px}
+.puzzle-hdr{padding:10px 0 14px;border-bottom:1px solid var(--border);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.puzzle-badge{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.puzzle-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.puzzle-layout,.quiz-layout,.analyser-layout{flex-direction:column}}
+.puzzle-right,.quiz-right,.analyser-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.puzzle-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.puzzle-type-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border-radius:100px;margin-bottom:8px}
+.puzzle-task{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+.puzzle-result{border-radius:8px;padding:10px 12px;font-size:13px;font-weight:600;margin-top:8px;display:none}
+.puzzle-result.correct{background:#04100a;border:1px solid var(--accent);color:var(--accent2);display:block}
+.puzzle-result.wrong{background:#100404;border:1px solid var(--warn);color:#cc6060;display:block}
+.pz-streak{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted)}
+.puzzle-dots{display:flex;gap:4px;margin-bottom:4px}
+.pdot{width:9px;height:9px;border-radius:50%;background:var(--dim);transition:background .3s}
+.pdot.correct{background:var(--accent)}.pdot.wrong{background:var(--warn)}.pdot.active{background:var(--gold);animation:pulse 1s infinite}
+.puzzle-btn{padding:9px 16px;border-radius:8px;border:none;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.puzzle-btn-primary{background:var(--accent);color:#fff}.puzzle-btn-primary:hover{background:#6ab020}
+.puzzle-btn-secondary{background:var(--bg3);border:1px solid var(--border2);color:var(--text)}
+.puzzle-actions{display:flex;gap:7px;flex-wrap:wrap}
+
+/* ══ QUIZ ══ */
+.quiz-page{max-width:960px;margin:0 auto;padding:12px}
+.quiz-question{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.quiz-q-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:6px}
+.quiz-q-text{font-size:14px;font-weight:700;color:#fff;line-height:1.4}
+.quiz-options{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{padding:10px 14px;border-radius:8px;border:1.5px solid var(--border2);background:var(--bg3);color:var(--text);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;text-align:left;transition:all .12s}
+.quiz-opt:hover:not(:disabled){border-color:var(--accent);background:#0a180a;color:var(--accent2)}
+.quiz-opt.correct{border-color:var(--accent)!important;background:#04100a!important;color:var(--accent2)!important}
+.quiz-opt.wrong{border-color:var(--warn)!important;background:#100404!important;color:#cc6060!important}
+.quiz-opt:disabled{cursor:not-allowed}
+.quiz-explanation{border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;background:#050a18;border-left:3px solid #3366aa;color:#6080cc}
+
+/* ══ ANALYSER ══ */
+.analyser-page{max-width:960px;margin:0 auto;padding:12px}
+.inp-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.inp-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;display:block}
+.inp-field{width:100%;background:#08081a;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none;box-sizing:border-box}
+.inp-field:focus{border-color:var(--coach)}
+textarea.inp-field{resize:vertical;min-height:70px}
+.analyser-eval{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;color:var(--text);min-height:70px}
+.analyser-eval strong{color:var(--coach2)}
+
+/* ══ PROMOTION MODAL ══ */
+.promo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9000;display:none;align-items:center;justify-content:center}
+.promo-overlay.vis{display:flex}
+.promo-modal{background:#141428;border:1px solid var(--border2);border-radius:14px;padding:22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.9)}
+.promo-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px}
+.promo-pieces{display:flex;gap:10px;justify-content:center}
+.promo-piece{width:62px;height:62px;border-radius:10px;border:2px solid var(--border2);background:var(--bg3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.promo-piece:hover{border-color:var(--accent);background:#0a180a;transform:scale(1.05)}
+.promo-piece svg{width:46px;height:46px}
+
+/* ══ SOUND / TIMER ══ */
+.sound-btn{position:fixed;bottom:16px;right:16px;width:38px;height:38px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);color:var(--muted);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:500;box-shadow:0 2px 10px rgba(0,0,0,.5);transition:all .15s}
+.sound-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.timer-row{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;display:flex;align-items:center;gap:10px}
+.timer-display{font-size:22px;font-weight:800;font-family:monospace;color:#fff;min-width:56px}
+.timer-display.low{color:var(--warn);animation:pulse .6s infinite}
+.timer-lbl{font-size:11px;color:var(--muted);flex:1}
+.timer-toggle{font-size:11px;padding:4px 10px;border-radius:100px;border:1px solid var(--dim);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit}
+.timer-toggle.on{border-color:var(--accent);color:var(--accent2)}
+
+
+/* ═══ ENDGAME TRAINER ═══════════════════════════════════════ */
+.endgame-page{max-width:960px;margin:0 auto;padding:12px}
+.endgame-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.endgame-hdr h2{font-size:22px;font-weight:800;color:#fff}
+.endgame-hdr p{font-size:13px;color:var(--muted);margin-top:3px}
+.endgame-badge{width:44px;height:44px;background:linear-gradient(135deg,#4a1a6a,#1a0830);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(100,30,180,.3)}
+.eg-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:16px}
+.eg-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .12s}
+.eg-card:hover{background:var(--bg3);border-color:var(--accent);transform:translateY(-1px)}
+.eg-card-icon{font-size:28px;margin-bottom:6px}
+.eg-card-name{font-size:13px;font-weight:700;color:#fff}
+.eg-card-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
+.eg-card-lvl{font-size:9px;padding:2px 7px;border-radius:100px;font-weight:700;margin-top:6px;display:inline-block}
+.eg-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.eg-layout{flex-direction:column}}
+.eg-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.eg-task-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.eg-task-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+.eg-task-sub{font-size:12px;color:var(--muted);line-height:1.6}
+.eg-feedback{border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.6;margin-top:6px}
+.eg-feedback.good{background:#04100a;border-left:3px solid var(--accent);color:var(--accent2)}
+.eg-feedback.bad{background:#100404;border-left:3px solid var(--warn);color:#cc6060}
+.eg-feedback.info{background:#050a18;border-left:3px solid #3366aa;color:#6080cc}
+.eg-moves-left{font-size:28px;font-weight:800;color:var(--gold);font-family:monospace;text-align:center}
+.eg-progress-ring{display:flex;align-items:center;justify-content:center;gap:14px;padding:8px}
+
+/* ═══ BLUNDER COACH ════════════════════════════════════════ */
+.blunder-page{max-width:960px;margin:0 auto;padding:12px}
+.blunder-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.blunder-hdr h2{font-size:22px;font-weight:800;color:#fff}
+.blunder-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.blunder-layout{flex-direction:column}}
+.blunder-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.blunder-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.blunder-move-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--warn);margin-bottom:5px}
+.blunder-move-san{font-size:22px;font-weight:800;font-family:monospace;color:#fff}
+.blunder-explanation{font-size:13px;color:#9090b0;line-height:1.65;margin-top:8px}
+.blunder-better{background:#04100a;border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:8px 11px;font-size:13px;color:var(--accent2);margin-top:8px}
+.blunder-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
+.blunder-list::-webkit-scrollbar{width:3px}
+.blunder-list::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.blunder-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:background .1s}
+.blunder-item:hover{background:var(--bg3)}
+.blunder-item.selected{border-color:var(--warn);background:#100404}
+.blunder-item-move{font-size:14px;font-weight:700;font-family:monospace;color:#fff;min-width:50px}
+.blunder-item-desc{font-size:11px;color:var(--muted);flex:1}
+.blunder-severity{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:700;flex-shrink:0}
+.sev-blunder{background:rgba(200,30,30,.2);color:#ee5050;border:1px solid rgba(200,30,30,.3)}
+.sev-mistake{background:rgba(200,120,0,.2);color:#ee9030;border:1px solid rgba(200,120,0,.3)}
+.sev-inaccuracy{background:rgba(200,180,0,.2);color:#eecc30;border:1px solid rgba(200,180,0,.3)}
+.pgn-input-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+
+/* ═══ OPENING TREE ════════════════════════════════════════ */
+.tree-page{max-width:960px;margin:0 auto;padding:12px}
+.tree-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.tree-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.tree-layout{flex-direction:column}}
+.tree-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.tree-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.tree-sel-btn{padding:6px 14px;border-radius:100px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit;transition:all .12s}
+.tree-sel-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.tree-container{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;overflow-x:auto}
+.tree-node{display:inline-flex;flex-direction:column;align-items:center;position:relative;padding:0 8px}
+.tree-row{display:flex;align-items:flex-start;gap:0;position:relative}
+.tree-row::before{content:'';position:absolute;top:0;left:50%;right:50%;height:16px;border-left:1px solid var(--border2)}
+.tree-move-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:12px;font-weight:600;font-family:monospace;cursor:pointer;white-space:nowrap;transition:all .1s;margin-top:12px;position:relative}
+.tree-move-btn:hover{border-color:var(--accent);background:#0a180a;color:var(--accent2)}
+.tree-move-btn.played{border-color:var(--accent);background:#04100a;color:var(--accent2)}
+.tree-move-btn.current{border-color:var(--gold);background:#1a1200;color:var(--gold)}
+.tree-connector{width:1px;background:var(--border2);margin:0 auto}
+.tree-info{font-size:12px;color:var(--muted);line-height:1.6;padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
+.tree-info strong{color:var(--accent2)}
+.tree-branch-label{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;text-align:center;margin-top:3px}
+
+/* ═══ DAILY CHALLENGE ══════════════════════════════════════ */
+.daily-page{max-width:960px;margin:0 auto;padding:12px}
+.daily-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.daily-hdr h2{font-size:22px;font-weight:800;color:#fff}
+.daily-streak-box{margin-left:auto;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 16px;text-align:center}
+.daily-streak-num{font-size:30px;font-weight:800;color:var(--gold)}
+.daily-streak-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.daily-tasks{display:flex;flex-direction:column;gap:10px}
+.daily-task{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .12s}
+.daily-task:hover{background:var(--bg3)}
+.daily-task.done{border-color:var(--accent);background:#04100a}
+.daily-task-icon{font-size:28px;flex-shrink:0}
+.daily-task-body{flex:1}
+.daily-task-title{font-size:14px;font-weight:700;color:#fff}
+.daily-task-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.daily-task-status{font-size:12px;font-weight:700;flex-shrink:0}
+.daily-task.done .daily-task-status{color:var(--accent2)}
+.daily-task:not(.done) .daily-task-status{color:var(--dim)}
+.daily-xp{background:linear-gradient(135deg,#1a0830,#0a1a30);border:1px solid #2a1050;border-radius:10px;padding:14px;text-align:center}
+.daily-xp-num{font-size:36px;font-weight:800;color:var(--coach2)}
+.daily-xp-lbl{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* ═══ BADGES ═════════════════════════════════════════════════ */
+.badges-page{max-width:960px;margin:0 auto;padding:12px}
+.badges-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.badge-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;transition:all .15s;position:relative;overflow:hidden}
+.badge-card.earned{border-color:var(--gold);background:linear-gradient(135deg,#1a1000,#0a0800)}
+.badge-card.earned::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,168,32,.08),transparent);pointer-events:none}
+.badge-card.locked{opacity:.45;filter:grayscale(.8)}
+.badge-icon{font-size:36px;margin-bottom:8px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.badge-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:3px}
+.badge-desc{font-size:10px;color:var(--muted);line-height:1.4}
+.badge-earned-lbl{font-size:9px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:5px}
+.badge-locked-lbl{font-size:9px;color:var(--dim);margin-top:5px}
+.elo-est-box{background:linear-gradient(135deg,#0a1a30,#050a18);border:1px solid #1a3060;border-radius:12px;padding:20px;text-align:center;margin-bottom:14px}
+.elo-est-num{font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1}
+.elo-est-label{font-size:13px;color:#6080aa;margin-top:4px}
+.elo-est-bar{background:var(--dim);border-radius:100px;height:8px;margin:12px 0 6px;overflow:hidden}
+.elo-est-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#3366cc,#66aaff);transition:width .8s ease}
+.elo-est-range{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+
 </style>
 </head>
 <body>
@@ -319,6 +676,16 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <button class="mode-btn active" id="btn-study" onclick="switchMode('study')">📖 Study</button>
       <button class="mode-btn" id="btn-coach" onclick="switchMode('coach')">🤖 Coach</button>
       <button class="mode-btn" id="btn-freeplay" onclick="switchMode('freeplay')">♛ Free Play</button>
+      <button class="mode-btn" id="btn-roadmap" onclick="switchMode('roadmap')">🗺 Roadmap</button>
+      <button class="mode-btn" id="btn-puzzle" onclick="switchMode('puzzle')">🧩 Puzzles</button>
+      <button class="mode-btn" id="btn-quiz" onclick="switchMode('quiz')">❓ Quiz</button>
+      <button class="mode-btn" id="btn-analyser" onclick="switchMode('analyser')">🔬 Analyse</button>
+      <button class="mode-btn" id="btn-progress" onclick="switchMode('progress')">📊 Progress</button>
+      <button class="mode-btn" id="btn-endgame" onclick="switchMode('endgame')">♔ Endgames</button>
+      <button class="mode-btn" id="btn-blunder" onclick="switchMode('blunder')">🔍 Blunders</button>
+      <button class="mode-btn" id="btn-tree" onclick="switchMode('tree')">🌳 Tree</button>
+      <button class="mode-btn" id="btn-daily" onclick="switchMode('daily')">📅 Daily</button>
+      <button class="mode-btn" id="btn-badges" onclick="switchMode('badges')">🏆 Badges</button>
     </div>
   </div>
 </div>
@@ -621,6 +988,409 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 </div><!-- end freeplay-page -->
+
+<!-- ═══ ENDGAME TRAINER ═══════════════════════════════════ -->
+<div id="endgame-page" style="display:none">
+<div class="endgame-page">
+  <div class="endgame-hdr">
+    <div class="endgame-badge">♔</div>
+    <div>
+      <h2>Endgame Trainer</h2>
+      <p>Master the essential endings — the phase where most beginner games are won or lost</p>
+    </div>
+  </div>
+  <!-- Scenario selector -->
+  <div id="eg-selector">
+    <div class="eg-select-grid" id="eg-grid"></div>
+  </div>
+  <!-- Active training -->
+  <div id="eg-trainer" style="display:none">
+    <div class="eg-layout">
+      <div class="board-col">
+        <div class="board-outer">
+          <div class="b-row">
+            <div class="rank-col" id="eg-rank-col"></div>
+            <div class="board-wrap">
+              <div class="board" id="eg-board"></div>
+              <svg class="arr-layer" id="eg-arr-layer" viewBox="0 0 416 416"></svg>
+            </div>
+          </div>
+          <div class="file-row" id="eg-file-row"></div>
+        </div>
+        <div class="notation" id="eg-notation" style="margin-top:8px"></div>
+      </div>
+      <div class="eg-right">
+        <div class="eg-task-card">
+          <div id="eg-task-title" class="eg-task-title">Task</div>
+          <div id="eg-task-sub" class="eg-task-sub"></div>
+          <div id="eg-feedback" style="display:none"></div>
+        </div>
+        <div class="eg-progress-ring">
+          <div style="text-align:center">
+            <div class="eg-moves-left" id="eg-move-count">0</div>
+            <div style="font-size:11px;color:var(--muted)">moves made</div>
+          </div>
+          <div style="text-align:center">
+            <div class="eg-moves-left" id="eg-par-display" style="color:var(--muted)">—</div>
+            <div style="font-size:11px;color:var(--muted)">par</div>
+          </div>
+        </div>
+        <div class="turn-bar">
+          <div class="turn-dot white" id="eg-turn-dot"></div>
+          <div class="turn-text" id="eg-turn-text">Your turn</div>
+        </div>
+        <div class="puzzle-actions">
+          <button class="puzzle-btn puzzle-btn-primary" id="eg-hint-btn" onclick="egHint()">💡 Hint</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="egReset()">↺ Restart</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="egBack()">← Scenarios</button>
+        </div>
+        <div class="eg-task-card" id="eg-lesson-box">
+          <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">📚 Key Concept</div>
+          <div id="eg-lesson-text" style="font-size:12px;color:#9090b0;line-height:1.65"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ BLUNDER COACH ══════════════════════════════════════ -->
+<div id="blunder-page" style="display:none">
+<div class="blunder-page">
+  <div class="blunder-hdr">
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#6a0020,#300010);box-shadow:0 0 18px rgba(180,0,40,.3)">🔍</div>
+    <div>
+      <h2>Blunder Coach</h2>
+      <p>Paste a PGN from chess.com — the AI finds your worst moves and explains how to fix them</p>
+    </div>
+  </div>
+  <div class="blunder-layout">
+    <div class="board-col">
+      <div class="board-outer">
+        <div class="b-row">
+          <div class="rank-col" id="bl-rank-col"></div>
+          <div class="board-wrap">
+            <div class="board" id="bl-board"></div>
+            <svg class="arr-layer" id="bl-arr-layer" viewBox="0 0 416 416"></svg>
+          </div>
+        </div>
+        <div class="file-row" id="bl-file-row"></div>
+      </div>
+      <div class="notation" id="bl-notation" style="margin-top:8px"></div>
+      <div class="nav-controls" style="margin-top:6px">
+        <button class="nv" onclick="blFirst()">⏮</button>
+        <button class="nv" onclick="blPrev()">◀</button>
+        <span class="nav-label" id="bl-nav-lbl">—</span>
+        <button class="nv" onclick="blNext()">▶</button>
+        <button class="nv" onclick="blLast()">⏭</button>
+      </div>
+    </div>
+    <div class="blunder-right">
+      <div class="pgn-input-section">
+        <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px">Paste your game PGN from chess.com</div>
+        <textarea class="inp-field" id="bl-pgn-input" style="min-height:80px" placeholder="1. e4 e5 2. Nf3 ...&#10;&#10;Tip: In chess.com, go to your game → Analysis → Share → Copy PGN"></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+          <button class="puzzle-btn puzzle-btn-primary" onclick="blAnalyse()">🔍 Find Blunders</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="blLoadDemo()">📋 Load Demo Game</button>
+        </div>
+      </div>
+      <div id="bl-results" style="display:none">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">Blunders Found <span id="bl-count" style="color:var(--warn)"></span></div>
+        <div class="blunder-list" id="bl-list"></div>
+      </div>
+      <div class="blunder-card" id="bl-detail" style="display:none">
+        <div class="blunder-move-num" id="bl-detail-num"></div>
+        <div class="blunder-move-san" id="bl-detail-san"></div>
+        <div class="blunder-explanation" id="bl-detail-exp"></div>
+        <div class="blunder-better" id="bl-detail-better"></div>
+      </div>
+      <div id="bl-loading" style="display:none;padding:14px;text-align:center;color:var(--muted);font-size:13px;animation:pulse 1s infinite">🤖 Analysing your game…</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ OPENING TREE ═══════════════════════════════════════ -->
+<div id="tree-page" style="display:none">
+<div class="tree-page">
+  <div class="tree-hdr">
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#0a3a1a,#051508);box-shadow:0 0 18px rgba(20,100,40,.3)">🌳</div>
+    <div>
+      <h2>Opening Explorer</h2>
+      <p>Visual move tree — see how openings branch and click any move to explore it on the board</p>
+    </div>
+  </div>
+  <div class="tree-layout">
+    <div class="board-col">
+      <div class="board-outer">
+        <div class="b-row">
+          <div class="rank-col" id="tr-rank-col"></div>
+          <div class="board-wrap">
+            <div class="board" id="tr-board"></div>
+          </div>
+        </div>
+        <div class="file-row" id="tr-file-row"></div>
+      </div>
+      <div class="notation" id="tr-notation" style="margin-top:8px"></div>
+      <div class="puzzle-actions" style="margin-top:6px">
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="trBack()">↩ Back</button>
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="trReset()">↺ Reset</button>
+      </div>
+    </div>
+    <div class="tree-right">
+      <div class="tree-selector" id="tr-selector"></div>
+      <div class="tree-container" id="tr-tree"></div>
+      <div class="tree-info" id="tr-info">
+        <strong>Click any opening above</strong> to explore its moves. Then click branches in the tree to navigate. The board updates live.
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ DAILY CHALLENGE ════════════════════════════════════ -->
+<div id="daily-page" style="display:none">
+<div class="daily-page">
+  <div class="daily-hdr">
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#0a2a4a,#050f1e);box-shadow:0 0 18px rgba(20,80,160,.3)">📅</div>
+    <div>
+      <h2>Daily Challenge</h2>
+      <p>3 tasks every day — build a habit and track your streak</p>
+    </div>
+    <div class="daily-streak-box">
+      <div class="daily-streak-num" id="daily-streak">0</div>
+      <div class="daily-streak-lbl">🔥 Day Streak</div>
+    </div>
+  </div>
+  <div class="daily-xp">
+    <div class="daily-xp-num" id="daily-xp">0</div>
+    <div class="daily-xp-lbl">XP earned today — complete all 3 tasks for a bonus!</div>
+  </div>
+  <div class="daily-tasks" id="daily-tasks"></div>
+  <div style="margin-top:14px;text-align:center;font-size:12px;color:var(--muted)" id="daily-next-reset"></div>
+</div>
+</div>
+
+<!-- ═══ BADGES & ELO ESTIMATOR ════════════════════════════ -->
+<div id="badges-page" style="display:none">
+<div class="badges-page">
+  <div class="endgame-hdr" style="margin-bottom:16px">
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#4a3a00,#1a1400);box-shadow:0 0 18px rgba(180,140,0,.3)">🏆</div>
+    <div>
+      <h2>Badges &amp; ELO Estimate</h2>
+      <p>Earn badges by learning and practising — your estimated rating updates as you improve</p>
+    </div>
+  </div>
+  <div class="elo-est-box">
+    <div class="elo-est-num" id="elo-est">—</div>
+    <div class="elo-est-label">Estimated Rating (based on your practice)</div>
+    <div class="elo-est-bar"><div class="elo-est-fill" id="elo-est-fill" style="width:0%"></div></div>
+    <div class="elo-est-range"><span>400</span><span>800</span><span>1200</span><span>1600</span><span>2000+</span></div>
+  </div>
+  <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px">Your Badges</div>
+  <div class="badges-grid" id="badges-grid"></div>
+</div>
+</div>
+
+
+
+<!-- SOUND BUTTON -->
+<button class="sound-btn" id="sound-btn" onclick="toggleSound()" title="Toggle sounds">🔊</button>
+
+<!-- PROMOTION MODAL -->
+<div class="promo-overlay" id="promo-overlay">
+  <div class="promo-modal">
+    <div class="promo-title">Choose promotion piece</div>
+    <div class="promo-pieces" id="promo-pieces"></div>
+  </div>
+</div>
+
+<!-- ══ ELO ROADMAP PAGE ══════════════════════════════════════ -->
+<div id="roadmap-page" style="display:none">
+<div class="roadmap-page">
+  <div class="roadmap-hdr">
+    <h2>🗺 Opening Roadmap by ELO</h2>
+    <p>What to learn at every level — click any opening to jump straight to it in Study mode</p>
+  </div>
+  <div id="roadmap-bands"></div>
+</div>
+</div>
+
+<!-- ══ PROGRESS PAGE ════════════════════════════════════════ -->
+<div id="progress-page" style="display:none">
+<div class="progress-page">
+  <div class="progress-hdr">
+    <h2>📊 Your Progress</h2>
+    <p>Track your learning across all modes</p>
+  </div>
+  <div class="stats-grid-big" id="progress-stats"></div>
+  <div class="progress-section">
+    <div class="progress-section-hdr">Traps Studied</div>
+    <div id="progress-traps-list"></div>
+  </div>
+  <div class="progress-section">
+    <div class="progress-section-hdr">Recent Activity</div>
+    <div id="progress-activity"></div>
+  </div>
+  <div style="padding:14px;text-align:right">
+    <button class="reset-btn" onclick="if(confirm('Reset all progress?')){resetProgress()}">Reset All Progress</button>
+  </div>
+</div>
+</div>
+
+<!-- ══ PUZZLE PAGE ════════════════════════════════════════ -->
+<div id="puzzle-page" style="display:none">
+<div class="puzzle-page">
+  <div class="puzzle-hdr">
+    <div class="puzzle-badge" style="background:linear-gradient(135deg,#c05010,#801a00);box-shadow:0 0 18px rgba(200,80,16,.3)">🧩</div>
+    <div>
+      <h2>Tactics Puzzles</h2>
+      <p>Spot the best move — forks, pins, skewers, back rank mates. Solve puzzles to sharpen your eye.</p>
+    </div>
+    <div style="margin-left:auto;text-align:right">
+      <div class="pz-streak">🔥 <span id="pz-streak">0</span> streak</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:3px">Today: <strong id="pz-today" style="color:var(--accent2)">0</strong></div>
+    </div>
+  </div>
+  <div class="puzzle-layout">
+    <div class="board-col">
+      <div class="board-outer">
+        <div class="b-row">
+          <div class="rank-col" id="pz-rank-col"></div>
+          <div class="board-wrap">
+            <div class="board" id="pz-board"></div>
+            <svg class="arr-layer" id="pz-arr-layer" viewBox="0 0 416 416"></svg>
+          </div>
+        </div>
+        <div class="file-row" id="pz-file-row"></div>
+      </div>
+      <div class="notation" id="pz-notation" style="margin-top:8px"></div>
+    </div>
+    <div class="puzzle-right">
+      <div class="puzzle-card">
+        <span class="puzzle-type-badge" id="pz-badge" style="background:rgba(200,80,16,.2);color:#e8804a;border:1px solid rgba(200,80,16,.3)">Fork</span>
+        <div class="puzzle-task" id="pz-task">Find the best move</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px" id="pz-side-lbl"></div>
+        <div class="puzzle-result" id="pz-result"></div>
+      </div>
+      <div>
+        <div class="puzzle-dots" id="pz-dots"></div>
+        <div style="font-size:11px;color:var(--muted)" id="pz-prog-lbl">Puzzle 1 of 5</div>
+      </div>
+      <div class="puzzle-actions">
+        <button class="puzzle-btn puzzle-btn-primary" id="pz-next-btn" onclick="pzNext()" style="display:none">Next →</button>
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="pzHint()">💡 Hint</button>
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="pzSkip()">⏭ Skip</button>
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="pzNewSet()">↺ New Set</button>
+      </div>
+      <div class="stats-grid-big" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card green"><div class="stat-num" id="pz-correct">0</div><div class="stat-lbl">Correct</div></div>
+        <div class="stat-card"><div class="stat-num" id="pz-attempts">0</div><div class="stat-lbl">Tried</div></div>
+        <div class="stat-card gold"><div class="stat-num" id="pz-best">0</div><div class="stat-lbl">Best Streak</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ QUIZ PAGE ════════════════════════════════════════ -->
+<div id="quiz-page" style="display:none">
+<div class="quiz-page">
+  <div class="puzzle-hdr">
+    <div class="puzzle-badge" style="background:linear-gradient(135deg,#1a4a8a,#0a2050);box-shadow:0 0 18px rgba(30,70,180,.3)">❓</div>
+    <div>
+      <h2>Opening Quiz</h2>
+      <p>Test what you've learned — identify the correct move for the position shown</p>
+    </div>
+  </div>
+  <div class="quiz-layout">
+    <div class="board-col">
+      <div class="board-outer">
+        <div class="b-row">
+          <div class="rank-col" id="qz-rank-col"></div>
+          <div class="board-wrap">
+            <div class="board" id="qz-board"></div>
+          </div>
+        </div>
+        <div class="file-row" id="qz-file-row"></div>
+      </div>
+    </div>
+    <div class="quiz-right">
+      <div class="quiz-question">
+        <div class="quiz-q-label">Question <span id="qz-num">1</span> / <span id="qz-total">10</span></div>
+        <div class="quiz-q-text" id="qz-question">Loading…</div>
+      </div>
+      <div class="quiz-options" id="qz-options"></div>
+      <div class="quiz-explanation" id="qz-explanation" style="display:none"></div>
+      <div class="puzzle-actions">
+        <button class="puzzle-btn puzzle-btn-primary" id="qz-next-btn" onclick="qzNext()" style="display:none">Next →</button>
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="qzRestart()">↺ Restart Quiz</button>
+      </div>
+      <div class="stats-grid-big" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card green"><div class="stat-num" id="qz-score">0</div><div class="stat-lbl">Score</div></div>
+        <div class="stat-card"><div class="stat-num" id="qz-answered">0</div><div class="stat-lbl">Answered</div></div>
+        <div class="stat-card gold"><div class="stat-num" id="qz-pct">—</div><div class="stat-lbl">Accuracy</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ ANALYSER PAGE ════════════════════════════════════ -->
+<div id="analyser-page" style="display:none">
+<div class="analyser-page">
+  <div class="puzzle-hdr">
+    <div class="puzzle-badge" style="background:linear-gradient(135deg,#3a2080,#1a0840);box-shadow:0 0 18px rgba(90,30,200,.3)">🔬</div>
+    <div>
+      <h2>Position Analyser</h2>
+      <p>Paste a FEN or PGN from chess.com — step through it with AI coaching</p>
+    </div>
+  </div>
+  <div class="analyser-layout">
+    <div class="board-col">
+      <div class="board-outer">
+        <div class="b-row">
+          <div class="rank-col" id="an-rank-col"></div>
+          <div class="board-wrap">
+            <div class="board" id="an-board"></div>
+            <svg class="arr-layer" id="an-arr-layer" viewBox="0 0 416 416"></svg>
+          </div>
+        </div>
+        <div class="file-row" id="an-file-row"></div>
+      </div>
+      <div class="notation" id="an-notation" style="margin-top:8px"></div>
+      <div class="nav-controls" style="margin-top:6px">
+        <button class="nv" onclick="anFirst()">⏮</button>
+        <button class="nv" onclick="anPrev()">◀</button>
+        <span class="nav-label" id="an-nav-lbl">—</span>
+        <button class="nv" onclick="anNext()">▶</button>
+        <button class="nv" onclick="anLast()">⏭</button>
+      </div>
+    </div>
+    <div class="analyser-right">
+      <div class="inp-box">
+        <label class="inp-lbl">Paste FEN position</label>
+        <input class="inp-field" id="an-fen" placeholder="rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1" />
+        <button class="puzzle-btn puzzle-btn-primary" style="margin-top:8px" onclick="anLoadFen()">Load FEN</button>
+      </div>
+      <div class="inp-box">
+        <label class="inp-lbl">Or paste PGN (full game)</label>
+        <textarea class="inp-field" id="an-pgn" placeholder="1. e4 e5 2. Nf3 Nc6 3. Bc4 ..."></textarea>
+        <button class="puzzle-btn puzzle-btn-primary" style="margin-top:8px" onclick="anLoadPgn()">Load PGN</button>
+      </div>
+      <div class="analyser-eval" id="an-eval">
+        <span style="color:var(--muted)">Load a position above, then step through moves to get AI coaching on each move.</span>
+      </div>
+      <div class="puzzle-actions">
+        <button class="puzzle-btn puzzle-btn-primary" onclick="anAnalysePosition()">🤖 Analyse This Position</button>
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="anReset()">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
 
 <script>
 // ══════════════════════════════════════════════════════════════════
@@ -1725,6 +2495,7 @@ let studyChess = new Chess();
 function loadTrap(trap) {
   curTrap = trap;
   curStep = -1;
+  recordEvent('trap_studied', trap.id);
   studyChess = new Chess();
 
   document.getElementById('trap-title').textContent = trap.name;
@@ -1746,7 +2517,7 @@ function navNext() {
   if (curStep < curTrap.moves.length - 1) {
     curStep++;
     const m = curTrap.moves[curStep];
-    try { studyChess.move(m.san, {sloppy:true}); } catch(e) {}
+    try { studyChess.move(m.san, {sloppy:true}); playSound('move'); } catch(e) {}
     renderStep();
   } else {
     showSummary();
@@ -2350,6 +3121,7 @@ async function coachPlayMove() {
   }
 
   if (!move) return;
+  playSound(move.captured ? 'capture' : 'move');
 
   if (bookMoveIdx < bookMoves.length) coachGame.bookMoveIdx++;
 
@@ -2448,7 +3220,10 @@ function endCoachGame(result) {
   const msg = document.getElementById('game-over-msg');
 
   if (result === 'checkmate') {
-    const winner = coachGame.chess.turn() === coachGame.playerColor ? 'Coach wins!' : 'You win!';
+    const isWin = coachGame.chess.turn() !== coachGame.playerColor;
+    recordEvent(isWin ? 'coach_win' : 'coach_loss', coachGame.opening.name);
+    playSound('mate');
+    const winner = isWin ? 'You win!' : 'Coach wins!';
     emoji.textContent = coachGame.chess.turn() === coachGame.playerColor ? '😅' : '🏆';
     title.textContent = winner;
     msg.textContent = coachGame.chess.turn() === coachGame.playerColor
@@ -2548,14 +3323,25 @@ function leaveCoachGame() {
 // MODE SWITCHING
 // ══════════════════════════════════════════════════════════════════
 function switchMode(mode) {
-  document.getElementById('study-page').style.display = mode === 'study' ? 'block' : 'none';
-  document.getElementById('coach-page').style.display = mode === 'coach' ? 'block' : 'none';
-  document.getElementById('freeplay-page').style.display = mode === 'freeplay' ? 'block' : 'none';
-  document.getElementById('btn-study').classList.toggle('active', mode === 'study');
-  document.getElementById('btn-coach').classList.toggle('active', mode === 'coach');
-  document.getElementById('btn-freeplay').classList.toggle('active', mode === 'freeplay');
+  const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges'];
+  pages.forEach(p => {
+    const el = document.getElementById(p + '-page');
+    if (el) el.style.display = p === mode ? 'block' : 'none';
+    const btn = document.getElementById('btn-' + p);
+    if (btn) btn.classList.toggle('active', p === mode);
+  });
   document.querySelector('.subnav').style.display = mode === 'study' ? 'flex' : 'none';
   if (mode === 'freeplay' && !fpGame) fpNewGame();
+  if (mode === 'roadmap') renderRoadmap();
+  if (mode === 'puzzle') { if (!pzState.setIdx.length) pzNewSet(); }
+  if (mode === 'quiz') { if (!qzState.questions.length) qzRestart(); }
+  if (mode === 'analyser') { if (!anState.chess) anReset(); }
+  if (mode === 'progress') renderProgress();
+  if (mode === 'endgame') renderEgSelector();
+  if (mode === 'blunder') { blState = { chess: null, moves: [], step: -1, blunders: [] }; buildBoard('bl-board','bl-rank-col','bl-file-row',false); }
+  if (mode === 'tree') { renderTreeSelector(); if (!document.getElementById('tr-board').children.length) { buildBoard('tr-board','tr-rank-col','tr-file-row',false); } }
+  if (mode === 'daily') renderDaily();
+  if (mode === 'badges') renderBadges();
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -2590,6 +3376,12 @@ function init() {
 }
 
 window.addEventListener('load', init);
+
+// init sound button state
+window.addEventListener('load', () => {
+  const btn = document.getElementById('sound-btn');
+  if (btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+});
 // ══════════════════════════════════════════════════════════════════
 // FREE PLAY MODE — play both colours with move quality hints
 // ══════════════════════════════════════════════════════════════════
@@ -2831,6 +3623,8 @@ async function fpAfterMove(move) {
 
 function fpEndGame(msg, emoji) {
   fpGame.gameOver = true;
+  recordEvent('freeplay_game', msg);
+  playSound('mate');
   document.getElementById('fp-over-emoji').textContent = emoji;
   document.getElementById('fp-over-title').textContent = msg;
   document.getElementById('fp-over-msg').textContent = 'Start a new game or undo the last move.';
@@ -2874,6 +3668,1340 @@ function fpAddMsg(cls, html) {
   // Keep feed tidy
   while (feed.children.length > 30) feed.removeChild(feed.firstChild);
 }
+
+
+// ══════════════════════════════════════════════════════════════════
+// SOUND SYSTEM
+// ══════════════════════════════════════════════════════════════════
+let soundEnabled = localStorage.getItem('chess-sound') !== 'off';
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  localStorage.setItem('chess-sound', soundEnabled ? 'on' : 'off');
+  document.getElementById('sound-btn').textContent = soundEnabled ? '🔊' : '🔇';
+}
+function playSound(type) {
+  if (!soundEnabled) return;
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.connect(g); g.connect(ctx.destination);
+  const sounds = {
+    move:    { freq: 440, dur: 0.08, type: 'sine', vol: 0.3 },
+    capture: { freq: 280, dur: 0.15, type: 'triangle', vol: 0.4 },
+    check:   { freq: 660, dur: 0.2,  type: 'square', vol: 0.3 },
+    mate:    { freq: 220, dur: 0.5,  type: 'sawtooth', vol: 0.4 },
+    correct: { freq: 520, dur: 0.25, type: 'sine', vol: 0.35 },
+    wrong:   { freq: 180, dur: 0.3,  type: 'triangle', vol: 0.35 },
+    select:  { freq: 600, dur: 0.05, type: 'sine', vol: 0.2 },
+  };
+  const s = sounds[type] || sounds.move;
+  o.type = s.type; o.frequency.setValueAtTime(s.freq, ctx.currentTime);
+  g.gain.setValueAtTime(s.vol, ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + s.dur);
+  o.start(); o.stop(ctx.currentTime + s.dur);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PROGRESS / STATS SYSTEM
+// ══════════════════════════════════════════════════════════════════
+function getProgress() {
+  try { return JSON.parse(localStorage.getItem('chess-progress') || '{}'); } catch { return {}; }
+}
+function saveProgress(p) { localStorage.setItem('chess-progress', JSON.stringify(p)); }
+function recordEvent(type, detail) {
+  const p = getProgress();
+  if (!p.events) p.events = [];
+  p.events.unshift({ type, detail, ts: Date.now() });
+  if (p.events.length > 100) p.events = p.events.slice(0, 100);
+  // Stats
+  if (type === 'trap_studied') {
+    if (!p.traps_studied) p.traps_studied = {};
+    p.traps_studied[detail] = (p.traps_studied[detail] || 0) + 1;
+  }
+  if (type === 'puzzle_correct') p.puzzles_correct = (p.puzzles_correct || 0) + 1;
+  if (type === 'puzzle_attempted') p.puzzles_attempted = (p.puzzles_attempted || 0) + 1;
+  if (type === 'quiz_correct') p.quiz_correct = (p.quiz_correct || 0) + 1;
+  if (type === 'quiz_attempted') p.quiz_attempted = (p.quiz_attempted || 0) + 1;
+  if (type === 'coach_win') p.coach_wins = (p.coach_wins || 0) + 1;
+  if (type === 'coach_loss') p.coach_losses = (p.coach_losses || 0) + 1;
+  if (type === 'freeplay_game') p.freeplay_games = (p.freeplay_games || 0) + 1;
+  saveProgress(p);
+  if (typeof checkDailyProgress === 'function') checkDailyProgress(type);
+}
+function resetProgress() {
+  localStorage.removeItem('chess-progress');
+  renderProgress();
+}
+function renderProgress() {
+  const p = getProgress();
+  const trapsStudied = Object.keys(p.traps_studied || {}).length;
+  const totalTraps = TRAPS.length + QUICK_MATES.length;
+  const statsEl = document.getElementById('progress-stats');
+  if (!statsEl) return;
+  statsEl.innerHTML = `
+    <div class="stat-card green"><div class="stat-num">${trapsStudied}</div><div class="stat-lbl">Traps Studied</div></div>
+    <div class="stat-card gold"><div class="stat-num">${p.puzzles_correct||0}</div><div class="stat-lbl">Puzzles Solved</div></div>
+    <div class="stat-card purple"><div class="stat-num">${p.quiz_correct||0}</div><div class="stat-lbl">Quiz Correct</div></div>
+    <div class="stat-card"><div class="stat-num">${p.coach_wins||0}</div><div class="stat-lbl">Coach Wins</div></div>
+    <div class="stat-card red"><div class="stat-num">${p.coach_losses||0}</div><div class="stat-lbl">Coach Losses</div></div>
+    <div class="stat-card"><div class="stat-num">${p.freeplay_games||0}</div><div class="stat-lbl">Free Games</div></div>`;
+
+  // Traps list
+  const trapsList = document.getElementById('progress-traps-list');
+  if (trapsList) {
+    const allTraps = [...TRAPS, ...QUICK_MATES];
+    trapsList.innerHTML = allTraps.map(t => {
+      const count = (p.traps_studied || {})[t.id] || 0;
+      const pct = Math.min(100, count * 25);
+      return `<div class="progress-item">
+        <span class="progress-item-name">${t.name}</span>
+        <div class="progress-item-bar"><div class="progress-item-fill" style="width:${pct}%"></div></div>
+        <span class="progress-item-pct">${count > 0 ? count + 'x' : '—'}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Activity
+  const actEl = document.getElementById('progress-activity');
+  if (actEl) {
+    const events = (p.events || []).slice(0, 10);
+    if (!events.length) { actEl.innerHTML = '<div style="padding:12px 14px;font-size:12px;color:var(--muted)">No activity yet — start studying!</div>'; return; }
+    const labels = { trap_studied:'📖 Studied', puzzle_correct:'✅ Puzzle solved', puzzle_attempted:'🧩 Puzzle attempted', quiz_correct:'✅ Quiz correct', quiz_attempted:'❓ Quiz answered', coach_win:'🏆 Coach win', coach_loss:'😅 Coach loss', freeplay_game:'♛ Free game' };
+    actEl.innerHTML = events.map(e => {
+      const ago = Math.round((Date.now() - e.ts) / 60000);
+      const agoStr = ago < 1 ? 'just now' : ago < 60 ? ago + 'm ago' : Math.round(ago/60) + 'h ago';
+      return `<div class="progress-item"><span class="progress-item-name">${labels[e.type]||e.type}: <strong>${e.detail}</strong></span><span class="progress-item-pct" style="color:var(--muted)">${agoStr}</span></div>`;
+    }).join('');
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ELO ROADMAP
+// ══════════════════════════════════════════════════════════════════
+const ROADMAP = [
+  { range:'0–600', cls:'elo-600', title:'Total Beginner', sub:'Learn the rules + basic tactics',
+    openings:[
+      { icon:'👑', name:"Scholar's Mate", side:'White', emoji:'pw', desc:"Checkmate in 4 moves with Bc4+Qh5. Every beginner should know this.", why:"Wins games instantly AND teaches you to recognise the threat.", trapId:'w2' },
+      { icon:'⚡', name:"Fool's Mate", side:'Both', emoji:'pq', desc:"The fastest checkmate possible — 2 moves. Know it to avoid it.", why:"Understanding why f3+g4 is terrible teaches king safety.", trapId:'qm1' },
+      { icon:'🛡', name:'Caro-Kann Basics', side:'Black', emoji:'pb', desc:"1...c6 preparing d5. Gets your pieces out safely.", why:"Solid defence with no traps to fall into." },
+      { icon:'♟', name:'Basic Pawn Centre', side:'White', emoji:'pw', desc:"1.e4 or 1.d4 — control the centre with pawns first.", why:"The foundation of every good opening. Must learn before anything else." },
+    ]
+  },
+  { range:'600–800', cls:'elo-800', title:'Improving Beginner', sub:'Learn traps + basic checkmate patterns',
+    openings:[
+      { icon:'🔥', name:'Fried Liver Attack', side:'White', emoji:'pw', desc:"Nxf7!! sacrifice in the Italian. King is dragged to the centre.", why:"Teaches piece sacrifices and attacking patterns.", trapId:'w1' },
+      { icon:'⚡', name:'Blackburne-Shilling', side:'Black', emoji:'pb', desc:"3...Nd4! then Qg5! fork. Punishes the Italian instantly.", why:"Wins fast against unprepared players. Perfect for your current level.", trapId:'b5' },
+      { icon:'🎓', name:"Legal's Trap", side:'White', emoji:'pw', desc:"Ignore the pin! Nxe5!! sacrifices the queen for checkmate.", why:"Teaches you pins can be ignored when there's a bigger threat.", trapId:'w3' },
+      { icon:'🏰', name:'London System', side:'White', emoji:'pw', desc:"d4, Nf3, Bf4 — solid and simple. Hard to go wrong.", why:"Avoids complex theory while giving you a solid structure." },
+    ]
+  },
+  { range:'800–1000', cls:'elo-1000', title:'Club Beginner', sub:'Learn solid openings + tactical motifs',
+    openings:[
+      { icon:'🛡', name:'Caro-Kann Defence', side:'Black', emoji:'pb', desc:"1...c6 2...d5. Bf5 escapes the pawn chain — better than French.", why:"Gives you a solid, trap-free structure and active bishops.", trapId:'b7' },
+      { icon:'🔥', name:'Scotch Game', side:'White', emoji:'pw', desc:"1.e4 e5 2.Nf3 Nc6 3.d4! Open the centre fast.", why:"Forces open positions where you can attack. Used by Kasparov.", trapId:'w9' },
+      { icon:'🐦', name:"Bird's Opening", side:'White', emoji:'p-bird', desc:"1.f4 — reversed Dutch. Ne5 is the key outpost.", why:"A surprise weapon that avoids main-line theory.", trapId:'bird5' },
+      { icon:'🎆', name:'Budapest Gambit', side:'Black', emoji:'pb', desc:"1.d4 Nf6 2.c4 e5!! Shock pawn sacrifice.", why:"Great surprise weapon against d4. Forces White out of comfort zone.", trapId:'b_budapest' },
+    ]
+  },
+  { range:'1000–1200', cls:'elo-1200', title:'Intermediate', sub:'Understand opening ideas, not just moves',
+    openings:[
+      { icon:'🏔', name:'Sicilian Najdorf', side:'Black', emoji:'pb', desc:"1...c5 then a6. The most ambitious Black response to e4.", why:"Fischer's favourite. Gives Black winning chances from the start.", trapId:'b4' },
+      { icon:'🐉', name:'Sicilian Dragon', side:'Black', emoji:'pb', desc:"g6+Bg7. The Dragon bishop controls the long diagonal.", why:"One of the sharpest and most dynamic openings in chess.", trapId:'b11' },
+      { icon:'♞', name:'King\'s Indian Defence', side:'Black', emoji:'pb', desc:"Nf6+g6+Bg7+0-0+d6+e5. Hyper-aggressive counter-attack.", why:"Used by Fischer and Kasparov to beat the world's best.", trapId:'b6' },
+      { icon:'🏛', name:'Ruy Lopez', side:'White', emoji:'pw', desc:"3.Bb5 — pressure on e5 via the c6 knight pin.", why:"The most analysed opening in history. Gives lasting pressure.", trapId:'w14' },
+    ]
+  },
+  { range:'1200–1500', cls:'elo-1500', title:'Advanced Club Player', sub:'Deep opening preparation + pawn structures',
+    openings:[
+      { icon:'💎', name:"Queen's Gambit", side:'White', emoji:'pw', desc:"1.d4 d5 2.c4. Control the centre with a pawn sacrifice.", why:"The most prestigious queen's pawn opening. Positional masterclass.", trapId:'w15' },
+      { icon:'🔮', name:"Queen's Indian Defence", side:'Black', emoji:'pb', desc:"b6+Bb7. Fight e4 with the long diagonal bishop.", why:"Hypermodern: control the centre from afar. Very solid.", trapId:'b_qid' },
+      { icon:'🌑', name:'Nimzowitsch Defence', side:'Black', emoji:'pb', desc:"1...Nc6! Hypermodern — control d4 with pieces not pawns.", why:"Surprise weapon with deep ideas. Confuses main-line players.", trapId:'b3' },
+      { icon:'🔱', name:'Sicilian Taimanov', side:'Black', emoji:'pb', desc:"Nc6 then d5!! central break. Active piece play.", why:"Flexible system — avoids early theory while staying sharp.", trapId:'b_taimanov' },
+    ]
+  },
+  { range:'1500–1800+', cls:'elo-1800', title:'Expert / Class A', sub:'Full opening repertoire with deep theory',
+    openings:[
+      { icon:'⭐', name:'Petroff Defence', side:'Black', emoji:'pb', desc:"2...Nf6 counter-attack. d6 before Nxe4 is the golden rule.", why:"The ultimate solid defence. Almost impossible to beat with correct play.", trapId:'b_petroff' },
+      { icon:'🌀', name:'Sicilian Scheveningen', side:'Black', emoji:'pb', desc:"d6+e6 pawn structure. The most flexible Sicilian.", why:"Can transpose to Najdorf, Keres, English Attack. Total flexibility.", trapId:'w_scheven' },
+      { icon:'🔥', name:'Traxler Counterattack', side:'Black', emoji:'pb', desc:"Bc5!! ignoring Ng5. Mad counter-sacrifice for the initiative.", why:"A theoretical weapon that requires exact knowledge but is deadly.", trapId:'b1' },
+      { icon:'🏆', name:'Stafford Gambit Refutation', side:'White', emoji:'pw', desc:"d3! is the antidote to the Stafford. Simple and effective.", why:"Know how to refute trappy gambits — shows deep understanding.", trapId:'w6' },
+    ]
+  }
+];
+
+function renderRoadmap() {
+  const container = document.getElementById('roadmap-bands');
+  if (!container) return;
+  container.innerHTML = '';
+  ROADMAP.forEach((band, bi) => {
+    const div = document.createElement('div');
+    div.className = `elo-band ${band.cls}`;
+    if (bi === 0) div.classList.add('open'); // first open by default
+    div.innerHTML = `
+      <div class="elo-band-hdr" onclick="toggleBand(this.parentElement)">
+        <span class="elo-range-pill">${band.range}</span>
+        <div>
+          <div class="elo-band-title">${band.title}</div>
+          <div class="elo-band-sub">${band.sub}</div>
+        </div>
+        <span class="elo-band-arrow">▼</span>
+      </div>
+      <div class="elo-band-body">
+        <div class="elo-grid">
+          ${band.openings.map(op => `
+            <div class="elo-card" onclick="${op.trapId ? `jumpToTrap('${op.trapId}')` : ''}">
+              <div class="elo-card-top">
+                <span class="elo-card-icon">${op.icon}</span>
+                <span class="elo-card-name">${op.name}</span>
+                <span class="elo-card-side pill ${op.emoji}">${op.side}</span>
+              </div>
+              <div class="elo-card-desc">${op.desc}</div>
+              <div class="elo-card-why">💡 ${op.why}</div>
+              ${op.trapId ? `<button class="elo-card-study-btn" onclick="event.stopPropagation();jumpToTrap('${op.trapId}')">📖 Study this trap →</button>` : ''}
+            </div>`).join('')}
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleBand(el) {
+  el.classList.toggle('open');
+}
+
+function jumpToTrap(id) {
+  // Find trap in TRAPS or QUICK_MATES
+  const trap = TRAPS.find(t => t.id === id) || QUICK_MATES.find(t => t.id === id);
+  if (!trap) return;
+  switchMode('study');
+  if (QUICK_MATES.find(t => t.id === id)) {
+    loadQuickMate(trap);
+  } else {
+    loadTrap(trap);
+  }
+  // Highlight in dropdown
+  document.querySelectorAll('.dd-item').forEach(el => {
+    el.classList.toggle('cur', el.dataset.id === id);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PROMOTION PICKER
+// ══════════════════════════════════════════════════════════════════
+let promoCallback = null;
+function showPromoModal(color, callback) {
+  promoCallback = callback;
+  const pieces = ['q','r','b','n'];
+  const names = { q:'Queen', r:'Rook', b:'Bishop', n:'Knight' };
+  const piecesEl = document.getElementById('promo-pieces');
+  piecesEl.innerHTML = pieces.map(p => `
+    <div class="promo-piece" onclick="selectPromo('${p}')">
+      ${P[(color==='w'?'w':'b') + p.toUpperCase()]}
+      <div style="font-size:9px;color:var(--muted);position:absolute;bottom:3px">${names[p]}</div>
+    </div>`).join('');
+  document.getElementById('promo-overlay').classList.add('vis');
+}
+function selectPromo(piece) {
+  document.getElementById('promo-overlay').classList.remove('vis');
+  if (promoCallback) promoCallback(piece);
+  promoCallback = null;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PUZZLE MODE
+// ══════════════════════════════════════════════════════════════════
+// Built-in puzzle bank — drawn from our trap positions
+const PUZZLE_BANK = [
+  { id:'p1', type:'Fork', fen:'r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3', solution:'Nd4', side:'b', hint:'Knight forks two pieces', explanation:'Nd4! forks the bishop on c2 and the Nf3. White must lose material.' },
+  { id:'p2', type:'Pin', fen:'rnbqk2r/pppp1ppp/4pn2/8/1bPP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4', solution:'Bd2', side:'w', hint:'Break the pin — but how?', explanation:'Bd2! is the correct move in the QGD. Nc3 is pinned but Bd2 unpins and develops.' },
+  { id:'p3', type:'Checkmate', fen:'r1bqkb1r/pppp1Qpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4', solution:'Ke7', side:'b', hint:'King must move — but where?', explanation:"Qxf7# is checkmate! This is Scholar's Mate — always defend f7!" },
+  { id:'p4', type:'Fork', fen:'r1b1kbnr/ppppqppp/2n5/4N3/2B1P3/8/PPPP1PPP/RNBQK2R b KQkq - 4 4', solution:'Nxe5', side:'b', hint:'A knight is hanging!', explanation:'Nxe5 wins a pawn AND if Nxc6 dxc6 Bxf7+ Kxf7 Qh5+ wins material.' },
+  { id:'p5', type:'Skewer', fen:'4k3/8/8/8/8/8/4R3/4K3 w - - 0 1', solution:'Re8', side:'w', hint:'Drive the king off the e-file', explanation:'Re8+! The king must move off the e-file. Then the rook dominates.' },
+  { id:'p6', type:'Back Rank', fen:'6k1/5ppp/8/8/8/8/5PPP/R5K1 w - - 0 1', solution:'Ra8', side:'w', hint:'Back rank weakness!', explanation:'Ra8+! The king has no escape square — this is a back rank checkmate pattern.' },
+  { id:'p7', type:'Fork', fen:'rnbqkb1r/ppp2ppp/3p1n2/4p3/2B1P3/2N2N2/PPPP1PPP/R1BQK2R w KQkq - 0 5', solution:'Ng5', side:'w', hint:'Attack two weak squares at once', explanation:'Ng5! Attacks f7 twice (knight + bishop). The fork on f7 is unstoppable.' },
+  { id:'p8', type:'Combo', fen:'r1bqkb1r/pppp1ppp/2n2n2/4p3/4P3/2N2N2/PPPP1PPP/R1BQKB1R w KQkq - 4 4', solution:'Bc4', side:'w', hint:'Develop to the best square', explanation:'Bc4! targets f7 — the weakest square in Black\'s position. Italian Game.' },
+  { id:'p9', type:'Pin', fen:'rnbqkbnr/ppp2ppp/3p4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 1 3', solution:'Bg4', side:'b', hint:'Pin a piece to its queen', explanation:'Bg4! pins the Nf3 to the White queen. White must deal with the pin carefully.' },
+  { id:'p10', type:'Checkmate', fen:'r1bqkb1r/pppp1ppp/2n2n2/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R b KQkq - 4 4', solution:'d5', side:'b', hint:'Drive away the attacker!', explanation:'d5! is the ONLY move. Nf6?? loses to Qxf7#. d5 attacks Bc4 and drives Ng5.' },
+  { id:'p11', type:'Fork', fen:'4k3/8/8/3n4/8/8/8/3RK3 b - - 0 1', solution:'Nf4', side:'b', hint:'Knight fork!', explanation:'Nf4+ forks the White king and rook on d1. After king moves, Black wins the rook.' },
+  { id:'p12', type:'Combo', fen:'r1bk1b1r/ppp2ppp/2n5/3np3/2B5/5N2/PPPP1PPP/RNBQK2R w KQ - 0 7', solution:'Bxf7', side:'w', hint:'A sacrifice that wins material', explanation:'Bxf7+! After Kxf7 Ng5+ forks king and queen. White wins decisive material.' },
+];
+
+let pzState = { setIdx:[], currentIdx:0, streak:0, bestStreak:0, correct:0, attempts:0, solved:[], pending:null };
+let pzChess = null;
+let pzSelectedSq = null;
+
+function pzNewSet() {
+  // Pick 5 random puzzles
+  const shuffled = [...PUZZLE_BANK].sort(() => Math.random() - 0.5);
+  pzState.setIdx = shuffled.slice(0, 5).map(p => PUZZLE_BANK.indexOf(p));
+  pzState.currentIdx = 0;
+  pzState.solved = new Array(5).fill(null);
+  pzState.pending = null;
+  pzState.correct = parseInt(localStorage.getItem('pz-correct') || '0');
+  pzState.attempts = parseInt(localStorage.getItem('pz-attempts') || '0');
+  pzState.bestStreak = parseInt(localStorage.getItem('pz-best') || '0');
+  pzState.streak = parseInt(localStorage.getItem('pz-streak') || '0');
+  pzLoadCurrent();
+  pzUpdateStats();
+  pzRenderDots();
+}
+
+function pzLoadCurrent() {
+  const puzzle = PUZZLE_BANK[pzState.setIdx[pzState.currentIdx]];
+  if (!puzzle) return;
+  pzChess = new Chess(puzzle.fen);
+  pzSelectedSq = null;
+  pzState.pending = puzzle;
+
+  buildBoard('pz-board', 'pz-rank-col', 'pz-file-row', puzzle.side === 'b');
+  document.getElementById('pz-board').dataset.flipped = puzzle.side === 'b' ? 'true' : 'false';
+  pzRenderBoard();
+
+  document.getElementById('pz-badge').textContent = puzzle.type;
+  document.getElementById('pz-task').textContent = `Find the best move for ${puzzle.side === 'w' ? 'White ♔' : 'Black ♚'}`;
+  document.getElementById('pz-side-lbl').textContent = `${puzzle.side === 'w' ? 'White' : 'Black'} to move`;
+  document.getElementById('pz-result').className = 'puzzle-result';
+  document.getElementById('pz-next-btn').style.display = 'none';
+  document.getElementById('pz-prog-lbl').textContent = `Puzzle ${pzState.currentIdx + 1} of ${pzState.setIdx.length}`;
+  document.getElementById('pz-notation').innerHTML = '';
+}
+
+function pzRenderBoard(fromSq, toSq) {
+  const bEl = document.getElementById('pz-board');
+  if (!bEl || !pzChess) return;
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (fromSq && sn === fromSq) sq.classList.add('hl-f');
+    if (toSq && sn === toSq) sq.classList.add('hl-t');
+    if (pzSelectedSq && sn === pzSelectedSq) sq.classList.add('hl-sel');
+    const p = pzChess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+    sq.onclick = () => pzHandleClick(sn);
+  });
+}
+
+function pzHandleClick(sqName) {
+  if (!pzChess || !pzState.pending) return;
+  if (pzState.solved[pzState.currentIdx] !== null) return;
+  const puzzle = pzState.pending;
+  const piece = pzChess.get(sqName);
+  const turn = pzChess.turn();
+
+  if (pzSelectedSq) {
+    const move = pzChess.move({ from: pzSelectedSq, to: sqName, promotion: 'q' });
+    pzSelectedSq = null;
+    if (move) {
+      const isCorrect = move.san === puzzle.solution || move.from + move.to === puzzle.solution;
+      pzRenderBoard(move.from, move.to);
+      pzCheckAnswer(move.san, isCorrect);
+    } else {
+      if (piece && piece.color === turn) { pzSelectedSq = sqName; pzRenderBoard(); pzShowMoves(sqName); }
+      else pzRenderBoard();
+    }
+  } else {
+    if (piece && piece.color === turn) {
+      pzSelectedSq = sqName; playSound('select');
+      pzRenderBoard(); pzShowMoves(sqName);
+    }
+  }
+}
+
+function pzShowMoves(from) {
+  const bEl = document.getElementById('pz-board');
+  const moves = pzChess.moves({ square: from, verbose: true });
+  const targets = new Set(moves.map(m => m.to));
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    if (sq.dataset.sq === from) sq.classList.add('hl-sel');
+    if (targets.has(sq.dataset.sq)) {
+      sq.classList.add('hl-mv');
+      if (pzChess.get(sq.dataset.sq)) sq.classList.add('has-pc');
+    }
+  });
+}
+
+function pzCheckAnswer(san, isCorrect) {
+  pzState.attempts++;
+  localStorage.setItem('pz-attempts', pzState.attempts);
+  recordEvent('puzzle_attempted', pzState.pending.id);
+  const res = document.getElementById('pz-result');
+  if (isCorrect) {
+    pzState.streak++; pzState.correct++;
+    if (pzState.streak > pzState.bestStreak) pzState.bestStreak = pzState.streak;
+    localStorage.setItem('pz-correct', pzState.correct);
+    localStorage.setItem('pz-streak', pzState.streak);
+    localStorage.setItem('pz-best', pzState.bestStreak);
+    pzState.solved[pzState.currentIdx] = true;
+    res.className = 'puzzle-result correct';
+    res.textContent = '✅ Correct! ' + pzState.pending.explanation;
+    playSound('correct'); recordEvent('puzzle_correct', pzState.pending.id);
+    document.getElementById('pz-today').textContent = parseInt(document.getElementById('pz-today').textContent || '0') + 1;
+  } else {
+    pzState.streak = 0; localStorage.setItem('pz-streak', 0);
+    pzState.solved[pzState.currentIdx] = false;
+    res.className = 'puzzle-result wrong';
+    res.textContent = `❌ Not quite. The best move was ${pzState.pending.solution}. ${pzState.pending.explanation}`;
+    playSound('wrong');
+  }
+  pzState.solved[pzState.currentIdx] = isCorrect;
+  pzRenderDots();
+  pzUpdateStats();
+  if (pzState.currentIdx < pzState.setIdx.length - 1) {
+    document.getElementById('pz-next-btn').style.display = 'flex';
+  }
+}
+
+function pzNext() {
+  pzState.currentIdx++;
+  if (pzState.currentIdx >= pzState.setIdx.length) { pzNewSet(); return; }
+  pzLoadCurrent();
+}
+
+function pzHint() {
+  const puzzle = pzState.pending;
+  if (!puzzle) return;
+  const res = document.getElementById('pz-result');
+  res.className = 'puzzle-result correct';
+  res.style.background = '#04081a'; res.style.borderColor = '#3366aa'; res.style.color = '#6080cc';
+  res.textContent = '💡 Hint: ' + puzzle.hint;
+  res.style.display = 'block';
+}
+
+function pzSkip() { pzState.solved[pzState.currentIdx] = false; pzRenderDots(); pzNext(); }
+
+function pzRenderDots() {
+  const el = document.getElementById('pz-dots');
+  if (!el) return;
+  el.innerHTML = pzState.setIdx.map((_, i) => {
+    const cls = pzState.solved[i] === true ? 'correct' : pzState.solved[i] === false ? 'wrong' : i === pzState.currentIdx ? 'active' : '';
+    return `<div class="pdot ${cls}"></div>`;
+  }).join('');
+}
+
+function pzUpdateStats() {
+  document.getElementById('pz-streak').textContent = pzState.streak;
+  document.getElementById('pz-correct').textContent = pzState.correct;
+  document.getElementById('pz-attempts').textContent = pzState.attempts;
+  document.getElementById('pz-best').textContent = pzState.bestStreak;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// OPENING QUIZ
+// ══════════════════════════════════════════════════════════════════
+const QUIZ_QUESTIONS = TRAPS.slice(0, 30).flatMap(trap => {
+  const midStep = Math.floor(trap.moves.length / 2);
+  if (midStep < 1) return [];
+  const keyMove = trap.moves[midStep];
+  if (!keyMove || !keyMove.san) return [];
+  const chess = new Chess();
+  let ok = true;
+  for (let i = 0; i < midStep; i++) {
+    if (!chess.move(trap.moves[i].san, { sloppy: true })) { ok = false; break; }
+  }
+  if (!ok) return [];
+  const legalSans = chess.moves().filter(m => m !== keyMove.san).sort(() => Math.random() - 0.5).slice(0, 3);
+  if (legalSans.length < 2) return [];
+  const options = [...legalSans, keyMove.san].sort(() => Math.random() - 0.5);
+  return [{
+    trapName: trap.name,
+    fen: chess.fen(),
+    flipped: trap.side === 'Black',
+    question: `In the ${trap.name}, what is the key move here?`,
+    options,
+    correct: keyMove.san,
+    explanation: keyMove.hl || `The key move is ${keyMove.san}. ${keyMove.txt || ''}`
+  }];
+}).slice(0, 20);
+
+let qzState = { idx: 0, score: 0, answered: 0, questions: [] };
+let qzChess = null;
+
+function qzRestart() {
+  qzState = { idx: 0, score: 0, answered: 0, questions: [...QUIZ_QUESTIONS].sort(() => Math.random() - 0.5).slice(0, 10) };
+  qzLoadQuestion();
+  qzUpdateStats();
+}
+
+function qzLoadQuestion() {
+  const q = qzState.questions[qzState.idx];
+  if (!q) { qzShowFinal(); return; }
+  qzChess = new Chess(q.fen);
+  buildBoard('qz-board', 'qz-rank-col', 'qz-file-row', q.flipped);
+  document.getElementById('qz-board').dataset.flipped = q.flipped ? 'true' : 'false';
+  qzRenderBoard();
+  document.getElementById('qz-num').textContent = qzState.idx + 1;
+  document.getElementById('qz-total').textContent = qzState.questions.length;
+  document.getElementById('qz-question').textContent = q.question;
+  document.getElementById('qz-explanation').style.display = 'none';
+  document.getElementById('qz-next-btn').style.display = 'none';
+  const opts = document.getElementById('qz-options');
+  opts.innerHTML = q.options.map(o => `<button class="quiz-opt" onclick="qzAnswer('${o}')">${o}</button>`).join('');
+}
+
+function qzRenderBoard() {
+  const bEl = document.getElementById('qz-board');
+  if (!bEl || !qzChess) return;
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    const p = qzChess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+  });
+}
+
+function qzAnswer(san) {
+  const q = qzState.questions[qzState.idx];
+  const isCorrect = san === q.correct;
+  qzState.answered++;
+  if (isCorrect) { qzState.score++; playSound('correct'); recordEvent('quiz_correct', q.trapName); }
+  else playSound('wrong');
+  recordEvent('quiz_attempted', q.trapName);
+  document.querySelectorAll('.quiz-opt').forEach(btn => {
+    btn.disabled = true;
+    if (btn.textContent === q.correct) btn.classList.add('correct');
+    else if (btn.textContent === san && !isCorrect) btn.classList.add('wrong');
+  });
+  const expl = document.getElementById('qz-explanation');
+  expl.textContent = q.explanation;
+  expl.style.display = 'block';
+  document.getElementById('qz-next-btn').style.display = 'flex';
+  qzUpdateStats();
+}
+
+function qzNext() {
+  qzState.idx++;
+  qzLoadQuestion();
+}
+
+function qzShowFinal() {
+  const pct = Math.round(qzState.score / qzState.answered * 100) || 0;
+  document.getElementById('qz-question').textContent = `Quiz Complete! You scored ${qzState.score}/${qzState.answered} (${pct}%)`;
+  document.getElementById('qz-options').innerHTML = `<button class="puzzle-btn puzzle-btn-primary" onclick="qzRestart()" style="margin-top:8px">Play Again</button>`;
+  document.getElementById('qz-explanation').style.display = 'none';
+  document.getElementById('qz-next-btn').style.display = 'none';
+  if (pct >= 80) playSound('mate');
+}
+
+function qzUpdateStats() {
+  document.getElementById('qz-score').textContent = qzState.score;
+  document.getElementById('qz-answered').textContent = qzState.answered;
+  const pct = qzState.answered ? Math.round(qzState.score / qzState.answered * 100) + '%' : '—';
+  document.getElementById('qz-pct').textContent = pct;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// POSITION ANALYSER
+// ══════════════════════════════════════════════════════════════════
+let anState = { chess: null, moves: [], step: -1 };
+
+function anReset() {
+  anState = { chess: new Chess(), moves: [], step: -1 };
+  buildBoard('an-board', 'an-rank-col', 'an-file-row', false);
+  anRenderBoard();
+  document.getElementById('an-notation').innerHTML = '';
+  document.getElementById('an-nav-lbl').textContent = '—';
+  document.getElementById('an-eval').innerHTML = '<span style="color:var(--muted)">Load a position above, then analyse.</span>';
+  document.getElementById('an-fen').value = '';
+  document.getElementById('an-pgn').value = '';
+}
+
+function anLoadFen() {
+  const fen = document.getElementById('an-fen').value.trim();
+  if (!fen) return;
+  try {
+    const c = new Chess(fen);
+    anState.chess = c; anState.moves = []; anState.step = -1;
+    buildBoard('an-board', 'an-rank-col', 'an-file-row', false);
+    anRenderBoard();
+    document.getElementById('an-eval').innerHTML = '<strong>Position loaded.</strong> Click Analyse to get AI coaching on this position.';
+    document.getElementById('an-nav-lbl').textContent = 'Position';
+  } catch(e) {
+    document.getElementById('an-eval').innerHTML = '<span style="color:var(--warn)">Invalid FEN. Copy it directly from chess.com.</span>';
+  }
+}
+
+function anLoadPgn() {
+  const pgn = document.getElementById('an-pgn').value.trim();
+  if (!pgn) return;
+  try {
+    const c = new Chess();
+    c.load_pgn(pgn);
+    const hist = c.history({ verbose: true });
+    anState.chess = new Chess();
+    anState.moves = hist;
+    anState.step = -1;
+    buildBoard('an-board', 'an-rank-col', 'an-file-row', false);
+    anRenderBoard();
+    anUpdateNotation();
+    document.getElementById('an-eval').innerHTML = `<strong>${hist.length} moves loaded.</strong> Step through with ◀ ▶ and click Analyse at any position.`;
+    document.getElementById('an-nav-lbl').textContent = `0/${hist.length}`;
+  } catch(e) {
+    document.getElementById('an-eval').innerHTML = '<span style="color:var(--warn)">Could not load PGN. Paste the full game text from chess.com.</span>';
+  }
+}
+
+function anRenderBoard(fromSq, toSq) {
+  const bEl = document.getElementById('an-board');
+  if (!bEl || !anState.chess) return;
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (fromSq && sn === fromSq) sq.classList.add('hl-f');
+    if (toSq && sn === toSq) sq.classList.add('hl-t');
+    const p = anState.chess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+  });
+}
+
+function anNext() {
+  if (anState.step >= anState.moves.length - 1) return;
+  anState.step++;
+  const m = anState.moves[anState.step];
+  anState.chess.move(m.san, { sloppy: true });
+  anRenderBoard(m.from, m.to);
+  anUpdateNotation();
+  document.getElementById('an-nav-lbl').textContent = `${anState.step + 1}/${anState.moves.length}`;
+}
+
+function anPrev() {
+  if (anState.step < 0) return;
+  anState.step--;
+  anState.chess = new Chess();
+  for (let i = 0; i <= anState.step; i++) anState.chess.move(anState.moves[i].san, { sloppy: true });
+  const m = anState.moves[anState.step + 1];
+  anRenderBoard();
+  anUpdateNotation();
+  document.getElementById('an-nav-lbl').textContent = anState.step < 0 ? `0/${anState.moves.length}` : `${anState.step + 1}/${anState.moves.length}`;
+}
+
+function anFirst() { anState.step = -1; anState.chess = new Chess(); anRenderBoard(); anUpdateNotation(); document.getElementById('an-nav-lbl').textContent = `0/${anState.moves.length}`; }
+function anLast() { while (anState.step < anState.moves.length - 1) anNext(); }
+
+function anUpdateNotation() {
+  const el = document.getElementById('an-notation');
+  if (!el) return;
+  const hist = anState.moves.slice(0, anState.step + 1);
+  el.innerHTML = hist.map((m, i) => {
+    const num = i % 2 === 0 ? `<span class="mn">${Math.floor(i/2)+1}.</span>` : '';
+    return num + `<span class="mv ${i === anState.step ? 'cur' : 'done'}" onclick="anJump(${i})">${m.san}</span>`;
+  }).join('');
+  el.scrollLeft = el.scrollWidth;
+}
+
+function anJump(idx) {
+  anState.step = -1; anState.chess = new Chess();
+  for (let i = 0; i <= idx; i++) { anState.chess.move(anState.moves[i].san, { sloppy:true }); anState.step = i; }
+  anRenderBoard();
+  anUpdateNotation();
+  document.getElementById('an-nav-lbl').textContent = `${anState.step + 1}/${anState.moves.length}`;
+}
+
+async function anAnalysePosition() {
+  if (!anState.chess) { anReset(); return; }
+  if (!apiKey) {
+    document.getElementById('an-eval').innerHTML = '<span style="color:var(--warn)">🔑 Add your Anthropic API key in Study mode to use AI analysis.</span>';
+    return;
+  }
+  const evalEl = document.getElementById('an-eval');
+  evalEl.innerHTML = '<span style="color:var(--muted);animation:pulse 1s infinite;display:inline-block">🤖 Analysing…</span>';
+  const fen = anState.chess.fen();
+  const moveNum = anState.step >= 0 ? `Move ${anState.step + 1}: ${anState.moves[anState.step]?.san}` : 'Starting position';
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:400,
+        system:'You are a friendly chess coach for a beginner (around 530 ELO). Analyse the given position and give 3-4 bullet points of coaching advice. Mention: 1) What just happened, 2) Which side is better and why, 3) The key threat or plan for each side, 4) What the beginner should focus on. Use simple language. Format with • bullets.',
+        messages:[{role:'user', content:`Position FEN: ${fen}\n${moveNum}\nPlease analyse this position for a beginner.`}]
+      })
+    });
+    const data = await resp.json();
+    const txt = data.content?.[0]?.text || 'No analysis available.';
+    evalEl.innerHTML = txt.replace(/\n/g,'<br>').replace(/•/g,'<strong>•</strong>');
+  } catch(e) {
+    evalEl.innerHTML = '<span style="color:var(--warn)">Analysis failed. Check your API key.</span>';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// UPDATED switchMode — all modes
+// ══════════════════════════════════════════════════════════════════
+
+
+// ══════════════════════════════════════════════════════════════════
+// ENDGAME TRAINER
+// ══════════════════════════════════════════════════════════════════
+const EG_SCENARIOS = [
+  { id:'kqk', icon:'♛', name:'K+Q vs K', level:'Beginner', levelCls:'lv-b',
+    desc:'Checkmate with king and queen — the most basic endgame.',
+    fen:'8/8/8/4k3/8/8/8/3QK3 w - - 0 1', playerColor:'w', goalFen:null,
+    task:'Checkmate the black king', maxMoves:20, par:10,
+    lesson:'Key idea: use your king actively! Drive the enemy king to the edge with checks. Queen + King = checkmate, Queen alone cannot do it safely.',
+    hints:['Move your king toward the centre first','Use the queen to cut off the enemy king','Drive the king to a corner or edge','King to e4 is a good start'] },
+  { id:'krk', icon:'♜', name:'K+R vs K', level:'Beginner', levelCls:'lv-b',
+    desc:'Checkmate with king and rook — slightly harder than K+Q.',
+    fen:'8/8/8/4k3/8/8/8/3RK3 w - - 0 1', playerColor:'w', goalFen:null,
+    task:'Checkmate the black king', maxMoves:30, par:16,
+    lesson:'The rook cuts the enemy king to a smaller and smaller box. Use the "box method" — push the king to the edge rank by rank.',
+    hints:['Use the rook to create a "box"','Reduce the box each time','Bring your king to help','Rook to a5 cuts the king to 5 ranks'] },
+  { id:'kpk', icon:'♟', name:'K+P vs K', level:'Beginner', levelCls:'lv-b',
+    desc:'Pawn promotion — the most common endgame type.',
+    fen:'8/8/8/8/8/4K3/4P3/4k3 w - - 0 1', playerColor:'w', goalFen:null,
+    task:'Promote your pawn to a queen', maxMoves:20, par:10,
+    lesson:'The key rule: your king must be in FRONT of the pawn (on e4 when pawn is on e3). If the enemy king blocks on e8, you need the "opposition" to break through.',
+    hints:['King must lead the pawn','Get your king to e4 first','If king blocks, use opposition','The pawn follows the king'] },
+  { id:'opp', icon:'♔', name:'Opposition', level:'Intermediate', levelCls:'lv-i',
+    desc:'Learn to gain the "opposition" — the key endgame concept.',
+    fen:'8/8/8/3k4/8/3K4/8/8 w - - 0 1', playerColor:'w', goalFen:null,
+    task:'Gain the opposition and advance to the 7th rank', maxMoves:15, par:7,
+    lesson:'"Opposition" means the kings face each other with ONE square between them and it is the other side\'s turn. The side NOT to move has the opposition — a big advantage in K+P endings.',
+    hints:['Opposition = kings face each other, enemy to move','Step directly toward the black king','When kings face on same file/rank with 1 gap = opposition','Try Kd4 to mirror the black king'] },
+  { id:'rook_cut', icon:'♖', name:'Rook Cutoff', level:'Intermediate', levelCls:'lv-i',
+    desc:'Use the rook to cut the enemy king and support pawn promotion.',
+    fen:'8/3P4/8/8/3k4/8/8/3K3R w - - 0 1', playerColor:'w', goalFen:null,
+    task:'Promote the d7 pawn using your rook to cut off the black king', maxMoves:15, par:7,
+    lesson:'A rook on the 4th rank cuts the enemy king from getting to the pawn. Once the pawn promotes, the rook supports from behind.',
+    hints:['Rook cuts the king on the 4th rank','Push the pawn while king is cut off','Rook to h4 cuts the king'] },
+  { id:'lucena', icon:'♜', name:'Lucena Position', level:'Advanced', levelCls:'lv-a',
+    desc:'The most important rook endgame technique — "building a bridge".',
+    fen:'1K1k4/1P6/8/8/8/8/8/R3r3 w - - 0 1', playerColor:'w', goalFen:null,
+    task:'Win by building a bridge — shelter your king from checks', maxMoves:20, par:10,
+    lesson:'The Lucena: bring rook to 4th rank, use it to shelter the king from checks ("build a bridge"). Rd4! Ke7 Ka7 Rc4! shelters the king.',
+    hints:['Rook to the 4th rank to shelter','Ka7 to escort the pawn','Then rook shelters king from checks','Ra4 when king is on a8'] },
+];
+
+let egGame = null; // { scenario, chess, selectedSq, moveCount, done }
+
+function renderEgSelector() {
+  const grid = document.getElementById('eg-grid');
+  if (!grid) return;
+  grid.innerHTML = EG_SCENARIOS.map(s => `
+    <div class="eg-card" onclick="egStart('${s.id}')">
+      <div class="eg-card-icon">${s.icon}</div>
+      <div class="eg-card-name">${s.name}</div>
+      <div class="eg-card-desc">${s.desc}</div>
+      <span class="eg-card-lvl ${s.levelCls}">${s.level}</span>
+    </div>`).join('');
+}
+
+function egStart(id) {
+  const sc = EG_SCENARIOS.find(s => s.id === id);
+  if (!sc) return;
+  egGame = { scenario: sc, chess: new Chess(sc.fen), selectedSq: null, moveCount: 0, done: false };
+  document.getElementById('eg-selector').style.display = 'none';
+  document.getElementById('eg-trainer').style.display = 'block';
+  document.getElementById('eg-task-title').textContent = sc.task;
+  document.getElementById('eg-task-sub').textContent = `Par: ${sc.par} moves · Max: ${sc.maxMoves} moves`;
+  document.getElementById('eg-feedback').style.display = 'none';
+  document.getElementById('eg-lesson-text').textContent = sc.lesson;
+  document.getElementById('eg-par-display').textContent = sc.par;
+  document.getElementById('eg-move-count').textContent = '0';
+  document.getElementById('eg-notation').innerHTML = '';
+
+  const flipped = sc.playerColor === 'b';
+  document.getElementById('eg-board').dataset.flipped = flipped ? 'true' : 'false';
+  buildBoard('eg-board', 'eg-rank-col', 'eg-file-row', flipped);
+  egRenderBoard();
+  egUpdateTurnBar();
+  recordEvent('trap_studied', 'endgame_' + id);
+}
+
+function egRenderBoard(fromSq, toSq) {
+  if (!egGame) return;
+  const bEl = document.getElementById('eg-board');
+  if (!bEl) return;
+  const { chess, selectedSq } = egGame;
+  let checkSq = null;
+  if (chess.in_check()) {
+    outer: for (let r = 0; r < 8; r++) for (let f = 0; f < 8; f++) {
+      const p = chess.board()[r][f];
+      if (p && p.type === 'k' && p.color === chess.turn()) { checkSq = 'abcdefgh'[f]+(8-r); break outer; }
+    }
+  }
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (fromSq && sn === fromSq) sq.classList.add('hl-f');
+    if (toSq && sn === toSq) sq.classList.add('hl-t');
+    if (checkSq && sn === checkSq) sq.classList.add('hl-chk');
+    if (selectedSq && sn === selectedSq) sq.classList.add('hl-sel');
+    const p = chess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+    sq.onclick = () => egHandleClick(sn);
+  });
+}
+
+function egHandleClick(sqName) {
+  if (!egGame || egGame.done) return;
+  const { chess, scenario } = egGame;
+  const piece = chess.get(sqName);
+  const turn = chess.turn();
+  if (turn !== scenario.playerColor) return; // not your turn (vs AI)
+
+  if (egGame.selectedSq) {
+    const move = chess.move({ from: egGame.selectedSq, to: sqName, promotion: 'q' });
+    egGame.selectedSq = null;
+    if (move) {
+      egGame.moveCount++;
+      document.getElementById('eg-move-count').textContent = egGame.moveCount;
+      playSound(move.captured ? 'capture' : 'move');
+      egRenderBoard(move.from, move.to);
+      egUpdateNotation();
+      egCheckGoal(move);
+    } else {
+      if (piece && piece.color === turn) { egGame.selectedSq = sqName; egRenderBoard(); egShowMoves(sqName); }
+      else egRenderBoard();
+    }
+  } else {
+    if (piece && piece.color === turn) {
+      egGame.selectedSq = sqName; playSound('select');
+      egRenderBoard(); egShowMoves(sqName);
+    }
+  }
+}
+
+function egShowMoves(from) {
+  const bEl = document.getElementById('eg-board');
+  const moves = egGame.chess.moves({ square: from, verbose: true });
+  const targets = new Set(moves.map(m => m.to));
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    if (sq.dataset.sq === from) sq.classList.add('hl-sel');
+    if (targets.has(sq.dataset.sq)) { sq.classList.add('hl-mv'); if (egGame.chess.get(sq.dataset.sq)) sq.classList.add('has-pc'); }
+  });
+}
+
+function egCheckGoal(move) {
+  const { chess, scenario, moveCount } = egGame;
+  const fb = document.getElementById('eg-feedback');
+  fb.className = 'eg-feedback';
+
+  if (chess.in_checkmate()) {
+    egGame.done = true;
+    fb.className = 'eg-feedback good';
+    const rating = moveCount <= scenario.par ? '⭐ Brilliant! Under par!' : moveCount <= scenario.par * 1.5 ? '✅ Good!' : '👍 Complete!';
+    fb.textContent = `${rating} Checkmate in ${moveCount} moves (par: ${scenario.par}).`;
+    fb.style.display = 'block';
+    playSound('mate');
+    recordEvent('puzzle_correct', 'endgame_' + scenario.id);
+    return;
+  }
+  if (chess.in_stalemate()) {
+    egGame.done = true;
+    fb.className = 'eg-feedback bad';
+    fb.textContent = '⚠️ Stalemate! The enemy king had no moves but wasn\'t in check. Try to leave the king a move while checking.';
+    fb.style.display = 'block'; playSound('wrong'); return;
+  }
+  // Check pawn promotion
+  if (move.promotion) {
+    egGame.done = true;
+    fb.className = 'eg-feedback good';
+    fb.textContent = `✅ Pawn promoted in ${moveCount} moves! Now try to checkmate.`;
+    fb.style.display = 'block'; playSound('correct'); return;
+  }
+  if (moveCount >= scenario.maxMoves) {
+    egGame.done = true;
+    fb.className = 'eg-feedback bad';
+    fb.textContent = `Time's up after ${moveCount} moves. Study the concept and try again!`;
+    fb.style.display = 'block'; return;
+  }
+  // AI plays a move for the other side
+  setTimeout(() => egAiMove(), 400);
+  egUpdateTurnBar();
+}
+
+function egAiMove() {
+  if (!egGame || egGame.done) return;
+  const { chess, scenario } = egGame;
+  const moves = chess.moves({ verbose: true });
+  if (!moves.length) return;
+  // Defensive: prefer moving king away from edges, avoid stalemate
+  const nonStalem = moves.filter(m => { const c2 = new Chess(chess.fen()); c2.move(m); return !c2.in_stalemate(); });
+  const pool = nonStalem.length > 0 ? nonStalem : moves;
+  // King prefers central squares
+  const kingMoves = pool.filter(m => chess.get(m.from)?.type === 'k');
+  const chosen = (kingMoves.length > 0 ? kingMoves : pool)[Math.floor(Math.random() * (kingMoves.length || pool.length))];
+  const move = chess.move(chosen);
+  if (move) {
+    egRenderBoard(move.from, move.to);
+    egUpdateNotation();
+    egUpdateTurnBar();
+    playSound('move');
+    if (chess.in_checkmate()) egCheckGoal(move);
+  }
+}
+
+function egHint() {
+  if (!egGame) return;
+  const hints = egGame.scenario.hints;
+  const hintIdx = Math.min(egGame.moveCount, hints.length - 1);
+  const fb = document.getElementById('eg-feedback');
+  fb.className = 'eg-feedback info';
+  fb.textContent = '💡 ' + hints[hintIdx];
+  fb.style.display = 'block';
+}
+
+function egReset() { egStart(egGame.scenario.id); }
+function egBack() {
+  document.getElementById('eg-selector').style.display = 'block';
+  document.getElementById('eg-trainer').style.display = 'none';
+  egGame = null;
+}
+
+function egUpdateTurnBar() {
+  if (!egGame) return;
+  const turn = egGame.chess.turn();
+  const isYours = turn === egGame.scenario.playerColor;
+  const dot = document.getElementById('eg-turn-dot');
+  const txt = document.getElementById('eg-turn-text');
+  dot.className = 'turn-dot ' + (turn === 'w' ? 'white' : 'black');
+  txt.textContent = isYours ? '⏳ Your turn' : '🤔 Opponent thinking…';
+}
+
+function egUpdateNotation() {
+  if (!egGame) return;
+  const hist = egGame.chess.history();
+  const el = document.getElementById('eg-notation');
+  if (!el) return;
+  el.innerHTML = hist.map((san, i) => {
+    const num = i%2===0 ? `<span class="mn">${Math.floor(i/2)+1}.</span>` : '';
+    return num + `<span class="mv done">${san}</span>`;
+  }).join('');
+  el.scrollLeft = el.scrollWidth;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// BLUNDER COACH
+// ══════════════════════════════════════════════════════════════════
+let blState = { chess: null, moves: [], step: -1, blunders: [] };
+
+const BL_DEMO = `1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Nxd5 6. Nxf7 Kxf7 7. Qf3+ Ke6 8. Nc3 Nb4 9. d4 c6 10. Bg5 Qa5 11. O-O Nxc2 12. Rfc1 Nb4 13. d5+ cxd5 14. Bxd5+ Ke7 15. Rc7+ Kd8 16. Rxg7 Nc6 17. Bxc6 bxc6 18. Rd1 Qxa2 19. Rxd5+ Ke8 20. Qa3 Qxb2 21. Qe7#`;
+
+function blLoadDemo() {
+  document.getElementById('bl-pgn-input').value = BL_DEMO;
+  blAnalyse();
+}
+
+async function blAnalyse() {
+  const pgn = document.getElementById('bl-pgn-input').value.trim();
+  if (!pgn) return;
+  try {
+    const chess = new Chess();
+    chess.load_pgn(pgn);
+    const hist = chess.history({ verbose: true });
+    blState.moves = hist;
+    blState.chess = new Chess();
+    blState.step = -1;
+    blState.blunders = [];
+    buildBoard('bl-board', 'bl-rank-col', 'bl-file-row', false);
+    blRenderBoard();
+    blUpdateNotation();
+
+    document.getElementById('bl-loading').style.display = 'block';
+    document.getElementById('bl-results').style.display = 'none';
+    document.getElementById('bl-detail').style.display = 'none';
+
+    if (!apiKey) {
+      // Fallback: basic heuristic blunder detection without AI
+      blDetectHeuristic(hist);
+      return;
+    }
+
+    // AI analysis
+    const movesSummary = hist.map((m,i) => `${Math.floor(i/2)+1}${i%2===0?'.':'...'} ${m.san}`).join(' ');
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:600,
+        system:'You are a chess coach. Analyse the game moves and identify the 3-5 most significant blunders or mistakes. For each, give: move number, the move played, severity (blunder/mistake/inaccuracy), a brief explanation (1 sentence), and the better move. Respond ONLY with JSON array: [{"move_num":5,"san":"Nf6","color":"b","severity":"blunder","explanation":"Allows fork on f7","better":"d6"}]. No markdown.',
+        messages:[{role:'user', content:`Game: ${movesSummary}\nFind the worst 3-5 mistakes. JSON only.`}]
+      })
+    });
+    const data = await resp.json();
+    const txt = (data.content?.[0]?.text||'[]').replace(/```json|```/g,'').trim();
+    try {
+      const parsed = JSON.parse(txt);
+      blState.blunders = parsed;
+      blShowResults();
+    } catch { blDetectHeuristic(hist); }
+  } catch(e) {
+    document.getElementById('bl-loading').style.display = 'none';
+    document.getElementById('bl-results').innerHTML = `<div style="color:var(--warn);font-size:13px">Could not load PGN. Make sure it's valid.</div>`;
+    document.getElementById('bl-results').style.display = 'block';
+  }
+}
+
+function blDetectHeuristic(hist) {
+  // Basic: flag moves that drop material (captures by opponent next move)
+  const blunders = [];
+  const chess = new Chess();
+  hist.forEach((m, i) => {
+    chess.move(m.san, {sloppy:true});
+    // Simple heuristic: if the move allows a capture of a high-value piece
+    const nextMoves = chess.moves({verbose:true});
+    const captures = nextMoves.filter(nm => nm.flags.includes('c'));
+    if (captures.some(c => ['q','r'].includes(chess.get(c.to)?.type||''))) {
+      blunders.push({ move_num: Math.floor(i/2)+1, san: m.san, color: m.color,
+        severity: 'mistake', explanation: 'This move may leave a piece vulnerable to capture.', better: '?' });
+    }
+  });
+  blState.blunders = blunders.slice(0, 5);
+  blShowResults();
+}
+
+function blShowResults() {
+  document.getElementById('bl-loading').style.display = 'none';
+  const blunders = blState.blunders;
+  document.getElementById('bl-count').textContent = `(${blunders.length} found)`;
+  const sevClass = { blunder:'sev-blunder', mistake:'sev-mistake', inaccuracy:'sev-inaccuracy' };
+  const sevIcon = { blunder:'💀', mistake:'⚠️', inaccuracy:'❓' };
+  document.getElementById('bl-list').innerHTML = blunders.map((b, i) => `
+    <div class="blunder-item" id="bl-item-${i}" onclick="blSelectBlunder(${i})">
+      <div class="blunder-item-move">${b.move_num}${b.color==='w'?'.':'...'} ${b.san}</div>
+      <div class="blunder-item-desc">${b.explanation}</div>
+      <span class="blunder-severity ${sevClass[b.severity]||'sev-inaccuracy'}">${sevIcon[b.severity]||'❓'} ${b.severity}</span>
+    </div>`).join('');
+  document.getElementById('bl-results').style.display = 'block';
+}
+
+function blSelectBlunder(idx) {
+  const b = blState.blunders[idx];
+  if (!b) return;
+  document.querySelectorAll('.blunder-item').forEach((el,i) => el.classList.toggle('selected', i===idx));
+
+  // Navigate board to that move
+  const moveIdx = (b.move_num - 1) * 2 + (b.color === 'b' ? 1 : 0);
+  blState.step = -1; blState.chess = new Chess();
+  for (let i = 0; i <= Math.min(moveIdx, blState.moves.length-1); i++) {
+    blState.chess.move(blState.moves[i].san, {sloppy:true});
+    blState.step = i;
+  }
+  const m = blState.moves[blState.step];
+  blRenderBoard(m?.from, m?.to);
+  blUpdateNotation();
+  document.getElementById('bl-nav-lbl').textContent = `${blState.step+1}/${blState.moves.length}`;
+
+  // Show detail
+  const sevLabel = { blunder:'💀 Blunder', mistake:'⚠️ Mistake', inaccuracy:'❓ Inaccuracy' };
+  document.getElementById('bl-detail-num').textContent = `Move ${b.move_num} — ${sevLabel[b.severity]||b.severity}`;
+  document.getElementById('bl-detail-san').textContent = b.san;
+  document.getElementById('bl-detail-exp').textContent = b.explanation;
+  document.getElementById('bl-detail-better').textContent = b.better && b.better !== '?' ? `✅ Better: ${b.better}` : '✅ Look for moves that keep your pieces safe';
+  document.getElementById('bl-detail').style.display = 'block';
+}
+
+function blRenderBoard(fromSq, toSq) {
+  const bEl = document.getElementById('bl-board');
+  if (!bEl || !blState.chess) return;
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (fromSq && sn === fromSq) sq.classList.add('hl-f');
+    if (toSq && sn === toSq) sq.classList.add('hl-t');
+    const p = blState.chess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+  });
+}
+function blNext() { if (blState.step<blState.moves.length-1){blState.step++;blState.chess.move(blState.moves[blState.step].san,{sloppy:true});const m=blState.moves[blState.step];blRenderBoard(m.from,m.to);blUpdateNotation();document.getElementById('bl-nav-lbl').textContent=`${blState.step+1}/${blState.moves.length}`;}}
+function blPrev() { if (blState.step>=0){blState.step--;blState.chess=new Chess();for(let i=0;i<=blState.step;i++)blState.chess.move(blState.moves[i].san,{sloppy:true});blRenderBoard();blUpdateNotation();document.getElementById('bl-nav-lbl').textContent=blState.step<0?`0/${blState.moves.length}`:`${blState.step+1}/${blState.moves.length}`;}}
+function blFirst() { blState.step=-1;blState.chess=new Chess();blRenderBoard();blUpdateNotation();document.getElementById('bl-nav-lbl').textContent=`0/${blState.moves.length}`;}
+function blLast() { while(blState.step<blState.moves.length-1)blNext(); }
+function blUpdateNotation() {
+  const el = document.getElementById('bl-notation');
+  if (!el||!blState.moves) return;
+  const hist = blState.moves.slice(0,blState.step+1);
+  el.innerHTML = hist.map((m,i)=>{
+    const num=i%2===0?`<span class="mn">${Math.floor(i/2)+1}.</span>`:'';
+    const isBl = blState.blunders.some(b=>(b.move_num-1)*2+(b.color==='b'?1:0)===i);
+    return num+`<span class="mv ${i===blState.step?'cur':'done'}" style="${isBl?'color:var(--warn)':''}">${m.san}</span>`;
+  }).join('');
+  el.scrollLeft=el.scrollWidth;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// OPENING TREE
+// ══════════════════════════════════════════════════════════════════
+const OPENING_TREES = {
+  'Italian': {
+    name:'Italian Game', moves:[
+      { san:'e4', next:[ { san:'e5', next:[
+        { san:'Nf3', next:[ { san:'Nc6', next:[
+          { san:'Bc4', label:'Italian', next:[
+            { san:'Bc5', label:'Giuoco Piano', next:[ {san:'c3'},{san:'Nf6'} ] },
+            { san:'Nf6', label:'Two Knights', next:[ {san:'Ng5',label:'Fried Liver'},{san:'d3'} ] },
+            { san:'f5', label:'Jerome Gambit', next:[] }
+          ]},
+          { san:'Bb5', label:'Ruy Lopez', next:[ {san:'a6'},{san:'Nf6'} ] }
+        ]}]}
+      ]}]
+    }]
+  },
+  'Sicilian': {
+    name:'Sicilian Defence', moves:[
+      { san:'e4', next:[ { san:'c5', label:'Sicilian!', next:[
+        { san:'Nf3', next:[
+          { san:'d6', label:'Najdorf/Dragon', next:[ {san:'d4',next:[{san:'cxd4',next:[{san:'Nxd4',next:[{san:'Nf6',next:[{san:'Nc3',next:[{san:'a6',label:'Najdorf'},{san:'g6',label:'Dragon'}]}]}]}]}]}]},
+          { san:'Nc6', label:'Classical', next:[ {san:'d4'} ] },
+          { san:'e6', label:'Scheveningen/Kan', next:[ {san:'d4'} ] }
+        ]}
+      ]}]
+    }]
+  },
+  "Queen's": {
+    name:"Queen's Pawn", moves:[
+      { san:'d4', next:[ { san:'d5', next:[
+        { san:'c4', label:"Queen's Gambit", next:[
+          { san:'dxc4', label:'QGA', next:[ {san:'e3'},{san:'Nf3'} ] },
+          { san:'e6', label:'QGD', next:[ {san:'Nc3'} ] },
+          { san:'c6', label:'Slav', next:[ {san:'Nf3'} ] }
+        ]},
+        { san:'Nf3', label:'London', next:[ {san:'Nf6',next:[ {san:'Bf4',label:'London System'} ]} ] }
+      ]}, { san:'Nf6', next:[
+        { san:'c4', next:[ {san:'e6',label:"Nimzo/QID"},{san:'g6',label:'KID/Grünfeld'} ] }
+      ]}]
+    }]
+  },
+  "Bird's": {
+    name:"Bird's Opening", moves:[
+      { san:'f4', next:[
+        { san:'e5', label:"From's Gambit", next:[ {san:'fxe5',next:[{san:'d6',next:[{san:'exd6'}]}]} ] },
+        { san:'d5', label:'Solid', next:[ {san:'Nf3'} ] },
+        { san:'Nf6', label:'Classical', next:[ {san:'Nf3'} ] }
+      ]}
+    ]
+  }
+};
+
+let trState = { chess: new Chess(), tree: null, history: [] };
+
+function renderTreeSelector() {
+  const sel = document.getElementById('tr-selector');
+  if (!sel) return;
+  sel.innerHTML = Object.keys(OPENING_TREES).map(k =>
+    `<button class="tree-sel-btn" onclick="trSelectOpening('${k}')">${OPENING_TREES[k].name}</button>`
+  ).join('');
+}
+
+function trSelectOpening(key) {
+  trState = { chess: new Chess(), tree: OPENING_TREES[key], history: [] };
+  document.querySelectorAll('.tree-sel-btn').forEach(b => b.classList.toggle('active', b.textContent === OPENING_TREES[key].name));
+  buildBoard('tr-board', 'tr-rank-col', 'tr-file-row', false);
+  trRenderBoard();
+  trRenderTree();
+  document.getElementById('tr-info').innerHTML = `<strong>${OPENING_TREES[key].name}</strong> — Click any move in the tree to play through it. Blue = moves you've played.`;
+}
+
+function trRenderBoard() {
+  const bEl = document.getElementById('tr-board');
+  if (!bEl) return;
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    const p = trState.chess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+  });
+}
+
+function trRenderTree() {
+  const cont = document.getElementById('tr-tree');
+  if (!cont || !trState.tree) return;
+  cont.innerHTML = '';
+  const playedSans = trState.history.map(m => m.san);
+
+  function renderNodes(nodes, depth) {
+    if (!nodes || !nodes.length) return '';
+    return `<div style="display:flex;gap:8px;flex-wrap:wrap;padding:4px 0 4px ${depth*12}px">` +
+      nodes.map(node => {
+        const isPlayed = playedSans.includes(node.san);
+        const isCurrent = trState.history.length > 0 && trState.history[trState.history.length-1].san === node.san;
+        const cls = isCurrent ? 'current' : isPlayed ? 'played' : '';
+        const children = node.next ? renderNodes(node.next, depth+1) : '';
+        return `<div style="display:inline-flex;flex-direction:column">
+          <button class="tree-move-btn ${cls}" onclick="trPlayMove('${node.san}')" title="${node.label||node.san}">
+            ${node.san}${node.label ? `<span style="font-size:9px;color:var(--muted);margin-left:4px;font-family:sans-serif">${node.label}</span>` : ''}
+          </button>
+          ${children}
+        </div>`;
+      }).join('') + '</div>';
+  }
+  cont.innerHTML = renderNodes(trState.tree.moves, 0);
+}
+
+function trPlayMove(san) {
+  const move = trState.chess.move(san, {sloppy:true});
+  if (!move) return;
+  trState.history.push(move);
+  trRenderBoard();
+  trRenderTree();
+  trUpdateNotation();
+  const info = document.getElementById('tr-info');
+  info.innerHTML = `<strong>${san}</strong> — ${trState.chess.turn()==='w'?'White':'Black'} to move. FEN: <code style="font-size:10px;color:var(--dim)">${trState.chess.fen()}</code>`;
+  playSound('move');
+}
+
+function trBack() {
+  if (!trState.history.length) return;
+  trState.history.pop();
+  trState.chess = new Chess();
+  trState.history.forEach(m => trState.chess.move(m.san, {sloppy:true}));
+  trRenderBoard();
+  trRenderTree();
+  trUpdateNotation();
+}
+
+function trReset() {
+  if (!trState.tree) return;
+  trState.chess = new Chess();
+  trState.history = [];
+  trRenderBoard();
+  trRenderTree();
+  trUpdateNotation();
+}
+
+function trUpdateNotation() {
+  const el = document.getElementById('tr-notation');
+  if (!el) return;
+  el.innerHTML = trState.history.map((m,i) => {
+    const num = i%2===0 ? `<span class="mn">${Math.floor(i/2)+1}.</span>` : '';
+    return num + `<span class="mv done">${m.san}</span>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// DAILY CHALLENGE
+// ══════════════════════════════════════════════════════════════════
+const DAILY_TASKS_DEF = [
+  { id:'daily_trap', icon:'📖', title:'Study a Trap', sub:'Step through any trap in Study mode', xp:30, mode:'study' },
+  { id:'daily_puzzle', icon:'🧩', title:'Solve 3 Puzzles', sub:'Get 3 correct in Puzzle mode', xp:50, mode:'puzzle' },
+  { id:'daily_quiz', icon:'❓', title:'Answer 5 Quiz Questions', sub:'Test your opening knowledge', xp:40, mode:'quiz' },
+];
+
+function getDailyData() {
+  try {
+    const d = JSON.parse(localStorage.getItem('chess-daily') || '{}');
+    const today = new Date().toDateString();
+    if (d.date !== today) {
+      const streak = d.date === new Date(Date.now()-86400000).toDateString() ? (d.streak||0)+1 : 1;
+      return { date: today, streak, completed: {}, xp: 0 };
+    }
+    return d;
+  } catch { return { date: new Date().toDateString(), streak:1, completed:{}, xp:0 }; }
+}
+
+function saveDailyData(d) { localStorage.setItem('chess-daily', JSON.stringify(d)); }
+
+function renderDaily() {
+  const d = getDailyData();
+  document.getElementById('daily-streak').textContent = d.streak || 1;
+  document.getElementById('daily-xp').textContent = d.xp || 0;
+
+  const container = document.getElementById('daily-tasks');
+  if (!container) return;
+  container.innerHTML = DAILY_TASKS_DEF.map(task => {
+    const done = d.completed[task.id];
+    return `<div class="daily-task ${done?'done':''}" onclick="dailyGo('${task.mode}')">
+      <div class="daily-task-icon">${task.icon}</div>
+      <div class="daily-task-body">
+        <div class="daily-task-title">${task.title}</div>
+        <div class="daily-task-sub">${task.sub} · <strong style="color:var(--gold)">+${task.xp} XP</strong></div>
+      </div>
+      <div class="daily-task-status">${done ? '✅ Done' : '○ To do'}</div>
+    </div>`;
+  }).join('');
+
+  // Next reset
+  const now = new Date();
+  const midnight = new Date(now); midnight.setHours(24,0,0,0);
+  const hours = Math.floor((midnight - now) / 3600000);
+  const mins = Math.floor(((midnight - now) % 3600000) / 60000);
+  document.getElementById('daily-next-reset').textContent = `Resets in ${hours}h ${mins}m`;
+}
+
+function dailyGo(mode) { switchMode(mode); }
+
+function dailyComplete(taskId) {
+  const d = getDailyData();
+  if (d.completed[taskId]) return;
+  const task = DAILY_TASKS_DEF.find(t => t.id === taskId);
+  if (!task) return;
+  d.completed[taskId] = true;
+  d.xp = (d.xp || 0) + task.xp;
+  saveDailyData(d);
+  renderDaily();
+  playSound('correct');
+}
+
+// Auto-complete daily tasks based on activity
+function checkDailyProgress(type) {
+  if (type === 'trap_studied') dailyComplete('daily_trap');
+  if (type === 'puzzle_correct') {
+    const p = getProgress();
+    if ((p.puzzles_correct||0) >= 3) dailyComplete('daily_puzzle');
+  }
+  if (type === 'quiz_correct') {
+    const p = getProgress();
+    if ((p.quiz_correct||0) >= 5) dailyComplete('daily_quiz');
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// BADGES & ELO ESTIMATOR
+// ══════════════════════════════════════════════════════════════════
+const BADGE_DEFS = [
+  { id:'first_trap', icon:'📖', name:'First Steps', desc:'Study your first trap', check: p => Object.keys(p.traps_studied||{}).length >= 1 },
+  { id:'trap5', icon:'🎯', name:'Opening Student', desc:'Study 5 different traps', check: p => Object.keys(p.traps_studied||{}).length >= 5 },
+  { id:'trap_all', icon:'🏅', name:'Opening Master', desc:'Study all traps', check: p => Object.keys(p.traps_studied||{}).length >= TRAPS.length },
+  { id:'puzzle1', icon:'🧩', name:'Puzzle Solver', desc:'Solve your first puzzle', check: p => (p.puzzles_correct||0) >= 1 },
+  { id:'puzzle10', icon:'🔥', name:'Tactician', desc:'Solve 10 puzzles correctly', check: p => (p.puzzles_correct||0) >= 10 },
+  { id:'puzzle_streak5', icon:'⚡', name:'On Fire', desc:'5-puzzle correct streak', check: _ => parseInt(localStorage.getItem('pz-best')||0) >= 5 },
+  { id:'quiz_ace', icon:'🎓', name:'Quiz Ace', desc:'Score 80%+ on a quiz', check: p => (p.quiz_correct||0)/(Math.max(p.quiz_attempted||1,1)) >= 0.8 && (p.quiz_attempted||0) >= 5 },
+  { id:'coach_win1', icon:'🏆', name:'First Victory', desc:'Beat the coach once', check: p => (p.coach_wins||0) >= 1 },
+  { id:'coach_win5', icon:'👑', name:'Coach Slayer', desc:'Beat the coach 5 times', check: p => (p.coach_wins||0) >= 5 },
+  { id:'daily3', icon:'📅', name:'Consistent', desc:'3-day daily streak', check: _ => (getDailyData().streak||0) >= 3 },
+  { id:'daily7', icon:'🌟', name:'Dedicated', desc:'7-day daily streak', check: _ => (getDailyData().streak||0) >= 7 },
+  { id:'endgame', icon:'♔', name:'Endgame Hero', desc:'Complete an endgame scenario', check: p => (p.puzzles_correct||0) >= 1 },
+  { id:'freeplay5', icon:'♛', name:'Free Thinker', desc:'Play 5 free games', check: p => (p.freeplay_games||0) >= 5 },
+  { id:'analyser', icon:'🔬', name:'Researcher', desc:'Analyse a position', check: p => (p.events||[]).some(e=>e.type==='trap_studied'&&e.detail.startsWith('endgame')) },
+  { id:'blunder', icon:'🔍', name:'Self-Aware', desc:'Analyse a game for blunders', check: p => (p.events||[]).some(e=>e.type==='puzzle_attempted') },
+  { id:'bird', icon:'🐦', name:"Bird Watcher", desc:'Study all Bird\'s Opening traps', check: p => ['bird1','bird2','bird3','bird4','bird5','bird6'].every(id => (p.traps_studied||{})[id]) },
+];
+
+function calcEloEstimate() {
+  const p = getProgress();
+  let score = 400; // base
+  score += Math.min(Object.keys(p.traps_studied||{}).length * 8, 120);
+  score += Math.min((p.puzzles_correct||0) * 5, 150);
+  const quizAcc = (p.quiz_correct||0) / Math.max(p.quiz_attempted||1, 1);
+  score += Math.round(quizAcc * 100);
+  score += Math.min((p.coach_wins||0) * 20, 100);
+  score += Math.min((getDailyData().streak||0) * 10, 80);
+  return Math.min(Math.round(score / 10) * 10, 1800);
+}
+
+function renderBadges() {
+  const p = getProgress();
+  const grid = document.getElementById('badges-grid');
+  if (!grid) return;
+
+  const elo = calcEloEstimate();
+  document.getElementById('elo-est').textContent = elo;
+  const pct = Math.min(((elo - 400) / 1600) * 100, 100);
+  document.getElementById('elo-est-fill').style.width = pct + '%';
+
+  grid.innerHTML = BADGE_DEFS.map(b => {
+    const earned = b.check(p);
+    return `<div class="badge-card ${earned?'earned':'locked'}">
+      <span class="badge-icon">${b.icon}</span>
+      <div class="badge-name">${b.name}</div>
+      <div class="badge-desc">${b.desc}</div>
+      <div class="${earned?'badge-earned-lbl':'badge-locked-lbl'}">${earned?'✅ Earned':'🔒 Locked'}</div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// UPDATED switchMode + init patches
+// ══════════════════════════════════════════════════════════════════
 
 </script>
 </body>
