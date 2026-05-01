@@ -9,18 +9,18 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 :root{
-  --bg:#0d0d1a;--bg2:#111122;--bg3:#191930;
-  --border:#222240;--border2:#2a2a50;
-  --text:#d0cce8;--muted:#5a5a80;--dim:#33334a;
-  --accent:#5a9910;--accent2:#99d050;
-  --warn:#bb3333;--gold:#d4a820;
-  --coach:#7a28c0;--coach2:#bb88ee;
-  --bird:#c06010;--bird2:#e8a040;
+  --bg:#1a2540;--bg2:#1f2d4e;--bg3:#243357;
+  --border:#2d3f6a;--border2:#354878;
+  --text:#f5f0d0;--muted:#a8b8d8;--dim:#4a5878;
+  --accent:#5a9910;--accent2:#c8e060;
+  --warn:#dd4444;--gold:#f0cc40;
+  --coach:#9a48e0;--coach2:#d0a0ff;
+  --bird:#d07020;--bird2:#f0b050;
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;min-height:100vh}
 
 /* TOPBAR */
-.topbar{background:#08080f;border-bottom:1px solid var(--border);padding:0 14px;height:48px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.5)}
+.topbar{background:#111d35;border-bottom:1px solid var(--border);padding:0 14px;height:48px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.5)}
 .logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px}
 .logo-knight{font-size:22px;line-height:1}
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
@@ -31,7 +31,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .mode-btn:hover:not(.active){color:var(--text)}
 
 /* NAV */
-.subnav{background:#08080f;border-bottom:1px solid var(--border);display:flex;position:sticky;top:48px;z-index:190}
+.subnav{background:#111d35;border-bottom:1px solid var(--border);display:flex;position:sticky;top:48px;z-index:190}
 .dd-wrap{position:relative;flex:1}
 .dd-btn{width:100%;padding:10px 10px;background:transparent;border:none;border-right:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .12s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .dd-btn:last-child{border-right:none}
@@ -46,7 +46,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .active-label{flex:1;text-align:left;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--accent2)}
 .active-label.gold{color:var(--gold)}
 .active-label.bird{color:var(--bird2)}
-.dd-menu{position:absolute;top:100%;left:0;right:0;min-width:220px;background:#0c0c1e;border:1px solid var(--border2);border-top:none;border-radius:0 0 10px 10px;box-shadow:0 12px 40px rgba(0,0,0,.8);z-index:400;display:none;max-height:65vh;overflow-y:auto}
+.dd-menu{position:absolute;top:100%;left:0;right:0;min-width:220px;background:#162240;border:1px solid var(--border2);border-top:none;border-radius:0 0 10px 10px;box-shadow:0 12px 40px rgba(0,0,0,.8);z-index:400;display:none;max-height:65vh;overflow-y:auto}
 .dd-menu.open{display:block}
 .dd-menu::-webkit-scrollbar{width:3px}
 .dd-menu::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
@@ -54,8 +54,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .dd-sec:first-child{border-top:none}
 .dd-item{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;border-left:3px solid transparent;transition:all .1s;-webkit-tap-highlight-color:transparent}
 .dd-item:hover{background:var(--bg3);border-left-color:var(--accent)}
-.dd-item.cur{background:#08120a;border-left-color:var(--accent)}
-.dd-item.cur.bird-item{background:#120a04;border-left-color:var(--bird)}
+.dd-item.cur{background:#0c2018;border-left-color:var(--accent)}
+.dd-item.cur.bird-item{background:#1a1808;border-left-color:var(--bird)}
 .dd-item-name{font-size:12px;font-weight:500;color:#a8a8cc;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dd-item.cur .dd-item-name{color:#fff}
 .dd-item-right{display:flex;align-items:center;gap:5px;flex-shrink:0}
@@ -111,7 +111,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .nv:active{background:#20204a}
 .nv:disabled{opacity:.3}
 .nav-label{font-size:12px;color:var(--muted);min-width:70px;text-align:center;font-family:monospace}
-.notation{background:#08081a;border-radius:8px;padding:8px 10px;display:flex;flex-wrap:wrap;align-items:baseline;gap:1px;font-family:monospace;font-size:13px;line-height:2.1;min-height:36px}
+.notation{background:#111d35;border-radius:8px;padding:8px 10px;display:flex;flex-wrap:wrap;align-items:baseline;gap:1px;font-family:monospace;font-size:13px;line-height:2.1;min-height:36px}
 .mn{color:var(--dim);font-size:11px;margin-right:1px}
 .mv{padding:2px 5px;border-radius:4px;cursor:pointer;color:var(--muted)}
 .mv.cur{background:var(--accent);color:#fff;font-weight:700}
@@ -125,44 +125,44 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .who{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:100px;margin-bottom:7px}
 .who-w{background:rgba(255,255,255,.07);color:#ccc;border:1px solid rgba(255,255,255,.1)}
 .who-b{background:rgba(60,60,130,.25);color:#8888bb;border:1px solid rgba(80,80,160,.2)}
-.move-san{font-size:19px;font-weight:700;color:#fff;font-family:monospace}
+.move-san{font-size:19px;font-weight:700;color:#f8f0c0;font-family:monospace}
 .move-hl{font-size:13px;font-weight:600;color:var(--accent2);margin-top:4px;line-height:1.4}
-.move-txt{font-size:13px;color:#8888aa;line-height:1.65;margin-top:7px}
+.move-txt{font-size:13px;color:#b8c8e8;line-height:1.65;margin-top:7px}
 .box{border-radius:6px;padding:8px 11px;font-size:12px;line-height:1.6;margin-top:8px}
-.box-why{background:#05120a;border-left:3px solid var(--accent);color:#70a050}
-.box-warn{background:#120505;border-left:3px solid var(--warn);color:#aa5050}
-.box-tip{background:#050a18;border-left:3px solid #3366aa;color:#5572aa}
+.box-why{background:#0c2a18;border-left:3px solid var(--accent);color:#b0e070}
+.box-warn{background:#2a1010;border-left:3px solid var(--warn);color:#aa5050}
+.box-tip{background:#162040;border-left:3px solid #3366aa;color:#5572aa}
 .empty-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;text-align:center;color:var(--muted)}
 .empty-icon{font-size:36px;opacity:.2;margin-bottom:8px}
 .summary-cards{display:flex;flex-direction:column;gap:6px}
 .sc{font-size:12px;line-height:1.55;padding:8px 10px;border-radius:6px}
 .sc .sl{font-size:9px;text-transform:uppercase;letter-spacing:.07em;opacity:.55;margin-bottom:3px;font-weight:700;display:block}
-.sc-r{background:#0f0303;color:#aa4444;border-left:3px solid #771111}
-.sc-g{background:#030f03;color:#447744;border-left:3px solid #2a5522}
-.sc-b{background:#030818;color:#445588;border-left:3px solid #223366}
+.sc-r{background:#2a1010;color:#ee7070;border-left:3px solid #aa2020}
+.sc-g{background:#0a2818;color:#447744;border-left:3px solid #2a5522}
+.sc-b{background:#162040;color:#445588;border-left:3px solid #223366}
 
 /* QUICK COACH BTN */
-.qcoach-btn{display:flex;align-items:center;gap:7px;padding:9px 14px;border-radius:8px;border:1.5px solid var(--coach);background:#110622;color:var(--coach2);cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:all .15s;width:100%;justify-content:center}
-.qcoach-btn:hover{background:#180838;border-color:#9a40e0}
+.qcoach-btn{display:flex;align-items:center;gap:7px;padding:9px 14px;border-radius:8px;border:1.5px solid var(--coach);background:#162040;color:var(--coach2);cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:all .15s;width:100%;justify-content:center}
+.qcoach-btn:hover{background:#1a2048;border-color:#9a40e0}
 .qcoach-btn:disabled{opacity:.5;cursor:not-allowed;animation:pulse 1.2s ease-in-out infinite}
-.box-coach{background:#0e0420;border-left:3px solid var(--coach);color:var(--coach2)}
+.box-coach{background:#162040;border-left:3px solid var(--coach);color:var(--coach2)}
 
 /* AI PANEL */
 .ai-panel{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
-.ai-topbar{background:#0b0b1e;padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.ai-topbar{background:#162240;padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
 .ai-icon{width:26px;height:26px;background:linear-gradient(135deg,var(--coach),#3a0a80);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 .ai-title{font-size:12px;font-weight:600;color:var(--coach2);flex:1}
 .ai-key-toggle{background:none;border:1px solid var(--dim);border-radius:4px;color:var(--muted);font-size:10px;padding:2px 6px;cursor:pointer}
 .ai-keyrow{display:none;padding:6px 10px;border-bottom:1px solid var(--border);align-items:center;gap:6px}
 .ai-keyrow.vis{display:flex}
-.ai-keyinp{flex:1;background:#080816;border:1px solid var(--coach);border-radius:5px;padding:5px 8px;color:var(--coach2);font-size:11px;font-family:monospace;outline:none}
-.ai-savebtn{background:#180830;border:1px solid var(--coach);color:var(--coach2);border-radius:5px;padding:5px 10px;font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.ai-keyinp{flex:1;background:#111d35;border:1px solid var(--coach);border-radius:5px;padding:5px 8px;color:var(--coach2);font-size:11px;font-family:monospace;outline:none}
+.ai-savebtn{background:#1a2048;border:1px solid var(--coach);color:var(--coach2);border-radius:5px;padding:5px 10px;font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .ai-msgs{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:7px;max-height:180px;min-height:60px}
 .ai-msgs::-webkit-scrollbar{width:3px}
 .ai-msgs::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
 .ai-msg{font-size:12px;line-height:1.6;padding:8px 10px;border-radius:8px;word-break:break-word}
 .ai-msg.user{background:var(--bg3);color:#b8b8d8;align-self:flex-end;border-bottom-right-radius:3px;max-width:85%}
-.ai-msg.asst{background:#0e0520;border:1px solid #2a1050;color:var(--coach2);border-bottom-left-radius:3px}
+.ai-msg.asst{background:#1a2a55;border:1px solid #2a1050;color:var(--coach2);border-bottom-left-radius:3px}
 .ai-msg.think{color:var(--muted);font-style:italic;animation:pulse 1.2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .bm-row{display:flex;gap:6px;padding:7px 10px;border-bottom:1px solid var(--border)}
@@ -176,9 +176,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .qbtn{font-size:10px;padding:3px 8px;border-radius:100px;border:1px solid #180830;background:transparent;color:#5a3a7a;cursor:pointer}
 .qbtn:hover{background:#160626;color:var(--coach2)}
 .ai-inputrow{display:flex;gap:6px;padding:7px 10px;border-top:1px solid var(--border);align-items:flex-end}
-.ai-input{flex:1;background:#080816;border:1px solid var(--border2);border-radius:6px;padding:7px 9px;color:#c8c8e8;font-size:12px;font-family:inherit;outline:none;resize:none;line-height:1.4;max-height:80px}
+.ai-input{flex:1;background:#111d35;border:1px solid var(--border2);border-radius:6px;padding:7px 9px;color:#c8c8e8;font-size:12px;font-family:inherit;outline:none;resize:none;line-height:1.4;max-height:80px}
 .ai-input:focus{border-color:var(--coach)}
-.ai-send{width:34px;height:34px;border-radius:6px;border:1px solid var(--coach);background:#110622;color:var(--coach2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.ai-send{width:34px;height:34px;border-radius:6px;border:1px solid var(--coach);background:#162040;color:var(--coach2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
 .ai-send:hover{background:#180838}
 
 /* ═══════════════════════════════════════════════
@@ -198,7 +198,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .chess-coach-badge{width:44px;height:44px;background:linear-gradient(135deg,var(--coach),#3a0880);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 20px rgba(120,40,200,.3)}
 
 .op-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px}
-.op-section-hdr{padding:10px 14px;background:#0b0b1e;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.op-section-hdr{padding:10px 14px;background:#162240;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
 .op-section-hdr h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .op-section-hdr span{font-size:10px;color:var(--dim)}
 .op-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
@@ -227,17 +227,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 /* Coach message feed */
 .coach-feed{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
-.coach-feed-hdr{padding:7px 12px;background:#0b0b1e;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;gap:6px}
+.coach-feed-hdr{padding:7px 12px;background:#162240;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;gap:6px}
 .coach-feed-dot{width:7px;height:7px;border-radius:50%;background:var(--coach);animation:pulse 1.5s infinite}
 .coach-feed-msgs{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-height:120px;max-height:260px}
 .coach-feed-msgs::-webkit-scrollbar{width:3px}
 .coach-feed-msgs::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
 .feed-msg{font-size:12px;line-height:1.65;padding:8px 10px;border-radius:8px}
-.feed-msg.coach-tip{background:#0e0424;border-left:3px solid var(--coach);color:var(--coach2)}
-.feed-msg.good-move{background:#04100a;border-left:3px solid var(--accent);color:var(--accent2)}
-.feed-msg.bad-move{background:#100404;border-left:3px solid var(--warn);color:#cc6060}
+.feed-msg.coach-tip{background:#1a2248;border-left:3px solid var(--coach);color:var(--coach2)}
+.feed-msg.good-move{background:#0a2818;border-left:3px solid var(--accent);color:var(--accent2)}
+.feed-msg.bad-move{background:#2a1010;border-left:3px solid var(--warn);color:#cc6060}
 .feed-msg.system{background:var(--bg3);color:var(--muted);font-size:11px}
-.feed-msg.opening-tip{background:#0a0820;border-left:3px solid #5566bb;color:#7788cc}
+.feed-msg.opening-tip{background:#162040;border-left:3px solid #5566bb;color:#7788cc}
 
 /* Turn indicator */
 .turn-bar{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;display:flex;align-items:center;gap:10px}
@@ -255,7 +255,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .ca-primary:disabled{opacity:.4;cursor:not-allowed}
 .ca-secondary{background:var(--bg3);border:1px solid var(--border2);color:var(--text)}
 .ca-secondary:hover{background:#1e1e44;border-color:var(--accent)}
-.ca-danger{background:#1a0404;border:1px solid var(--warn);color:#cc5555}
+.ca-danger{background:#2a1010;border:1px solid var(--warn);color:#cc5555}
 .ca-danger:hover{background:#220606}
 
 /* Game over */
@@ -291,19 +291,19 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .fp-dot.normal{background:rgba(0,0,0,.22);border:1px solid rgba(0,0,0,.1)}
 /* FP feed */
 .fp-feed{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
-.fp-feed-hdr{padding:7px 12px;background:#0b0b1e;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.fp-feed-hdr{padding:7px 12px;background:#162240;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .fp-feed-msgs{overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-height:100px;max-height:220px}
 .fp-feed-msgs::-webkit-scrollbar{width:3px}
 .fp-feed-msgs::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
 .fp-msg{font-size:12px;line-height:1.6;padding:7px 10px;border-radius:7px}
-.fp-msg.tip{background:#04100a;border-left:3px solid var(--accent);color:var(--accent2)}
+.fp-msg.tip{background:#0a2818;border-left:3px solid var(--accent);color:var(--accent2)}
 .fp-msg.info{background:var(--bg3);color:var(--muted);font-size:11px}
-.fp-msg.brilliant-msg{background:#002428;border-left:3px solid #00c8dc;color:#00e8ff}
+.fp-msg.brilliant-msg{background:#0a2030;border-left:3px solid #00c8dc;color:#00e8ff}
 .fp-msg.great-msg{background:#041208;border-left:3px solid #5ac85a;color:#7aee7a}
-.fp-msg.warn{background:#100404;border-left:3px solid var(--warn);color:#cc6060}
+.fp-msg.warn{background:#2a1010;border-left:3px solid var(--warn);color:#cc6060}
 /* FP actions */
 .fp-actions{display:flex;gap:8px;flex-wrap:wrap}
-.fp-notation{background:#08081a;border-radius:8px;padding:8px 10px;display:flex;flex-wrap:wrap;align-items:baseline;gap:1px;font-family:monospace;font-size:12px;line-height:2;min-height:34px;max-height:80px;overflow-y:auto}
+.fp-notation{background:#111d35;border-radius:8px;padding:8px 10px;display:flex;flex-wrap:wrap;align-items:baseline;gap:1px;font-family:monospace;font-size:12px;line-height:2;min-height:34px;max-height:80px;overflow-y:auto}
 
 /* ═══════════════════════════════════════════════════
    NEW FEATURES CSS
@@ -329,7 +329,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 /* ── PUZZLE MODE ── */
 .puzzle-wrap{max-width:960px;margin:0 auto;padding:12px}
 .puzzle-hdr{padding:10px 0 14px;border-bottom:1px solid var(--border);margin-bottom:14px;display:flex;align-items:center;gap:12px}
-.puzzle-badge{width:44px;height:44px;background:linear-gradient(135deg,#c05010,#801a00);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(200,80,16,.3)}
+.puzzle-badge{width:44px;height:44px;background:linear-gradient(135deg,#d06020,#902010);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(200,80,16,.3)}
 .puzzle-layout{display:flex;gap:14px;align-items:flex-start}
 @media(max-width:650px){.puzzle-layout{flex-direction:column}}
 .puzzle-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
@@ -344,8 +344,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .puzzle-task{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
 .puzzle-side{font-size:12px;color:var(--muted)}
 .puzzle-result{border-radius:8px;padding:10px 12px;font-size:13px;font-weight:600;margin-top:8px;display:none}
-.puzzle-result.correct{background:#04100a;border:1px solid var(--accent);color:var(--accent2);display:block}
-.puzzle-result.wrong{background:#100404;border:1px solid var(--warn);color:#cc6060;display:block}
+.puzzle-result.correct{background:#0a2818;border:1px solid var(--accent);color:var(--accent2);display:block}
+.puzzle-result.wrong{background:#2a1010;border:1px solid var(--warn);color:#cc6060;display:block}
 .puzzle-streak{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
 .streak-fire{font-size:18px}
 .puzzle-btn{padding:9px 18px;border-radius:8px;border:none;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s}
@@ -384,9 +384,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .analyser-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .fen-input-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
 .fen-input-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px}
-.fen-inp{width:100%;background:#08081a;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none}
+.fen-inp{width:100%;background:#111d35;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none}
 .fen-inp:focus{border-color:var(--coach)}
-.pgn-inp{width:100%;background:#08081a;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none;resize:vertical;min-height:80px}
+.pgn-inp{width:100%;background:#111d35;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none;resize:vertical;min-height:80px}
 .pgn-inp:focus{border-color:var(--coach)}
 .analyser-nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .analyser-eval{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.65;color:var(--text);min-height:60px}
@@ -395,7 +395,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 /* ── PROMOTION MODAL ── */
 .promo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9000;display:flex;align-items:center;justify-content:center;display:none}
 .promo-overlay.vis{display:flex}
-.promo-modal{background:#141428;border:1px solid var(--border2);border-radius:12px;padding:20px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.9)}
+.promo-modal{background:#1a2848;border:1px solid var(--border2);border-radius:12px;padding:20px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.9)}
 .promo-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px}
 .promo-pieces{display:flex;gap:10px;justify-content:center}
 .promo-piece{width:60px;height:60px;border-radius:10px;border:2px solid var(--border2);background:var(--bg3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
@@ -441,12 +441,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .elo-band-body{display:none;padding:0 0 4px}
 .elo-band.open .elo-band-body{display:block}
 /* ELO band colour theming */
-.elo-600  .elo-band-hdr{background:#0f1a0f} .elo-600  .elo-range-pill{background:#1d4d1d;color:#6dcc6d}
-.elo-800  .elo-band-hdr{background:#0f160f} .elo-800  .elo-range-pill{background:#2a5a1a;color:#8ddd5d}
-.elo-1000 .elo-band-hdr{background:#161200} .elo-1000 .elo-range-pill{background:#5a4a00;color:#ddcc30}
-.elo-1200 .elo-band-hdr{background:#160a00} .elo-1200 .elo-range-pill{background:#6a3000;color:#ee8840}
-.elo-1500 .elo-band-hdr{background:#160008} .elo-1500 .elo-range-pill{background:#6a0020;color:#ee4060}
-.elo-1800 .elo-band-hdr{background:#0c0018} .elo-1800 .elo-range-pill{background:#400080;color:#cc80ff}
+.elo-600  .elo-band-hdr{background:#1a2e1a} .elo-600  .elo-range-pill{background:#2a5a2a;color:#7ddc7d}
+.elo-800  .elo-band-hdr{background:#1a2e18} .elo-800  .elo-range-pill{background:#386a28;color:#9ded6d}
+.elo-1000 .elo-band-hdr{background:#2a2810} .elo-1000 .elo-range-pill{background:#6a5a10;color:#eddc40}
+.elo-1200 .elo-band-hdr{background:#2a1e10} .elo-1200 .elo-range-pill{background:#7a4010;color:#fe9850}
+.elo-1500 .elo-band-hdr{background:#2a1018} .elo-1500 .elo-range-pill{background:#7a1030;color:#fe5070}
+.elo-1800 .elo-band-hdr{background:#1c1028} .elo-1800 .elo-range-pill{background:#5010a0;color:#dc90ff}
 .elo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border)}
 .elo-card{background:var(--bg2);padding:12px 14px;cursor:pointer;transition:background .12s}
 .elo-card:hover{background:var(--bg3)}
@@ -472,7 +472,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .stat-card.purple .stat-num{color:var(--coach2)}
 .stat-card.red .stat-num{color:#ee6060}
 .progress-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px}
-.progress-section-hdr{padding:10px 14px;background:#0b0b1e;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.progress-section-hdr{padding:10px 14px;background:#162240;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .progress-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border)}
 .progress-item:last-child{border-bottom:none}
 .progress-item-name{font-size:12px;color:var(--text);flex:1}
@@ -492,8 +492,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .puzzle-type-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border-radius:100px;margin-bottom:8px}
 .puzzle-task{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
 .puzzle-result{border-radius:8px;padding:10px 12px;font-size:13px;font-weight:600;margin-top:8px;display:none}
-.puzzle-result.correct{background:#04100a;border:1px solid var(--accent);color:var(--accent2);display:block}
-.puzzle-result.wrong{background:#100404;border:1px solid var(--warn);color:#cc6060;display:block}
+.puzzle-result.correct{background:#0a2818;border:1px solid var(--accent);color:var(--accent2);display:block}
+.puzzle-result.wrong{background:#2a1010;border:1px solid var(--warn);color:#cc6060;display:block}
 .pz-streak{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted)}
 .puzzle-dots{display:flex;gap:4px;margin-bottom:4px}
 .pdot{width:9px;height:9px;border-radius:50%;background:var(--dim);transition:background .3s}
@@ -510,17 +510,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .quiz-q-text{font-size:14px;font-weight:700;color:#fff;line-height:1.4}
 .quiz-options{display:flex;flex-direction:column;gap:6px}
 .quiz-opt{padding:10px 14px;border-radius:8px;border:1.5px solid var(--border2);background:var(--bg3);color:var(--text);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;text-align:left;transition:all .12s}
-.quiz-opt:hover:not(:disabled){border-color:var(--accent);background:#0a180a;color:var(--accent2)}
+.quiz-opt:hover:not(:disabled){border-color:var(--accent);background:#1a3020;color:var(--accent2)}
 .quiz-opt.correct{border-color:var(--accent)!important;background:#04100a!important;color:var(--accent2)!important}
 .quiz-opt.wrong{border-color:var(--warn)!important;background:#100404!important;color:#cc6060!important}
 .quiz-opt:disabled{cursor:not-allowed}
-.quiz-explanation{border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;background:#050a18;border-left:3px solid #3366aa;color:#6080cc}
+.quiz-explanation{border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;background:#162040;border-left:3px solid #3366aa;color:#6080cc}
 
 /* ══ ANALYSER ══ */
 .analyser-page{max-width:960px;margin:0 auto;padding:12px}
 .inp-box{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
 .inp-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;display:block}
-.inp-field{width:100%;background:#08081a;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none;box-sizing:border-box}
+.inp-field{width:100%;background:#111d35;border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:#c8c8e8;font-size:12px;font-family:monospace;outline:none;box-sizing:border-box}
 .inp-field:focus{border-color:var(--coach)}
 textarea.inp-field{resize:vertical;min-height:70px}
 .analyser-eval{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;color:var(--text);min-height:70px}
@@ -529,7 +529,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 /* ══ PROMOTION MODAL ══ */
 .promo-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9000;display:none;align-items:center;justify-content:center}
 .promo-overlay.vis{display:flex}
-.promo-modal{background:#141428;border:1px solid var(--border2);border-radius:14px;padding:22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.9)}
+.promo-modal{background:#1a2848;border:1px solid var(--border2);border-radius:14px;padding:22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.9)}
 .promo-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px}
 .promo-pieces{display:flex;gap:10px;justify-content:center}
 .promo-piece{width:62px;height:62px;border-radius:10px;border:2px solid var(--border2);background:var(--bg3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
@@ -552,7 +552,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .endgame-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .endgame-hdr h2{font-size:22px;font-weight:800;color:#fff}
 .endgame-hdr p{font-size:13px;color:var(--muted);margin-top:3px}
-.endgame-badge{width:44px;height:44px;background:linear-gradient(135deg,#4a1a6a,#1a0830);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(100,30,180,.3)}
+.endgame-badge{width:44px;height:44px;background:linear-gradient(135deg,#5a2a8a,#2a1850);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(100,30,180,.3)}
 .eg-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:16px}
 .eg-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .12s}
 .eg-card:hover{background:var(--bg3);border-color:var(--accent);transform:translateY(-1px)}
@@ -567,9 +567,9 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .eg-task-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
 .eg-task-sub{font-size:12px;color:var(--muted);line-height:1.6}
 .eg-feedback{border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.6;margin-top:6px}
-.eg-feedback.good{background:#04100a;border-left:3px solid var(--accent);color:var(--accent2)}
-.eg-feedback.bad{background:#100404;border-left:3px solid var(--warn);color:#cc6060}
-.eg-feedback.info{background:#050a18;border-left:3px solid #3366aa;color:#6080cc}
+.eg-feedback.good{background:#0a2818;border-left:3px solid var(--accent);color:var(--accent2)}
+.eg-feedback.bad{background:#2a1010;border-left:3px solid var(--warn);color:#cc6060}
+.eg-feedback.info{background:#162040;border-left:3px solid #3366aa;color:#6080cc}
 .eg-moves-left{font-size:28px;font-weight:800;color:var(--gold);font-family:monospace;text-align:center}
 .eg-progress-ring{display:flex;align-items:center;justify-content:center;gap:14px;padding:8px}
 
@@ -584,7 +584,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .blunder-move-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--warn);margin-bottom:5px}
 .blunder-move-san{font-size:22px;font-weight:800;font-family:monospace;color:#fff}
 .blunder-explanation{font-size:13px;color:#9090b0;line-height:1.65;margin-top:8px}
-.blunder-better{background:#04100a;border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:8px 11px;font-size:13px;color:var(--accent2);margin-top:8px}
+.blunder-better{background:#0a2818;border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:8px 11px;font-size:13px;color:var(--accent2);margin-top:8px}
 .blunder-list{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
 .blunder-list::-webkit-scrollbar{width:3px}
 .blunder-list::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
@@ -594,7 +594,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .blunder-item-move{font-size:14px;font-weight:700;font-family:monospace;color:#fff;min-width:50px}
 .blunder-item-desc{font-size:11px;color:var(--muted);flex:1}
 .blunder-severity{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:700;flex-shrink:0}
-.sev-blunder{background:rgba(200,30,30,.2);color:#ee5050;border:1px solid rgba(200,30,30,.3)}
+.sev-blunder{background:rgba(220,60,60,.25);color:#ee5050;border:1px solid rgba(200,30,30,.3)}
 .sev-mistake{background:rgba(200,120,0,.2);color:#ee9030;border:1px solid rgba(200,120,0,.3)}
 .sev-inaccuracy{background:rgba(200,180,0,.2);color:#eecc30;border:1px solid rgba(200,180,0,.3)}
 .pgn-input-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
@@ -613,8 +613,8 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .tree-row{display:flex;align-items:flex-start;gap:0;position:relative}
 .tree-row::before{content:'';position:absolute;top:0;left:50%;right:50%;height:16px;border-left:1px solid var(--border2)}
 .tree-move-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:12px;font-weight:600;font-family:monospace;cursor:pointer;white-space:nowrap;transition:all .1s;margin-top:12px;position:relative}
-.tree-move-btn:hover{border-color:var(--accent);background:#0a180a;color:var(--accent2)}
-.tree-move-btn.played{border-color:var(--accent);background:#04100a;color:var(--accent2)}
+.tree-move-btn:hover{border-color:var(--accent);background:#1a3020;color:var(--accent2)}
+.tree-move-btn.played{border-color:var(--accent);background:#0a2818;color:var(--accent2)}
 .tree-move-btn.current{border-color:var(--gold);background:#1a1200;color:var(--gold)}
 .tree-connector{width:1px;background:var(--border2);margin:0 auto}
 .tree-info{font-size:12px;color:var(--muted);line-height:1.6;padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
@@ -639,7 +639,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .daily-task-status{font-size:12px;font-weight:700;flex-shrink:0}
 .daily-task.done .daily-task-status{color:var(--accent2)}
 .daily-task:not(.done) .daily-task-status{color:var(--dim)}
-.daily-xp{background:linear-gradient(135deg,#1a0830,#0a1a30);border:1px solid #2a1050;border-radius:10px;padding:14px;text-align:center}
+.daily-xp{background:linear-gradient(135deg,#1e3060,#162040);border:1px solid #2a1050;border-radius:10px;padding:14px;text-align:center}
 .daily-xp-num{font-size:36px;font-weight:800;color:var(--coach2)}
 .daily-xp-lbl{font-size:12px;color:var(--muted);margin-top:3px}
 
@@ -656,12 +656,297 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .badge-desc{font-size:10px;color:var(--muted);line-height:1.4}
 .badge-earned-lbl{font-size:9px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:5px}
 .badge-locked-lbl{font-size:9px;color:var(--dim);margin-top:5px}
-.elo-est-box{background:linear-gradient(135deg,#0a1a30,#050a18);border:1px solid #1a3060;border-radius:12px;padding:20px;text-align:center;margin-bottom:14px}
+.elo-est-box{background:linear-gradient(135deg,#1e3060,#152040);border:1px solid #1a3060;border-radius:12px;padding:20px;text-align:center;margin-bottom:14px}
 .elo-est-num{font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1}
 .elo-est-label{font-size:13px;color:#6080aa;margin-top:4px}
 .elo-est-bar{background:var(--dim);border-radius:100px;height:8px;margin:12px 0 6px;overflow:hidden}
 .elo-est-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,#3366cc,#66aaff);transition:width .8s ease}
 .elo-est-range{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+
+
+/* ══════════════════════════════════════════════════
+   CLOCK / TIME PRESSURE
+══════════════════════════════════════════════════ */
+.clock-bar{display:flex;gap:8px;align-items:center;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 14px}
+.clock-display{font-size:24px;font-weight:900;font-family:monospace;min-width:58px;color:#fff;transition:color .3s}
+.clock-display.low{color:var(--warn);animation:pulse .5s infinite}
+.clock-display.critical{color:#ff2222;animation:pulse .25s infinite}
+.clock-sep{font-size:11px;color:var(--muted);flex:1;text-align:center}
+.clock-label{font-size:10px;color:var(--muted);text-align:center;display:block;margin-top:2px}
+.clock-toggle-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.clock-preset{padding:5px 11px;border-radius:100px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;font-family:inherit;transition:all .12s}
+.clock-preset.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.clock-preset:hover:not(.active){border-color:var(--accent2);color:var(--accent2)}
+
+/* ══════════════════════════════════════════════════
+   GAME REVIEW
+══════════════════════════════════════════════════ */
+.review-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:8000;display:none;align-items:center;justify-content:center;padding:16px}
+.review-overlay.vis{display:flex}
+.review-modal{background:#162240;border:1px solid var(--border2);border-radius:14px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.9)}
+.review-modal::-webkit-scrollbar{width:3px}
+.review-modal::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.review-hdr{padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.review-hdr h3{font-size:18px;font-weight:800;color:#fff;flex:1}
+.review-close{width:30px;height:30px;border-radius:50%;border:1px solid var(--dim);background:transparent;color:var(--muted);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+.review-close:hover{border-color:var(--warn);color:#cc6060}
+.review-body{padding:16px 20px}
+.review-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.review-stat{background:var(--bg3);border-radius:8px;padding:10px;text-align:center}
+.review-stat-num{font-size:20px;font-weight:800;color:#fff}
+.review-stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.review-stat.gold .review-stat-num{color:var(--gold)}
+.review-stat.green .review-stat-num{color:var(--accent2)}
+.review-stat.red .review-stat-num{color:#ee6060}
+.review-move-list{display:flex;flex-direction:column;gap:4px;margin-bottom:14px;max-height:200px;overflow-y:auto}
+.review-move-list::-webkit-scrollbar{width:3px}
+.review-move-list::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.review-move-item{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:6px;font-size:12px}
+.review-move-item.best{background:#0a2818;border-left:2px solid var(--accent);color:var(--accent2)}
+.review-move-item.blunder{background:#2a1010;border-left:2px solid var(--warn);color:#cc6060}
+.review-move-item.normal{background:var(--bg3);color:var(--muted);border-left:2px solid var(--dim)}
+.review-move-san{font-weight:700;font-family:monospace;min-width:50px}
+.review-ai-section{background:#1a2248;border:1px solid var(--coach);border-radius:10px;padding:14px;margin-top:12px}
+.review-ai-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coach2);margin-bottom:8px}
+.review-ai-text{font-size:13px;color:#b088cc;line-height:1.7}
+.review-actions{display:flex;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+
+/* ══════════════════════════════════════════════════
+   CHECKMATE PATTERNS
+══════════════════════════════════════════════════ */
+.patterns-page{max-width:960px;margin:0 auto;padding:12px}
+.pattern-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.pattern-badge{width:44px;height:44px;background:linear-gradient(135deg,#3a1010,#7a1010);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(180,0,0,.3)}
+.pattern-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:16px}
+.pattern-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .12s;text-align:center}
+.pattern-card:hover{background:var(--bg3);border-color:var(--warn);transform:translateY(-2px)}
+.pattern-card.done{border-color:var(--accent)}
+.pattern-icon{font-size:30px;margin-bottom:6px}
+.pattern-name{font-size:13px;font-weight:700;color:#fff}
+.pattern-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.pattern-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.pattern-layout{flex-direction:column}}
+.pattern-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.pattern-info{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.pattern-info-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+.pattern-info-desc{font-size:13px;color:var(--muted);line-height:1.65}
+.pattern-result{border-radius:8px;padding:10px 12px;font-size:13px;font-weight:600;display:none}
+.pattern-result.correct{background:#0a2818;border:1px solid var(--accent);color:var(--accent2);display:block}
+.pattern-result.wrong{background:#2a1010;border:1px solid var(--warn);color:#cc6060;display:block}
+
+/* ══════════════════════════════════════════════════
+   SETTINGS
+══════════════════════════════════════════════════ */
+.settings-page{max-width:700px;margin:0 auto;padding:12px}
+.settings-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.settings-section-hdr{padding:10px 14px;background:#162240;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.settings-row{display:flex;align-items:center;gap:14px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none}
+.settings-row-label{flex:1}
+.settings-row-title{font-size:13px;font-weight:600;color:#fff}
+.settings-row-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.settings-toggle{width:44px;height:24px;border-radius:100px;border:none;cursor:pointer;position:relative;flex-shrink:0;transition:background .2s}
+.settings-toggle.on{background:var(--accent)}
+.settings-toggle.off{background:var(--dim)}
+.settings-toggle::after{content:'';position:absolute;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .2s}
+.settings-toggle.on::after{left:23px}
+.settings-toggle.off::after{left:3px}
+.board-theme-row{display:flex;gap:8px;flex-wrap:wrap;padding:12px 14px}
+.board-theme-opt{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
+.board-theme-preview{width:48px;height:48px;border-radius:6px;border:2px solid transparent;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;transition:all .15s}
+.board-theme-preview.selected{border-color:var(--accent);box-shadow:0 0 10px rgba(90,153,16,.4)}
+.board-theme-preview .p1,.board-theme-preview .p2{width:100%;height:100%}
+.board-theme-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.settings-select{background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:5px 10px;color:var(--text);font-size:12px;font-family:inherit;outline:none;cursor:pointer}
+
+/* ══════════════════════════════════════════════════
+   FAVOURITES
+══════════════════════════════════════════════════ */
+.favourites-page{max-width:960px;margin:0 auto;padding:12px}
+.fav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.fav-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .12s}
+.fav-card:hover{background:var(--bg3);border-color:var(--accent)}
+.fav-card-info{flex:1;min-width:0}
+.fav-card-name{font-size:13px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fav-card-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.fav-remove{width:24px;height:24px;border-radius:50%;border:1px solid var(--dim);background:transparent;color:var(--dim);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fav-remove:hover{border-color:var(--warn);color:#cc6060}
+.fav-star-btn{background:none;border:none;font-size:18px;cursor:pointer;padding:0;line-height:1;flex-shrink:0;opacity:.3;transition:opacity .15s}
+.fav-star-btn.starred{opacity:1}
+.fav-empty{text-align:center;padding:40px;color:var(--muted);font-size:13px}
+.fav-empty-icon{font-size:40px;opacity:.2;margin-bottom:10px}
+
+/* ══════════════════════════════════════════════════
+   WEEKLY REPORT
+══════════════════════════════════════════════════ */
+.weekly-page{max-width:700px;margin:0 auto;padding:12px}
+.weekly-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.weekly-hdr h2{font-size:22px;font-weight:800;color:#fff}
+.weekly-hdr p{font-size:12px;color:var(--muted);margin-top:3px}
+.weekly-chart{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px}
+.weekly-chart-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:12px}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:80px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar-fill{width:100%;border-radius:4px 4px 0 0;background:var(--accent);min-height:3px;transition:height .5s ease}
+.bar-lbl{font-size:9px;color:var(--muted);font-family:monospace}
+.bar-val{font-size:9px;color:var(--accent2);font-weight:700}
+.weekly-highlights{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px}
+.weekly-highlights h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px}
+.highlight-item{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
+.highlight-item:last-child{border-bottom:none}
+.highlight-icon{font-size:18px;flex-shrink:0}
+.highlight-text{font-size:12px;color:var(--text);flex:1}
+.highlight-val{font-size:13px;font-weight:700;color:var(--gold)}
+
+/* ══════════════════════════════════════════════════
+   SPACED REPETITION
+══════════════════════════════════════════════════ */
+.spaced-page{max-width:960px;margin:0 auto;padding:12px}
+.spaced-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.spaced-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.spaced-layout{flex-direction:column}}
+.spaced-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.spaced-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.spaced-queue{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto}
+.spaced-queue::-webkit-scrollbar{width:3px}
+.spaced-queue::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.spaced-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg3);border-radius:8px;cursor:pointer;transition:background .1s;border-left:3px solid var(--dim)}
+.spaced-item:hover{background:#243357}
+.spaced-item.due-now{border-left-color:var(--warn)}
+.spaced-item.due-soon{border-left-color:var(--gold)}
+.spaced-item.fresh{border-left-color:var(--accent)}
+.spaced-item-name{font-size:12px;font-weight:600;color:#fff;flex:1}
+.spaced-item-due{font-size:10px;color:var(--muted);flex-shrink:0}
+.spaced-rating-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.spaced-rate-btn{padding:9px 16px;border-radius:8px;border:none;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;flex:1;min-width:80px;transition:all .15s}
+.rate-again{background:#3a1010;border:1px solid var(--warn);color:#ee6060}
+.rate-again:hover{background:#3a0606}
+.rate-hard{background:#2a2010;border:1px solid var(--gold);color:var(--gold)}
+.rate-hard:hover{background:#252000}
+.rate-good{background:#0a2818;border:1px solid var(--accent);color:var(--accent2)}
+.rate-good:hover{background:#061808}
+.rate-easy{background:#162040;border:1px solid var(--coach);color:var(--coach2)}
+.rate-easy:hover{background:#0a1030}
+.spaced-progress-text{font-size:12px;color:var(--muted);text-align:center}
+
+/* ══ SEARCH BOX ══ */
+.study-search-wrap{padding:8px 0 0}
+.study-search{width:100%;background:#111d35;border:1px solid var(--border2);border-radius:8px;padding:8px 12px;color:#c8c8e8;font-size:13px;font-family:inherit;outline:none;box-sizing:border-box}
+.study-search:focus{border-color:var(--accent)}
+.search-results{background:#131e38;border:1px solid var(--border2);border-radius:0 0 10px 10px;max-height:260px;overflow-y:auto;display:none}
+.search-results.vis{display:block}
+.search-result-item{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .1s}
+.search-result-item:hover{background:var(--bg3)}
+.search-result-item:last-child{border-bottom:none}
+.search-result-name{font-size:13px;font-weight:600;color:#fff;flex:1}
+.search-result-side{font-size:10px;padding:2px 6px;border-radius:100px;font-weight:700}
+
+
+/* ═══ MEMORY DRILL ════════════════════════════════════════ */
+.drill-page{max-width:960px;margin:0 auto;padding:12px}
+.drill-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.drill-badge{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.drill-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.drill-layout{flex-direction:column}}
+.drill-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.drill-trap-select{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:12px}
+.drill-trap-btn{padding:10px 14px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all .12s;display:flex;align-items:center;gap:8px}
+.drill-trap-btn:hover{border-color:var(--accent);background:var(--bg3);color:var(--accent2)}
+.drill-trap-btn.selected{border-color:var(--accent);background:#0c2818;color:var(--accent2)}
+.drill-prompt{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.drill-prompt-move{font-size:13px;color:var(--muted);margin-bottom:10px}
+.drill-prompt-move strong{color:var(--text)}
+.drill-move-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.drill-opt{padding:12px;border-radius:8px;border:1.5px solid var(--border2);background:var(--bg3);color:var(--text);font-size:16px;font-weight:700;font-family:monospace;cursor:pointer;transition:all .12s;text-align:center}
+.drill-opt:hover:not(:disabled){border-color:var(--accent);background:#0c2818;color:var(--accent2)}
+.drill-opt.correct{border-color:var(--accent)!important;background:#0c2818!important;color:var(--accent2)!important}
+.drill-opt.wrong{border-color:var(--warn)!important;background:#2a1010!important;color:#ee7070!important}
+.drill-opt:disabled{cursor:not-allowed}
+.drill-result{font-size:13px;font-weight:600;padding:10px 14px;border-radius:8px;margin-top:8px;display:none}
+.drill-result.correct{background:#0c2818;border:1px solid var(--accent);color:var(--accent2);display:block}
+.drill-result.wrong{background:#2a1010;border:1px solid var(--warn);color:#ee7070;display:block}
+.drill-streak-bar{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px}
+.drill-streak-fire{font-size:20px}
+.drill-streak-num{font-size:22px;font-weight:800;color:var(--gold)}
+.drill-streak-lbl{font-size:11px;color:var(--muted)}
+.drill-type-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.drill-type-btn{padding:5px 12px;border-radius:100px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;font-family:inherit;transition:all .12s}
+.drill-type-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+
+/* ═══ GAME IMPORT ══════════════════════════════════════════ */
+.import-page{max-width:960px;margin:0 auto;padding:12px}
+.import-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.import-games-list{display:flex;flex-direction:column;gap:8px;max-height:400px;overflow-y:auto}
+.import-games-list::-webkit-scrollbar{width:3px}
+.import-games-list::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.import-game-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .12s}
+.import-game-card:hover{background:var(--bg3);border-color:var(--accent)}
+.import-game-result{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.igr-win{background:#0c2818;border:2px solid var(--accent);color:var(--accent2)}
+.igr-loss{background:#2a1010;border:2px solid var(--warn);color:#ee7070}
+.igr-draw{background:#1a2040;border:2px solid var(--gold);color:var(--gold)}
+.import-game-info{flex:1;min-width:0}
+.import-game-title{font-size:13px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.import-game-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.import-game-date{font-size:10px;color:var(--dim);flex-shrink:0}
+.import-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.username-inp{background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;color:var(--text);font-size:13px;font-family:inherit;outline:none;flex:1}
+.username-inp:focus{border-color:var(--accent)}
+
+/* ═══ OPPONENT PROFILER ═══════════════════════════════════ */
+.opponent-page{max-width:960px;margin:0 auto;padding:12px}
+.opponent-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.opponent-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.opponent-name-big{font-size:24px;font-weight:800;color:#fff;margin-bottom:4px}
+.opponent-rating{font-size:13px;color:var(--muted)}
+.opponent-opening-list{display:flex;flex-direction:column;gap:6px}
+.opp-opening-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--bg3);border-radius:7px}
+.opp-opening-name{font-size:12px;font-weight:600;color:#fff;flex:1}
+.opp-opening-bar-wrap{flex:2;background:var(--dim);border-radius:100px;height:6px;overflow:hidden}
+.opp-opening-bar{height:100%;border-radius:100px;background:var(--accent)}
+.opp-opening-pct{font-size:11px;color:var(--muted);min-width:35px;text-align:right}
+.trap-suggestion-card{background:#0c2818;border:1px solid var(--accent);border-radius:10px;padding:14px;cursor:pointer;transition:all .12s}
+.trap-suggestion-card:hover{background:#102e1e;border-color:var(--accent2)}
+.trap-sug-title{font-size:13px;font-weight:700;color:var(--accent2);margin-bottom:4px}
+.trap-sug-why{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* ═══ TRAP BATTLE ══════════════════════════════════════════ */
+.battle-page{max-width:960px;margin:0 auto;padding:12px}
+.battle-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.battle-setup{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.battle-players{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
+.battle-player{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
+.battle-player-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px}
+.battle-player-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:8px}
+.battle-vs{font-size:24px;font-weight:900;color:var(--gold);text-align:center}
+.battle-trap-sel{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;color:var(--text);font-size:12px;font-family:inherit;outline:none;cursor:pointer;margin-top:4px}
+.battle-status{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text);text-align:center}
+.battle-status.your-turn{border-color:var(--accent);background:#0c2818;color:var(--accent2)}
+.battle-status.opp-turn{border-color:var(--coach);background:#1a1850;color:var(--coach2)}
+.battle-score{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.battle-score-half{flex:1;padding:12px;text-align:center;background:var(--bg2)}
+.battle-score-half:first-child{border-right:1px solid var(--border)}
+.battle-score-num{font-size:28px;font-weight:900;color:#fff}
+.battle-score-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.battle-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.battle-layout{flex-direction:column}}
+.battle-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+
+/* ═══ RATING GRAPH ═════════════════════════════════════════ */
+.graph-page{max-width:960px;margin:0 auto;padding:12px}
+.graph-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap}
+.graph-canvas-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;position:relative}
+canvas#rating-canvas{width:100%;height:220px;display:block}
+.graph-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+.graph-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.graph-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.milestone-banner{background:linear-gradient(135deg,#1e3a60,#0e2040);border:1px solid var(--accent);border-radius:10px;padding:14px;margin-bottom:10px;text-align:center}
+.milestone-banner h3{font-size:16px;font-weight:700;color:var(--accent2);margin-bottom:4px}
+.milestone-banner p{font-size:12px;color:var(--muted)}
+.graph-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:12px}
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:10000;overflow:hidden}
+.confetti-piece{position:absolute;width:10px;height:10px;border-radius:2px;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
 </style>
 </head>
@@ -686,6 +971,16 @@ textarea.inp-field{resize:vertical;min-height:70px}
       <button class="mode-btn" id="btn-tree" onclick="switchMode('tree')">🌳 Tree</button>
       <button class="mode-btn" id="btn-daily" onclick="switchMode('daily')">📅 Daily</button>
       <button class="mode-btn" id="btn-badges" onclick="switchMode('badges')">🏆 Badges</button>
+      <button class="mode-btn" id="btn-patterns" onclick="switchMode('patterns')">♟ Patterns</button>
+      <button class="mode-btn" id="btn-settings" onclick="switchMode('settings')">⚙️ Settings</button>
+      <button class="mode-btn" id="btn-favourites" onclick="switchMode('favourites')">⭐ Favourites</button>
+      <button class="mode-btn" id="btn-weekly" onclick="switchMode('weekly')">📈 Weekly</button>
+      <button class="mode-btn" id="btn-spaced" onclick="switchMode('spaced')">🔁 Review</button>
+      <button class="mode-btn" id="btn-drill" onclick="switchMode('drill')">🧠 Drill</button>
+      <button class="mode-btn" id="btn-import" onclick="switchMode('import')">📥 Import</button>
+      <button class="mode-btn" id="btn-opponent" onclick="switchMode('opponent')">🎯 Opponent</button>
+      <button class="mode-btn" id="btn-battle" onclick="switchMode('battle')">⚔️ Battle</button>
+      <button class="mode-btn" id="btn-graph" onclick="switchMode('graph')">📈 Graph</button>
     </div>
   </div>
 </div>
@@ -738,11 +1033,26 @@ textarea.inp-field{resize:vertical;min-height:70px}
     </div>
   </div>
 
+  <!-- Search box -->
+  <div style="max-width:960px;margin:0 auto;padding:0 12px" id="study-search-container">
+    <div class="study-search-wrap">
+      <input class="study-search" id="study-search-inp" placeholder="🔍  Search traps, openings… (e.g. Italian, fork, Bird's)" oninput="studySearch(this.value)" onfocus="studySearch(this.value)" onblur="setTimeout(()=>document.getElementById('search-results').classList.remove('vis'),200)">
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
   <!-- Main study content -->
   <div class="page active" id="study-content">
-    <div class="trap-hdr">
-      <div class="trap-title" id="trap-title">Select a trap above to begin</div>
-      <div class="trap-sub" id="trap-sub"></div>
+    <div id="trap-of-day-banner" style="background:linear-gradient(135deg,#0a1a08,#041208);border:1px solid var(--accent);border-radius:10px;padding:11px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="loadTrapOfDay()">
+      <span style="font-size:20px">🌟</span>
+      <div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.07em">Trap of the Day</div><div style="font-size:13px;color:#fff;margin-top:1px" id="totd-name">Loading…</div></div>
+      <span style="font-size:11px;color:var(--accent);font-weight:600">Study →</span>
+    </div>
+    <div class="trap-hdr" style="display:flex;align-items:flex-start;gap:10px">
+      <div style="flex:1">
+        <div class="trap-title" id="trap-title">Select a trap above to begin</div>
+        <div class="trap-sub" id="trap-sub"></div>
+      </div>
+      <button class="fav-star-btn" id="fav-star-btn" onclick="toggleFavourite()" title="Add to favourites">☆</button>
     </div>
     <div class="study-layout">
       <div class="board-col">
@@ -764,7 +1074,8 @@ textarea.inp-field{resize:vertical;min-height:70px}
           <button class="nv" onclick="navNext()">▶</button>
           <button class="nv" onclick="navLast()">⏭</button>
         </div>
-        <div class="hint">Tap ◀ ▶ or use arrow keys · swipe</div>
+        <div class="hint">Tap ◀ ▶ · arrow keys · space to advance · F to favourite · / to search</div>
+        <button id="copy-fen-btn" onclick="copyFen()" style="font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit">📋 Copy FEN</button>
       </div>
       <div class="info-col">
         <div id="coach-card" class="empty-card">
@@ -885,6 +1196,12 @@ textarea.inp-field{resize:vertical;min-height:70px}
             <span class="coach-you-play" id="coach-side-badge"></span>
             <button class="coach-back" onclick="leaveCoachGame()">← Back</button>
           </div>
+          <!-- Clock display (shown only when clock enabled) -->
+          <div class="clock-bar" id="coach-clock-bar" style="display:none">
+            <div style="text-align:center"><div class="clock-display" id="clock-black">—</div><span class="clock-label">Coach</span></div>
+            <div class="clock-sep">⏱</div>
+            <div style="text-align:center"><div class="clock-display" id="clock-white">—</div><span class="clock-label">You</span></div>
+          </div>
 
           <div class="turn-bar">
             <div class="turn-dot white" id="turn-dot"></div>
@@ -953,6 +1270,11 @@ textarea.inp-field{resize:vertical;min-height:70px}
           <span class="fp-turn-label" id="fp-turn-label">White to move</span>
           <span class="fp-turn-phase" id="fp-turn-phase">Opening</span>
         </div>
+        <div class="clock-bar" id="fp-clock-bar" style="display:none">
+          <div style="text-align:center"><div class="clock-display" id="fp-clock-black">—</div><span class="clock-label">⬛ Black</span></div>
+          <div class="clock-sep">⏱</div>
+          <div style="text-align:center"><div class="clock-display" id="fp-clock-white">—</div><span class="clock-label">⬜ White</span></div>
+        </div>
 
         <div class="fp-legend">
           <div class="fp-legend-title">Move Quality Legend</div>
@@ -988,6 +1310,568 @@ textarea.inp-field{resize:vertical;min-height:70px}
     </div>
   </div>
 </div><!-- end freeplay-page -->
+
+<!-- ═══ MEMORY DRILL ═══════════════════════════════════════ -->
+<div id="drill-page" style="display:none">
+<div class="drill-page">
+  <div class="drill-hdr">
+    <div class="drill-badge" style="background:linear-gradient(135deg,#1a3a6a,#0e2040);box-shadow:0 0 18px rgba(30,80,180,.3)">🧠</div>
+    <div>
+      <h2>Opening Memory Drill</h2>
+      <p>Test what you've actually memorised — pick the right move without the board showing you the answer</p>
+    </div>
+  </div>
+
+  <!-- Trap selector -->
+  <div id="drill-selector">
+    <div class="drill-type-row">
+      <button class="drill-type-btn active" onclick="drillFilter('all',this)">All Traps</button>
+      <button class="drill-type-btn" onclick="drillFilter('White',this)">♔ White</button>
+      <button class="drill-type-btn" onclick="drillFilter('Black',this)">♚ Black</button>
+      <button class="drill-type-btn" onclick="drillFilter('Bird',this)">🐦 Bird's</button>
+      <button class="drill-type-btn" onclick="drillFilter('favourites',this)">⭐ Favourites</button>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Select traps to drill — or start with all:</div>
+    <div class="drill-trap-select" id="drill-trap-grid"></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="puzzle-btn puzzle-btn-primary" onclick="drillStart()">🧠 Start Drill</button>
+      <button class="puzzle-btn puzzle-btn-secondary" onclick="drillSelectAll()">Select All</button>
+      <button class="puzzle-btn puzzle-btn-secondary" onclick="drillSelectNone()">Clear</button>
+    </div>
+  </div>
+
+  <!-- Active drill -->
+  <div id="drill-active" style="display:none">
+    <div class="drill-layout">
+      <div class="board-col">
+        <div class="board-outer">
+          <div class="b-row">
+            <div class="rank-col" id="dr-rank-col"></div>
+            <div class="board-wrap">
+              <div class="board" id="dr-board"></div>
+            </div>
+          </div>
+          <div class="file-row" id="dr-file-row"></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:6px">Position before the key move</div>
+      </div>
+      <div class="drill-right">
+        <div class="drill-streak-bar">
+          <span class="drill-streak-fire">🔥</span>
+          <span class="drill-streak-num" id="dr-streak">0</span>
+          <div><div class="drill-streak-lbl">Current Streak</div><div style="font-size:10px;color:var(--dim)" id="dr-best-streak">Best: 0</div></div>
+          <div style="margin-left:auto;text-align:right"><div style="font-size:18px;font-weight:800;color:var(--accent2)" id="dr-score">0</div><div class="drill-streak-lbl">Score</div></div>
+        </div>
+        <div class="drill-prompt">
+          <div class="drill-prompt-move">
+            <strong id="dr-trap-name">Trap Name</strong> — <span id="dr-move-context"></span>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:#fff;margin:8px 0" id="dr-question">What is the key move?</div>
+          <div class="drill-move-options" id="dr-options"></div>
+          <div class="drill-result" id="dr-result"></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);text-align:center" id="dr-progress-lbl">Question 1</div>
+        <div class="puzzle-actions">
+          <button class="puzzle-btn puzzle-btn-primary" id="dr-next-btn" onclick="drillNext()" style="display:none">Next →</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="drillEnd()">← Back to Selection</button>
+        </div>
+        <div class="stats-grid-big" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat-card green"><div class="stat-num" id="dr-correct">0</div><div class="stat-lbl">Correct</div></div>
+          <div class="stat-card"><div class="stat-num" id="dr-total">0</div><div class="stat-lbl">Answered</div></div>
+          <div class="stat-card gold"><div class="stat-num" id="dr-pct">—</div><div class="stat-lbl">Accuracy</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ GAME IMPORT ════════════════════════════════════════ -->
+<div id="import-page" style="display:none">
+<div class="import-page">
+  <div class="import-hdr">
+    <div class="drill-badge" style="background:linear-gradient(135deg,#1a3a5a,#0e2038);box-shadow:0 0 18px rgba(20,80,160,.3)">📥</div>
+    <div>
+      <h2>Import from chess.com</h2>
+      <p>Fetch your recent games directly — no copy/paste needed</p>
+    </div>
+  </div>
+  <div class="import-btn-row">
+    <input class="username-inp" id="chesscom-username" placeholder="Your chess.com username" value="">
+    <button class="puzzle-btn puzzle-btn-primary" onclick="importFetchGames()">🔍 Fetch My Games</button>
+  </div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:12px">
+    💡 Uses the free chess.com public API — no login needed. Fetches your last 20 games.
+  </div>
+  <div id="import-loading" style="display:none;text-align:center;padding:20px;color:var(--muted);animation:pulse 1s infinite">⏳ Fetching your games from chess.com…</div>
+  <div id="import-error" style="display:none;padding:12px;background:#2a1010;border:1px solid var(--warn);border-radius:8px;color:#ee7070;font-size:13px"></div>
+  <div id="import-games-wrap" style="display:none">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">
+      Your Recent Games — click to analyse
+    </div>
+    <div class="import-games-list" id="import-games-list"></div>
+  </div>
+  <div id="import-tip" style="margin-top:16px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6">
+    <strong style="color:var(--text)">How it works:</strong> Enter your chess.com username and click Fetch. Your recent games load automatically.
+    Click any game to open it in the <strong>Blunder Coach</strong> — no copy/paste needed!<br><br>
+    Your username is saved so you only have to enter it once.
+  </div>
+</div>
+</div>
+
+<!-- ═══ OPPONENT PROFILER ══════════════════════════════════ -->
+<div id="opponent-page" style="display:none">
+<div class="opponent-page">
+  <div class="opponent-hdr">
+    <div class="drill-badge" style="background:linear-gradient(135deg,#3a1a0a,#200a04);box-shadow:0 0 18px rgba(180,60,10,.3)">🎯</div>
+    <div>
+      <h2>Opponent Profiler</h2>
+      <p>Enter your opponent's chess.com username — see what they play and which traps work best against them</p>
+    </div>
+  </div>
+  <div class="import-btn-row">
+    <input class="username-inp" id="opponent-username" placeholder="Opponent's chess.com username">
+    <button class="puzzle-btn puzzle-btn-primary" onclick="opponentProfile()">🎯 Profile Them</button>
+  </div>
+  <div id="opponent-loading" style="display:none;text-align:center;padding:20px;color:var(--muted);animation:pulse 1s infinite">⏳ Analysing their games…</div>
+  <div id="opponent-error" style="display:none;padding:12px;background:#2a1010;border:1px solid var(--warn);border-radius:8px;color:#ee7070;font-size:13px;margin-bottom:10px"></div>
+  <div id="opponent-results" style="display:none">
+    <div class="opponent-card">
+      <div class="opponent-name-big" id="opp-name"></div>
+      <div class="opponent-rating" id="opp-rating"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <div class="opponent-card">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px">As White — plays:</div>
+        <div class="opponent-opening-list" id="opp-white-openings"></div>
+      </div>
+      <div class="opponent-card">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px">As Black — plays:</div>
+        <div class="opponent-opening-list" id="opp-black-openings"></div>
+      </div>
+    </div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">🎯 Recommended Traps Against Them</div>
+    <div id="opp-trap-suggestions"></div>
+    <div class="opponent-card" id="opp-ai-report" style="margin-top:10px;display:none">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coach2);margin-bottom:8px">🤖 AI Scout Report</div>
+      <div id="opp-ai-text" style="font-size:13px;color:var(--muted);line-height:1.7"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ TRAP BATTLE ═════════════════════════════════════════ -->
+<div id="battle-page" style="display:none">
+<div class="battle-page">
+  <div class="battle-hdr">
+    <div class="drill-badge" style="background:linear-gradient(135deg,#3a1a00,#200a00);box-shadow:0 0 18px rgba(180,80,0,.3)">⚔️</div>
+    <div>
+      <h2>Trap Battle</h2>
+      <p>Two players, one device — each picks an opening and plays it out. See whose trap lands first!</p>
+    </div>
+  </div>
+  <!-- Setup screen -->
+  <div id="battle-setup-screen">
+    <div class="battle-players">
+      <div class="battle-player">
+        <div class="battle-player-title">♔ Player 1 (White)</div>
+        <input class="username-inp" id="battle-p1-name" placeholder="Player 1 name" value="Player 1" style="margin-bottom:8px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Choose opening:</div>
+        <select class="battle-trap-sel" id="battle-p1-trap"></select>
+      </div>
+      <div class="battle-vs">VS</div>
+      <div class="battle-player">
+        <div class="battle-player-title">♚ Player 2 (Black)</div>
+        <input class="username-inp" id="battle-p2-name" placeholder="Player 2 name" value="Player 2" style="margin-bottom:8px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Choose opening:</div>
+        <select class="battle-trap-sel" id="battle-p2-trap"></select>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="puzzle-btn puzzle-btn-primary" style="font-size:15px;padding:12px 28px" onclick="battleStart()">⚔️ Start Battle!</button>
+    </div>
+  </div>
+  <!-- Active game screen -->
+  <div id="battle-game-screen" style="display:none">
+    <div class="battle-layout">
+      <div class="board-col">
+        <div class="board-label-top" id="battle-top-label">Player 2 ♟</div>
+        <div class="board-outer">
+          <div class="b-row">
+            <div class="rank-col" id="bt-rank-col"></div>
+            <div class="board-wrap">
+              <div class="board" id="bt-board"></div>
+              <svg class="arr-layer" id="bt-arr-layer" viewBox="0 0 416 416"></svg>
+            </div>
+          </div>
+          <div class="file-row" id="bt-file-row"></div>
+        </div>
+        <div class="board-label-top" id="battle-bottom-label">Player 1 ♙</div>
+        <div class="notation" id="bt-notation" style="margin-top:8px"></div>
+      </div>
+      <div class="battle-right">
+        <div class="battle-score">
+          <div class="battle-score-half">
+            <div class="battle-score-num" id="bt-p1-score">0</div>
+            <div class="battle-score-lbl" id="bt-p1-lbl">Player 1</div>
+          </div>
+          <div class="battle-score-half">
+            <div class="battle-score-num" id="bt-p2-score">0</div>
+            <div class="battle-score-lbl" id="bt-p2-lbl">Player 2</div>
+          </div>
+        </div>
+        <div class="battle-status" id="battle-status">White to move</div>
+        <div class="opponent-card" id="bt-hint-box" style="display:none">
+          <div style="font-size:11px;font-weight:700;color:var(--accent2);margin-bottom:4px">💡 Opening Guide</div>
+          <div id="bt-hint-text" style="font-size:12px;color:var(--muted);line-height:1.6"></div>
+        </div>
+        <div class="puzzle-actions">
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="battleHint()">💡 Hint</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="btUndo()">↩ Undo</button>
+          <button class="puzzle-btn puzzle-btn-primary" onclick="battleNewRound()">↺ New Round</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="battleEnd()">← Back</button>
+        </div>
+        <div class="game-over-banner" id="battle-over" style="display:none">
+          <span class="game-over-emoji" id="bt-over-emoji">🏆</span>
+          <h3 id="bt-over-title">Game Over!</h3>
+          <p id="bt-over-msg"></p>
+          <button class="puzzle-btn puzzle-btn-primary" onclick="battleNewRound()" style="margin:0 auto">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ RATING GRAPH ════════════════════════════════════════ -->
+<div id="graph-page" style="display:none">
+<div class="graph-page">
+  <div class="graph-hdr">
+    <div>
+      <h2>📈 Rating Graph</h2>
+      <p>Your estimated ELO over time — every practice session moves the needle</p>
+    </div>
+  </div>
+  <div id="milestone-banner" class="milestone-banner" style="display:none">
+    <h3 id="milestone-title">🎉 Milestone Reached!</h3>
+    <p id="milestone-msg"></p>
+  </div>
+  <div class="graph-canvas-wrap">
+    <canvas id="rating-canvas"></canvas>
+    <div class="graph-legend">
+      <div class="graph-legend-item"><div class="graph-legend-dot" style="background:#5a9910"></div>Estimated Rating</div>
+      <div class="graph-legend-item"><div class="graph-legend-dot" style="background:#f0cc40"></div>Milestones</div>
+    </div>
+  </div>
+  <div class="graph-stats" id="graph-stats"></div>
+  <div class="stats-grid-big" style="margin-bottom:12px">
+    <div class="stat-card gold"><div class="stat-num" id="graph-current-elo">—</div><div class="stat-lbl">Current ELO</div></div>
+    <div class="stat-card green"><div class="stat-num" id="graph-peak-elo">—</div><div class="stat-lbl">Peak ELO</div></div>
+    <div class="stat-card"><div class="stat-num" id="graph-sessions">0</div><div class="stat-lbl">Sessions</div></div>
+    <div class="stat-card purple"><div class="stat-num" id="graph-gain">+0</div><div class="stat-lbl">ELO Gained</div></div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px">Milestone Achievements</div>
+    <div id="graph-milestones"></div>
+  </div>
+</div>
+</div>
+
+<!-- CONFETTI LAYER -->
+<div class="confetti-wrap" id="confetti-wrap"></div>
+
+
+
+<!-- GAME REVIEW MODAL (used by Coach + Free Play) -->
+<div class="review-overlay" id="review-overlay">
+  <div class="review-modal">
+    <div class="review-hdr">
+      <h3 id="review-title">Game Review</h3>
+      <button class="review-close" onclick="closeReview()">✕</button>
+    </div>
+    <div class="review-body">
+      <div class="review-stats-row">
+        <div class="review-stat gold"><div class="review-stat-num" id="rv-moves">0</div><div class="review-stat-lbl">Moves</div></div>
+        <div class="review-stat green"><div class="review-stat-num" id="rv-best">0</div><div class="review-stat-lbl">Best</div></div>
+        <div class="review-stat red"><div class="review-stat-num" id="rv-blunders">0</div><div class="review-stat-lbl">Blunders</div></div>
+        <div class="review-stat"><div class="review-stat-num" id="rv-accuracy">—</div><div class="review-stat-lbl">Accuracy</div></div>
+      </div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:6px">Move Quality</div>
+      <div class="review-move-list" id="rv-move-list"></div>
+      <div class="review-ai-section" id="rv-ai-section">
+        <div class="review-ai-title">🤖 Coach Debrief</div>
+        <div class="review-ai-text" id="rv-ai-text">Loading analysis…</div>
+      </div>
+      <div class="review-actions">
+        <button class="puzzle-btn puzzle-btn-primary" onclick="closeReview()">Done</button>
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="closeReview();switchMode('blunder')">🔍 Full Blunder Analysis</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKMATE PATTERNS PAGE -->
+<div id="patterns-page" style="display:none">
+<div class="patterns-page">
+  <div class="pattern-hdr">
+    <div class="pattern-badge">♟</div>
+    <div>
+      <h2>Checkmate Patterns</h2>
+      <p>Recognise these 8 mating patterns instantly — what separates 600 from 900 players</p>
+    </div>
+  </div>
+  <div id="pattern-selector">
+    <div class="pattern-grid" id="pattern-grid"></div>
+  </div>
+  <div id="pattern-trainer" style="display:none">
+    <div class="pattern-layout">
+      <div class="board-col">
+        <div class="board-outer">
+          <div class="b-row">
+            <div class="rank-col" id="pt-rank-col"></div>
+            <div class="board-wrap">
+              <div class="board" id="pt-board"></div>
+            </div>
+          </div>
+          <div class="file-row" id="pt-file-row"></div>
+        </div>
+      </div>
+      <div class="pattern-right">
+        <div class="pattern-info">
+          <div class="pattern-info-title" id="pt-title">Pattern Name</div>
+          <div class="pattern-info-desc" id="pt-desc"></div>
+          <div class="pattern-result" id="pt-result"></div>
+        </div>
+        <div style="font-size:13px;color:var(--muted)">Click the square that delivers checkmate</div>
+        <div class="puzzle-actions">
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="ptNext()">Next Example →</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="ptBack()">← Back</button>
+        </div>
+        <div class="stats-grid-big" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat-card green"><div class="stat-num" id="pt-correct">0</div><div class="stat-lbl">Correct</div></div>
+          <div class="stat-card"><div class="stat-num" id="pt-tried">0</div><div class="stat-lbl">Tried</div></div>
+          <div class="stat-card gold"><div class="stat-num" id="pt-pct">—</div><div class="stat-lbl">Accuracy</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SETTINGS PAGE -->
+<div id="settings-page" style="display:none">
+<div class="settings-page">
+  <div class="endgame-hdr" style="margin-bottom:16px">
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#1e2a4a,#141e38)">⚙️</div>
+    <div><h2>Settings</h2><p>Customise your experience</p></div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-hdr">Board Theme</div>
+    <div class="board-theme-row" id="board-theme-row"></div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-hdr">Gameplay</div>
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <div class="settings-row-title">Sound Effects</div>
+        <div class="settings-row-sub">Move, capture, check and mate sounds</div>
+      </div>
+      <button class="settings-toggle" id="stg-sound" onclick="stgToggle('sound')"></button>
+    </div>
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <div class="settings-row-title">Show Move Dots</div>
+        <div class="settings-row-sub">Highlight legal squares when you select a piece</div>
+      </div>
+      <button class="settings-toggle" id="stg-dots" onclick="stgToggle('dots')"></button>
+    </div>
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <div class="settings-row-title">Show Move Quality Colours</div>
+        <div class="settings-row-sub">Brilliant/Great/Good colours on move dots (needs API key)</div>
+      </div>
+      <button class="settings-toggle" id="stg-quality" onclick="stgToggle('quality')"></button>
+    </div>
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <div class="settings-row-title">Auto-flip Board</div>
+        <div class="settings-row-sub">Board always shows your pieces at the bottom</div>
+      </div>
+      <button class="settings-toggle" id="stg-flip" onclick="stgToggle('flip')"></button>
+    </div>
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <div class="settings-row-title">Show Game Review After Game</div>
+        <div class="settings-row-sub">Pop up a review screen after every Coach or Free Play game</div>
+      </div>
+      <button class="settings-toggle" id="stg-review" onclick="stgToggle('review')"></button>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-hdr">Clock Presets</div>
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <div class="settings-row-title">Default Clock Time</div>
+        <div class="settings-row-sub">Used in Coach and Free Play modes</div>
+      </div>
+      <select class="settings-select" id="stg-clock-default" onchange="stgSave('clock-default',this.value)">
+        <option value="off">No clock</option>
+        <option value="300">5 min</option>
+        <option value="600">10 min</option>
+        <option value="900">15 min</option>
+        <option value="1800">30 min</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-hdr">Keyboard Shortcuts</div>
+    <div style="padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:6px 16px">
+      <div style="font-size:12px;color:var(--muted)"><kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">Space</kbd> / <kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">→</kbd> Next move (Study)</div>
+      <div style="font-size:12px;color:var(--muted)"><kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">←</kbd> Previous move</div>
+      <div style="font-size:12px;color:var(--muted)"><kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">F</kbd> Favourite trap</div>
+      <div style="font-size:12px;color:var(--muted)"><kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">/</kbd> Focus search</div>
+      <div style="font-size:12px;color:var(--muted)"><kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">H</kbd> Hint (Puzzles)</div>
+      <div style="font-size:12px;color:var(--muted)"><kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">S</kbd> Skip (Puzzles)</div>
+      <div style="font-size:12px;color:var(--muted)"><kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">1–4</kbd> Rate (Review)</div>
+      <div style="font-size:12px;color:var(--muted)"><kbd style="background:var(--bg3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;font-size:11px;color:#fff">Esc</kbd> Close overlays</div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-hdr">API Key</div>
+    <div class="settings-row" style="flex-direction:column;align-items:stretch;gap:8px">
+      <div class="settings-row-title">Anthropic API Key</div>
+      <div class="settings-row-sub">Required for AI coaching, move quality, game review and blunder analysis. Get one free at console.anthropic.com</div>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <input type="password" class="inp-field" id="stg-api-key" placeholder="sk-ant-..." style="flex:1">
+        <button class="puzzle-btn puzzle-btn-primary" onclick="stgSaveKey()">Save</button>
+        <button class="puzzle-btn puzzle-btn-secondary" onclick="stgClearKey()">Clear</button>
+      </div>
+      <div id="stg-key-status" style="font-size:11px;color:var(--accent2)"></div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-section-hdr">Data</div>
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <div class="settings-row-title">Export Progress</div>
+        <div class="settings-row-sub">Download all your progress data as JSON</div>
+      </div>
+      <button class="puzzle-btn puzzle-btn-secondary" onclick="stgExport()">📤 Export</button>
+    </div>
+    <div class="settings-row">
+      <div class="settings-row-label">
+        <div class="settings-row-title">Reset All Data</div>
+        <div class="settings-row-sub">Clear all progress, favourites, spaced repetition and daily streak</div>
+      </div>
+      <button class="puzzle-btn" style="background:#2a1010;border:1px solid var(--warn);color:#cc6060" onclick="if(confirm('Reset ALL data? This cannot be undone.')){stgResetAll()}">🗑 Reset All</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FAVOURITES PAGE -->
+<div id="favourites-page" style="display:none">
+<div class="favourites-page">
+  <div class="endgame-hdr" style="margin-bottom:16px">
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#3a2800,#1a1000)">⭐</div>
+    <div><h2>Favourites</h2><p>Your starred traps and openings — drill the ones that matter most</p></div>
+  </div>
+  <div id="fav-empty" class="fav-empty" style="display:none">
+    <div class="fav-empty-icon">☆</div>
+    <div>No favourites yet — tap the ☆ star on any trap in Study mode to save it here</div>
+  </div>
+  <div class="fav-grid" id="fav-grid"></div>
+</div>
+</div>
+
+<!-- WEEKLY REPORT PAGE -->
+<div id="weekly-page" style="display:none">
+<div class="weekly-page">
+  <div class="weekly-hdr">
+    <div>
+      <h2>📈 Weekly Report</h2>
+      <p id="weekly-date-range">This week's progress</p>
+    </div>
+    <button class="puzzle-btn puzzle-btn-secondary" onclick="weeklyExport()">📋 Copy Summary</button>
+  </div>
+  <div class="weekly-chart">
+    <div class="weekly-chart-title">Activity This Week (XP per day)</div>
+    <div class="bar-chart" id="weekly-bar-chart"></div>
+  </div>
+  <div class="stats-grid-big" id="weekly-stats" style="margin-bottom:12px"></div>
+  <div class="weekly-highlights">
+    <h4>Highlights</h4>
+    <div id="weekly-highlights-list"></div>
+  </div>
+  <div class="weekly-highlights" style="margin-top:12px">
+    <h4>Next Week's Focus</h4>
+    <div id="weekly-focus" style="font-size:13px;color:var(--muted);line-height:1.7;padding:8px 0"></div>
+  </div>
+</div>
+</div>
+
+<!-- SPACED REPETITION PAGE -->
+<div id="spaced-page" style="display:none">
+<div class="spaced-page">
+  <div class="spaced-hdr">
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#103a5a,#081828)">🔁</div>
+    <div>
+      <h2>Spaced Repetition</h2>
+      <p>Study traps at the right time — review when you're about to forget them</p>
+    </div>
+  </div>
+  <div class="spaced-layout">
+    <div class="board-col">
+      <div class="board-outer">
+        <div class="b-row">
+          <div class="rank-col" id="sr-rank-col"></div>
+          <div class="board-wrap">
+            <div class="board" id="sr-board"></div>
+            <svg class="arr-layer" id="sr-arr-layer" viewBox="0 0 416 416"></svg>
+          </div>
+        </div>
+        <div class="file-row" id="sr-file-row"></div>
+      </div>
+      <div class="notation" id="sr-notation" style="margin-top:8px"></div>
+      <div class="nav-controls" style="margin-top:6px">
+        <button class="nv" onclick="srFirst()">⏮</button>
+        <button class="nv" onclick="srPrev()">◀</button>
+        <span class="nav-label" id="sr-nav-lbl">—</span>
+        <button class="nv" onclick="srNext()">▶</button>
+        <button class="nv" onclick="srLast()">⏭</button>
+      </div>
+    </div>
+    <div class="spaced-right">
+      <div class="spaced-card">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">Due for Review (<span id="sr-due-count">0</span>)</div>
+        <div class="spaced-queue" id="sr-queue"></div>
+      </div>
+      <div id="sr-rating-section" style="display:none">
+        <div style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:8px">How well did you remember this trap?</div>
+        <div class="spaced-rating-row">
+          <button class="spaced-rate-btn rate-again" onclick="srRate(0)">😰 Again<br><span style="font-size:10px;opacity:.7">Forgot it</span></button>
+          <button class="spaced-rate-btn rate-hard" onclick="srRate(1)">😬 Hard<br><span style="font-size:10px;opacity:.7">Struggled</span></button>
+          <button class="spaced-rate-btn rate-good" onclick="srRate(2)">😊 Good<br><span style="font-size:10px;opacity:.7">Remembered</span></button>
+          <button class="spaced-rate-btn rate-easy" onclick="srRate(3)">😄 Easy<br><span style="font-size:10px;opacity:.7">Perfect</span></button>
+        </div>
+      </div>
+      <div class="spaced-card">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">All Traps</div>
+        <div class="spaced-queue" id="sr-all-queue"></div>
+      </div>
+      <div class="spaced-progress-text" id="sr-progress-text"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+
 
 <!-- ═══ ENDGAME TRAINER ═══════════════════════════════════ -->
 <div id="endgame-page" style="display:none">
@@ -1058,7 +1942,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 <div id="blunder-page" style="display:none">
 <div class="blunder-page">
   <div class="blunder-hdr">
-    <div class="endgame-badge" style="background:linear-gradient(135deg,#6a0020,#300010);box-shadow:0 0 18px rgba(180,0,40,.3)">🔍</div>
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#8a1030,#401020);box-shadow:0 0 18px rgba(180,0,40,.3)">🔍</div>
     <div>
       <h2>Blunder Coach</h2>
       <p>Paste a PGN from chess.com — the AI finds your worst moves and explains how to fix them</p>
@@ -1114,7 +1998,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 <div id="tree-page" style="display:none">
 <div class="tree-page">
   <div class="tree-hdr">
-    <div class="endgame-badge" style="background:linear-gradient(135deg,#0a3a1a,#051508);box-shadow:0 0 18px rgba(20,100,40,.3)">🌳</div>
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#1a4a2a,#0e2818);box-shadow:0 0 18px rgba(20,100,40,.3)">🌳</div>
     <div>
       <h2>Opening Explorer</h2>
       <p>Visual move tree — see how openings branch and click any move to explore it on the board</p>
@@ -1152,7 +2036,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 <div id="daily-page" style="display:none">
 <div class="daily-page">
   <div class="daily-hdr">
-    <div class="endgame-badge" style="background:linear-gradient(135deg,#0a2a4a,#050f1e);box-shadow:0 0 18px rgba(20,80,160,.3)">📅</div>
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#1a3a6a,#0e1f3a);box-shadow:0 0 18px rgba(20,80,160,.3)">📅</div>
     <div>
       <h2>Daily Challenge</h2>
       <p>3 tasks every day — build a habit and track your streak</p>
@@ -1175,7 +2059,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 <div id="badges-page" style="display:none">
 <div class="badges-page">
   <div class="endgame-hdr" style="margin-bottom:16px">
-    <div class="endgame-badge" style="background:linear-gradient(135deg,#4a3a00,#1a1400);box-shadow:0 0 18px rgba(180,140,0,.3)">🏆</div>
+    <div class="endgame-badge" style="background:linear-gradient(135deg,#5a4a10,#2a2408);box-shadow:0 0 18px rgba(180,140,0,.3)">🏆</div>
     <div>
       <h2>Badges &amp; ELO Estimate</h2>
       <p>Earn badges by learning and practising — your estimated rating updates as you improve</p>
@@ -1242,7 +2126,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 <div id="puzzle-page" style="display:none">
 <div class="puzzle-page">
   <div class="puzzle-hdr">
-    <div class="puzzle-badge" style="background:linear-gradient(135deg,#c05010,#801a00);box-shadow:0 0 18px rgba(200,80,16,.3)">🧩</div>
+    <div class="puzzle-badge" style="background:linear-gradient(135deg,#d06020,#902010);box-shadow:0 0 18px rgba(200,80,16,.3)">🧩</div>
     <div>
       <h2>Tactics Puzzles</h2>
       <p>Spot the best move — forks, pins, skewers, back rank mates. Solve puzzles to sharpen your eye.</p>
@@ -1297,7 +2181,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 <div id="quiz-page" style="display:none">
 <div class="quiz-page">
   <div class="puzzle-hdr">
-    <div class="puzzle-badge" style="background:linear-gradient(135deg,#1a4a8a,#0a2050);box-shadow:0 0 18px rgba(30,70,180,.3)">❓</div>
+    <div class="puzzle-badge" style="background:linear-gradient(135deg,#2a5aaa,#1a3060);box-shadow:0 0 18px rgba(30,70,180,.3)">❓</div>
     <div>
       <h2>Opening Quiz</h2>
       <p>Test what you've learned — identify the correct move for the position shown</p>
@@ -1340,7 +2224,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 <div id="analyser-page" style="display:none">
 <div class="analyser-page">
   <div class="puzzle-hdr">
-    <div class="puzzle-badge" style="background:linear-gradient(135deg,#3a2080,#1a0840);box-shadow:0 0 18px rgba(90,30,200,.3)">🔬</div>
+    <div class="puzzle-badge" style="background:linear-gradient(135deg,#4a30a0,#2a1860);box-shadow:0 0 18px rgba(90,30,200,.3)">🔬</div>
     <div>
       <h2>Position Analyser</h2>
       <p>Paste a FEN or PGN from chess.com — step through it with AI coaching</p>
@@ -2496,6 +3380,7 @@ function loadTrap(trap) {
   curTrap = trap;
   curStep = -1;
   recordEvent('trap_studied', trap.id);
+  setTimeout(updateFavStar, 50);
   studyChess = new Chess();
 
   document.getElementById('trap-title').textContent = trap.name;
@@ -2579,6 +3464,19 @@ function renderStep() {
     notEl.appendChild(mv);
   }
   document.getElementById('nav-label').textContent = curStep < 0 ? '0/' + moves.length : (curStep + 1) + '/' + moves.length;
+  // Study count badge
+  const subEl = document.getElementById('trap-sub');
+  if (subEl) {
+    subEl.querySelectorAll('.study-count-badge').forEach(b => b.remove());
+    const count = getTrapStudyCount(curTrap.id);
+    if (count > 0) {
+      const badge = document.createElement('span');
+      badge.className = 'study-count-badge';
+      badge.style.cssText = 'margin-left:8px;font-size:10px;padding:2px 7px;border-radius:100px;background:rgba(90,153,16,.15);color:var(--accent2);border:1px solid rgba(90,153,16,.25)';
+      badge.textContent = '✅ Studied ' + count + 'x';
+      subEl.appendChild(badge);
+    }
+  }
 
   // Coach card
   if (curStep >= 0) {
@@ -2698,11 +3596,46 @@ document.addEventListener('touchend', e => {
 });
 document.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  if (e.key === 'ArrowRight') navNext();
-  if (e.key === 'ArrowLeft') navPrev();
-  if (e.key === 'ArrowUp') navFirst();
-  if (e.key === 'ArrowDown') navLast();
+  const activeMode = document.querySelector('.mode-btn.active')?.id?.replace('btn-','');
+  if (activeMode === 'study') {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); navNext(); }
+    if (e.key === 'ArrowLeft') navPrev();
+    if (e.key === 'ArrowUp' || e.key === 'Home') navFirst();
+    if (e.key === 'ArrowDown' || e.key === 'End') navLast();
+    if (e.key === 'f' || e.key === 'F') { const f = getFavourites(); const id = curTrap?.id; if(id){const idx=f.indexOf(id);if(idx>=0)f.splice(idx,1);else f.push(id);saveFavourites(f);updateFavStar();} }
+    if (e.key === '/' ) { e.preventDefault(); document.getElementById('study-search-inp')?.focus(); }
+  }
+  if (activeMode === 'puzzle') {
+    if (e.key === 'h' || e.key === 'H') pzHint();
+    if (e.key === 's' || e.key === 'S') pzSkip();
+    if (e.key === 'n' || e.key === 'N') { if(document.getElementById('pz-next-btn').style.display!=='none') pzNext(); }
+  }
+  if (activeMode === 'spaced') {
+    if (e.key === 'ArrowRight') srNext();
+    if (e.key === 'ArrowLeft') srPrev();
+    if (e.key === '1') srRate(0);
+    if (e.key === '2') srRate(1);
+    if (e.key === '3') srRate(2);
+    if (e.key === '4') srRate(3);
+  }
+  if (activeMode === 'analyser') {
+    if (e.key === 'ArrowRight') anNext();
+    if (e.key === 'ArrowLeft') anPrev();
+  }
+  if (e.key === 'Escape') {
+    closeReview();
+    document.getElementById('search-results')?.classList.remove('vis');
+    document.getElementById('promo-overlay')?.classList.remove('vis');
+  }
 });
+
+// Keyboard shortcut help tooltip
+const SHORTCUTS = [
+  '/ — Focus search', 'Space / → — Next move (Study)',
+  '← → — Navigate (Study/Analyse/Review)', 'F — Favourite current trap',
+  'H — Hint (Puzzles)', 'S — Skip (Puzzles)', '1-4 — Rate (Review)',
+  'Esc — Close overlays',
+];
 
 // ══════════════════════════════════════════════════════════════════
 // AI COACH PANEL (STUDY MODE)
@@ -2871,6 +3804,17 @@ function startCoachGame(opening) {
     addFeedMsg('opening-tip', '📘 ' + opening.tips[0]);
   }
 
+  // Start clock
+  const clockSecs = parseInt(localStorage.getItem('stg-clock-default') || '0');
+  const clockBar = document.getElementById('coach-clock-bar');
+  if (clockSecs > 0) {
+    clockInit(clockSecs);
+    clockStart(playerColor);
+    if (clockBar) clockBar.style.display = 'flex';
+  } else {
+    if (clockBar) clockBar.style.display = 'none';
+  }
+
   // If player is Black, coach plays first
   if (playerColor === 'b') {
     setTimeout(() => coachPlayMove(), 600);
@@ -2897,11 +3841,21 @@ function handleCoachSquareClick(sqName) {
 
   if (coachSelectedSq) {
     // Try to make a move
+    // Check if this is a promotion move
+    const isPawnPromo = (() => { const p = chess.get(coachSelectedSq); const toRank = sqName[1]; return p && p.type === 'p' && ((p.color==='w'&&toRank==='8')||(p.color==='b'&&toRank==='1')); })();
+    if (isPawnPromo) {
+      const fromSq = coachSelectedSq; coachSelectedSq = null; moveQualityCache = {};
+      showPromoModal(chess.turn(), (piece) => {
+        const move = chess.move({ from: fromSq, to: sqName, promotion: piece });
+        if (move) { clockSwitch(); renderCoachBoard(move.from, move.to); updateCoachNotation(); checkAndRespond(move); }
+      }); return;
+    }
     const move = chess.move({ from: coachSelectedSq, to: sqName, promotion: 'q' });
     coachSelectedSq = null;
     moveQualityCache = {}; // clear cache on move
 
     if (move) {
+      clockSwitch(); // switch clock to coach after player move
       renderCoachBoard(move.from, move.to);
       updateCoachNotation();
       checkAndRespond(move);
@@ -3122,6 +4076,7 @@ async function coachPlayMove() {
 
   if (!move) return;
   playSound(move.captured ? 'capture' : 'move');
+  clockSwitch(); // switch clock back to player
 
   if (bookMoveIdx < bookMoves.length) coachGame.bookMoveIdx++;
 
@@ -3213,6 +4168,7 @@ async function askCoachHint() {
 }
 
 function endCoachGame(result) {
+  clockClear();
   coachGame.gameOver = true;
   const banner = document.getElementById('game-over');
   const emoji = document.getElementById('game-over-emoji');
@@ -3223,6 +4179,7 @@ function endCoachGame(result) {
     const isWin = coachGame.chess.turn() !== coachGame.playerColor;
     recordEvent(isWin ? 'coach_win' : 'coach_loss', coachGame.opening.name);
     playSound('mate');
+    setTimeout(() => showGameReview(coachGame.chess.history({verbose:true}), isWin?'You won!':'Coach won', coachGame.playerColor, coachGame.opening.name), 1500);
     const winner = isWin ? 'You win!' : 'Coach wins!';
     emoji.textContent = coachGame.chess.turn() === coachGame.playerColor ? '😅' : '🏆';
     title.textContent = winner;
@@ -3255,12 +4212,20 @@ function updateTurnBar() {
 
   if (gameOver) {
     txt.textContent = 'Game over';
+    txt.style.color = '';
     phase.textContent = '';
     return;
   }
 
   const isYourTurn = chess.turn() === playerColor;
   txt.textContent = isYourTurn ? '⏳ Your turn' : '🤖 Coach thinking...';
+  // Show check warning inline
+  if (chess.in_check() && !chess.in_checkmate()) {
+    txt.textContent += ' ⚠️ CHECK';
+    txt.style.color = 'var(--warn)';
+  } else {
+    txt.style.color = '';
+  }
 
   const moveCount = chess.history().length;
   phase.textContent = moveCount < 10 ? 'Opening phase' : moveCount < 30 ? 'Middlegame' : 'Endgame';
@@ -3314,6 +4279,7 @@ function coachNewGame() {
 }
 
 function leaveCoachGame() {
+  clockClear();
   coachGame = null;
   document.getElementById('coach-game').style.display = 'none';
   document.getElementById('coach-select').style.display = 'block';
@@ -3323,7 +4289,7 @@ function leaveCoachGame() {
 // MODE SWITCHING
 // ══════════════════════════════════════════════════════════════════
 function switchMode(mode) {
-  const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges'];
+  const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges','patterns','settings','favourites','weekly','spaced','drill','import','opponent','battle','graph'];
   pages.forEach(p => {
     const el = document.getElementById(p + '-page');
     if (el) el.style.display = p === mode ? 'block' : 'none';
@@ -3342,6 +4308,16 @@ function switchMode(mode) {
   if (mode === 'tree') { renderTreeSelector(); if (!document.getElementById('tr-board').children.length) { buildBoard('tr-board','tr-rank-col','tr-file-row',false); } }
   if (mode === 'daily') renderDaily();
   if (mode === 'badges') renderBadges();
+  if (mode === 'patterns') renderPatternSelector();
+  if (mode === 'settings') stgLoad();
+  if (mode === 'favourites') renderFavourites();
+  if (mode === 'weekly') renderWeekly();
+  if (mode === 'spaced') renderSR();
+  if (mode === 'drill') { renderDrillSelector(); }
+  if (mode === 'import') initImportPage();
+  if (mode === 'battle') initBattleSetup();
+  if (mode === 'graph') renderGraph();
+  if (mode === 'study') updateFavStar();
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -3377,11 +4353,33 @@ function init() {
 
 window.addEventListener('load', init);
 
-// init sound button state
 window.addEventListener('load', () => {
+  // Sound button
   const btn = document.getElementById('sound-btn');
   if (btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+
+  // Record initial ELO snapshot
+  recordEloSnapshot();
+  // Trap of the Day
+  const totd = getTrapOfDay();
+  const totdEl = document.getElementById('totd-name');
+  if (totdEl && totd) totdEl.textContent = totd.name;
+
+  // Apply saved board theme
+  applyBoardTheme(localStorage.getItem('board-theme') || 'classic');
+
+  // Restore API key from settings
+  const savedKey = localStorage.getItem('chess-api-key');
+  if (savedKey) apiKey = savedKey;
 });
+
+function loadTrapOfDay() {
+  const totd = getTrapOfDay();
+  if (!totd) return;
+  const isMate = QUICK_MATES.find(m => m.id === totd.id);
+  if (isMate) loadQuickMate(totd);
+  else loadTrap(totd);
+}
 // ══════════════════════════════════════════════════════════════════
 // FREE PLAY MODE — play both colours with move quality hints
 // ══════════════════════════════════════════════════════════════════
@@ -3393,6 +4391,10 @@ function fpNewGame() {
   fpGame = { chess: new Chess(), flipped: false, selectedSq: null, gameOver: false };
   fpQualityCache = {};
   fpQualityPending = false;
+  const fpClockSecs = parseInt(localStorage.getItem('stg-clock-default') || '0');
+  const fpClockBar = document.getElementById('fp-clock-bar');
+  if (fpClockSecs > 0) { clockInit(fpClockSecs); clockStart('w'); if (fpClockBar) fpClockBar.style.display='flex'; }
+  else if (fpClockBar) fpClockBar.style.display='none';
   document.getElementById('fp-game-over').classList.remove('vis');
   document.getElementById('fp-notation').innerHTML = '';
   document.getElementById('fp-feed').innerHTML =
@@ -3467,11 +4469,20 @@ function fpHandleClick(sqName) {
 
   if (fpGame.selectedSq) {
     // Try to make a move
+    const isPawnPromoFp = (() => { const p = chess.get(fpGame.selectedSq); const toRank = sqName[1]; return p && p.type === 'p' && ((p.color==='w'&&toRank==='8')||(p.color==='b'&&toRank==='1')); })();
+    if (isPawnPromoFp) {
+      const fromSq = fpGame.selectedSq; fpGame.selectedSq = null;
+      showPromoModal(chess.turn(), (piece) => {
+        const move = chess.move({ from: fromSq, to: sqName, promotion: piece });
+        if (move) { clockSwitch(); fpRenderBoard(move.from,move.to); fpUpdateNotation(); fpUpdateTurnBar(); fpAfterMove(move); }
+      }); return;
+    }
     const move = chess.move({ from: fpGame.selectedSq, to: sqName, promotion: 'q' });
     const prevSel = fpGame.selectedSq;
     fpGame.selectedSq = null;
 
     if (move) {
+      clockSwitch();
       fpRenderBoard(move.from, move.to);
       fpUpdateNotation();
       fpUpdateTurnBar();
@@ -3625,6 +4636,7 @@ function fpEndGame(msg, emoji) {
   fpGame.gameOver = true;
   recordEvent('freeplay_game', msg);
   playSound('mate');
+  setTimeout(() => showGameReview(fpGame.chess.history({verbose:true}), msg, fpGame.chess.turn()==='w'?'b':'w', 'Free Play'), 1500);
   document.getElementById('fp-over-emoji').textContent = emoji;
   document.getElementById('fp-over-title').textContent = msg;
   document.getElementById('fp-over-msg').textContent = 'Start a new game or undo the last move.';
@@ -5002,6 +6014,1518 @@ function renderBadges() {
 // ══════════════════════════════════════════════════════════════════
 // UPDATED switchMode + init patches
 // ══════════════════════════════════════════════════════════════════
+
+
+// ══════════════════════════════════════════════════════════════════
+// CLOCK SYSTEM (used by Coach + Free Play)
+// ══════════════════════════════════════════════════════════════════
+let clockState = { white: 0, black: 0, active: null, interval: null, enabled: false };
+
+function clockInit(seconds) {
+  clockClear();
+  clockState.white = seconds;
+  clockState.black = seconds;
+  clockState.active = null;
+  clockState.enabled = seconds > 0;
+  clockRender();
+}
+
+function clockStart(color) {
+  if (!clockState.enabled) return;
+  clockState.active = color;
+  if (clockState.interval) clearInterval(clockState.interval);
+  clockState.interval = setInterval(() => {
+    if (clockState.active === 'w') clockState.white--;
+    else clockState.black--;
+    clockRender();
+    if (clockState.white <= 0 || clockState.black <= 0) {
+      clockClear();
+      const loser = clockState.white <= 0 ? 'White' : 'Black';
+      if (typeof coachGame !== 'undefined' && coachGame) {
+        endCoachGame('timeout_' + loser.toLowerCase());
+      } else if (typeof fpGame !== 'undefined' && fpGame) {
+        fpEndGame(loser + ' ran out of time!', '⏰');
+      }
+    }
+  }, 1000);
+}
+
+function clockSwitch() {
+  if (!clockState.enabled || !clockState.active) return;
+  clockState.active = clockState.active === 'w' ? 'b' : 'w';
+  clockStart(clockState.active);
+}
+
+function clockClear() {
+  if (clockState.interval) clearInterval(clockState.interval);
+  clockState.interval = null;
+}
+
+function clockFmt(s) {
+  const m = Math.floor(Math.abs(s) / 60);
+  const sec = Math.abs(s) % 60;
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+
+function clockRender() {
+  ['w','b'].forEach(color => {
+    const ids = color === 'w' ? ['clock-white','fp-clock-white'] : ['clock-black','fp-clock-black'];
+    const secs = color === 'w' ? clockState.white : clockState.black;
+    const cls = 'clock-display' + (secs <= 30 ? ' low' : '') + (secs <= 10 ? ' critical' : '');
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = clockFmt(secs);
+      el.className = cls;
+    });
+  });
+}
+
+// Patch clock rows into coach + freeplay turn bars
+function buildClockBar(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const defaultSecs = parseInt(localStorage.getItem('stg-clock-default') || '0');
+  if (defaultSecs <= 0) return;
+  clockInit(defaultSecs);
+  const bar = document.createElement('div');
+  bar.className = 'clock-bar';
+  bar.style.marginBottom = '8px';
+  // Don't duplicate IDs - just show the existing clock bar instead
+  clockRender();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// GAME REVIEW MODAL
+// ══════════════════════════════════════════════════════════════════
+async function showGameReview(history, result, playerColor, opening) {
+  if (localStorage.getItem('stg-review') === 'off') return;
+  const overlay = document.getElementById('review-overlay');
+  overlay.classList.add('vis');
+
+  // Title
+  document.getElementById('review-title').textContent =
+    result.includes('win') || result.includes('checkmate') && playerColor !== 'lose'
+      ? '🏆 Game Review — ' + (opening || 'Free Play')
+      : '📋 Game Review — ' + (opening || 'Free Play');
+
+  // Stats
+  const moves = history.length;
+  document.getElementById('rv-moves').textContent = moves;
+
+  // Basic quality assessment (heuristic without AI)
+  const moveItems = history.map((m, i) => {
+    const isCapture = m.flags && m.flags.includes('c');
+    const isCheck = m.san && m.san.includes('+');
+    const isMate = m.san && m.san.includes('#');
+    let cls = 'normal', label = m.san;
+    if (isMate) { cls = 'best'; label += ' ✅'; }
+    else if (isCheck) { cls = 'best'; }
+    const num = i % 2 === 0 ? `${Math.floor(i/2)+1}.` : '…';
+    return { san: m.san || m, cls, num };
+  });
+
+  const bestCount = moveItems.filter(m => m.cls === 'best').length;
+  const blunderCount = moveItems.filter(m => m.cls === 'blunder').length;
+  document.getElementById('rv-best').textContent = bestCount;
+  document.getElementById('rv-blunders').textContent = blunderCount;
+  document.getElementById('rv-accuracy').textContent = Math.round((1 - blunderCount/Math.max(moves,1)) * 100) + '%';
+
+  document.getElementById('rv-move-list').innerHTML = moveItems.slice(0, 20).map(m =>
+    `<div class="review-move-item ${m.cls}">
+      <span style="font-size:10px;color:var(--dim);min-width:24px">${m.num}</span>
+      <span class="review-move-san">${m.san}</span>
+    </div>`
+  ).join('') + (moves > 20 ? `<div style="padding:6px 10px;font-size:11px;color:var(--dim)">…and ${moves-20} more moves</div>` : '');
+
+  // AI debrief
+  const aiEl = document.getElementById('rv-ai-text');
+  if (!apiKey) {
+    aiEl.textContent = `You played ${moves} moves. ${result}. Add an API key for AI coaching debrief!`;
+    return;
+  }
+  aiEl.textContent = 'Analysing your game…';
+  try {
+    const pgn = history.map((m,i) => { const num = i%2===0 ? `${Math.floor(i/2)+1}. ` : ''; return num + (m.san||m); }).join(' ');
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:250,
+        system:`You are a chess coach for a beginner (530 ELO). Give a short game debrief in 3 bullet points: 1) What went well, 2) The critical moment/mistake, 3) One thing to practise next. Be encouraging and specific. Use • bullets.`,
+        messages:[{role:'user', content:`Opening: ${opening||'Free play'}. Result: ${result}. Moves: ${pgn}. Brief debrief please.`}]
+      })
+    });
+    const data = await resp.json();
+    aiEl.innerHTML = (data.content?.[0]?.text||'Good game! Keep practising.').replace(/\n/g,'<br>');
+  } catch(e) {
+    aiEl.textContent = `Game complete! ${result}. ${moves} moves played. Keep studying and practising!`;
+  }
+}
+
+function closeReview() {
+  document.getElementById('review-overlay').classList.remove('vis');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// CHECKMATE PATTERNS
+// ══════════════════════════════════════════════════════════════════
+const PATTERNS = [
+  { id:'backrank', icon:'♜', name:'Back Rank Mate', desc:'The king is trapped on the first rank by its own pawns. A rook or queen delivers mate.',
+    examples:[
+      { fen:'6k1/5ppp/8/8/8/8/5PPP/4R1K1 w - - 0 1', mateSq:'e8', mateColor:'w', hint:'The rook slides to e8#' },
+      { fen:'r5k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1', mateSq:'d8', mateColor:'w', hint:'Rook to d8 is checkmate' },
+    ]},
+  { id:'smothered', icon:'♞', name:'Smothered Mate', desc:'A knight delivers checkmate while the enemy king is surrounded (smothered) by its own pieces.',
+    examples:[
+      { fen:'6rk/6pp/8/8/8/8/8/5NKR w - - 0 1', mateSq:'f7', mateColor:'w', hint:'Knight to f7 is checkmate' },
+      { fen:'7k/5Npp/8/8/8/8/8/6K1 w - - 0 1', mateSq:'f7', mateColor:'w', hint:'The king is smothered by its own pawns' },
+    ]},
+  { id:'scholars', icon:'♛', name:"Scholar's Mate", desc:'Qxf7# — the queen and bishop battery delivers checkmate on f7, the weakest square.',
+    examples:[
+      { fen:'rnb1kbnr/pppp1Qpp/8/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 4 4', mateSq:'f7', mateColor:'w', hint:'The queen already on f7 — this IS the mate' },
+    ]},
+  { id:'anastasia', icon:'♔', name:"Anastasia's Mate", desc:'Knight + rook combination traps the king on the edge with a knight cutting off escape.',
+    examples:[
+      { fen:'5rk1/R4ppp/1N6/8/8/8/8/6K1 w - - 0 1', mateSq:'a8', mateColor:'w', hint:'Rook to a8 — the knight on b6 cuts off escape' },
+    ]},
+  { id:'arabian', icon:'♖', name:'Arabian Mate', desc:'Knight and rook combine — the knight guards squares while the rook delivers checkmate on the edge.',
+    examples:[
+      { fen:'7k/8/6KN/8/8/8/8/7R w - - 0 1', mateSq:'h8', mateColor:'w', hint:'Rook to h8 — the knight and king cover all escape squares' },
+    ]},
+  { id:'boden', icon:'♗', name:"Boden's Mate", desc:'Two bishops on criss-crossing diagonals deliver checkmate on a castled king.',
+    examples:[
+      { fen:'2kr4/3p4/B7/8/8/8/8/2B3K1 w - - 0 1', mateSq:'a6', mateColor:'w', hint:'Bishop to a6 — two bishops cover all escape squares' },
+    ]},
+  { id:'doublech', icon:'♕', name:'Double Check', desc:'Both the piece that moves AND the piece it reveals give check simultaneously. The king MUST move.',
+    examples:[
+      { fen:'r1bqk2r/pppp1Bpp/2n2n2/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 4 5', mateSq:'f7', mateColor:'w', hint:'Bxf7+ is double check and checkmate!' },
+    ]},
+  { id:'hook', icon:'♘', name:'Hook Mate', desc:'Rook, knight and pawn combine to mate a king in the corner.',
+    examples:[
+      { fen:'6rk/5N1p/7P/8/8/8/8/6K1 w - - 0 1', mateSq:'g8', mateColor:'w', hint:'The rook on g8 delivers mate — the knight covers f8, pawn covers h7' },
+    ]},
+];
+
+let ptState = { pattern: null, exampleIdx: 0, correct: 0, tried: 0 };
+
+function renderPatternSelector() {
+  const grid = document.getElementById('pattern-grid');
+  if (!grid) return;
+  const p = getProgress();
+  grid.innerHTML = PATTERNS.map(pat => {
+    const done = (p.traps_studied||{})['pattern_'+pat.id] > 0;
+    return `<div class="pattern-card ${done?'done':''}" onclick="ptStart('${pat.id}')">
+      <div class="pattern-icon">${pat.icon}</div>
+      <div class="pattern-name">${pat.name}</div>
+      <div class="pattern-desc">${pat.desc}</div>
+      ${done ? '<div style="font-size:10px;color:var(--accent2);margin-top:4px">✅ Studied</div>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function ptStart(id) {
+  const pat = PATTERNS.find(p => p.id === id);
+  if (!pat) return;
+  ptState.pattern = pat;
+  ptState.exampleIdx = 0;
+  document.getElementById('pattern-selector').style.display = 'none';
+  document.getElementById('pattern-trainer').style.display = 'block';
+  document.getElementById('pt-title').textContent = pat.icon + ' ' + pat.name;
+  document.getElementById('pt-desc').textContent = pat.desc;
+  ptLoadExample();
+  recordEvent('trap_studied', 'pattern_' + id);
+}
+
+function ptLoadExample() {
+  const pat = ptState.pattern;
+  const ex = pat.examples[ptState.exampleIdx % pat.examples.length];
+  const chess = new Chess(ex.fen);
+  const flipped = ex.mateColor === 'b';
+  buildBoard('pt-board', 'pt-rank-col', 'pt-file-row', flipped);
+  document.getElementById('pt-result').className = 'pattern-result';
+  document.getElementById('pt-result').style.display = 'none';
+  const bEl = document.getElementById('pt-board');
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    const p = chess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+    sq.onclick = () => {
+      const res = document.getElementById('pt-result');
+      ptState.tried++;
+      if (sn === ex.mateSq) {
+        ptState.correct++;
+        res.className = 'pattern-result correct';
+        res.textContent = `✅ Correct! ${ex.hint}`;
+        playSound('correct');
+        bEl.querySelectorAll('.sq').forEach(s => { if (s.dataset.sq === ex.mateSq) s.classList.add('hl-t'); });
+        recordEvent('puzzle_correct', 'pattern_' + ptState.pattern.id);
+      } else {
+        res.className = 'pattern-result wrong';
+        res.textContent = `❌ Not quite. ${ex.hint}`;
+        playSound('wrong');
+        bEl.querySelectorAll('.sq').forEach(s => {
+          if (s.dataset.sq === sn) s.classList.add('hl-chk');
+          if (s.dataset.sq === ex.mateSq) s.classList.add('hl-t');
+        });
+      }
+      res.style.display = 'block';
+      ptUpdateStats();
+    };
+  });
+}
+
+function ptNext() {
+  ptState.exampleIdx++;
+  ptLoadExample();
+}
+
+function ptBack() {
+  document.getElementById('pattern-selector').style.display = 'block';
+  document.getElementById('pattern-trainer').style.display = 'none';
+  renderPatternSelector();
+}
+
+function ptUpdateStats() {
+  document.getElementById('pt-correct').textContent = ptState.correct;
+  document.getElementById('pt-tried').textContent = ptState.tried;
+  const pct = ptState.tried ? Math.round(ptState.correct/ptState.tried*100)+'%' : '—';
+  document.getElementById('pt-pct').textContent = pct;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════════════════════════════
+const BOARD_THEMES = [
+  { id:'classic', name:'Classic', light:'#f0d9b5', dark:'#b58863' },
+  { id:'green',   name:'Green',   light:'#eeeed2', dark:'#769656' },
+  { id:'blue',    name:'Blue',    light:'#dee3e6', dark:'#8ca2ad' },
+  { id:'purple',  name:'Purple',  light:'#f0d9f0', dark:'#9b72aa' },
+  { id:'dark',    name:'Dark',    light:'#4a4a6a', dark:'#2a2a4a' },
+];
+
+const STG_DEFAULTS = { sound:'on', dots:'on', quality:'on', flip:'on', review:'on', 'clock-default':'0' };
+
+function stgLoad() {
+  Object.keys(STG_DEFAULTS).forEach(k => {
+    const val = localStorage.getItem('stg-'+k) || STG_DEFAULTS[k];
+    const el = document.getElementById('stg-'+k);
+    if (!el) return;
+    if (el.tagName === 'BUTTON') {
+      el.className = 'settings-toggle ' + (val === 'on' ? 'on' : 'off');
+    } else if (el.tagName === 'SELECT') {
+      el.value = val;
+    }
+  });
+  // API key
+  const keyEl = document.getElementById('stg-api-key');
+  if (keyEl && apiKey) { keyEl.value = apiKey; document.getElementById('stg-key-status').textContent = '✅ Key saved'; }
+  // Board theme
+  renderBoardThemeRow();
+  applyBoardTheme(localStorage.getItem('board-theme') || 'classic');
+}
+
+function stgToggle(key) {
+  const el = document.getElementById('stg-'+key);
+  if (!el) return;
+  const isOn = el.classList.contains('on');
+  el.className = 'settings-toggle ' + (isOn ? 'off' : 'on');
+  localStorage.setItem('stg-'+key, isOn ? 'off' : 'on');
+  if (key === 'sound') soundEnabled = !isOn;
+}
+
+function stgSave(key, val) { localStorage.setItem('stg-'+key, val); }
+
+function stgSaveKey() {
+  const val = document.getElementById('stg-api-key').value.trim();
+  if (val) { apiKey = val; localStorage.setItem('chess-api-key', val); document.getElementById('stg-key-status').textContent = '✅ Key saved successfully'; }
+}
+
+function stgClearKey() {
+  apiKey = ''; localStorage.removeItem('chess-api-key');
+  document.getElementById('stg-api-key').value = '';
+  document.getElementById('stg-key-status').textContent = '🗑 Key cleared';
+}
+
+function renderBoardThemeRow() {
+  const row = document.getElementById('board-theme-row');
+  if (!row) return;
+  const current = localStorage.getItem('board-theme') || 'classic';
+  row.innerHTML = BOARD_THEMES.map(t => `
+    <div class="board-theme-opt" onclick="applyBoardTheme('${t.id}')">
+      <div class="board-theme-preview ${current===t.id?'selected':''}">
+        <div class="p1" style="background:${t.light}"></div>
+        <div class="p2" style="background:${t.dark}"></div>
+        <div class="p2" style="background:${t.dark}"></div>
+        <div class="p1" style="background:${t.light}"></div>
+      </div>
+      <div class="board-theme-label">${t.name}</div>
+    </div>`).join('');
+}
+
+function applyBoardTheme(id) {
+  const theme = BOARD_THEMES.find(t => t.id === id) || BOARD_THEMES[0];
+  localStorage.setItem('board-theme', id);
+  // Inject CSS override
+  let style = document.getElementById('board-theme-style');
+  if (!style) { style = document.createElement('style'); style.id = 'board-theme-style'; document.head.appendChild(style); }
+  style.textContent = `.sq.lt{background:${theme.light}!important}.sq.dk{background:${theme.dark}!important}`;
+  renderBoardThemeRow();
+  // Re-render all visible boards
+  if (curTrap) renderStep();
+  if (coachGame) renderCoachBoard();
+  if (fpGame) fpRenderBoard();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SEARCH
+// ══════════════════════════════════════════════════════════════════
+function studySearch(val) {
+  const results = document.getElementById('search-results');
+  if (!val || val.length < 2) { results.classList.remove('vis'); return; }
+  const q = val.toLowerCase();
+  const all = [...TRAPS, ...QUICK_MATES];
+  const matches = all.filter(t =>
+    t.name.toLowerCase().includes(q) ||
+    (t.sub||'').toLowerCase().includes(q) ||
+    (t.side||'').toLowerCase().includes(q) ||
+    (t.level||'').toLowerCase().includes(q) ||
+    t.id.toLowerCase().includes(q)
+  ).slice(0, 8);
+
+  if (!matches.length) { results.classList.remove('vis'); return; }
+  results.innerHTML = matches.map(t => {
+    const sideClass = t.side === 'White' ? 'pw' : t.side === 'Black' ? 'pb' : t.side === 'Bird' ? 'p-bird' : 'pq';
+    return `<div class="search-result-item" onclick="searchGoTo('${t.id}')">
+      <div class="search-result-name">${t.name}<span style="font-size:10px;color:var(--muted);margin-left:6px">${t.sub||''}</span></div>
+      <span class="search-result-side pill ${sideClass}">${t.side||'Mate'}</span>
+    </div>`;
+  }).join('');
+  results.classList.add('vis');
+}
+
+function searchGoTo(id) {
+  document.getElementById('search-results').classList.remove('vis');
+  document.getElementById('study-search-inp').value = '';
+  const trap = TRAPS.find(t => t.id === id);
+  const mate = QUICK_MATES.find(t => t.id === id);
+  if (trap) { loadTrap(trap); document.querySelectorAll('.dd-item').forEach(el => el.classList.toggle('cur', el.dataset.id === id)); }
+  else if (mate) { loadQuickMate(mate); }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// FAVOURITES
+// ══════════════════════════════════════════════════════════════════
+function getFavourites() {
+  try { return JSON.parse(localStorage.getItem('chess-favourites') || '[]'); } catch { return []; }
+}
+function saveFavourites(f) { localStorage.setItem('chess-favourites', JSON.stringify(f)); }
+
+function toggleFavourite() {
+  if (!curTrap) return;
+  const favs = getFavourites();
+  const idx = favs.indexOf(curTrap.id);
+  if (idx >= 0) favs.splice(idx, 1);
+  else favs.push(curTrap.id);
+  saveFavourites(favs);
+  updateFavStar();
+}
+
+function updateFavStar() {
+  const btn = document.getElementById('fav-star-btn');
+  if (!btn || !curTrap) return;
+  const favs = getFavourites();
+  const starred = favs.includes(curTrap.id);
+  btn.textContent = starred ? '★' : '☆';
+  btn.classList.toggle('starred', starred);
+}
+
+function renderFavourites() {
+  const favs = getFavourites();
+  const empty = document.getElementById('fav-empty');
+  const grid = document.getElementById('fav-grid');
+  if (!grid) return;
+  if (!favs.length) { empty.style.display='block'; grid.innerHTML=''; return; }
+  empty.style.display = 'none';
+  const all = [...TRAPS, ...QUICK_MATES];
+  grid.innerHTML = favs.map(id => {
+    const t = all.find(x => x.id === id);
+    if (!t) return '';
+    const sideClass = t.side === 'White' ? 'pw' : t.side === 'Black' ? 'pb' : t.side === 'Bird' ? 'p-bird' : 'pq';
+    return `<div class="fav-card" onclick="searchGoTo('${t.id}');switchMode('study')">
+      <div class="fav-card-info">
+        <div class="fav-card-name">${t.name}</div>
+        <div class="fav-card-sub"><span class="pill ${sideClass}" style="font-size:9px">${t.side||'Mate'}</span> ${t.level||''}</div>
+      </div>
+      <button class="fav-remove" onclick="event.stopPropagation();removeFav('${t.id}')" title="Remove">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function removeFav(id) {
+  const favs = getFavourites().filter(f => f !== id);
+  saveFavourites(favs);
+  renderFavourites();
+  updateFavStar();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// WEEKLY REPORT
+// ══════════════════════════════════════════════════════════════════
+function getWeeklyData() {
+  const p = getProgress();
+  const events = p.events || [];
+  const now = Date.now();
+  const weekAgo = now - 7 * 86400000;
+  const weekEvents = events.filter(e => e.ts > weekAgo);
+
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const dayData = {};
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(now - i * 86400000);
+    dayData[days[d.getDay()]] = 0;
+  }
+  weekEvents.forEach(e => {
+    const d = new Date(e.ts);
+    const lbl = days[d.getDay()];
+    if (lbl in dayData) dayData[lbl] += 10;
+  });
+
+  return {
+    dayData,
+    trapsStudied: weekEvents.filter(e => e.type === 'trap_studied').length,
+    puzzlesSolved: weekEvents.filter(e => e.type === 'puzzle_correct').length,
+    quizCorrect: weekEvents.filter(e => e.type === 'quiz_correct').length,
+    coachWins: weekEvents.filter(e => e.type === 'coach_win').length,
+    totalXP: weekEvents.length * 10,
+    streak: getDailyData().streak || 0,
+  };
+}
+
+function renderWeekly() {
+  const wd = getWeeklyData();
+  const now = new Date();
+  const weekAgo = new Date(now - 7*86400000);
+  document.getElementById('weekly-date-range').textContent =
+    `${weekAgo.toLocaleDateString()} – ${now.toLocaleDateString()}`;
+
+  // Bar chart
+  const vals = Object.values(wd.dayData);
+  const max = Math.max(...vals, 1);
+  document.getElementById('weekly-bar-chart').innerHTML = Object.entries(wd.dayData).map(([day, val]) => `
+    <div class="bar-col">
+      <div class="bar-val">${val||''}</div>
+      <div class="bar-fill" style="height:${Math.round((val/max)*70)}px"></div>
+      <div class="bar-lbl">${day}</div>
+    </div>`).join('');
+
+  // Stats
+  document.getElementById('weekly-stats').innerHTML = `
+    <div class="stat-card gold"><div class="stat-num">${wd.totalXP}</div><div class="stat-lbl">XP Earned</div></div>
+    <div class="stat-card green"><div class="stat-num">${wd.trapsStudied}</div><div class="stat-lbl">Traps Studied</div></div>
+    <div class="stat-card"><div class="stat-num">${wd.puzzlesSolved}</div><div class="stat-lbl">Puzzles Solved</div></div>
+    <div class="stat-card purple"><div class="stat-num">${wd.quizCorrect}</div><div class="stat-lbl">Quiz Correct</div></div>
+    <div class="stat-card"><div class="stat-num">${wd.coachWins}</div><div class="stat-lbl">Coach Wins</div></div>
+    <div class="stat-card gold"><div class="stat-num">${wd.streak}</div><div class="stat-lbl">Day Streak</div></div>`;
+
+  // Highlights
+  const highlights = [];
+  if (wd.streak >= 7) highlights.push({ icon:'🌟', text:'7-day streak!', val:'Amazing' });
+  if (wd.puzzlesSolved >= 10) highlights.push({ icon:'🧩', text:'Solved 10+ puzzles', val:'+' + wd.puzzlesSolved });
+  if (wd.coachWins >= 1) highlights.push({ icon:'🏆', text:'Beat the coach', val:wd.coachWins + ' wins' });
+  if (wd.trapsStudied >= 5) highlights.push({ icon:'📖', text:'Studied many traps', val:wd.trapsStudied + ' traps' });
+  if (!highlights.length) highlights.push({ icon:'📅', text:'First week — great start!', val:'Keep going' });
+  document.getElementById('weekly-highlights-list').innerHTML = highlights.map(h =>
+    `<div class="highlight-item"><div class="highlight-icon">${h.icon}</div><div class="highlight-text">${h.text}</div><div class="highlight-val">${h.val}</div></div>`
+  ).join('');
+
+  // Focus
+  const suggestions = [];
+  if (wd.puzzlesSolved < 5) suggestions.push('Solve 5 puzzles in Puzzle mode to sharpen your tactics');
+  if (wd.trapsStudied < 3) suggestions.push('Study at least 3 traps in Study mode — focus on the Fried Liver and Blackburne-Shilling for your level');
+  if (wd.coachWins === 0) suggestions.push('Play a game vs the Coach and try to apply what you\'ve learned');
+  if (wd.streak < 3) suggestions.push('Build your daily streak — complete 3 tasks every day this week');
+  if (!suggestions.length) suggestions.push('Excellent week! Try the Endgame Trainer or explore the Opening Tree this week.');
+  document.getElementById('weekly-focus').innerHTML = suggestions.map(s => `• ${s}`).join('<br>');
+}
+
+function weeklyExport() {
+  const wd = getWeeklyData();
+  const text = `Chess Training Weekly Report\n${new Date().toLocaleDateString()}\n\nXP: ${wd.totalXP} | Traps: ${wd.trapsStudied} | Puzzles: ${wd.puzzlesSolved} | Coach Wins: ${wd.coachWins} | Streak: ${wd.streak} days`;
+  navigator.clipboard?.writeText(text).then(() => alert('Copied to clipboard!')).catch(() => alert(text));
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SPACED REPETITION (SM-2 algorithm simplified)
+// ══════════════════════════════════════════════════════════════════
+let srCurrent = null;
+let srChess = null;
+let srStep = -1;
+
+function getSRData() {
+  try { return JSON.parse(localStorage.getItem('chess-sr') || '{}'); } catch { return {}; }
+}
+function saveSRData(d) { localStorage.setItem('chess-sr', JSON.stringify(d)); }
+
+function srGetDue() {
+  const sr = getSRData();
+  const now = Date.now();
+  const all = [...TRAPS, ...QUICK_MATES];
+  return all.map(t => {
+    const card = sr[t.id] || { interval: 0, due: 0, reps: 0, ease: 2.5 };
+    return { trap: t, card, isDue: card.due <= now, dueIn: card.due - now };
+  }).sort((a, b) => a.dueIn - b.dueIn);
+}
+
+function renderSR() {
+  const items = srGetDue();
+  const due = items.filter(i => i.isDue);
+  const upcoming = items.filter(i => !i.isDue).slice(0, 10);
+  document.getElementById('sr-due-count').textContent = due.length;
+
+  // Due queue
+  const qEl = document.getElementById('sr-queue');
+  if (!qEl) return;
+  if (!due.length) {
+    qEl.innerHTML = '<div style="padding:12px;font-size:12px;color:var(--muted)">🎉 All caught up! Nothing due for review right now.</div>';
+  } else {
+    qEl.innerHTML = due.slice(0, 15).map(item => `
+      <div class="spaced-item due-now" onclick="srStudy('${item.trap.id}')">
+        <div class="spaced-item-name">${item.trap.name}</div>
+        <div class="spaced-item-due" style="color:var(--warn)">Due now</div>
+      </div>`).join('');
+  }
+
+  // All queue
+  const allEl = document.getElementById('sr-all-queue');
+  if (allEl) {
+    allEl.innerHTML = upcoming.map(item => {
+      const hours = Math.round(item.dueIn / 3600000);
+      const dueStr = hours < 24 ? `${hours}h` : `${Math.round(hours/24)}d`;
+      return `<div class="spaced-item fresh" onclick="srStudy('${item.trap.id}')">
+        <div class="spaced-item-name">${item.trap.name}</div>
+        <div class="spaced-item-due">In ${dueStr}</div>
+      </div>`;
+    }).join('');
+  }
+
+  const studied = Object.keys(getSRData()).length;
+  const total = TRAPS.length + QUICK_MATES.length;
+  document.getElementById('sr-progress-text').textContent = `${studied}/${total} traps in your review deck`;
+}
+
+function srStudy(id) {
+  const trap = [...TRAPS, ...QUICK_MATES].find(t => t.id === id);
+  if (!trap) return;
+  srCurrent = trap;
+  srChess = new Chess();
+  srStep = -1;
+  const flipped = trap.side === 'Black';
+  document.getElementById('sr-board').dataset.flipped = flipped ? 'true' : 'false';
+  buildBoard('sr-board', 'sr-rank-col', 'sr-file-row', flipped);
+  srRenderBoard();
+  document.getElementById('sr-nav-lbl').textContent = `0/${trap.moves?.length||0}`;
+  document.getElementById('sr-notation').innerHTML = '';
+  document.getElementById('sr-rating-section').style.display = 'block';
+}
+
+function srRenderBoard(from, to) {
+  if (!srCurrent || !srChess) return;
+  const bEl = document.getElementById('sr-board');
+  if (!bEl) return;
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (from && sn === from) sq.classList.add('hl-f');
+    if (to && sn === to) sq.classList.add('hl-t');
+    const p = srChess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+  });
+}
+
+function srNext() {
+  if (!srCurrent || !srCurrent.moves) return;
+  if (srStep < srCurrent.moves.length - 1) {
+    srStep++;
+    const m = srCurrent.moves[srStep];
+    try { srChess.move(m.san, {sloppy:true}); } catch(e) {}
+    srRenderBoard();
+    srUpdateNotation();
+    document.getElementById('sr-nav-lbl').textContent = `${srStep+1}/${srCurrent.moves.length}`;
+  }
+}
+function srPrev() {
+  if (!srCurrent || srStep < 0) return;
+  srStep--; srChess = new Chess();
+  for (let i = 0; i <= srStep; i++) { try { srChess.move(srCurrent.moves[i].san, {sloppy:true}); } catch(e){} }
+  srRenderBoard();
+  srUpdateNotation();
+  document.getElementById('sr-nav-lbl').textContent = srStep < 0 ? `0/${srCurrent.moves.length}` : `${srStep+1}/${srCurrent.moves.length}`;
+}
+function srFirst() { srStep=-1; srChess=new Chess(); srRenderBoard(); srUpdateNotation(); document.getElementById('sr-nav-lbl').textContent=`0/${srCurrent?.moves?.length||0}`; }
+function srLast() { while(srStep < (srCurrent?.moves?.length||0)-1) srNext(); }
+
+function srUpdateNotation() {
+  if (!srCurrent?.moves) return;
+  const el = document.getElementById('sr-notation');
+  if (!el) return;
+  el.innerHTML = srCurrent.moves.slice(0, srStep+1).map((m,i) => {
+    const num = i%2===0 ? `<span class="mn">${Math.floor(i/2)+1}.</span>` : '';
+    return num + `<span class="mv ${i===srStep?'cur':'done'}">${m.san}</span>`;
+  }).join('');
+}
+
+function srRate(quality) {
+  // SM-2 simplified
+  if (!srCurrent) return;
+  const sr = getSRData();
+  const card = sr[srCurrent.id] || { interval: 1, due: 0, reps: 0, ease: 2.5 };
+  if (quality < 2) {
+    card.interval = 1; card.reps = 0;
+  } else {
+    if (card.reps === 0) card.interval = 1;
+    else if (card.reps === 1) card.interval = 6;
+    else card.interval = Math.round(card.interval * card.ease);
+    card.reps++;
+  }
+  card.ease = Math.max(1.3, card.ease + 0.1 - (3-quality) * 0.2);
+  card.due = Date.now() + card.interval * 86400000;
+  sr[srCurrent.id] = card;
+  saveSRData(sr);
+  recordEvent('trap_studied', srCurrent.id);
+  document.getElementById('sr-rating-section').style.display = 'none';
+  srCurrent = null; srChess = null; srStep = -1;
+  renderSR();
+  playSound('correct');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// TRAP OF THE DAY (shown on study mode)
+// ══════════════════════════════════════════════════════════════════
+function getTrapOfDay() {
+  const dayNum = Math.floor(Date.now() / 86400000);
+  const all = [...TRAPS, ...QUICK_MATES];
+  return all[dayNum % all.length];
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// SETTINGS UTILITIES
+// ══════════════════════════════════════════════════════════════════
+function stgExport() {
+  const data = {
+    progress: getProgress(),
+    daily: getDailyData(),
+    sr: getSRData(),
+    favourites: getFavourites(),
+    settings: Object.fromEntries(
+      ['sound','dots','quality','flip','review','clock-default','board-theme']
+        .map(k => [k, localStorage.getItem('stg-'+k) || localStorage.getItem(k)])
+    ),
+    exportDate: new Date().toISOString(),
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'chess-traps-progress-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+}
+
+function stgResetAll() {
+  ['chess-progress','chess-daily','chess-sr','chess-favourites'].forEach(k => localStorage.removeItem(k));
+  alert('All data reset. Refresh the page to start fresh.');
+}
+
+// ══════════════════════════════════════════════════════════════════
+// COACH MODE IMPROVEMENTS
+// ══════════════════════════════════════════════════════════════════
+// Clock stop wired directly into leaveCoachGame and endCoachGame below
+
+
+
+// ══════════════════════════════════════════════════════════════════
+// MOBILE: close search on nav tap
+// ══════════════════════════════════════════════════════════════════
+document.addEventListener('click', e => {
+  const sr = document.getElementById('search-results');
+  const inp = document.getElementById('study-search-inp');
+  if (sr && !sr.contains(e.target) && e.target !== inp) {
+    sr.classList.remove('vis');
+  }
+});
+
+// ══════════════════════════════════════════════════════════════════
+// SWIPE SUPPORT FOR REVIEW + SPACED
+// ══════════════════════════════════════════════════════════════════
+let touchStartX2 = null;
+document.addEventListener('touchstart', e => { touchStartX2 = e.touches[0].clientX; }, {passive:true});
+document.addEventListener('touchend', e => {
+  if (touchStartX2 === null) return;
+  const dx = e.changedTouches[0].clientX - touchStartX2;
+  touchStartX2 = null;
+  if (Math.abs(dx) < 50) return;
+  const activeMode = document.querySelector('.mode-btn.active')?.id?.replace('btn-','');
+  if (activeMode === 'spaced') { if (dx < 0) srNext(); else srPrev(); }
+  if (activeMode === 'analyser') { if (dx < 0) anNext(); else anPrev(); }
+}, {passive:true});
+
+// getTrapStudyCount helper
+function getTrapStudyCount(id) {
+  const p = getProgress();
+  return (p.traps_studied || {})[id] || 0;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SHARE / COPY POSITION
+// ══════════════════════════════════════════════════════════════════
+function copyFen() {
+  if (!curTrap) return;
+  const fen = studyChess.fen();
+  navigator.clipboard?.writeText(fen).then(() => {
+    const btn = document.getElementById('copy-fen-btn');
+    if (btn) { const orig = btn.textContent; btn.textContent = '✅ Copied!'; setTimeout(() => btn.textContent = orig, 2000); }
+  });
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// CONFETTI CELEBRATION
+// ══════════════════════════════════════════════════════════════════
+function launchConfetti(duration = 2500) {
+  const wrap = document.getElementById('confetti-wrap');
+  if (!wrap) return;
+  const colours = ['#f0cc40','#5a9910','#c8e060','#9a48e0','#d0a0ff','#dd4444','#f0b050','#88aaee'];
+  const count = 80;
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `
+      left:${Math.random()*100}vw;
+      background:${colours[Math.floor(Math.random()*colours.length)]};
+      width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${1.5+Math.random()*2}s;
+      animation-delay:${Math.random()*0.8}s;`;
+    wrap.appendChild(el);
+  }
+  setTimeout(() => { wrap.innerHTML = ''; }, duration + 1000);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// MEMORY DRILL
+// ══════════════════════════════════════════════════════════════════
+let drillState = {
+  selectedTraps: new Set(),
+  filter: 'all',
+  questions: [],
+  qIdx: 0,
+  streak: 0,
+  bestStreak: parseInt(localStorage.getItem('drill-best-streak') || '0'),
+  correct: 0,
+  total: 0,
+};
+let drillChess = null;
+
+function renderDrillSelector() {
+  const grid = document.getElementById('drill-trap-grid');
+  if (!grid) return;
+  const all = [...TRAPS, ...QUICK_MATES];
+  const favs = getFavourites();
+  let filtered = all;
+  if (drillState.filter === 'favourites') filtered = all.filter(t => favs.includes(t.id));
+  else if (drillState.filter !== 'all') filtered = all.filter(t => t.side === drillState.filter);
+
+  grid.innerHTML = filtered.map(t => {
+    const sel = drillState.selectedTraps.has(t.id);
+    const sideEmoji = t.side === 'White' ? '♔' : t.side === 'Black' ? '♚' : t.side === 'Bird' ? '🐦' : '⚡';
+    return `<button class="drill-trap-btn ${sel?'selected':''}" onclick="drillToggle('${t.id}',this)">
+      <span>${sideEmoji}</span>${t.name}
+    </button>`;
+  }).join('');
+}
+
+function drillFilter(filter, btn) {
+  drillState.filter = filter;
+  document.querySelectorAll('.drill-type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDrillSelector();
+}
+
+function drillToggle(id, btn) {
+  if (drillState.selectedTraps.has(id)) drillState.selectedTraps.delete(id);
+  else drillState.selectedTraps.add(id);
+  btn.classList.toggle('selected', drillState.selectedTraps.has(id));
+}
+
+function drillSelectAll() {
+  const all = [...TRAPS, ...QUICK_MATES];
+  all.forEach(t => drillState.selectedTraps.add(t.id));
+  renderDrillSelector();
+}
+
+function drillSelectNone() {
+  drillState.selectedTraps.clear();
+  renderDrillSelector();
+}
+
+function drillBuildQuestions() {
+  const all = [...TRAPS, ...QUICK_MATES];
+  const selected = drillState.selectedTraps.size > 0
+    ? all.filter(t => drillState.selectedTraps.has(t.id))
+    : all;
+
+  const questions = [];
+  selected.forEach(trap => {
+    if (!trap.moves || trap.moves.length < 2) return;
+    // Pick a key move (the most interesting one — usually the last 2-4)
+    const keyIdx = Math.max(2, trap.moves.length - 2);
+    const keyMove = trap.moves[keyIdx];
+    if (!keyMove?.san) return;
+
+    // Build position before the key move
+    const chess = new Chess();
+    let ok = true;
+    for (let i = 0; i < keyIdx; i++) {
+      if (!chess.move(trap.moves[i].san, {sloppy:true})) { ok=false; break; }
+    }
+    if (!ok) return;
+
+    // Get wrong options from legal moves
+    const legal = chess.moves().filter(m => m !== keyMove.san);
+    const wrong = legal.sort(() => Math.random()-0.5).slice(0, 3);
+    if (wrong.length < 2) return;
+
+    const options = [...wrong, keyMove.san].sort(() => Math.random()-0.5);
+    questions.push({
+      trap, keyMove, fen: chess.fen(),
+      flipped: trap.side === 'Black',
+      options, correct: keyMove.san,
+      moveNum: keyIdx,
+      context: `Move ${Math.ceil(keyIdx/2)+1} — ${trap.side === 'White' ? 'White' : 'Black'} to play`,
+    });
+  });
+  return questions.sort(() => Math.random()-0.5);
+}
+
+function drillStart() {
+  const qs = drillBuildQuestions();
+  if (!qs.length) { alert('No traps selected or traps have no valid moves. Select some traps first!'); return; }
+  drillState.questions = qs;
+  drillState.qIdx = 0;
+  drillState.correct = 0;
+  drillState.total = 0;
+  drillState.streak = 0;
+  document.getElementById('drill-selector').style.display = 'none';
+  document.getElementById('drill-active').style.display = 'block';
+  drillLoadQuestion();
+  drillUpdateStats();
+}
+
+function drillLoadQuestion() {
+  const q = drillState.questions[drillState.qIdx % drillState.questions.length];
+  drillChess = new Chess(q.fen);
+  buildBoard('dr-board', 'dr-rank-col', 'dr-file-row', q.flipped);
+  document.getElementById('dr-board').dataset.flipped = q.flipped ? 'true' : 'false';
+  // Render board
+  const bEl = document.getElementById('dr-board');
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    const p = drillChess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+  });
+
+  document.getElementById('dr-trap-name').textContent = q.trap.name;
+  document.getElementById('dr-move-context').textContent = q.context;
+  document.getElementById('dr-question').textContent = `What is the best move for ${q.trap.side === 'White' ? 'White ♔' : q.trap.side === 'Black' ? 'Black ♚' : '🐦 Bird\'s'}?`;
+  document.getElementById('dr-result').style.display = 'none';
+  document.getElementById('dr-next-btn').style.display = 'none';
+  document.getElementById('dr-progress-lbl').textContent = `Question ${(drillState.qIdx % drillState.questions.length) + 1} of ${drillState.questions.length}`;
+
+  const opts = document.getElementById('dr-options');
+  opts.innerHTML = q.options.map(o =>
+    `<button class="drill-opt" onclick="drillAnswer('${o}')">${o}</button>`
+  ).join('');
+}
+
+function drillAnswer(san) {
+  const q = drillState.questions[drillState.qIdx % drillState.questions.length];
+  const isCorrect = san === q.correct;
+  drillState.total++;
+  document.getElementById('dr-total').textContent = drillState.total;
+
+  document.querySelectorAll('.drill-opt').forEach(btn => {
+    btn.disabled = true;
+    if (btn.textContent === q.correct) btn.classList.add('correct');
+    else if (btn.textContent === san && !isCorrect) btn.classList.add('wrong');
+  });
+
+  const res = document.getElementById('dr-result');
+  if (isCorrect) {
+    drillState.streak++;
+    drillState.correct++;
+    if (drillState.streak > drillState.bestStreak) {
+      drillState.bestStreak = drillState.streak;
+      localStorage.setItem('drill-best-streak', drillState.bestStreak);
+    }
+    res.className = 'drill-result correct';
+    res.textContent = `✅ Correct! ${q.keyMove.hl || q.keyMove.san + ' — ' + (q.keyMove.txt || '')}`;
+    playSound('correct');
+    recordEvent('puzzle_correct', 'drill_' + q.trap.id);
+    if (drillState.streak > 0 && drillState.streak % 5 === 0) launchConfetti(1500);
+  } else {
+    drillState.streak = 0;
+    res.className = 'drill-result wrong';
+    res.textContent = `❌ The correct move was ${q.correct}. ${q.keyMove.hl || ''}`;
+    playSound('wrong');
+  }
+  res.style.display = 'block';
+  drillUpdateStats();
+  document.getElementById('dr-next-btn').style.display = 'flex';
+}
+
+function drillNext() {
+  drillState.qIdx++;
+  drillLoadQuestion();
+}
+
+function drillEnd() {
+  document.getElementById('drill-selector').style.display = 'block';
+  document.getElementById('drill-active').style.display = 'none';
+  renderDrillSelector();
+}
+
+function drillUpdateStats() {
+  document.getElementById('dr-streak').textContent = drillState.streak;
+  document.getElementById('dr-best-streak').textContent = 'Best: ' + drillState.bestStreak;
+  document.getElementById('dr-correct').textContent = drillState.correct;
+  document.getElementById('dr-score').textContent = drillState.correct * 10 + drillState.streak * 5;
+  const pct = drillState.total ? Math.round(drillState.correct/drillState.total*100)+'%' : '—';
+  document.getElementById('dr-pct').textContent = pct;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// GAME IMPORT FROM CHESS.COM
+// ══════════════════════════════════════════════════════════════════
+async function importFetchGames() {
+  const username = document.getElementById('chesscom-username').value.trim();
+  if (!username) { alert('Enter your chess.com username first'); return; }
+  localStorage.setItem('chesscom-username', username);
+
+  const loading = document.getElementById('import-loading');
+  const errEl = document.getElementById('import-error');
+  const wrap = document.getElementById('import-games-wrap');
+  loading.style.display = 'block'; errEl.style.display = 'none'; wrap.style.display = 'none';
+
+  try {
+    // Get recent month archives
+    const archivesResp = await fetch(`https://api.chess.com/pub/player/${username.toLowerCase()}/games/archives`);
+    if (!archivesResp.ok) throw new Error('Player not found. Check your chess.com username.');
+    const archives = await archivesResp.json();
+    const latestArchive = archives.archives[archives.archives.length - 1];
+    if (!latestArchive) throw new Error('No games found');
+
+    const gamesResp = await fetch(latestArchive);
+    const gamesData = await gamesResp.json();
+    const games = (gamesData.games || []).slice(-20).reverse(); // last 20, newest first
+
+    loading.style.display = 'none';
+    if (!games.length) throw new Error('No games found in recent months');
+
+    const list = document.getElementById('import-games-list');
+    list.innerHTML = games.map((g, i) => {
+      const isWhite = g.white?.username?.toLowerCase() === username.toLowerCase();
+      const opponent = isWhite ? g.black?.username : g.white?.username;
+      const myResult = isWhite ? g.white?.result : g.black?.result;
+      const resultLabel = myResult === 'win' ? 'W' : myResult === 'resigned' || myResult === 'checkmated' ? 'L' : 'D';
+      const resultCls = resultLabel === 'W' ? 'igr-win' : resultLabel === 'L' ? 'igr-loss' : 'igr-draw';
+      const opening = g.opening || 'Unknown Opening';
+      const date = g.end_time ? new Date(g.end_time * 1000).toLocaleDateString() : '';
+      const moves = g.pgn ? g.pgn.split('\n').pop() : '';
+      return `<div class="import-game-card" onclick="importLoadGame(${i})">
+        <div class="import-game-result ${resultCls}">${resultLabel}</div>
+        <div class="import-game-info">
+          <div class="import-game-title">vs. ${opponent} ${isWhite?'(White)':'(Black)'}</div>
+          <div class="import-game-sub">${opening}</div>
+        </div>
+        <div class="import-game-date">${date}</div>
+      </div>`;
+    }).join('');
+
+    // Store games for loading
+    window._importedGames = games;
+    wrap.style.display = 'block';
+  } catch(e) {
+    loading.style.display = 'none';
+    errEl.textContent = '❌ ' + (e.message || 'Could not fetch games. Check your username and try again.');
+    errEl.style.display = 'block';
+  }
+}
+
+function importLoadGame(idx) {
+  const game = window._importedGames?.[idx];
+  if (!game || !game.pgn) { alert('No PGN available for this game'); return; }
+  // Load into blunder coach
+  document.getElementById('bl-pgn-input').value = game.pgn;
+  switchMode('blunder');
+  blAnalyse();
+}
+
+function initImportPage() {
+  const saved = localStorage.getItem('chesscom-username');
+  if (saved) document.getElementById('chesscom-username').value = saved;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// OPPONENT PROFILER
+// ══════════════════════════════════════════════════════════════════
+async function opponentProfile() {
+  const username = document.getElementById('opponent-username').value.trim();
+  if (!username) { alert('Enter an opponent username'); return; }
+
+  const loading = document.getElementById('opponent-loading');
+  const errEl = document.getElementById('opponent-error');
+  const results = document.getElementById('opponent-results');
+  loading.style.display = 'block'; errEl.style.display = 'none'; results.style.display = 'none';
+
+  try {
+    // Fetch player stats and recent games
+    const [profileResp, archivesResp] = await Promise.all([
+      fetch(`https://api.chess.com/pub/player/${username.toLowerCase()}`),
+      fetch(`https://api.chess.com/pub/player/${username.toLowerCase()}/games/archives`)
+    ]);
+    if (!profileResp.ok) throw new Error('Player not found on chess.com');
+
+    const profile = await profileResp.json();
+    const archives = await archivesResp.json();
+    const latestArchive = archives.archives?.[archives.archives.length - 1];
+    let games = [];
+    if (latestArchive) {
+      const gamesResp = await fetch(latestArchive);
+      const gamesData = await gamesResp.json();
+      games = gamesData.games || [];
+    }
+
+    // Analyse openings
+    const whiteOpenings = {}, blackOpenings = {};
+    games.slice(-30).forEach(g => {
+      const isWhite = g.white?.username?.toLowerCase() === username.toLowerCase();
+      const opening = (g.eco || 'Unknown').split('/').pop() || 'Unknown';
+      const map = isWhite ? whiteOpenings : blackOpenings;
+      map[opening] = (map[opening] || 0) + 1;
+    });
+
+    const topWhite = Object.entries(whiteOpenings).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const topBlack = Object.entries(blackOpenings).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const total = Math.max(games.length, 1);
+
+    // Display
+    document.getElementById('opp-name').textContent = profile.username || username;
+    const rating = profile.stats?.chess_rapid?.last?.rating || profile.stats?.chess_blitz?.last?.rating || '?';
+    document.getElementById('opp-rating').textContent = `Rating: ${rating} · ${games.length} recent games analysed`;
+
+    function renderOpenings(entries, containerId, total) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const max = entries[0]?.[1] || 1;
+      container.innerHTML = entries.map(([name, count]) => `
+        <div class="opp-opening-row">
+          <div class="opp-opening-name">${name}</div>
+          <div class="opp-opening-bar-wrap"><div class="opp-opening-bar" style="width:${Math.round(count/max*100)}%"></div></div>
+          <div class="opp-opening-pct">${count}g</div>
+        </div>`).join('') || '<div style="font-size:12px;color:var(--muted)">Not enough data</div>';
+    }
+    renderOpenings(topWhite, 'opp-white-openings', total);
+    renderOpenings(topBlack, 'opp-black-openings', total);
+
+    // Suggest traps
+    const suggestions = [];
+    // If they play e4 as White → suggest Blackburne-Shilling, French, Caro-Kann
+    const playsE4 = topWhite.some(([o]) => o.toLowerCase().includes('e4') || o.toLowerCase().includes('italian') || o.toLowerCase().includes('spanish'));
+    if (playsE4) {
+      suggestions.push({ id:'b5', name:'Blackburne-Shilling Gambit', why:'They play 1.e4 — set the Nd4 trap immediately after Bc4' });
+      suggestions.push({ id:'b7', name:'Caro-Kann Defence', why:'Solid and active against e4 players — Bf5 gets outside the chain' });
+    }
+    const playsD4 = topWhite.some(([o]) => o.toLowerCase().includes('d4') || o.toLowerCase().includes('london') || o.toLowerCase().includes("queen"));
+    if (playsD4) {
+      suggestions.push({ id:'b_budapest', name:'Budapest Gambit', why:'Shock them on move 2 with e5!! — d4 players rarely know this' });
+      suggestions.push({ id:'b_qid', name:"Queen's Indian Trap", why:'Bb4 pins the Nc3 — win a free pawn if they build e4' });
+    }
+    if (!suggestions.length) {
+      suggestions.push({ id:'w1', name:'Fried Liver Attack', why:'Universal trap — works against most defensive setups' });
+      suggestions.push({ id:'b5', name:'Blackburne-Shilling Gambit', why:'Great surprise weapon at club level' });
+    }
+
+    const sugEl = document.getElementById('opp-trap-suggestions');
+    sugEl.innerHTML = suggestions.map(s =>
+      `<div class="trap-suggestion-card" onclick="jumpToTrap('${s.id}');switchMode('study')">
+        <div class="trap-sug-title">📖 ${s.name}</div>
+        <div class="trap-sug-why">${s.why}</div>
+        <div style="font-size:10px;color:var(--accent);margin-top:6px">Click to study →</div>
+      </div>`
+    ).join('');
+
+    // AI scout report
+    if (apiKey && games.length > 0) {
+      document.getElementById('opp-ai-report').style.display = 'block';
+      document.getElementById('opp-ai-text').textContent = 'Generating scout report…';
+      try {
+        const moveSample = games.slice(-5).map(g => g.pgn?.split('\n').pop()?.slice(0,60)).filter(Boolean).join(' | ');
+        const resp = await fetch('https://api.anthropic.com/v1/messages', {
+          method:'POST',
+          headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+          body: JSON.stringify({
+            model:'claude-sonnet-4-20250514', max_tokens:250,
+            system:'You are a chess scout. Give a brief 3-bullet opponent scouting report for a beginner (530 ELO). Cover: 1) Their typical opening style, 2) Likely weaknesses, 3) Best strategy against them. Be specific and actionable. Use • bullets.',
+            messages:[{role:'user', content:`Opponent: ${username}. Rating: ${rating}. White openings: ${topWhite.map(([o])=>o).join(', ')||'unknown'}. Black openings: ${topBlack.map(([o])=>o).join(', ')||'unknown'}. Write scout report.`}]
+          })
+        });
+        const data = await resp.json();
+        document.getElementById('opp-ai-text').innerHTML = (data.content?.[0]?.text||'').replace(/\n/g,'<br>');
+      } catch(e) { document.getElementById('opp-ai-text').textContent = 'AI report unavailable.'; }
+    }
+
+    loading.style.display = 'none';
+    results.style.display = 'block';
+  } catch(e) {
+    loading.style.display = 'none';
+    errEl.textContent = '❌ ' + (e.message || 'Could not fetch profile.');
+    errEl.style.display = 'block';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// TRAP BATTLE
+// ══════════════════════════════════════════════════════════════════
+let battleGame = null;
+
+function initBattleSetup() {
+  const sel1 = document.getElementById('battle-p1-trap');
+  const sel2 = document.getElementById('battle-p2-trap');
+  if (!sel1 || !sel2) return;
+  const whiteTrap = TRAPS.filter(t => t.side === 'White' || t.side === 'Bird');
+  const blackTrap = TRAPS.filter(t => t.side === 'Black' || t.side === 'Bird');
+  sel1.innerHTML = whiteTrap.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+  sel2.innerHTML = blackTrap.map(t => `<option value="${t.id}">${t.name}</option>`).join('');
+  // restore saved names
+  const n1 = localStorage.getItem('battle-p1-name') || 'Player 1';
+  const n2 = localStorage.getItem('battle-p2-name') || 'Player 2';
+  document.getElementById('battle-p1-name').value = n1;
+  document.getElementById('battle-p2-name').value = n2;
+}
+
+function battleStart() {
+  const p1name = document.getElementById('battle-p1-name').value || 'Player 1';
+  const p2name = document.getElementById('battle-p2-name').value || 'Player 2';
+  localStorage.setItem('battle-p1-name', p1name);
+  localStorage.setItem('battle-p2-name', p2name);
+  const p1trapId = document.getElementById('battle-p1-trap').value;
+  const p2trapId = document.getElementById('battle-p2-trap').value;
+  const p1trap = TRAPS.find(t => t.id === p1trapId);
+  const p2trap = TRAPS.find(t => t.id === p2trapId);
+
+  battleGame = {
+    chess: new Chess(), p1name, p2name,
+    p1trap, p2trap, selectedSq: null,
+    p1score: 0, p2score: 0, gameOver: false
+  };
+
+  document.getElementById('battle-setup-screen').style.display = 'none';
+  document.getElementById('battle-game-screen').style.display = 'block';
+  document.getElementById('bt-p1-lbl').textContent = p1name;
+  document.getElementById('bt-p2-lbl').textContent = p2name;
+  document.getElementById('battle-top-label').textContent = p2name + ' ♟';
+  document.getElementById('battle-bottom-label').textContent = p1name + ' ♙';
+  document.getElementById('battle-over').style.display = 'none';
+  document.getElementById('bt-notation').innerHTML = '';
+  document.getElementById('bt-hint-box').style.display = 'none';
+
+  buildBoard('bt-board', 'bt-rank-col', 'bt-file-row', false);
+  btRenderBoard();
+  btUpdateStatus();
+}
+
+function btRenderBoard(fromSq, toSq) {
+  if (!battleGame) return;
+  const { chess, selectedSq } = battleGame;
+  const bEl = document.getElementById('bt-board');
+  if (!bEl) return;
+  let checkSq = null;
+  if (chess.in_check()) {
+    outer: for (let r=0;r<8;r++) for (let f=0;f<8;f++) {
+      const p = chess.board()[r][f];
+      if (p && p.type==='k' && p.color===chess.turn()) { checkSq='abcdefgh'[f]+(8-r); break outer; }
+    }
+  }
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn)?'lt':'dk');
+    if (fromSq && sn===fromSq) sq.classList.add('hl-f');
+    if (toSq && sn===toSq) sq.classList.add('hl-t');
+    if (checkSq && sn===checkSq) sq.classList.add('hl-chk');
+    if (selectedSq && sn===selectedSq) sq.classList.add('hl-sel');
+    const p = chess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+    sq.onclick = () => btHandleClick(sn);
+  });
+  // Show move dots
+  if (selectedSq) {
+    const moves = chess.moves({square:selectedSq,verbose:true});
+    const targets = new Set(moves.map(m=>m.to));
+    bEl.querySelectorAll('.sq').forEach(sq => {
+      if (targets.has(sq.dataset.sq)) { sq.classList.add('hl-mv'); if(chess.get(sq.dataset.sq)) sq.classList.add('has-pc'); }
+    });
+  }
+}
+
+function btHandleClick(sqName) {
+  if (!battleGame || battleGame.gameOver) return;
+  const { chess } = battleGame;
+  const piece = chess.get(sqName);
+  const turn = chess.turn();
+
+  if (battleGame.selectedSq) {
+    const move = chess.move({from:battleGame.selectedSq, to:sqName, promotion:'q'});
+    battleGame.selectedSq = null;
+    if (move) {
+      playSound(move.captured?'capture':'move');
+      btRenderBoard(move.from, move.to);
+      btUpdateNotation();
+      btUpdateStatus();
+      btCheckEnd(move);
+    } else {
+      if (piece && piece.color===turn) { battleGame.selectedSq=sqName; btRenderBoard(); }
+      else btRenderBoard();
+    }
+  } else {
+    if (piece && piece.color===turn) { battleGame.selectedSq=sqName; playSound('select'); btRenderBoard(); }
+  }
+}
+
+function btCheckEnd(move) {
+  const { chess, p1name, p2name } = battleGame;
+  if (chess.in_checkmate()) {
+    battleGame.gameOver = true;
+    const winner = chess.turn()==='b' ? p1name : p2name;
+    const isP1Win = chess.turn()==='b';
+    if (isP1Win) battleGame.p1score++; else battleGame.p2score++;
+    document.getElementById('bt-p1-score').textContent = battleGame.p1score;
+    document.getElementById('bt-p2-score').textContent = battleGame.p2score;
+    document.getElementById('bt-over-emoji').textContent = '🏆';
+    document.getElementById('bt-over-title').textContent = winner + ' wins!';
+    document.getElementById('bt-over-msg').textContent = `Checkmate in ${Math.ceil(chess.history().length/2)} moves. ${isP1Win?p2name:p1name}, well played!`;
+    document.getElementById('battle-over').style.display = 'block';
+    playSound('mate'); launchConfetti(2000);
+  } else if (chess.in_stalemate() || chess.in_threefold_repetition()) {
+    battleGame.gameOver = true;
+    document.getElementById('bt-over-emoji').textContent = '🤝';
+    document.getElementById('bt-over-title').textContent = 'Draw!';
+    document.getElementById('bt-over-msg').textContent = 'The game ended in a draw.';
+    document.getElementById('battle-over').style.display = 'block';
+  }
+}
+
+function btUpdateStatus() {
+  if (!battleGame) return;
+  const { chess, p1name, p2name } = battleGame;
+  const turn = chess.turn();
+  const name = turn==='w' ? p1name : p2name;
+  const st = document.getElementById('battle-status');
+  st.textContent = `${name}'s turn (${turn==='w'?'White':'Black'})`;
+  st.className = 'battle-status ' + (turn==='w'?'your-turn':'opp-turn');
+}
+
+function btUpdateNotation() {
+  if (!battleGame) return;
+  const hist = battleGame.chess.history();
+  const el = document.getElementById('bt-notation');
+  el.innerHTML = hist.map((san,i) => {
+    const num = i%2===0 ? `<span class="mn">${Math.floor(i/2)+1}.</span>` : '';
+    return num + `<span class="mv done">${san}</span>`;
+  }).join('');
+  el.scrollLeft = el.scrollWidth;
+}
+
+function battleHint() {
+  if (!battleGame) return;
+  const { chess, p1trap, p2trap } = battleGame;
+  const turn = chess.turn();
+  const trap = turn==='w' ? p1trap : p2trap;
+  const hist = chess.history();
+  const box = document.getElementById('bt-hint-box');
+  const txt = document.getElementById('bt-hint-text');
+  if (trap && trap.moves && hist.length < trap.moves.length) {
+    const nextMove = trap.moves[hist.length];
+    txt.textContent = `📘 ${trap.name}: the book move here is ${nextMove.san}. ${nextMove.hl||''}`;
+  } else {
+    txt.textContent = `You've gone beyond the book — play your best chess!`;
+  }
+  box.style.display = 'block';
+}
+
+function btUndo() {
+  if (!battleGame || battleGame.chess.history().length===0) return;
+  battleGame.chess.undo();
+  battleGame.selectedSq = null;
+  battleGame.gameOver = false;
+  document.getElementById('battle-over').style.display = 'none';
+  btRenderBoard(); btUpdateNotation(); btUpdateStatus();
+}
+
+function battleNewRound() {
+  battleStart();
+}
+
+function battleEnd() {
+  document.getElementById('battle-setup-screen').style.display = 'block';
+  document.getElementById('battle-game-screen').style.display = 'none';
+  battleGame = null;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// RATING GRAPH
+// ══════════════════════════════════════════════════════════════════
+const MILESTONES = [
+  { elo:500, icon:'🌱', name:'Starting Out', msg:'You\'ve begun your chess journey!' },
+  { elo:600, icon:'♟', name:'Pawn Power', msg:'You understand basic tactics!' },
+  { elo:700, icon:'♞', name:'Knight\'s Tour', msg:'Your piece play is improving!' },
+  { elo:800, icon:'♝', name:'Bishop\'s Diagonal', msg:'You\'re thinking ahead!' },
+  { elo:900, icon:'♜', name:'Rook Endgames', msg:'Solid club player territory!' },
+  { elo:1000, icon:'♛', name:'Queen\'s Gambit', msg:'You\'ve cracked four figures!' },
+  { elo:1200, icon:'🏅', name:'Club Champion', msg:'Intermediate level reached!' },
+  { elo:1500, icon:'🥈', name:'Advanced Player', msg:'Tournament ready!' },
+  { elo:1800, icon:'🥇', name:'Expert Level', msg:'Near master strength!' },
+];
+
+function recordEloSnapshot() {
+  const elo = calcEloEstimate();
+  const snapshots = JSON.parse(localStorage.getItem('chess-elo-history') || '[]');
+  const today = new Date().toDateString();
+  if (snapshots.length && snapshots[snapshots.length-1].date === today) {
+    snapshots[snapshots.length-1].elo = elo;
+  } else {
+    snapshots.push({ date: today, elo, ts: Date.now() });
+  }
+  if (snapshots.length > 90) snapshots.shift();
+  localStorage.setItem('chess-elo-history', JSON.stringify(snapshots));
+  return snapshots;
+}
+
+function renderGraph() {
+  const snapshots = recordEloSnapshot();
+  const currentElo = calcEloEstimate();
+  const peakElo = Math.max(...snapshots.map(s => s.elo), currentElo);
+  const firstElo = snapshots[0]?.elo || currentElo;
+  const gain = currentElo - firstElo;
+
+  document.getElementById('graph-current-elo').textContent = currentElo;
+  document.getElementById('graph-peak-elo').textContent = peakElo;
+  document.getElementById('graph-sessions').textContent = snapshots.length;
+  document.getElementById('graph-gain').textContent = (gain >= 0 ? '+' : '') + gain;
+
+  // Milestone check
+  const reached = MILESTONES.filter(m => currentElo >= m.elo);
+  const latest = reached[reached.length - 1];
+  const lastNotified = parseInt(localStorage.getItem('last-milestone-elo') || '0');
+  if (latest && latest.elo > lastNotified) {
+    localStorage.setItem('last-milestone-elo', latest.elo);
+    document.getElementById('milestone-title').textContent = latest.icon + ' ' + latest.name;
+    document.getElementById('milestone-msg').textContent = latest.msg + ' (ELO ~' + latest.elo + ')';
+    document.getElementById('milestone-banner').style.display = 'block';
+    launchConfetti(3000);
+    playSound('mate');
+  } else {
+    document.getElementById('milestone-banner').style.display = 'none';
+  }
+
+  // Draw canvas chart
+  const canvas = document.getElementById('rating-canvas');
+  if (!canvas) return;
+  canvas.width = canvas.offsetWidth * window.devicePixelRatio || 600;
+  canvas.height = 220 * (window.devicePixelRatio || 1);
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  ctx.scale(dpr, dpr);
+  const W = canvas.offsetWidth, H = 220;
+  ctx.clearRect(0, 0, W, H);
+
+  if (snapshots.length < 2) {
+    ctx.fillStyle = '#a8b8d8';
+    ctx.font = '13px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Keep practising — your graph will appear after a few sessions!', W/2, H/2);
+    return;
+  }
+
+  const minElo = Math.min(...snapshots.map(s=>s.elo)) - 30;
+  const maxElo = Math.max(...snapshots.map(s=>s.elo)) + 30;
+  const pad = { l:40, r:16, t:16, b:30 };
+  const gW = W - pad.l - pad.r, gH = H - pad.t - pad.b;
+
+  const toX = i => pad.l + (i / (snapshots.length-1)) * gW;
+  const toY = elo => pad.t + (1 - (elo-minElo)/(maxElo-minElo)) * gH;
+
+  // Grid lines
+  ctx.strokeStyle = '#2d3f6a'; ctx.lineWidth = 1;
+  [0,0.25,0.5,0.75,1].forEach(f => {
+    const y = pad.t + f * gH;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l+gW, y); ctx.stroke();
+    const elo = Math.round(maxElo - f*(maxElo-minElo));
+    ctx.fillStyle='#4a5878'; ctx.font='10px monospace'; ctx.textAlign='right';
+    ctx.fillText(elo, pad.l-4, y+4);
+  });
+
+  // Line
+  ctx.strokeStyle='#5a9910'; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.lineCap='round';
+  ctx.beginPath();
+  snapshots.forEach((s,i) => { i===0 ? ctx.moveTo(toX(i),toY(s.elo)) : ctx.lineTo(toX(i),toY(s.elo)); });
+  ctx.stroke();
+
+  // Fill under line
+  ctx.fillStyle='rgba(90,153,16,0.1)';
+  ctx.beginPath();
+  snapshots.forEach((s,i) => { i===0 ? ctx.moveTo(toX(i),toY(s.elo)) : ctx.lineTo(toX(i),toY(s.elo)); });
+  ctx.lineTo(toX(snapshots.length-1), pad.t+gH);
+  ctx.lineTo(toX(0), pad.t+gH); ctx.closePath(); ctx.fill();
+
+  // Milestone dots
+  MILESTONES.forEach(m => {
+    if (m.elo >= minElo && m.elo <= maxElo) {
+      const y = toY(m.elo);
+      ctx.strokeStyle='rgba(240,204,64,0.4)'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+      ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+gW,y); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='#f0cc40'; ctx.font='10px sans-serif'; ctx.textAlign='left';
+      ctx.fillText(m.icon + ' ' + m.name, pad.l+4, y-3);
+    }
+  });
+
+  // Current dot
+  if (snapshots.length > 0) {
+    const last = snapshots[snapshots.length-1];
+    ctx.beginPath();
+    ctx.arc(toX(snapshots.length-1), toY(last.elo), 5, 0, Math.PI*2);
+    ctx.fillStyle='#c8e060'; ctx.fill();
+    ctx.strokeStyle='#1f2d4e'; ctx.lineWidth=2; ctx.stroke();
+  }
+
+  // Milestone achievements list
+  const milEl = document.getElementById('graph-milestones');
+  if (milEl) {
+    milEl.innerHTML = MILESTONES.map(m => {
+      const reached = currentElo >= m.elo;
+      return `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">
+        <span style="font-size:20px;opacity:${reached?1:0.25}">${m.icon}</span>
+        <div style="flex:1">
+          <div style="font-size:12px;font-weight:700;color:${reached?'#fff':'var(--muted)'}">${m.name}</div>
+          <div style="font-size:11px;color:var(--muted)">${m.msg}</div>
+        </div>
+        <span style="font-size:11px;font-weight:700;color:${reached?'var(--accent2)':'var(--dim)'}">${reached?'✅ '+m.elo:'~'+m.elo}</span>
+      </div>`;
+    }).join('');
+  }
+}
 
 </script>
 </body>
