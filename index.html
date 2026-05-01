@@ -35,29 +35,29 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 /* NAV */
 .subnav{background:#111d35;border-bottom:1px solid var(--border);display:flex;position:sticky;top:48px;z-index:190}
-.dd-wrap{position:relative;flex:1}
-.dd-btn{width:100%;padding:10px 10px;background:transparent;border:none;border-right:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .12s;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+
+
 .dd-btn:last-child{border-right:none}
-.dd-btn:hover,.dd-btn.open{background:var(--bg3);color:#fff}
+.dd-btn:hover,
 .pill{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:700;flex-shrink:0}
 .pw{background:rgba(255,255,255,.08);color:#ccc;border:1px solid rgba(255,255,255,.12)}
 .pb{background:rgba(70,70,150,.25);color:#8888bb;border:1px solid rgba(80,80,160,.25)}
 .pq{background:rgba(200,160,0,.12);color:#c8a830;border:1px solid rgba(200,160,0,.2)}
 .p-bird{background:rgba(180,80,10,.15);color:var(--bird2);border:1px solid rgba(180,80,10,.25)}
-.dd-arrow{font-size:8px;opacity:.4;transition:transform .2s;margin-left:2px}
-.dd-btn.open .dd-arrow{transform:rotate(180deg);opacity:.7}
-.active-label{font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);max-width:100px;opacity:.8}
+
+.dd-btn.open 
+
 .active-label.gold{color:var(--gold)}
 .active-label.bird{color:var(--bird2)}
-.dd-menu{position:absolute;top:100%;left:0;min-width:240px;background:#1c2537;border:1px solid rgba(255,255,255,.09);border-radius:0 8px 8px 8px;box-shadow:0 12px 40px rgba(0,0,0,.7);z-index:9000;display:none;max-height:70vh;overflow-y:auto}
-.dd-menu.open{display:block}
-.dd-menu::-webkit-scrollbar{width:3px}
-.dd-menu::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+
+
+
+
 .dd-sec{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);padding:9px 12px 3px;border-top:1px solid var(--border)}
 .dd-sec:first-child{border-top:none}
-.dd-item{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;border-left:3px solid transparent;transition:all .1s;-webkit-tap-highlight-color:transparent}
-.dd-item:hover{background:var(--bg3);border-left-color:var(--accent)}
-.dd-item.cur{background:#0c2018;border-left-color:var(--accent)}
+
+
+
 .dd-item.cur.bird-item{background:#1a1808;border-left-color:var(--bird)}
 .dd-item-name{font-size:12px;font-weight:500;color:#a8a8cc;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dd-item.cur .dd-item-name{color:#fff}
@@ -1469,27 +1469,19 @@ body {
   border-radius: 7px;
 }
 
-/* subnav CSS replaced below */
+
 
 /* Tab labels — plain text, no pill background */
 /* dd-btn::before removed — label is in span */
 
 /* Dropdown menu */
-/* dd-menu rules consolidated below */
+
 
 /* Dropdown items */
-.dd-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(255,255,255,.04);
-  transition: background .1s;
-}
-.dd-item:hover { background: rgba(42,157,143,.08); }
-.dd-item.cur   { background: rgba(42,157,143,.12); color: #4dbfb0; }
-.dd-item:last-child { border-bottom: none; }
+
+
+
+
 
 /* ── MAIN CONTENT — breathing room ────────────────────────── */
 .study-page,
@@ -1705,13 +1697,13 @@ body {
 .settings-toggle.off { background: #2a3550; }
 
 
-.dd-tab-label { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
 
 
-/* dropdown fix merged */
 
 
-/* ══ SUBNAV — definitive clean version ══════════════════════ */
+
+
+
 .subnav {
   background: #111720;
   border-bottom: 1px solid rgba(255,255,255,.07);
@@ -1725,12 +1717,41 @@ body {
 }
 .subnav::-webkit-scrollbar { display: none; }
 
+
+
+
+
+
+
+
+
+
+
+
+.dd-btn.open 
+
+/* ══ DROPDOWN MENU ══════════════════════════════════════════ */
+
+
+
+
+
+/* ══ DROPDOWN ITEMS ═════════════════════════════════════════ */
+
+
+
+
+
+
+/* ══════════════════════════════════════════════════════════
+   DROPDOWN NAVIGATION — DEFINITIVE SINGLE SOURCE OF TRUTH
+══════════════════════════════════════════════════════════ */
 .dd-wrap { position: relative; flex-shrink: 0; }
 
 .dd-btn {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   padding: 0 18px;
   height: 44px;
   background: transparent;
@@ -1738,80 +1759,64 @@ body {
   border-bottom: 2px solid transparent;
   color: #8896b0;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  transition: color .15s, border-color .15s;
   white-space: nowrap;
   user-select: none;
+  transition: color .15s, border-color .15s, background .15s;
 }
-.dd-btn:hover {
-  color: #c8d8f0;
-  background: rgba(255,255,255,.03);
-  border-bottom-color: rgba(77,191,176,.3);
-}
-.dd-btn.open {
-  color: #4dbfb0;
-  border-bottom-color: #2a9d8f;
-  background: rgba(42,157,143,.05);
-}
+.dd-btn:hover { color: #c8d8f0; border-bottom-color: rgba(42,157,143,.4); background: rgba(255,255,255,.03); }
+.dd-btn.open  { color: #4dbfb0; border-bottom-color: #2a9d8f; background: rgba(42,157,143,.06); }
 
 .dd-tab-label { font-size: 13px; font-weight: 600; }
 
 .active-label {
   font-size: 11px;
   color: #4dbfb0;
-  max-width: 140px;
+  max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.dd-arrow {
-  font-size: 10px;
-  opacity: .5;
-  transition: transform .2s;
-  margin-left: 2px;
-}
+.dd-arrow { font-size: 10px; opacity: .5; transition: transform .2s; }
 .dd-btn.open .dd-arrow { transform: rotate(180deg); opacity: 1; }
 
-/* ══ DROPDOWN MENU ══════════════════════════════════════════ */
 .dd-menu {
   position: absolute;
   top: 100%;
   left: 0;
   min-width: 260px;
   background: #1c2537;
-  border: 1px solid rgba(255,255,255,.1);
-  border-top: none;
+  border: 1px solid rgba(255,255,255,.12);
   border-radius: 0 0 10px 10px;
-  box-shadow: 0 16px 48px rgba(0,0,0,.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,.7);
   z-index: 9999;
-  display: none;
   max-height: 70vh;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #2a3550 transparent;
+  scrollbar-color: #334060 transparent;
+  display: none;
 }
-.dd-menu::-webkit-scrollbar { width: 3px; }
-.dd-menu::-webkit-scrollbar-thumb { background: #2a3550; border-radius: 2px; }
 .dd-menu.open { display: block; }
+.dd-menu::-webkit-scrollbar { width: 3px; }
+.dd-menu::-webkit-scrollbar-thumb { background: #334060; border-radius: 2px; }
 
-/* ══ DROPDOWN ITEMS ═════════════════════════════════════════ */
 .dd-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 10px 16px;
   cursor: pointer;
   border-bottom: 1px solid rgba(255,255,255,.04);
-  transition: background .1s;
   color: #c8d8f0;
+  font-size: 13px;
+  transition: background .1s;
 }
-.dd-item:hover { background: rgba(42,157,143,.1); }
-.dd-item.cur   { background: rgba(42,157,143,.15); }
+.dd-item:hover { background: rgba(42,157,143,.1); color: #fff; }
+.dd-item.cur   { background: rgba(42,157,143,.15); color: #4dbfb0; }
 .dd-item:last-child { border-bottom: none; }
-
 </style>
 </head>
 <body>
