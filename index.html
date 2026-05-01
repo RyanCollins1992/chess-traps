@@ -1340,6 +1340,16 @@ body.sidebar-collapsed .main-content { margin-left:0; }
         <div id="dd-bird-items"></div>
       </div>
     </div>
+    <div class="dd-wrap">
+      <button class="dd-btn" id="btn-rep" onclick="toggleDD('rep')" onmouseenter="openDD('rep')" onmouseleave="schedClose('rep')">
+        <span class="pill" style="background:linear-gradient(90deg,#3a2080,#1a0840);color:#c090ff;border-color:#6040a0">♞ REPERTOIRE</span>
+        <span class="active-label" id="replabel"></span>
+        <span class="dd-arrow">▼</span>
+      </button>
+      <div class="dd-menu" id="menu-rep" onmouseenter="cancelClose('rep')" onmouseleave="schedClose('rep')">
+        <div id="dd-rep-items"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Search box -->
@@ -3468,6 +3478,235 @@ const TRAPS=[
 {san:"Kxd1",hl:"7.Kxd1 — Must take",txt:"King must take the bishop."},
 {san:"Nxd4",hl:"7...Nxd4! — Fork!",txt:"Nxd4! Fork! King on d1, rook on h1 (after cxd4) or just winning the pawn. Black has won a full piece for a pawn!",tip:"Lasker-style pin ideas in the Bird's: Bg4 pins Nf3. If White plays Ne5 to break the pin, Bxd1! Kxd1 Nxd4! wins material. Never break a pin with a knight move that allows a fork on the king!"}
 ],summary:{mistake:"White plays Ne5 to break the Bg4 pin, allowing Bxd1! Kxd1 Nxd4 fork.",punish:"After Nxd4, Black has won a piece for a pawn. Decisive advantage.",fallback:"White should play h3 to address the pin instead of Ne5."}}
+,
+// ── REPERTOIRE TRAPS ─────────────────────────────────────────────
+{id:'w_kia_french',side:'White',level:'Repertoire',name:'KIA vs French Defence',sub:"e4 e6 — King's Indian Attack setup",moves:[
+{san:'e4',hl:'1.e4',txt:'Your starting move with White every game.',why:'Controls the centre, opens lines for your bishop and queen.'},
+{san:'e6',hl:'1...e6 — French Defence',txt:"Black plays the French — a solid, stubborn defence. Don't panic, KIA is perfect against it.",warn:'The French blocks in Black\'s light-squared bishop. Patience — your fianchetto will dominate long-term.'},
+{san:'d3',hl:'2.d3 — KIA setup begins',txt:'d3 instead of d4. This is the King\'s Indian Attack — you are copying the King\'s Indian setup but with reversed colours.',why:'d3 supports e4, keeps the centre flexible, and allows Nd2-Nf3-g3-Bg2-O-O — the complete KIA setup.'},
+{san:'d5',hl:'2...d5',txt:'Black pushes in the centre. Fine — you will not fight it directly yet.'},
+{san:'Nd2',hl:'3.Nd2 — Knight to d2',txt:'Nd2 instead of Nc3! This keeps the c-pawn free and the diagonal open for your bishop.',why:'Nc3 would block the c2-c3 plan. Nd2 keeps all options open and prepares Ngf3.'},
+{san:'Nf6',hl:'3...Nf6',txt:'Black develops the knight — natural.'},
+{san:'Ngf3',hl:'4.Ngf3 — Complete the setup',txt:'Now both knights are developed. Every KIA game follows this exact pattern: Nd2, Nf3, g3, Bg2, O-O.',why:'Ngf3 attacks e5 and prepares g3-Bg2. The bishop on g2 will be your strongest piece.'},
+{san:'c5',hl:'4...c5',txt:'Black plays c5 — fighting for the centre. A key French move.'},
+{san:'g3',hl:'5.g3 — Fianchetto begins!',txt:'g3 prepares Bg2. Your king\'s fianchetto is the heart of the KIA.',why:'The bishop on g2 will be protected behind the g3 pawn and will dominate the long diagonal.'},
+{san:'Nc6',hl:'5...Nc6',txt:'Black develops the knight.'},
+{san:'Bg2',hl:'6.Bg2 — The Dragon Bishop!',txt:'Bg2 — your fianchettoed bishop is now your best piece. It fires down the long diagonal for the whole game.',why:'The g2 bishop controls h1-a8 diagonal. In the KIA it is often called the "Dragon Bishop" — extremely powerful.'},
+{san:'Be7',hl:'6...Be7',txt:'Black develops the bishop — preparing to castle.'},
+{san:'O-O',hl:'7.0-0 — Castle quickly',txt:'Castle! Your king is safe behind the fianchetto. Now you can play for the attack.',why:'KIA principle: castle early, then attack on the kingside with Re1, e5, h4-h5.'},
+{san:'O-O',hl:'7...0-0',txt:'Black castles too.'},
+{san:'Re1',hl:'8.Re1 — Support e4',txt:'Re1 supports the e4-e5 push. This is the key KIA move — rook on the open e-file.',why:'Re1 prepares e5 which kicks the Nf6 and starts the kingside attack.'},
+{san:'b5',hl:'8...b5 — Black counterattacks',txt:'Black starts queenside counterplay with b5. This is typical in the French KIA — Black goes queenside, you go kingside. A race!',warn:'Don\'t stop the kingside attack to deal with queenside threats unless absolutely necessary.'},
+{san:'e5',hl:'9.e5! — Attack!',txt:'e5! The critical KIA pawn advance. Now the Nf6 must move, and your attack begins.',why:'e5 kicks the knight, opens the f4 square for your knight, and starts the direct kingside attack.'},
+{san:'Nd7',hl:'9...Nd7',txt:'Black retreats the knight to d7.'},
+{san:'Nf1',hl:'10.Nf1 — The knight manoeuvre',txt:'Nf1! The knight heads to g3 or h6. This is the secret KIA weapon — the knight reroutes to the kingside attack.',why:'Nf1-Ng3 or Nf1-N1h2-Ng4 are the two attacking routes. The knight will join the h4-h5 attack.'},
+{san:'a5',hl:'10...a5',txt:'Black continues queenside play.'},
+{san:'h4',hl:'11.h4! — Kingside storm begins!',txt:'h4! Launching the direct kingside attack. White pushes h4-h5 to open lines against Black\'s castled king.',why:'This is the signature KIA attack. h4-h5 forces open the h-file or creates weaknesses around Black\'s king.'},
+{san:'b4',hl:'11...b4',txt:'Black keeps pushing queenside.'},
+{san:'N1h2',hl:'12.N1h2 — Knight aims at g4',txt:'The knight goes to h2 on its way to g4, then h6 or f6. Targeting Black\'s kingside!',why:'Nh2-Ng4 is the ideal knight post. From g4 it attacks h6 and f6, supporting the h4-h5 push.'},
+{san:'Ba6',hl:'12...Ba6',txt:'Black develops the bishop, looking at f1.'},
+{san:'Ng4',hl:'13.Ng4! — Knight reaches its ideal square',txt:'Ng4! The knight reaches its dream square — attacking h6 and f6, ready to support h5.',why:'From g4, the knight controls h6 and f6. Combined with h4-h5, this creates huge pressure on Black\'s kingside.',tip:'KIA Attack Plan: 1) e5 to kick the knight 2) Nf1-Nh2-Ng4 manoeuvre 3) h4-h5 pawn storm 4) Nh6+ or Nxf7 sacrifice. The attack almost plays itself!'}
+],summary:'KIA vs French: Play e4 e6 d3 Nd2 Ngf3 g3 Bg2 O-O Re1 e5 Nf1 h4 — the knight manoeuvre Nf1-Nh2-Ng4 combined with h4-h5 gives a crushing kingside attack while Black wastes time on the queenside.'},
+
+{id:'w_kia_sic',side:'White',level:'Repertoire',name:'KIA vs Sicilian',sub:"e4 c5 — same KIA setup, deadly attack",moves:[
+{san:'e4',hl:'1.e4',txt:'Same starting move every game.',why:'The beauty of the KIA: you play the SAME setup regardless of what Black does.'},
+{san:'c5',hl:'1...c5 — Sicilian Defence',txt:"Black plays the Sicilian — the most popular and aggressive response to e4. The KIA handles it beautifully.",why:'The Sicilian normally leads to sharp theory. The KIA sidesteps all that while building the same attack.'},
+{san:'Nf3',hl:'2.Nf3',txt:'Nf3 — develop and attack e5. Against the Sicilian we play Nf3 first, then d3.',why:'Nf3 before d3 is the move order against the Sicilian to avoid some tricky Black setups.'},
+{san:'e6',hl:'2...e6',txt:'Black plays e6 — solid, flexible.'},
+{san:'d3',hl:'3.d3 — KIA setup',txt:'d3 — the KIA pawn. Now the setup is identical to every other White game.',why:'d3 supports e4 and prepares the knight manoeuvre Nbd2-Nf3-g3-Bg2-O-O.'},
+{san:'Nc6',hl:'3...Nc6',txt:'Black develops the knight.'},
+{san:'g3',hl:'4.g3 — Fianchetto',txt:'g3 — same as always. The fianchetto bishop is coming.',why:'Identical to the French/Caro/Pirc KIA setups. You are building the same structure every time.'},
+{san:'d5',hl:'4...d5',txt:'Black stakes the centre with d5.'},
+{san:'Bg2',hl:'5.Bg2 — Dragon bishop',txt:'Bg2 — the fianchettoed bishop is in place.',why:'The Bg2 will dominate the long diagonal for the entire game.'},
+{san:'Nf6',hl:'5...Nf6',txt:'Black develops the knight, attacking e4.'},
+{san:'Nbd2',hl:'6.Nbd2',txt:'Both knights developed. The KIA setup is almost complete.',why:'Nd2 keeps the c-file clear and prepares to reroute to f1-g3 for the attack.'},
+{san:'Be7',hl:'6...Be7',txt:'Black develops, preparing to castle.'},
+{san:'O-O',hl:'7.0-0 — Castle',txt:'Castle! King safe, now attack.',why:'After castling, Re1-e5 starts the kingside assault.'},
+{san:'O-O',hl:'7...0-0',txt:'Black castles.'},
+{san:'Re1',hl:'8.Re1 — Support e5',txt:'Re1 prepares the critical e5 advance.',why:'Re1 is the KIA\'s most important move — supporting e5, the start of the kingside attack.'},
+{san:'b5',hl:'8...b5 — Queenside play',txt:'Black starts queenside counterplay. The race is on!',warn:'Black will try b4, c4 to attack your d3 pawn. Don\'t defend — attack faster on the kingside!'},
+{san:'e5',hl:'9.e5! — The KIA attack',txt:'e5! The knight must move. Your kingside attack begins.',why:'e5 is the trigger move. The Nf6 retreats, opening f4 for your knight. Now Nf1-Nh2-Ng4 follows.'},
+{san:'Nd7',hl:'9...Nd7',txt:'Knight retreats.'},
+{san:'Nf1',hl:'10.Nf1 — Knight rerouts',txt:'Nf1 — heading for h2 then g4.',why:'This is the identical knight manoeuvre from the French game. Same structure, same attack.'},
+{san:'Bb7',hl:'10...Bb7',txt:'Black develops the bishop.'},
+{san:'h4',hl:'11.h4! — Storm!',txt:'h4! Kingside attack begins.',why:'h4-h5 is the signature KIA attack. Force open lines against Black\'s king.'},
+{san:'a5',hl:'11...a5',txt:'Black continues queenside play.'},
+{san:'N1h2',hl:'12.N1h2',txt:'Knight to h2, heading for g4.',why:'Nh2-Ng4 targets h6 and supports h5.'},
+{san:'a4',hl:'12...a4',txt:'Black advances the a-pawn.'},
+{san:'Ng4',hl:'13.Ng4! — Perfect position',txt:'Ng4! Knight reaches its ideal square. h5 is coming, and the attack is unstoppable.',tip:'KIA vs Sicilian: exact same plan as vs French! e5-Nf1-Nh2-Ng4-h5. Black\'s queenside counterplay is almost always too slow. Play confidently — you know the plan.'}
+],summary:'KIA vs Sicilian: identical plan to the French. e5-Nf1-Nh2-Ng4-h4-h5 attacks the king while Black plays queenside. The beauty of the KIA is that you play the same 15 moves regardless of what Black does.'},
+
+{id:'w_kia_caro',side:'White',level:'Repertoire',name:'KIA vs Caro-Kann',sub:"e4 c6 — same setup, pawn lever on kingside",moves:[
+{san:'e4',hl:'1.e4',txt:'Same as always — e4.',why:'Every White game starts the same. This consistency is your biggest advantage.'},
+{san:'c6',hl:'1...c6 — Caro-Kann',txt:"The Caro-Kann — solid and very popular at club level. One of Black's best responses to e4.",warn:'The Caro is very solid. Don\'t try to refute it — the KIA gives you a great position without needing to know theory.'},
+{san:'d3',hl:'2.d3 — KIA',txt:'d3 — the KIA move. Against the Caro-Kann we play d3 immediately.',why:'d3 is flexible. It prepares Nd2, Ngf3, g3, Bg2, O-O — the complete KIA setup.'},
+{san:'d5',hl:'2...d5',txt:'Black advances in the centre.'},
+{san:'Nd2',hl:'3.Nd2',txt:'Knight to d2.',why:'Same as always — Nd2 keeps the c-file clear and prepares the Ngf3-g3-Bg2 setup.'},
+{san:'e5',hl:'3...e5',txt:"Black plays e5 — fighting for central space. Common in the Caro-Kann.",why:"After e5, White's plan changes slightly. We aim for Ngf3-g3-Bg2-O-O and then attack with f4."},
+{san:'Ngf3',hl:'4.Ngf3',txt:'Ngf3 — developing and preparing g3.',why:'Same move as always. The KIA pieces always go to the same squares.'},
+{san:'Nd7',hl:'4...Nd7',txt:'Black develops the knight to d7 — supporting e5.'},
+{san:'g3',hl:'5.g3',txt:'Fianchetto begins.',why:'g3-Bg2-O-O — the KIA backbone.'},
+{san:'Bc5',hl:'5...Bc5',txt:'Black develops the bishop aggressively.'},
+{san:'Bg2',hl:'6.Bg2',txt:'Dragon bishop in place!',why:'Bg2 completes the fianchetto. Now O-O and attack.'},
+{san:'Ngf6',hl:'6...Ngf6',txt:'Black develops the second knight.'},
+{san:'O-O',hl:'7.0-0',txt:'Castle — king safe.',why:'KIA principle: develop quickly and castle, then launch the attack.'},
+{san:'O-O',hl:'7...0-0',txt:'Black castles.'},
+{san:'Re1',hl:'8.Re1',txt:'Rook to e1 — supports e4 and prepares to advance.',why:'Re1 is the standard KIA rook move, supporting the central push.'},
+{san:'Re8',hl:'8...Re8',txt:'Black puts the rook on the semi-open file.'},
+{san:'c3',hl:'9.c3 — Solid',txt:'c3 — solidifying the centre and preparing d4 if needed.',why:'c3 gives extra support to d4 and creates a solid pawn structure. Your bishop on g2 is your real weapon.',tip:'KIA vs Caro-Kann: after O-O Re1 c3, push f4! when the opportunity arises. f4-f5 is the kingside break against the Caro. The fianchetto bishop supports the f4-f5 advance powerfully.'}
+],summary:'KIA vs Caro-Kann: same KIA setup — d3 Nd2 Ngf3 g3 Bg2 O-O Re1 c3. Then push f4-f5 for the kingside attack. The Dragon Bishop on g2 supports the f4-f5 advance.'},
+
+{id:'w_kia_pirc',side:'White',level:'Repertoire',name:'KIA vs Pirc/Modern',sub:"e4 d6/g6 — mirror KID structure",moves:[
+{san:'e4',hl:'1.e4',txt:'e4 — your move every game.',why:'Consistent opening play is a huge practical advantage.'},
+{san:'d6',hl:'1...d6 — Pirc/Modern',txt:"d6 — the Pirc Defence. Black will fianchetto with g6-Bg7 and counterattack later.",warn:'The Pirc gives White a free hand in the centre. Take space with d3-Nd2-Ngf3-g3-Bg2!'},
+{san:'d3',hl:'2.d3',txt:'d3 — KIA. Same as always.',why:'You are building a mirror image of what Black wants to do! Your fianchetto vs their fianchetto.'},
+{san:'Nf6',hl:'2...Nf6',txt:'Black develops the knight.'},
+{san:'Nd2',hl:'3.Nd2',txt:'Nd2.',why:'The KIA setup never changes. Nd2-Ngf3-g3-Bg2-O-O every single game.'},
+{san:'g6',hl:'3...g6',txt:"Black begins the fianchetto — the Pirc/King's Indian setup.",why:"Interesting! Both sides are playing a King's Indian structure. White's advantage: you have e4 already controlling the centre."},
+{san:'Ngf3',hl:'4.Ngf3',txt:'Ngf3 — same as every game.',why:'At this point you have played the same 4 moves as in every other game. This is the KIA beauty.'},
+{san:'Bg7',hl:'4...Bg7',txt:"Black's fianchetto bishop — the mirror of your Bg2!",warn:"Don't be scared of the Bg7. Your Bg2 is just as strong, and you have e4 giving you a space advantage."},
+{san:'g3',hl:'5.g3',txt:'g3 — you fianchetto too!',why:"Now it's a battle of the fianchetto bishops. But you have e4 giving extra space."},
+{san:'O-O',hl:'5...0-0',txt:'Black castles.'},
+{san:'Bg2',hl:'6.Bg2',txt:'Bg2 — your dragon bishop faces theirs.',why:'The Bg2 controls the long diagonal. In the central battle, your position with e4 gives you the edge.'},
+{san:'c5',hl:'6...c5',txt:'Black plays c5 — typical Pirc/Modern counterplay.'},
+{san:'O-O',hl:'7.0-0',txt:'Castle!',why:'Castle first, then attack. Never delay the king\'s safety.'},
+{san:'Nc6',hl:'7...Nc6',txt:'Black develops the knight.'},
+{san:'Re1',hl:'8.Re1',txt:'Re1 — rook to the semi-open e-file.',why:'Re1 prepares the e5 push. This is the identical KIA plan you use in every game.'},
+{san:'e5',hl:'8...e5',txt:'Black plays e5 — central counterplay.'},
+{san:'Nf1',hl:'9.Nf1 — Knight manoeuvre',txt:'Nf1! The knight begins its journey to g3 or e3.',why:'Nf1-Ng3 attacks Black\'s kingside. Alternatively Nf1-Ne3 targets d5.'},
+{san:'Ne7',hl:'9...Ne7',txt:'Black re-routes the knight.'},
+{san:'Ne3',hl:'10.Ne3 — Strong knight',txt:'Ne3! The knight is perfectly centralised — it controls d5 and supports c4 or f5.',tip:"KIA vs Pirc/Modern: mirror fianchetto battle! Your advantage is e4 giving space. Plan: Re1, push e5 or Ne3-d5, then f4-f5 kingside attack. The Bg2 supports the f4 advance beautifully."}
+],summary:'KIA vs Pirc/Modern: both sides fianchetto, but your e4 gives extra central space. After O-O Re1 Nf1-Ne3, attack with f4-f5 or centralise with Nd5.'},
+
+{id:'w_nf3_kia',side:'White',level:'Repertoire',name:'1.Nf3 — KIA Universal Setup',sub:"Start with Nf3 to reach KIA vs anything",moves:[
+{san:'Nf3',hl:'1.Nf3 — The universal move',txt:'1.Nf3 — the most flexible first move. It attacks e5, develops the knight, and lets you see what Black plays before committing.',why:'Nf3 reaches the KIA against EVERY Black setup. It also avoids sharp Sicilian/French theory if Black tries to be clever.'},
+{san:'d5',hl:'1...d5',txt:"Black plays d5 — staking central territory.",why:'After d5, you play g3-Bg2-O-O for a King\'s Indian Attack structure with an extra tempo.'},
+{san:'g3',hl:'2.g3 — Fianchetto immediately',txt:'g3 — you can fianchetto immediately after Nf3.',why:'Nf3 g3 Bg2 O-O d3 Nbd2 is the Réti/KIA hybrid. Very flexible.'},
+{san:'Nf6',hl:'2...Nf6',txt:'Black develops.'},
+{san:'Bg2',hl:'3.Bg2 — Fianchetto complete',txt:'Bg2 — the dragon bishop is in place in just 3 moves!',why:'You have Nf3 and Bg2 — the two key KIA pieces are ready. Castle next.'},
+{san:'e6',hl:'3...e6',txt:'Black plays e6 — solid.'},
+{san:'O-O',hl:'4.0-0 — Castle early',txt:'Castle on move 4! King is safe before you even play d3.',why:'Castling early with the fianchetto is a hallmark of strong positional play. King safety first.'},
+{san:'Be7',hl:'4...Be7',txt:'Black develops the bishop.'},
+{san:'d3',hl:'5.d3 — Complete the KIA',txt:'d3 — now we have the full KIA: Nf3 g3 Bg2 O-O d3.',why:'The KIA structure is complete. Now Nbd2 and Re1 and you are ready to play e4-e5 and attack.'},
+{san:'O-O',hl:'5...0-0',txt:'Black castles.'},
+{san:'Nbd2',hl:'6.Nbd2',txt:'Nbd2 — both knights developed.',why:'The KIA position is identical to every other game — Nf3, g3, Bg2, O-O, d3, Nbd2. You are home!'},
+{san:'c5',hl:'6...c5',txt:'Black plays c5.'},
+{san:'e4',hl:'7.e4! — Claim the centre',txt:'e4! Now you have the full KIA pawn chain: d3 and e4.',why:'e4 staked your central claim. Now Re1-e5-Nf1-h4 is the attacking plan you know well.'},
+{san:'Nc6',hl:'7...Nc6',txt:'Black develops.'},
+{san:'Re1',hl:'8.Re1',txt:'Rook to e1.',why:'Re1 prepares e5. Identical to every other KIA game.'},
+{san:'b5',hl:'8...b5',txt:'Black starts queenside play.'},
+{san:'e5',hl:'9.e5!',txt:'e5! The attack begins.',why:'You know this plan well. Nd7-Nf1-N1h2-Ng4-h4-h5. Same plan, different move order.'},
+{san:'Nd7',hl:'9...Nd7',txt:'Knight retreats.'},
+{san:'Nf1',hl:'10.Nf1',txt:'Knight reroutes.',why:'Nf1 begins the knight manoeuvre. Nh2-Ng4 coming.'},
+{san:'a5',hl:'10...a5',txt:'Black advances queenside pawns.'},
+{san:'h4',hl:'11.h4!',txt:'h4! Kingside storm.',why:'h4-h5 — same attack as always. You know exactly what to do.'},
+{san:'b4',hl:'11...b4',txt:'Black pushes.'},
+{san:'N1h2',hl:'12.N1h2',txt:'Nh2 — heading for g4.',why:'Nh2-Ng4 is the final piece of the attack.'},
+{san:'a4',hl:'12...a4',txt:'Black keeps pushing.'},
+{san:'Ng4',hl:'13.Ng4!',txt:'Ng4! Perfect square.',tip:"1.Nf3 KIA: You can start EVERY game with Nf3 and reach the same KIA position regardless of what Black plays. Against d4 players, they'll try to play a Queen's Gambit — just fianchetto and play KIA. Against e4 players who want the Sicilian — same KIA setup. Completely repertoire saves hours of theory!"}
+],summary:'1.Nf3 is the universal KIA start. Nf3 g3 Bg2 O-O d3 Nbd2 e4 Re1 — then the same kingside attack regardless of Black\'s setup. Perfect for players who want ONE system for White.'},
+
+{id:'b_kid_d4',side:'Black',level:'Repertoire',name:"King's Indian Defence vs 1.d4",sub:"Nf6 g6 Bg7 d6 e5 — the fianchetto counter",moves:[
+{san:'d4',hl:'1.d4',txt:"White plays d4 — Queen's Pawn. Your response: King's Indian Defence every time.",why:"The KID is one of the most powerful and aggressive defences to 1.d4. Kasparov and Fischer both used it."},
+{san:'Nf6',hl:'1...Nf6 — KID begins',txt:'Nf6 — develop the knight and attack e4 before it comes.',why:'Nf6 is the universal first move against d4. It controls e4 and prepares the KID setup.'},
+{san:'c4',hl:'2.c4',txt:"White plays c4 — Queen's Gambit setup.",warn:"Don't take on c4! That's the Queen's Gambit Accepted. Just keep building your KID setup."},
+{san:'g6',hl:'2...g6 — Fianchetto!',txt:'g6 — you are fianchettoing the bishop. This is the King\'s Indian.',why:'g6-Bg7-O-O is your compact fortress. The Bg7 will be your best piece for the whole game.'},
+{san:'Nc3',hl:'3.Nc3',txt:'White develops the knight.'},
+{san:'Bg7',hl:'3...Bg7 — The Dragon Bishop',txt:'Bg7 — your fianchetto bishop. It looks quiet now but will become deadly when you play e5-f5.',why:'The Bg7 controls the h8-a1 diagonal. After e5 and f5, it targets White\'s queenside and centre.'},
+{san:'e4',hl:'4.e4 — White takes space',txt:"White plays e4 — now they have pawns on c4, d4, and e4! Don't worry — this is exactly what the KID wants to fight.",warn:"White has a huge centre. Your plan: let them have it, then attack it with e5! The KID is designed to fight this."},
+{san:'d6',hl:'4...d6 — Solid base',txt:'d6 — supports e5 and keeps the position solid.',why:'d6 is essential — it supports the e5 advance which is your main counterplay.'},
+{san:'Nf3',hl:'5.Nf3',txt:'White develops.'},
+{san:'O-O',hl:'5...0-0 — Castle quickly',txt:'Castle! Your king is safe behind the fianchetto. Now you can counterattack freely.',why:'Castling early is crucial in the KID. Your king will be safe while you launch the e5-f5 attack.'},
+{san:'Be2',hl:'6.Be2',txt:'White develops the bishop — preparing to castle.'},
+{san:'e5',hl:'6...e5! — The key KID move',txt:'e5! This is THE critical KID move. You challenge White\'s centre directly.',why:'e5 forces White to choose: dxe5 (opening lines for your pieces) or d5 (closing the centre, which you attack with f5).'},
+{san:'O-O',hl:'7.0-0',txt:'White castles.'},
+{san:'Nc6',hl:'7...Nc6 — Develop and support e5',txt:'Nc6 — develops the knight and supports the e5 pawn.',why:'Nc6 reinforces e5 and prepares to jump to d4 if the centre closes.'},
+{san:'d5',hl:'8.d5 — White closes the centre',txt:"White plays d5 — closing the centre. This is the main KID tabiya. Now you know exactly what to do: attack on the kingside with Ne8-Nd7-f5!",why:"d5 tells you the plan: Ne8-Nd7-Nc5 on the queenside OR Ne8-f5-f4 kingside attack. Most common at your level: go kingside!"},
+{san:'Ne7',hl:'8...Ne7 — Reroute the knight',txt:'Ne7! The knight heads to d7 then c5, or more aggressively, supports the f5-f4 pawn storm.',why:'Ne7 clears c6 and prepares the knight manoeuvre. This is the standard KID regrouping.'},
+{san:'b4',hl:'9.b4 — White attacks queenside',txt:'White attacks queenside with b4. The famous KID race: your kingside vs their queenside.',warn:'This is a RACE. Don\'t defend against b4 — attack faster on the kingside. f5-f4-g5 is your plan.'},
+{san:'a5',hl:'9...a5 — Counter queenside',txt:'a5! Counter White\'s queenside before focusing on your kingside attack.',why:'a5 slows White\'s b4-b5 advance. After bxa5, your Ra5 will be active on the queenside while you attack kingside.'},
+{san:'bxa5',hl:'10.bxa5',txt:'White takes the pawn.'},
+{san:'Rxa5',hl:'10...Rxa5',txt:'Rook captures — now active on the a-file.',why:'Your rook is now active. You can switch it to the kingside via Ra8-Rf8 if needed.'},
+{san:'Nd2',hl:'11.Nd2',txt:'White manoeuvres.'},
+{san:'c5',hl:'11...c5 — Lock the queenside',txt:'c5! Fixes the queenside and prepares Nc6-Nd4 or Nc6-b4.',why:'c5 stops White\'s d5-d6 advance and gives your knight a great square on d4.'},
+{san:'a4',hl:'12.a4',txt:'White advances.'},
+{san:'Nd7',hl:'12...Nd7 — Knight manoeuvre',txt:'Nd7 — heading for c5 (queenside) or supporting f5 (kingside).',why:'Nd7-Nc5 is the queenside plan. Or Nd7-Nf6-Ne8-f5 is the kingside storm.'},
+{san:'Ne4',hl:'13.Ne4',txt:'White centralises.'},
+{san:'Ne8',hl:'13...Ne8! — Prepare f5',txt:'Ne8! The knight retreats to prepare the kingside storm with f5-f4-g5.',tip:"KID vs d4: your plan after d5 is Ne8-f5-f4-g5-h5 kingside storm. Don't get distracted by White's queenside play — your attack on the king comes first! The Bg7 fires down the diagonal once you push f4-g4."}
+],summary:"King's Indian vs d4: Nf6 g6 Bg7 d6 O-O e5. After d5, play Ne8-f5-f4-g5-h5 kingside storm. The Bg7 is your weapon. Never afraid of White's big centre — attack it with e5 and f5."},
+
+{id:'b_pirc_e4',side:'Black',level:'Repertoire',name:'Pirc/Modern vs 1.e4',sub:"g6 Bg7 d6 Nf6 — flexible fianchetto vs e4",moves:[
+{san:'e4',hl:'1.e4',txt:"White plays e4. Your Black response: g6 — the Modern/Pirc fianchetto setup.",why:'The Modern/Pirc against e4 mirrors your KID setup against d4. One system for Black against everything!'},
+{san:'g6',hl:'1...g6 — Universal setup',txt:'g6 — you are fianchettoing regardless of what White does.',why:'g6-Bg7-d6-Nf6-O-O is your complete setup. It works against e4, and the resulting structure is similar to your KID.'},
+{san:'d4',hl:'2.d4',txt:'White builds a big centre with d4.',warn:"Don't panic! This is what the Pirc/Modern wants — let White have the centre, then counterattack it."},
+{san:'Bg7',hl:'2...Bg7 — Dragon bishop',txt:'Bg7 — your fianchetto bishop. Same idea as the KID.',why:'The Bg7 is your best piece. It will dominate the long diagonal once you open the position.'},
+{san:'Nc3',hl:'3.Nc3',txt:'White develops the knight — standard.'},
+{san:'d6',hl:'3...d6 — Pirc setup',txt:'d6 — solid base, supports e5 later.',why:'d6 is the Pirc setup. It keeps the position solid and prepares e5.'},
+{san:'f4',hl:'4.f4 — Austrian Attack!',txt:"White plays f4 — the Austrian Attack! This is the sharpest line against the Pirc. White wants to build e4-d4-f4 and attack immediately.",warn:'f4 is White\'s most aggressive option. Your response: Nf6 immediately to counter in the centre.'},
+{san:'Nf6',hl:'4...Nf6 — Counter immediately',txt:'Nf6! Counter the centre before White builds it too big.',why:'Nf6 attacks e4. If White plays e5, Nf6-d5 gives you counterplay in the centre.'},
+{san:'Nf3',hl:'5.Nf3',txt:'White develops.'},
+{san:'O-O',hl:'5...0-0 — Castle quickly!',txt:'Castle! King safe behind the fianchetto.',why:'In the Pirc, castling early is vital. Your king will be safe and you can counterattack with c5 or e5.'},
+{san:'Be2',hl:'6.Be2',txt:'White develops the bishop.'},
+{san:'c5',hl:'6...c5! — Counterattack!',txt:'c5! Attack the d4 pawn immediately. This is your main counterplay in the Pirc.',why:'c5 forces White to commit. If dxc5, you take back with Nbd7xc5 and have good counterplay. If d5, you get KID-like structure.'},
+{san:'dxc5',hl:'7.dxc5',txt:"White takes. This opens lines — your Bg7 becomes very active!",why:'After dxc5 dxc5, the d-file opens and your Bg7 fires down the long diagonal.'},
+{san:'dxc5',hl:'7...dxc5',txt:'Recapture — open the d-file!',why:'The d-file is now open and your bishop is very active. Your position is already comfortable.'},
+{san:'e5',hl:'8.e5',txt:'White pushes e5 — trying to gain space.',warn:"e5 attacks your Nf6. Don't panic — play Nd5 and the knight is actually better on d5 than f6!"},
+{san:'Nd5',hl:'8...Nd5! — Knight to the ideal square',txt:'Nd5! The knight jumps to d5 — a wonderful centralised square.',why:'Nd5 is a great square. The knight controls c3, e3, f4, b4, c7. White cannot easily kick it.'},
+{san:'Nxd5',hl:'9.Nxd5',txt:'White takes the knight.'},
+{san:'Qxd5',hl:'9...Qxd5 — Queen active',txt:'Qxd5 — your queen enters the game.',why:'The queen on d5 is very active and White\'s e5 pawn may become a target.'},
+{san:'O-O',hl:'10.0-0',txt:'White castles.'},
+{san:'Nc6',hl:'10...Nc6 — Develop everything',txt:'Nc6 — last piece develops, attacks e5.',why:'Nc6 puts pressure on e5. Your position is very active with the queen on d5 and Bg7 firing.'},
+{san:'c3',hl:'11.c3',txt:'White defends.'},
+{san:'Bf5',hl:'11...Bf5! — Active bishop',txt:'Bf5! The bishop comes out aggressively, targeting e4.',tip:'Pirc/Modern vs e4: your plan is g6-Bg7-d6-Nf6-O-O, then c5 to hit the centre. The Bg7 becomes very active after c5-dxc5. Keep pieces active and attack White\'s centre. Very similar feel to the KID!'}
+],summary:'Pirc/Modern vs e4: g6 Bg7 d6 Nf6 O-O c5. Hit the centre with c5 early. After dxc5 dxc5, your Bg7 dominates. Against f4 Austrian Attack, play Nd5 to centralise. Same fianchetto principles as KID.'},
+
+{id:'b_vs_d4_london',side:'Black',level:'Repertoire',name:"KID vs London/Queen's Pawn",sub:"Nf6 g6 Bg7 — beat the London with fianchetto",moves:[
+{san:'d4',hl:'1.d4',txt:"White plays d4. Build the KID.",why:'Same as always — Nf6 g6 Bg7 d6 O-O e5.'},
+{san:'Nf6',hl:'1...Nf6',txt:'Nf6.',why:'Universal first move vs d4.'},
+{san:'Nf3',hl:'2.Nf3 — London setup',txt:"White plays Nf3 — heading for the London System (Nf3 Bf4 e3).",warn:"The London is very solid and popular at club level. Your KID fianchetto handles it well."},
+{san:'g6',hl:'2...g6',txt:'g6 — fianchetto!',why:'Same setup as always. Nf6 g6 Bg7 O-O d6 e5.'},
+{san:'Bf4',hl:'3.Bf4 — London bishop',txt:"White's London bishop comes to f4.",warn:"The Bf4 is White's key London piece. Your plan: play c5 to attack d4, or e5 directly. The London bishop will be poorly placed after e5."},
+{san:'Bg7',hl:'3...Bg7',txt:'Bg7.',why:'Dragon bishop in place.'},
+{san:'e3',hl:'4.e3',txt:'White plays e3 — solidifying.'},
+{san:'O-O',hl:'4...0-0 — Castle!',txt:'Castle early.',why:'KID principle — castle quickly, then attack.'},
+{san:'Be2',hl:'5.Be2',txt:'White develops.'},
+{san:'d6',hl:'5...d6',txt:'d6 — solid.',why:'d6 supports e5 and keeps the structure solid.'},
+{san:'O-O',hl:'6.0-0',txt:'White castles.'},
+{san:'Nbd7',hl:'6...Nbd7',txt:'Nbd7 — both knights developed.',why:'Nbd7 supports e5 and prepares c5 or e5.'},
+{san:'h3',hl:'7.h3',txt:"White plays h3 — preventing Bg4. Common London move.",why:'h3 takes away g4 from your pieces. This is fine — just play e5.'},
+{san:'e5',hl:'7...e5! — Challenge the centre',txt:'e5! Attack the d4 pawn directly. This is the key move.',why:'e5 forces White to react. After dxe5 dxe5, the d-file opens. After d5, you get the KID kingside attack.'},
+{san:'dxe5',hl:'8.dxe5',txt:'White takes — opening the d-file.',why:'After dxe5 dxe5, you have open lines and your Bg7 is very active.'},
+{san:'dxe5',hl:'8...dxe5',txt:'Recapture with the pawn.',why:'Open d-file benefits you — your rook will come to d8 with tempo.'},
+{san:'Bg3',hl:'9.Bg3',txt:"White's London bishop retreats.",why:"After e5 the Bf4 becomes awkward. It retreats to g3 where it's passive."},
+{san:'Re8',hl:'9...Re8',txt:'Re8 — supports e5 and eyes e3.',why:'Re8 supports the e5 pawn and prepares to activate the rook on the e-file.'},
+{san:'Nc3',hl:'10.Nc3',txt:'White develops.'},
+{san:'c6',hl:'10...c6',txt:'c6 — solid, prepares Qb6 or d5.',why:'c6 gives the queen a good outpost and prepares counterplay on the queenside.'},
+{san:'Qd2',hl:'11.Qd2',txt:'White centralises the queen.'},
+{san:'Nf8',hl:'11...Nf8! — Classic KID manoeuvre',txt:'Nf8! The knight heads to g6-h4 or e6 — the classic KID regrouping manoeuvre.',tip:"KID vs London: your plan is e5, then Nf8-Ng6/Nh4 kingside attack. The Bg7 supports everything. After e5 dxe5 dxe5, White's London bishop is misplaced and your position is very active."}
+],summary:"KID vs London: Nf6 g6 Bg7 O-O d6 Nbd7 e5. Hit the London with e5 — the Bf4 becomes passive. Then Nf8-Ng6 kingside attack."},
+
+{id:'b_vs_english',side:'Black',level:'Repertoire',name:"KID vs English Opening (1.c4)",sub:"e5 or Nf6 g6 — familiar fianchetto structure",moves:[
+{san:'c4',hl:'1.c4 — English Opening',txt:"White plays c4 — the English Opening. Flexible and positional.",why:"The English often transposes to other openings. Your response: e5 for an aggressive reversed Sicilian, or Nf6 g6 for KID structure."},
+{san:'e5',hl:'1...e5! — Reversed Sicilian',txt:"e5! Staking the centre immediately. This gives a 'reversed Sicilian' where you have extra tempo.",why:"After c4 e5, you effectively have a Sicilian with Black but White can't punish you the same way because they played c4 instead of e4."},
+{san:'Nc3',hl:'2.Nc3',txt:'White develops.'},
+{san:'Nf6',hl:'2...Nf6',txt:'Nf6 — develop and attack.',why:'Nf6 develops and controls d5, preparing the KID-like setup.'},
+{san:'g3',hl:'3.g3 — White fianchettoes',txt:"White fianchettoes — common in the English.",warn:"If White fianchettoes too, your response is simple: Nf6 g6 Bg7 — your fianchetto vs theirs, but you have the e5 pawn giving you more central space."},
+{san:'Nc6',hl:'3...Nc6',txt:'Nc6 — develops and supports e5.',why:'Nc6 reinforces e5 and prepares d5 or Be7-O-O.'},
+{san:'Bg2',hl:'4.Bg2',txt:'White\'s fianchetto complete.'},
+{san:'g6',hl:'4...g6! — Fianchetto too!',txt:'g6 — you also fianchetto! Now it\'s a battle of the dragon bishops.',why:'Your Bg7 will control h8-a1 diagonal. With e5 already played, you have more central space.'},
+{san:'Nf3',hl:'5.Nf3',txt:'White develops.'},
+{san:'Bg7',hl:'5...Bg7',txt:'Bg7 — your dragon bishop is in place!',why:'The two fianchetto bishops face each other. This is a typical English battle.'},
+{san:'O-O',hl:'6.0-0',txt:'White castles.'},
+{san:'O-O',hl:'6...0-0 — Castle!',txt:'Castle! Both kings safe.',why:'Castle early in the English — the game becomes positional and your Bg7 will dominate.'},
+{san:'d3',hl:'7.d3',txt:'White plays d3 — KIA-like setup.',why:'After d3, White has a reversed KIA. Your e5 gives you the space advantage.'},
+{san:'d6',hl:'7...d6',txt:'d6 — solid base.',why:'d6 supports e5 and prepares f5 or Nd7 manoeuvre.'},
+{san:'a3',hl:'8.a3',txt:'White prepares b4.'},
+{san:'Be6',hl:'8...Be6',txt:'Be6 — develop the bishop actively.',why:'Be6 controls d5 and prepares Qd7, Bh3 ideas.'},
+{san:'Rb1',hl:'9.Rb1',txt:'White prepares b4.'},
+{san:'Qd7',hl:'9...Qd7',txt:'Qd7 — useful multi-purpose move.',why:'Qd7 prepares Bh3 exchange or Nd4 jump, and keeps the position complex.'},
+{san:'Nd2',hl:'10.Nd2',txt:'White manoeuvres.'},
+{san:'Nd4',hl:'10...Nd4! — Ideal central square',txt:'Nd4! Your knight reaches the perfect central square.',tip:"KID vs English: play e5 immediately on move 1, then Nf6 Nc6 g6 Bg7 O-O d6. Your e5 gives you more central space than White despite them having c4. The Nd4 jump is a typical strong KID manoeuvre. Keep pieces active and use the Bg7 diagonal."}
+],summary:"KID vs English: 1...e5! then Nf6 Nc6 g6 Bg7 O-O d6. Your e5 gives central space advantage. Nd4 is a key square. Fianchetto bishop battle where your e5 tips the balance."}
 
 ];
 // ── QUICK MATES ────────────────────────────────────────────────────
@@ -3978,13 +4217,20 @@ function schedClose(id) { timers[id] = setTimeout(() => { document.getElementByI
 function cancelClose(id) { clearTimeout(timers[id]); }
 function toggleDD(id) {
   const m = document.getElementById('menu-' + id);
-  if (m.classList.contains('open')) { schedClose(id); } else { ['w','b','q','bird'].forEach(x => { if (x !== id) schedClose(x); }); openDD(id); }
+  if (m.classList.contains('open')) { schedClose(id); } else { ['w','b','q','bird','rep'].forEach(x => { if (x !== id) schedClose(x); }); openDD(id); }
 }
-function closeAllDD() { ['w','b','q','bird'].forEach(id => { document.getElementById('menu-' + id).classList.remove('open'); document.getElementById('btn-' + id).classList.remove('open'); }); }
+function closeAllDD() { ['w','b','q','bird','rep'].forEach(id => {
+    const el = document.getElementById('menu-' + id);
+    if (el) el.classList.remove('open');
+    const btn = document.getElementById('btn-' + id);
+    if (btn) btn.classList.remove('open');
+  });
+}
 
 function buildDropdowns() {
-  const bySection = {w: [], b: [], q: [], bird: []};
+  const bySection = {w: [], b: [], q: [], bird: [], rep: []};
   TRAPS.forEach(t => {
+    if (t.level === 'Repertoire') { bySection.rep.push(t); return; }
     const key = t.side === 'Bird' ? 'bird' : t.side === 'White' ? 'w' : 'b';
     bySection[key].push(t);
   });
@@ -4016,9 +4262,24 @@ function buildDropdowns() {
 
   ['w','b','q','bird'].forEach(key => {
     const container = document.getElementById('dd-' + key + '-items');
+    if (!container) return;
     container.innerHTML = '';
     bySection[key].forEach(t => container.appendChild(makeItem(t, key)));
   });
+  // Repertoire section
+  const repContainer = document.getElementById('dd-rep-items');
+  if (repContainer) {
+    repContainer.innerHTML = '';
+    const repWhite = bySection.rep.filter(t => t.side === 'White');
+    const repBlack = bySection.rep.filter(t => t.side === 'Black');
+    function repHdr(txt) {
+      const h = document.createElement('div');
+      h.style.cssText = 'font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);font-weight:700;padding:8px 14px 4px';
+      h.textContent = txt; return h;
+    }
+    if (repWhite.length) { repContainer.appendChild(repHdr('♔ With White')); repWhite.forEach(t => repContainer.appendChild(makeItem(t,'rep'))); }
+    if (repBlack.length) { repContainer.appendChild(repHdr('♚ With Black')); repBlack.forEach(t => repContainer.appendChild(makeItem(t,'rep'))); }
+  }
 }
 
 // Quick mate loader
