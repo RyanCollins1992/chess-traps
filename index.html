@@ -75,7 +75,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .trap-sub{font-size:12px;color:var(--muted);margin-top:3px}
 
 /* BOARD LAYOUT */
-.study-layout{display:flex;gap:14px;align-items:flex-start;min-width:0;overflow:hidden}
+.study-layout{display:flex;gap:14px;align-items:flex-start;min-width:0}
 @media(max-width:900px){.study-layout{flex-direction:column;align-items:stretch}}
 .board-col{flex-shrink:0;display:flex;flex-direction:column;gap:8px;align-items:center;min-width:0}
 .board-outer{display:inline-flex;flex-direction:column;gap:2px}
@@ -1177,7 +1177,6 @@ body { display:flex; flex-direction:column; }
   margin-left:230px;
   min-height:calc(100vh - 52px);
   transition:margin-left .25s cubic-bezier(.4,0,.2,1);
-  overflow-x:hidden;
   min-width:0;
 }
 
@@ -1239,7 +1238,7 @@ body.sidebar-collapsed .main-content { margin-left:0; }
 *, *::before, *::after { box-sizing: border-box; }
 
 /* Prevent any page from overflowing main-content */
-[id$="-page"] { min-width: 0; overflow-x: hidden; }
+[id$="-page"] { min-width: 0; }
 
 /* Study layout: board + right panel, properly constrained */
 .study-page,
@@ -1710,8 +1709,8 @@ body {
   padding: 0;
   display: flex;
   position: sticky;
-  top: 50px;
-  z-index: 180;
+  top: 52px;
+  z-index: 500;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -1817,6 +1816,15 @@ body {
 .dd-item:hover { background: rgba(42,157,143,.1); color: #fff; }
 .dd-item.cur   { background: rgba(42,157,143,.15); color: #4dbfb0; }
 .dd-item:last-child { border-bottom: none; }
+
+/* ══ DROPDOWN OVERFLOW FIX ══════════════════════════════════ */
+/* Dropdowns need to escape their containers */
+.subnav { overflow: visible !important; }
+.dd-wrap { overflow: visible !important; }
+[id$="-page"] { overflow: visible !important; }
+.study-layout { overflow: visible !important; }
+.main-content { overflow-x: clip; } /* clip not hidden — allows dropdowns to show */
+
 </style>
 </head>
 <body>
@@ -1927,9 +1935,7 @@ body {
 <!-- ══════════════════════════════════════════════════
      STUDY MODE
 ══════════════════════════════════════════════════ -->
-<div id="study-page" class="active" style="display:block">
-  <!-- Sub-nav dropdowns -->
-  <div class="subnav">
+<div class="subnav">
     <div class="dd-wrap">
       <button class="dd-btn" id="btn-w" onclick="toggleDD('w')" onmouseenter="openDD('w')" onmouseleave="schedClose('w')">
         <span class="dd-tab-label">White</span>
@@ -1968,6 +1974,9 @@ body {
       <div class="dd-menu" id="menu-rep"><div id="dd-rep-items"></div></div>
     </div>
   </div>
+<div id="study-page" class="active" style="display:block">
+  <!-- Sub-nav dropdowns -->
+  
 
   <!-- Search box -->
   <div style="max-width:960px;margin:0 auto;padding:0 12px" id="study-search-container">
