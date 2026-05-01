@@ -1195,6 +1195,32 @@ body.sidebar-collapsed .main-content { margin-left:0; }
   color:var(--muted); font-size:16px; cursor:pointer;
 }
 
+
+/* ═══ OPPONENT COUNTER CARDS ══════════════════════════════ */
+.counter-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.counter-card:hover{background:var(--bg3);border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.counter-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.counter-card.vs-white::before{background:#aaaaff}
+.counter-card.vs-black::before{background:var(--accent)}
+.counter-card-badge{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:700;display:inline-flex;align-items:center;gap:4px;margin-bottom:7px}
+.cc-badge-white{background:rgba(170,170,255,.15);color:#aaaaff;border:1px solid rgba(170,170,255,.3)}
+.cc-badge-black{background:rgba(90,153,16,.12);color:var(--accent2);border:1px solid rgba(90,153,16,.25)}
+.counter-card-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+.counter-card-why{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:8px}
+.counter-card-moves{font-size:11px;color:var(--dim);font-family:monospace;background:var(--bg3);border-radius:5px;padding:4px 8px;margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.counter-card-actions{display:flex;gap:6px}
+.cc-btn{padding:6px 12px;border-radius:7px;border:none;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .12s;white-space:nowrap}
+.cc-btn-primary{background:var(--accent);color:#fff}
+.cc-btn-primary:hover{background:#6ab020}
+.cc-btn-secondary{background:var(--bg3);border:1px solid var(--border2);color:var(--muted)}
+.cc-btn-secondary:hover{border-color:var(--accent);color:var(--accent2)}
+.opp-colour-section{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);font-weight:700;padding:6px 0 4px;display:flex;align-items:center;gap:6px}
+.opp-colour-section::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Counter coach overlay enhancements */
+.cc-opp-move{display:inline-block;font-family:monospace;font-size:14px;font-weight:700;color:var(--warn);background:rgba(220,60,60,.1);border:1px solid rgba(220,60,60,.25);padding:2px 8px;border-radius:5px;margin:2px}
+.cc-your-move{display:inline-block;font-family:monospace;font-size:14px;font-weight:700;color:var(--accent2);background:rgba(90,153,16,.1);border:1px solid rgba(90,153,16,.25);padding:2px 8px;border-radius:5px;margin:2px}
+
 </style>
 </head>
 <body>
@@ -1898,14 +1924,67 @@ body.sidebar-collapsed .main-content { margin-left:0; }
         <div class="opponent-opening-list" id="opp-black-openings"></div>
       </div>
     </div>
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">🎯 Recommended Traps Against Them</div>
-    <div id="opp-trap-suggestions"></div>
+    <!-- Counter traps — split by colour -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px" id="opp-counter-cols">
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#aaaaff;margin-bottom:8px">⚔️ When They Play White</div>
+        <div id="opp-counter-white"></div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">🛡 When They Play Black</div>
+        <div id="opp-counter-black"></div>
+      </div>
+    </div>
     <div class="opponent-card" id="opp-ai-report" style="margin-top:10px;display:none">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coach2);margin-bottom:8px">🤖 AI Scout Report</div>
       <div id="opp-ai-text" style="font-size:13px;color:var(--muted);line-height:1.7"></div>
     </div>
   </div>
 </div>
+</div>
+
+<!-- COUNTER COACH OVERLAY -->
+<div class="review-overlay" id="counter-coach-overlay" style="display:none">
+  <div class="review-modal" style="max-width:780px">
+    <div class="review-hdr">
+      <h3 id="cc-title">Counter Coach</h3>
+      <div style="flex:1;margin-left:12px;font-size:12px;color:var(--muted)" id="cc-subtitle"></div>
+      <button class="review-close" onclick="closeCounterCoach()">✕</button>
+    </div>
+    <div class="review-body" style="display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap">
+      <div class="board-col" style="flex-shrink:0">
+        <div class="board-outer">
+          <div class="b-row">
+            <div class="rank-col" id="cc-rank-col"></div>
+            <div class="board-wrap">
+              <div class="board" id="cc-board"></div>
+              <svg class="arr-layer" id="cc-arr-layer" viewBox="0 0 416 416"></svg>
+            </div>
+          </div>
+          <div class="file-row" id="cc-file-row"></div>
+        </div>
+        <div class="notation" id="cc-notation" style="margin-top:8px"></div>
+      </div>
+      <div style="flex:1;min-width:220px;display:flex;flex-direction:column;gap:10px">
+        <div class="eg-task-card" id="cc-coach-card">
+          <div class="eg-task-title" id="cc-coach-title">Opponent plays…</div>
+          <div class="eg-task-sub" id="cc-coach-body" style="margin-top:6px;line-height:1.7"></div>
+          <div class="eg-feedback info" id="cc-feedback" style="display:none;margin-top:8px"></div>
+        </div>
+        <div class="turn-bar">
+          <div class="turn-dot white" id="cc-turn-dot"></div>
+          <div class="turn-text" id="cc-turn-text">Your turn</div>
+          <div class="turn-phase" id="cc-turn-phase"></div>
+        </div>
+        <div class="puzzle-actions">
+          <button class="puzzle-btn puzzle-btn-primary" id="cc-hint-btn" onclick="ccHint()">💡 Hint</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="ccRestart()">↺ Restart</button>
+          <button class="puzzle-btn puzzle-btn-secondary" onclick="ccNextExample()">→ Next Example</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);line-height:1.6;padding:10px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px" id="cc-trap-summary"></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ TRAP BATTLE ═════════════════════════════════════════ -->
@@ -7919,14 +7998,18 @@ async function opponentProfile() {
       suggestions.push({ id:'b5', name:'Blackburne-Shilling Gambit', why:'Great surprise weapon at club level' });
     }
 
-    const sugEl = document.getElementById('opp-trap-suggestions');
-    sugEl.innerHTML = suggestions.map(s =>
-      `<div class="trap-suggestion-card" onclick="jumpToTrap('${s.id}');switchMode('study')">
-        <div class="trap-sug-title">📖 ${s.name}</div>
-        <div class="trap-sug-why">${s.why}</div>
-        <div style="font-size:10px;color:var(--accent);margin-top:6px">Click to study →</div>
-      </div>`
-    ).join('');
+    // Get counter traps based on opponent tendencies
+    const { whiteCounters, blackCounters } = getCounterTraps(topWhite, topBlack, games, username);
+
+    // Render split by colour
+    renderCounterCards(
+      whiteCounters, 'opp-counter-white', 'vs-white', 'cc-badge-white',
+      '♔ They play White — you play Black'
+    );
+    renderCounterCards(
+      blackCounters, 'opp-counter-black', 'vs-black', 'cc-badge-black',
+      '♚ They play Black — you play White'
+    );
 
     // AI scout report
     if (apiKey && games.length > 0) {
@@ -8735,6 +8818,519 @@ function updateTopbarElo() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeSidebar();
 });
+
+
+// ══════════════════════════════════════════════════════════════════
+// OPPONENT COUNTER SYSTEM
+// ══════════════════════════════════════════════════════════════════
+
+// Mapping: opponent opening patterns → counter traps with their ACTUAL moves
+// Each entry has: trap ID, which colour you play, typical opponent moves,
+// your counter moves, and coaching notes per move
+const COUNTER_DATABASE = {
+
+  // ── WHEN OPPONENT PLAYS WHITE ──────────────────────────────────
+  'e4_generic': {
+    trapId: 'b5', oppColour: 'w', yourColour: 'b',
+    title: 'Blackburne-Shilling vs 1.e4',
+    why: "They play 1.e4 every game — hit them with Nd4 after Bc4",
+    oppMoves: ['e4','e5','Nc3','Nf6','Bc4'],
+    dialogue: [
+      { after:'e4',   side:'opp', txt:"They open with e4 — your plan: e5 to mirror, then lure them into Bc4.", move:'e5' },
+      { after:'Nc3',  side:'opp', txt:"Nc3 develops the knight. They're building toward the Italian or Vienna.", move:'Nf6' },
+      { after:'Bc4',  side:'opp', txt:"Bc4! — the trap is set. They're aiming at f7 but you have a MUCH better idea.", move:'Nd4' },
+      { after:'Nd4',  side:'you', txt:"Nd4!! The Blackburne-Shilling Gambit. You attack Nf3 AND threaten Nxc2 fork. They almost always take Nxe5...", move:null },
+    ],
+    hint: 'Play Nd4! — if they take with Nxe5, you play Qg5 attacking the knight AND g2 simultaneously.',
+    summary: 'After 1.e4 e5 2.Nc3 Nf6 3.Bc4 Nd4! — if 4.Nxe5?? Qg5! forks the knight and g2. They lose material.'
+  },
+
+  'e4_italian': {
+    trapId: 'b5', oppColour: 'w', yourColour: 'b',
+    title: 'Counter the Italian Game',
+    why: "They favour the Italian — use Blackburne-Shilling or Evan's Gambit trap",
+    oppMoves: ['e4','e5','Nf3','Nc6','Bc4','Nf6'],
+    dialogue: [
+      { after:'e4',   side:'opp', txt:"1.e4 — this opponent plays the Italian. You know what's coming: Nf3, Nc3/Nc4.", move:'e5' },
+      { after:'Nf3',  side:'opp', txt:"Nf3 — developing and attacking your e5 pawn. Develop your knight.", move:'Nc6' },
+      { after:'Bc4',  side:'opp', txt:"Bc4 — the Italian bishop. They want to play d3/d4 or attack f7. Play Nf6 to fight back.", move:'Nf6' },
+      { after:'Nf6',  side:'you', txt:"Now wait for their next move. If they play Ng5 (Fried Liver!), you have a special response. If d3/d4, it's solid play.", move:null },
+    ],
+    hint: 'If they play Ng5 after Bc4 Nf6, play d5! — accepting the challenge gives you counterplay.',
+    summary: 'vs Italian: Nc6 Nf6 gives solid counterplay. After Bc4 Nf6 Ng5 d5! you fight back strongly in the centre.'
+  },
+
+  'e4_vienna': {
+    trapId: 'b5', oppColour: 'w', yourColour: 'b',
+    title: 'Counter the Vienna Game',
+    why: "They play Nc3 before Nf3 — the Vienna. Perfect for Blackburne-Shilling.",
+    oppMoves: ['e4','e5','Nc3','Nf6','Bc4','Nd4'],
+    dialogue: [
+      { after:'e4',   side:'opp', txt:"1.e4 — this player uses the Vienna (Nc3 before Nf3).", move:'e5' },
+      { after:'Nc3',  side:'opp', txt:"Nc3 — Vienna! They haven't committed to Nf3 yet. Perfect for the trap.", move:'Nf6' },
+      { after:'Bc4',  side:'opp', txt:"Bc4 — the Italian bishop. NOW is the moment!", move:'Nd4' },
+      { after:'Nd4',  side:'you', txt:"Nd4!! The Blackburne-Shilling. They MUST deal with the Nf3 attack AND Nxc2 fork threat. They almost certainly blunder here at club level.", move:null },
+    ],
+    hint: 'After Nd4, if they play Nxe5? play Qg5! — two pieces hanging.',
+    summary: 'Vienna + Bc4 = perfect Blackburne-Shilling setup. Nd4!! forces them to choose between two disasters.'
+  },
+
+  'd4_london': {
+    trapId: 'b_budapest', oppColour: 'w', yourColour: 'b',
+    title: 'Budapest Gambit vs London/d4',
+    why: "They play d4 and London — hit them with Budapest Gambit (d4 Nf6 c4 e5!!)",
+    oppMoves: ['d4','Nf6','c4','e5'],
+    dialogue: [
+      { after:'d4',   side:'opp', txt:"1.d4 — this opponent plays Queen's Pawn. Your plan: Nf6 then watch for c4.", move:'Nf6' },
+      { after:'c4',   side:'opp', txt:"c4! They've entered Queen's Gambit territory. NOW play e5!! — the Budapest Gambit. Completely unexpected!", move:'e5' },
+      { after:'e5',   side:'you', txt:"e5!! The Budapest Gambit. You GIVE UP a pawn to get rapid piece development and attack. They almost always take with dxe5...", move:null },
+    ],
+    hint: 'After c4 e5!! dxe5, play Ng4 — attacking the e5 pawn and setting up Bc5 or Qe7 with huge activity.',
+    summary: 'Budapest Gambit: d4 Nf6 c4 e5!! dxe5 Ng4 — you regain the pawn with activity. London players are completely unprepared for this!'
+  },
+
+  'd4_queens_gambit': {
+    trapId: 'b_qid', oppColour: 'w', yourColour: 'b',
+    title: "KID vs Queen's Gambit",
+    why: "They play d4 c4 — use the King's Indian Defence: Nf6 g6 Bg7 d6 O-O e5",
+    oppMoves: ['d4','Nf6','c4','g6','Nc3','Bg7','e4','d6'],
+    dialogue: [
+      { after:'d4',   side:'opp', txt:"1.d4 — they play the Queen's Pawn. Build the King's Indian: Nf6 g6 Bg7 d6 O-O e5.", move:'Nf6' },
+      { after:'c4',   side:'opp', txt:"c4 — the Queen's Gambit. Don't take it! Play g6 and build your KID.", move:'g6' },
+      { after:'Nc3',  side:'opp', txt:"Nc3 developing. Continue the KID setup — fianchetto the bishop.", move:'Bg7' },
+      { after:'e4',   side:'opp', txt:"e4 — they have a big centre. Perfect! Castle and then e5 to challenge it.", move:'d6' },
+      { after:'d6',   side:'you', txt:"Solid base. Castle next, then e5 to challenge their big centre. The KID is designed to FIGHT this pawn centre.", move:null },
+    ],
+    hint: 'After castling, play e5! — force them to commit the centre. After d5, your plan is Ne8-f5-f4 kingside attack.',
+    summary: "KID vs Queen's Gambit: Nf6 g6 Bg7 d6 O-O then e5. The Bg7 attacks the centre, and f5-f4 is a crushing kingside storm."
+  },
+
+  // ── WHEN OPPONENT PLAYS BLACK ──────────────────────────────────
+  'opp_plays_e5': {
+    trapId: 'w1', oppColour: 'b', yourColour: 'w',
+    title: 'Fried Liver vs 1...e5',
+    why: "They always play e5 as Black — set the Italian and go for Fried Liver",
+    oppMoves: ['e5','Nc6','Nf6','Bc5'],
+    yourMoves: ['e4','Nf3','Bc4','Ng5'],
+    dialogue: [
+      { after:'e4',   side:'you', txt:"You play e4. They ALWAYS respond with e5.", move:'e5' },
+      { after:'e5',   side:'opp', txt:"e5 — exactly as expected! Now Nf3 to develop and attack e5.", move:'Nf3' },
+      { after:'Nf3',  side:'you', txt:"Nf3 attacks e5. They'll develop the knight to c6 to defend.", move:'Nc6' },
+      { after:'Bc4',  side:'you', txt:"Bc4 — Italian bishop targeting f7. They'll likely play Nf6 now.", move:'Nf6' },
+      { after:'Nf6',  side:'opp', txt:"Nf6 — Two Knights Defence. NOW Ng5! — the Fried Liver begins!", move:'Ng5' },
+      { after:'Ng5',  side:'you', txt:"Ng5!! Both bishop AND knight aim at f7. After d5, play exd5 Nxd5 Nxf7!! — the Fried Liver sacrifice!", move:null },
+    ],
+    hint: 'After Ng5 d5 exd5 Nxd5, play Nxf7!! — sacrifice the knight for a devastating attack on the exposed king.',
+    summary: 'Fried Liver: e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7!! — the king is dragged out. They rarely survive.'
+  },
+
+  'opp_plays_sicilian': {
+    trapId: 'w_kia_sic', oppColour: 'b', yourColour: 'w',
+    title: 'KIA vs Sicilian',
+    why: "They always play the Sicilian — use the KIA for a safe, attacking game",
+    oppMoves: ['c5','e6','Nc6','d5','Nf6','Be7','O-O'],
+    yourMoves: ['e4','Nf3','d3','g3','Bg2','Nbd2','O-O','Re1'],
+    dialogue: [
+      { after:'e4',   side:'you', txt:"e4 — you play KIA every game. They respond with c5 — Sicilian!", move:'c5' },
+      { after:'c5',   side:'opp', txt:"c5 — Sicilian. Don't go into mainlines. Play Nf3 then d3 — the KIA!", move:'Nf3' },
+      { after:'Nf3',  side:'you', txt:"Nf3 — developing and avoiding Sicilian theory.", move:'e6' },
+      { after:'d3',   side:'you', txt:"d3 — the KIA move. This signals your plan: fianchetto, castle, then attack.", move:'Nc6' },
+      { after:'g3',   side:'you', txt:"g3 — fianchetto begins! The bishop goes to g2 and dominates the long diagonal.", move:'d5' },
+      { after:'Bg2',  side:'you', txt:"Bg2 — your Dragon Bishop. From here it controls h1-a8 for the WHOLE game.", move:'Nf6' },
+      { after:'O-O',  side:'you', txt:"Castle! King safe. Now Re1 then e5 and the kingside storm begins.", move:'Be7' },
+      { after:'Re1',  side:'you', txt:"Re1 — ready for e5! This is the KIA attacking move. After e5, Nd7 retreats and Nf1-Nh2-Ng4-h4-h5 crushes them.", move:'O-O' },
+      { after:'O-O',  side:'opp', txt:"They've castled too. NOW play e5! — the attack starts!", move:null },
+    ],
+    hint: 'After Re1, play e5! Then the knight goes Nf1-Nh2-Ng4 and h4-h5 is the pawn storm. They cannot stop it.',
+    summary: 'KIA vs Sicilian: e4 c5 Nf3 d3 g3 Bg2 O-O Re1 e5 — identical attack every game. Nf1-Nh2-Ng4-h4-h5.'
+  },
+
+  'opp_plays_french': {
+    trapId: 'w_kia_french', oppColour: 'b', yourColour: 'w',
+    title: 'KIA vs French Defence',
+    why: "They play the French (e6) — use the KIA: same plan as always",
+    oppMoves: ['e6','d5','Nf6','c5','Nc6','Be7','O-O'],
+    yourMoves: ['e4','d3','Nd2','Ngf3','g3','Bg2','O-O','Re1'],
+    dialogue: [
+      { after:'e4',   side:'you', txt:"e4 — your move every game. They play e6 — the French Defence!", move:'e6' },
+      { after:'e6',   side:'opp', txt:"e6 — French! They want d5 to fight for the centre. Play d3 — KIA!", move:'d3' },
+      { after:'d3',   side:'you', txt:"d3 — the KIA setup starts. Nd2 next to keep the c-file clear.", move:'d5' },
+      { after:'Nd2',  side:'you', txt:"Nd2 — both knights will come out. Ngf3 next.", move:'Nf6' },
+      { after:'Ngf3', side:'you', txt:"Ngf3 — all four pieces ready. g3 to begin the fianchetto.", move:'c5' },
+      { after:'g3',   side:'you', txt:"g3 — fianchetto! Bg2 completes it.", move:'Nc6' },
+      { after:'Bg2',  side:'you', txt:"Bg2 — Dragon Bishop in place! Castle now.", move:'Be7' },
+      { after:'O-O',  side:'you', txt:"Castle! King safe. Re1 prepares e5.", move:'O-O' },
+      { after:'Re1',  side:'you', txt:"Re1 — everything is ready. e5! launches the kingside attack.", move:null },
+    ],
+    hint: 'After Re1, play e5! The plan: Nf1-N1h2-Ng4 then h4-h5 pawn storm. Black\'s queenside play is too slow.',
+    summary: 'KIA vs French: d3 Nd2 Ngf3 g3 Bg2 O-O Re1 e5! — same attack as vs Sicilian. Nf1-Nh2-Ng4-h4-h5 wins.'
+  },
+
+  'opp_plays_caro': {
+    trapId: 'w_kia_caro', oppColour: 'b', yourColour: 'w',
+    title: 'KIA vs Caro-Kann',
+    why: "They play c6 (Caro-Kann) — same KIA setup, then f4-f5 attack",
+    oppMoves: ['c6','d5','e5','Nd7','Bc5','Ngf6','O-O'],
+    yourMoves: ['e4','d3','Nd2','Ngf3','g3','Bg2','O-O','Re1'],
+    dialogue: [
+      { after:'e4',   side:'you', txt:"e4. They play c6 — the Caro-Kann. Very solid defence at club level.", move:'c6' },
+      { after:'c6',   side:'opp', txt:"Caro-Kann! They'll play d5 next. Your KIA handles this perfectly.", move:'d3' },
+      { after:'d3',   side:'you', txt:"d3 — KIA. Works against EVERYTHING. Same setup every game.", move:'d5' },
+      { after:'Nd2',  side:'you', txt:"Nd2 — keeping options open.", move:'e5' },
+      { after:'Ngf3', side:'you', txt:"Ngf3 — both knights developed.", move:'Nd7' },
+      { after:'g3',   side:'you', txt:"g3 — fianchetto!", move:'Bc5' },
+      { after:'Bg2',  side:'you', txt:"Bg2 — Dragon Bishop!", move:'Ngf6' },
+      { after:'O-O',  side:'you', txt:"Castle! Now Re1 and prepare to advance.", move:'O-O' },
+      { after:'Re1',  side:'you', txt:"Re1 — ready. Against the Caro, push f4! after this when the time is right. f4-f5 is the attacking plan.", move:null },
+    ],
+    hint: 'After O-O Re1, play c3 to solidify, then f4! — the f4-f5 break is the KIA weapon against the Caro-Kann.',
+    summary: 'KIA vs Caro: d3 Nd2 Ngf3 g3 Bg2 O-O Re1 c3 f4-f5. The Dragon Bishop supports the f4 advance perfectly.'
+  },
+
+  'opp_plays_king_pawn': {
+    trapId: 'b_pirc_e4', oppColour: 'b', yourColour: 'w',
+    title: 'Pirc/Modern vs Their Aggressive Setup',
+    why: "They play aggressively as Black (g6/d6) — use the f4 Austrian Attack",
+    oppMoves: ['g6','Bg7','d6','Nf6','O-O','c5'],
+    yourMoves: ['e4','d4','Nc3','f4','Nf3','Be2'],
+    dialogue: [
+      { after:'e4',   side:'you', txt:"e4. They respond with g6 — the Pirc or Modern Defence!", move:'g6' },
+      { after:'g6',   side:'opp', txt:"g6 — they're fianchettoing. Play d4 to build a BIG centre!", move:'d4' },
+      { after:'d4',   side:'you', txt:"d4! Now you have e4 and d4. Play Nc3 next.", move:'Bg7' },
+      { after:'Nc3',  side:'you', txt:"Nc3 — developing. They continue the KID setup.", move:'d6' },
+      { after:'f4',   side:'you', txt:"f4!! The Austrian Attack — the most aggressive response to the Pirc! You have e4 d4 f4 — a massive centre. They MUST fight back.", move:'Nf6' },
+      { after:'Nf3',  side:'you', txt:"Nf3 — developing. They castle soon.", move:'O-O' },
+      { after:'Be2',  side:'you', txt:"Be2 — solid development before the attack.", move:'c5' },
+      { after:'c5',   side:'opp', txt:"c5 — they counterattack! Now dxc5 or keep pushing with e5. The Austrian Attack gives White a strong initiative.", move:null },
+    ],
+    hint: 'After f4, consider e5 to kick the Nf6 — then Nxe5 dxe5 gives a pawn in the centre and kingside space.',
+    summary: 'Austrian Attack vs Pirc: e4 g6 d4 Bg7 Nc3 d6 f4!! — massive centre. Push e5 next to gain more space.'
+  }
+};
+
+// Map of which counter entries to show based on opponent tendencies
+function getCounterTraps(topWhite, topBlack, games, username) {
+  const whiteCounters = [];
+  const blackCounters = [];
+
+  // Analyse White openings (opponent plays White — you play Black)
+  const playsE4 = topWhite.some(([o]) => /e4|italian|ruy|vienna|king|scotch/i.test(o));
+  const playsD4 = topWhite.some(([o]) => /d4|london|queen|colle/i.test(o));
+  const playsItalian = topWhite.some(([o]) => /italian|giuoco/i.test(o));
+  const playsVienna = topWhite.some(([o]) => /vienna/i.test(o));
+
+  if (playsVienna) whiteCounters.push(COUNTER_DATABASE['e4_vienna']);
+  else if (playsItalian) whiteCounters.push(COUNTER_DATABASE['e4_italian']);
+  else if (playsE4) whiteCounters.push(COUNTER_DATABASE['e4_generic']);
+
+  if (playsD4) {
+    whiteCounters.push(COUNTER_DATABASE['d4_queens_gambit']);
+    whiteCounters.push(COUNTER_DATABASE['d4_london']);
+  }
+
+  // Default if nothing detected
+  if (!whiteCounters.length) {
+    whiteCounters.push(COUNTER_DATABASE['e4_generic']);
+    whiteCounters.push(COUNTER_DATABASE['d4_london']);
+  }
+
+  // Analyse Black openings (opponent plays Black — you play White with KIA)
+  const playsSicilian = topBlack.some(([o]) => /sicilian|najdorf|dragon|scheveningen/i.test(o));
+  const playsFrench = topBlack.some(([o]) => /french/i.test(o));
+  const playsCaro = topBlack.some(([o]) => /caro/i.test(o));
+  const playsE5 = topBlack.some(([o]) => /e5|king|open|italian|ruy/i.test(o));
+  const playsPirc = topBlack.some(([o]) => /pirc|modern|king.s indian/i.test(o));
+
+  if (playsSicilian) blackCounters.push(COUNTER_DATABASE['opp_plays_sicilian']);
+  if (playsFrench) blackCounters.push(COUNTER_DATABASE['opp_plays_french']);
+  if (playsCaro) blackCounters.push(COUNTER_DATABASE['opp_plays_caro']);
+  if (playsE5) blackCounters.push(COUNTER_DATABASE['opp_plays_e5']);
+  if (playsPirc) blackCounters.push(COUNTER_DATABASE['opp_plays_king_pawn']);
+
+  // Defaults
+  if (!blackCounters.length) {
+    blackCounters.push(COUNTER_DATABASE['opp_plays_e5']);
+    blackCounters.push(COUNTER_DATABASE['opp_plays_sicilian']);
+  }
+
+  return { whiteCounters: whiteCounters.slice(0,3), blackCounters: blackCounters.slice(0,3) };
+}
+
+function renderCounterCards(counters, containerId, colourClass, badgeClass, badgeLabel) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = counters.map((entry, i) => {
+    const trap = TRAPS.find(t => t.id === entry.trapId) || QUICK_MATES.find(t => t.id === entry.trapId);
+    const yourMovesPreview = (entry.yourMoves || entry.oppMoves || []).slice(0,6).join(' ');
+    return `<div class="counter-card ${colourClass}" onclick="openCounterCoach(${JSON.stringify(entry).replace(/"/g,'&quot;')})">
+      <div class="counter-card-badge ${badgeClass}">${badgeLabel}</div>
+      <div class="counter-card-name">${entry.title}</div>
+      <div class="counter-card-why">${entry.why}</div>
+      <div class="counter-card-moves">📋 ${yourMovesPreview}…</div>
+      <div class="counter-card-actions">
+        <button class="cc-btn cc-btn-primary" onclick="event.stopPropagation();openCounterCoach(${JSON.stringify(entry).replace(/"/g,'&quot;')})">▶ Practice vs Them</button>
+        <button class="cc-btn cc-btn-secondary" onclick="event.stopPropagation();jumpToTrap('${entry.trapId}');switchMode('study')">📖 Study Trap</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── COUNTER COACH ENGINE ──────────────────────────────────────────
+let ccState = null;
+
+function openCounterCoach(entry) {
+  if (typeof entry === 'string') entry = JSON.parse(entry);
+  const trap = TRAPS.find(t => t.id === entry.trapId);
+  const flipped = entry.yourColour === 'b';
+
+  ccState = {
+    entry,
+    trap,
+    chess: new Chess(),
+    flipped,
+    stepIdx: 0,
+    selectedSq: null,
+    waitingForYou: false,
+    done: false
+  };
+
+  document.getElementById('counter-coach-overlay').style.display = 'flex';
+  document.getElementById('cc-title').textContent = entry.title;
+  document.getElementById('cc-subtitle').textContent =
+    entry.yourColour === 'w' ? '♔ You play White' : '♚ You play Black';
+  document.getElementById('cc-trap-summary').textContent = '💡 ' + entry.summary;
+  document.getElementById('cc-feedback').style.display = 'none';
+
+  buildBoard('cc-board', 'cc-rank-col', 'cc-file-row', flipped);
+  ccRenderBoard();
+  ccUpdateNotation();
+  ccNextStep();
+}
+
+function ccNextStep() {
+  if (!ccState) return;
+  const { entry, chess, stepIdx } = ccState;
+  const dialogue = entry.dialogue;
+
+  if (stepIdx >= dialogue.length) {
+    // All scripted moves done — now let user play freely
+    ccState.waitingForYou = true;
+    document.getElementById('cc-coach-title').textContent = '▶ Your turn — play freely!';
+    document.getElementById('cc-coach-body').innerHTML =
+      'The scripted line is complete. Keep playing — the opponent will make plausible moves.';
+    ccUpdateTurnBar();
+    return;
+  }
+
+  const step = dialogue[stepIdx];
+
+  if (step.move === null) {
+    // This step is purely informational — no move to make, just show coaching
+    document.getElementById('cc-coach-title').textContent =
+      step.side === 'opp' ? '🎯 Opponent\'s pattern' : '💡 Your move here';
+    document.getElementById('cc-coach-body').innerHTML = step.txt;
+    ccState.waitingForYou = true;
+    ccUpdateTurnBar();
+    return;
+  }
+
+  if (step.side === 'opp') {
+    // Opponent's move — play it automatically with a short delay
+    ccState.waitingForYou = false;
+    document.getElementById('cc-coach-title').textContent = '🎯 Opponent plays…';
+    document.getElementById('cc-coach-body').innerHTML =
+      `<span class="cc-opp-move">${step.move}</span> — ${step.txt}`;
+    ccUpdateTurnBar();
+
+    setTimeout(() => {
+      if (!ccState) return;
+      const move = ccState.chess.move(step.move, {sloppy: true});
+      if (move) {
+        playSound(move.captured ? 'capture' : 'move');
+        ccRenderBoard(move.from, move.to);
+        ccUpdateNotation();
+        ccState.stepIdx++;
+        // If next step is yours, wait; otherwise play opponent move
+        const nextStep = ccState.entry.dialogue[ccState.stepIdx];
+        if (!nextStep || nextStep.side !== 'opp') {
+          ccState.waitingForYou = true;
+          ccUpdateTurnBar();
+          if (nextStep) {
+            document.getElementById('cc-coach-title').textContent = '♟ Your move';
+            document.getElementById('cc-coach-body').innerHTML =
+              `Play <span class="cc-your-move">${nextStep.move || '?'}</span> — ${nextStep.txt}`;
+          }
+        } else {
+          setTimeout(() => ccNextStep(), 600);
+        }
+      }
+    }, 700);
+
+  } else {
+    // Your move — wait for user to click, with coaching
+    ccState.waitingForYou = true;
+    document.getElementById('cc-coach-title').textContent = '♟ Your move';
+    document.getElementById('cc-coach-body').innerHTML =
+      step.move
+        ? `Play <span class="cc-your-move">${step.move}</span> — ${step.txt}`
+        : step.txt;
+    ccUpdateTurnBar();
+  }
+}
+
+function ccHandleClick(sqName) {
+  if (!ccState || ccState.done || !ccState.waitingForYou) return;
+  const { chess, entry, stepIdx } = ccState;
+  const piece = chess.get(sqName);
+  const turn = chess.turn();
+
+  if (ccState.selectedSq) {
+    const move = chess.move({from: ccState.selectedSq, to: sqName, promotion: 'q'});
+    ccState.selectedSq = null;
+
+    if (move) {
+      playSound(move.captured ? 'capture' : 'move');
+      ccRenderBoard(move.from, move.to);
+      ccUpdateNotation();
+
+      const currentStep = entry.dialogue[stepIdx];
+      const expected = currentStep?.move;
+
+      const fb = document.getElementById('cc-feedback');
+      if (expected && move.san === expected) {
+        fb.className = 'eg-feedback good';
+        fb.textContent = '✅ Perfect! ' + (currentStep.txt || '');
+        fb.style.display = 'block';
+      } else if (chess.in_checkmate()) {
+        fb.className = 'eg-feedback good';
+        fb.textContent = '🏆 Checkmate! Outstanding!';
+        fb.style.display = 'block';
+        ccState.done = true;
+        playSound('mate');
+        return;
+      } else {
+        fb.className = 'eg-feedback info';
+        fb.textContent = expected
+          ? `Played ${move.san} — the suggested move was ${expected}. ${currentStep?.txt || 'Both are reasonable!'}`
+          : `Played ${move.san}. ${currentStep?.txt || 'Keep going!'}`;
+        fb.style.display = 'block';
+      }
+
+      ccState.stepIdx++;
+      ccState.waitingForYou = false;
+      setTimeout(() => {
+        if (document.getElementById('cc-feedback').style.display !== 'none')
+          document.getElementById('cc-feedback').style.display = 'none';
+        ccNextStep();
+      }, 1800);
+
+    } else {
+      // Invalid move — try selecting new piece
+      if (piece && piece.color === turn) {
+        ccState.selectedSq = sqName;
+        ccRenderBoard();
+        ccShowMoves(sqName);
+      } else {
+        ccRenderBoard();
+      }
+    }
+  } else {
+    if (piece && piece.color === turn) {
+      ccState.selectedSq = sqName;
+      playSound('select');
+      ccRenderBoard();
+      ccShowMoves(sqName);
+    }
+  }
+}
+
+function ccShowMoves(from) {
+  const bEl = document.getElementById('cc-board');
+  if (!bEl) return;
+  const moves = ccState.chess.moves({square: from, verbose: true});
+  const targets = new Set(moves.map(m => m.to));
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    if (sq.dataset.sq === from) sq.classList.add('hl-sel');
+    if (targets.has(sq.dataset.sq)) {
+      sq.classList.add('hl-mv');
+      if (ccState.chess.get(sq.dataset.sq)) sq.classList.add('has-pc');
+    }
+  });
+}
+
+function ccRenderBoard(fromSq, toSq) {
+  if (!ccState) return;
+  const bEl = document.getElementById('cc-board');
+  if (!bEl) return;
+  const { chess, selectedSq } = ccState;
+  let checkSq = null;
+  if (chess.in_check()) {
+    outer: for (let r=0;r<8;r++) for (let f=0;f<8;f++) {
+      const p = chess.board()[r][f];
+      if (p && p.type==='k' && p.color===chess.turn()) { checkSq='abcdefgh'[f]+(8-r); break outer; }
+    }
+  }
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (fromSq && sn===fromSq) sq.classList.add('hl-f');
+    if (toSq && sn===toSq) sq.classList.add('hl-t');
+    if (checkSq && sn===checkSq) sq.classList.add('hl-chk');
+    if (selectedSq && sn===selectedSq) sq.classList.add('hl-sel');
+    const p = chess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+    sq.onclick = () => ccHandleClick(sn);
+  });
+}
+
+function ccUpdateNotation() {
+  if (!ccState) return;
+  const el = document.getElementById('cc-notation');
+  if (!el) return;
+  const hist = ccState.chess.history();
+  el.innerHTML = hist.map((san, i) => {
+    const num = i%2===0 ? `<span class="mn">${Math.floor(i/2)+1}.</span>` : '';
+    return num + `<span class="mv done">${san}</span>`;
+  }).join('');
+  el.scrollLeft = el.scrollWidth;
+}
+
+function ccUpdateTurnBar() {
+  if (!ccState) return;
+  const turn = ccState.chess.turn();
+  const isYours = turn === ccState.entry.yourColour;
+  const dot = document.getElementById('cc-turn-dot');
+  const txt = document.getElementById('cc-turn-text');
+  const phase = document.getElementById('cc-turn-phase');
+  if (dot) dot.className = 'turn-dot ' + (turn==='w'?'white':'black');
+  if (txt) txt.textContent = isYours ? '⏳ Your move' : '🤔 Opponent playing…';
+  const moveNum = Math.ceil(ccState.chess.history().length / 2) + 1;
+  if (phase) phase.textContent = moveNum <= 10 ? 'Opening' : moveNum <= 20 ? 'Middlegame' : 'Endgame';
+}
+
+function ccHint() {
+  if (!ccState) return;
+  const { entry, stepIdx } = ccState;
+  const step = entry.dialogue[stepIdx];
+  const fb = document.getElementById('cc-feedback');
+  fb.className = 'eg-feedback info';
+  fb.textContent = '💡 ' + (step?.move ? `Try ${step.move} — ` : '') + entry.hint;
+  fb.style.display = 'block';
+}
+
+function ccRestart() {
+  if (!ccState) return;
+  openCounterCoach(ccState.entry);
+}
+
+function ccNextExample() {
+  closeCounterCoach();
+}
+
+function closeCounterCoach() {
+  document.getElementById('counter-coach-overlay').style.display = 'none';
+  ccState = null;
+}
 
 </script>
 </div><!-- end main-content -->
