@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Chess Opening Traps</title>
+<title>ElovaChess</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -1311,7 +1311,7 @@ body.sidebar-collapsed .main-content { margin-left:0; }
   <div class="sidebar-logo">
     <span class="sidebar-logo-knight">♞</span>
     <div>
-      <div class="sidebar-logo-name">Chess Traps</div>
+      <div class="sidebar-logo-name">ElovaChess</div>
       <div class="sidebar-logo-sub" id="trap-count">Loading…</div>
     </div>
   </div>
@@ -7653,7 +7653,7 @@ function stgExport() {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'chess-traps-progress-' + new Date().toISOString().slice(0,10) + '.json';
+  a.download = 'elovachess-progress-' + new Date().toISOString().slice(0,10) + '.json';
   a.click();
 }
 
@@ -8559,7 +8559,7 @@ function buildPGN(chess, white, black, event) {
   const date = new Date().toISOString().slice(0,10).replace(/-/g,'.');
   const result = chess.in_checkmate() ? (chess.turn()==='w'?'0-1':'1-0') :
     (chess.in_draw()||chess.in_stalemate()||chess.in_threefold_repetition()) ? '1/2-1/2' : '*';
-  let pgn = `[Event "${event||'Chess Traps App'}"]\n[Date "${date}"]\n[White "${white||'Player'}"]\n[Black "${black||'Opponent'}"]\n[Result "${result}"]\n\n`;
+  let pgn = `[Event "${event||'ElovaChess App'}"]\n[Date "${date}"]\n[White "${white||'Player'}"]\n[Black "${black||'Opponent'}"]\n[Result "${result}"]\n\n`;
   chess.history().forEach((san,i) => { if(i%2===0) pgn+=`${Math.floor(i/2)+1}. `; pgn+=san+' '; });
   return pgn + result;
 }
