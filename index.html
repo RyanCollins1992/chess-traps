@@ -562,14 +562,12 @@ const TRAPS=[
 {san:"Bc4",hl:"3.Bc4",txt:"Italian setup."},
 {san:"d6",hl:"3...d6",txt:"Solid defence."},
 {san:"Nc3",hl:"4.Nc3",txt:"Development."},
-{san:"Bg4",hl:"4...Bg4 — The pin",txt:"Black pins the Nf3 to the queen. Looks good — but it's a trap!",why:"The pin on Nf3 looks strong, but White has a stunning refutation."},
-{san:"h3",hl:"5.h3 — Tempting the bishop",txt:"White dares Black to take the queen by 'loosening' the pin.",why:"h3 sets up the trap. If Bxf3 Qxf3, nothing happens. But if Black retreats..."},
-{san:"Bxf3",hl:"5...Bxf3 — Taking the bait",txt:"Black takes. But now White plays the stunning Nxe5!"},
-{san:"Nxe5",hl:"6.Nxe5!! — The queen sacrifice!",txt:"Nxe5!! White sacrifices the queen! Black takes it... and gets mated.",why:"If Bxd1 Bxf7+ Ke7 Nd5# — checkmate! White gets THREE pieces for the queen."},
-{san:"Nxd1",hl:"6...Nxd1?? — Taking the queen leads to mate",txt:"Black takes the queen — but it's checkmate in 2!"},
-{san:"Bxf7",hl:"7.Bxf7+ — Check!",txt:"Bishop checks the king from f7."},
-{san:"Ke7",hl:"7...Ke7 — Forced",txt:"King is forced to e7."},
-{san:"Nd5",hl:"8.Nd5# — CHECKMATE!",txt:"Nd5# — checkmate! Three minor pieces delivered mate.",tip:"Legal's Trap: never blindly take a 'free' queen. First check if there are mating threats. Three pieces beat a queen here!"}
+{san:"Bg4",hl:"4...Bg4 — The pin",txt:"Black pins the Nf3 to the queen. Looks strong — but White ignores the pin!",why:"The pin looks powerful but White has a stunning refutation that ignores it entirely."},
+{san:"Nxe5",hl:"5.Nxe5!! — IGNORE THE PIN!",txt:"Nxe5!! White sacrifices the queen! Black takes it thinking they won — but it's checkmate in 2!",why:"If Bxd1 Bxf7+ Ke7 Nd5# — checkmate! Three pieces for the queen. The pin means nothing!"},
+{san:"Bxd1",hl:"5...Bxd1?? — Taking the queen leads to mate",txt:"Black takes the queen — walking straight into checkmate!",warn:"Bxd1 loses by force. The only try is Nxe5 but White plays Nxf7 and it's still winning."},
+{san:"Bxf7",hl:"6.Bxf7+ — Check!",txt:"Bishop checks the king from f7."},
+{san:"Ke7",hl:"6...Ke7 — Forced",txt:"King is forced to e7 — into the middle of the board."},
+{san:"Nd5",hl:"7.Nd5# — CHECKMATE!",txt:"Nd5# — checkmate! Three minor pieces delivered mate. The queen sacrifice was correct!",tip:"Legal's Trap: White ignores the Bg4 pin and plays Nxe5!! sacrificing the queen. After Bxd1 Bxf7+ Ke7 Nd5# it's checkmate. Never blindly take a 'free' queen — always check for mating threats!"}
 ],summary:{mistake:"Black takes the queen on d1 after Nxe5, allowing Bxf7+ Ke7 Nd5#.",punish:"Nd5# — checkmate with knight, and three minor pieces.",fallback:"Black can avoid the trap by retreating Bh5 instead of Bxf3 on move 5."}},
 
 {id:'w4',side:'White',level:'Intermediate',name:"Budapest Gambit Trap (White)",sub:"1.d4 Nf6 2.c4 e5 — refutation",moves:[
@@ -583,7 +581,7 @@ const TRAPS=[
 {san:"Nc6",hl:"4...Nc6 — More pressure",txt:"Nc6 develops and adds more pressure to e5."},
 {san:"Bf4",hl:"5.Bf4! — Active bishop",txt:"Bf4! The bishop develops actively, supports e5, and aims at the queenside.",why:"Bf4 is the best move. White keeps the extra pawn while developing harmoniously."},
 {san:"Bb4",hl:"5...Bb4+ — Check",txt:"Check! Black puts pressure on."},
-{san:"Nd2",hl:"6.Nd2! — The key move",txt:"Nd2! Not Nc3 (which blocks the bishop). Nd2 blocks the check AND keeps all pieces active.",why:"After Nd2, White has a solid extra pawn with good development. The gambit is successfully refuted."},
+{san:"Nbd2",hl:"6.Nbd2! — The key move",txt:"Nbd2! Not Nc3 (which blocks the bishop). Nbd2 blocks the check AND keeps all pieces active.",why:"After Nbd2, White has a solid extra pawn with good development. The gambit is successfully refuted."},
 {san:"Qe7",hl:"6...Qe7 — Attacking e5",txt:"Black attacks e5 again."},
 {san:"a3",hl:"7.a3 — Drive the bishop back",txt:"a3 drives the bishop back. White has a healthy extra pawn and will win from here.",tip:"Against the Budapest Gambit: accept with dxe5, then play Nf3 and Bf4. Do NOT try to hold e5 with f4 — it weakens your king. With correct play White keeps the extra pawn."}
 ],summary:{mistake:"White tries to hold the Budapest pawn with f4, weakening the king.",punish:"Black plays Ng4 Qh4+ and attacks the f4-weakened king.",fallback:"After dxe5 Ng4 Nf3 Nc6 Bf4!, White keeps the pawn and is fine."}},
@@ -603,8 +601,8 @@ const TRAPS=[
 {san:"Nxd5",hl:"6...Nxd5 — Take the knight!",txt:"Black captures the knight."},
 {san:"Bxd8",hl:"7.Bxd8 — Take the queen",txt:"White takes the queen — but there's a stunning reply."},
 {san:"Bb4",hl:"7...Bb4+ — CHECK! The Elephant Trap!",txt:"Bb4+! Check! White must block — and after the block, Black wins the bishop on d8!",why:"After Bd2 Bxd2+ Qxd2 Kxd8, Black has a bishop and knight for the queen — a material advantage!"},
-{san:"Bd2",hl:"8.Bd2 — Forced",txt:"White blocks the check."},
-{san:"Bxd2",hl:"8...Bxd2+ — Win the bishop",txt:"Black takes the bishop — winning a piece and emerging with a material advantage.",tip:"The Elephant Trap: never greedily take on d5 with Nxd5 in the QGD when Nbd7 is played. Always check for Bb4+ first. This trap has caught thousands of players!"}
+{san:"Qd2",hl:"8.Qd2 — Forced",txt:"Qd2 is the only legal block — the bishop on d8 has taken everything else out of the picture."},
+{san:"Bxd2",hl:"8...Bxd2+ — Win the queen's blocker!",txt:"Black captures the Qd2 — White must recapture and Black takes the bishop on d8. Material up!",tip:"The Elephant Trap: never greedily take on d5 with Nxd5 in the QGD when Nbd7 is played. Always check for Bb4+ first. This trap has caught thousands of players!"}
 ],summary:{mistake:"White plays Nxd5 greedily, allowing Nxd5 Bxd8 Bb4+ winning the d8 bishop.",punish:"Black wins bishop+knight for queen after Bb4+ Bd2 Bxd2+ Qxd2 Kxd8.",fallback:"Instead of Nxd5, White should play Nf3 or e3 — solid development."}},
 
 {id:'w6',side:'White',level:'Advanced',name:"Stafford Gambit Refutation",sub:"1.e4 e5 2.Nf3 Nf6 — the correct refutation",moves:[
@@ -668,8 +666,10 @@ const TRAPS=[
 {san:"Nf6",hl:"4...Nf6?? — The blunder",txt:"Nf6?? Black develops naturally — but this loses a piece immediately!",warn:"The correct move is Bc5 or Qh4. Nf6 overlooks a simple tactic."},
 {san:"Nxc6",hl:"5.Nxc6! — Win a piece!",txt:"Nxc6! The Nd4 captures the Nc6 — and now whatever Black recaptures, White plays Nxe4 winning a pawn with a fork.",why:"After Nxc6 dxc6, Nxe5 or after bxc6, Nxe4 — White wins material."},
 {san:"bxc6",hl:"5...bxc6",txt:"Black recaptures. But now..."},
-{san:"Nxe4",hl:"6.Nxe4 — Win a pawn too!",txt:"White also wins the e4 pawn. White has an extra pawn and a better position.",tip:"In the Scotch Game, never play 4...Nf6 — White simply plays Nxc6 winning material. Always play 4...Bc5 (most popular) or 4...Qh4."}
-],summary:{mistake:"Black plays 4...Nf6 allowing Nxc6 with material gain.",punish:"After Nxc6, Black loses at least a pawn with an inferior position.",fallback:"Black should play 4...Bc5 — the main line, leading to rich dynamic play."}},
+{san:"e5",hl:"6.e5! — Chase the knight",txt:"e5! White chases the Nf6 — gaining space and attacking the knight.",why:"After e5 the Nf6 must retreat. White has an extra pawn AND a space advantage."},
+{san:"Ne4",hl:"6...Ne4 — Knight retreats",txt:"Knight retreats to e4."},
+{san:"Qe2",hl:"7.Qe2 — Fork! Win the knight",txt:"Qe2! The queen attacks the Ne4 AND defends e5. White wins the knight with a comfortable advantage.",tip:"In the Scotch Game, never play 4...Nf6 — White simply plays Nxc6 winning the pawn structure, then e5 gains more space. Always play 4...Bc5 (most popular) or 4...Qh4."}
+],summary:{mistake:"Black plays 4...Nf6 allowing Nxc6 with a ruined pawn structure.",punish:"After Nxc6 bxc6 e5!, White chases pieces and Qe2 wins the Ne4.",fallback:"Black should play 4...Bc5 — the main line, leading to rich dynamic play."}},
 
 {id:'w10',side:'White',level:'Intermediate',name:"Vienna Game Trap",sub:"Frankenstein-Dracula Variation",moves:[
 {san:"e4",hl:"1.e4",txt:"Open game."},
@@ -831,7 +831,7 @@ const TRAPS=[
 {san:"Nxe4",hl:"6...Nxe4+ — Fork! Win the queen",txt:"Nxe4+! Fork! The king and queen are both attacked. White must move king, then Black takes the queen.",tip:"The Traxler is one of the wildest openings in chess. Bc5!! ignores the f7 attack and fires back with Bxf2+! Very risky but extremely fun — study the theory before playing it!"}
 ],summary:{mistake:"White greedily takes f7, falling into Bxf2+! Kxf2 Nxe4+ fork winning the queen.",punish:"After Nxe4+ Ke3 Qh4!, Black has a massive attack.",fallback:"If White plays Bxf7+ instead of Nxf7, Black still has counterplay with Ke7."}},
 
-{id:'b2',side:'Black',level:'Intermediate',name:"Englund Gambit Trap",sub:"1.d4 e5!? — chaos from move 1",moves:[
+{id:'b2',side:'Black',level:'Intermediate',name:"Englund Gambit Trap",sub:"1.d4 e5!? — Qb4+ wins material",moves:[
 {san:"d4",hl:"1.d4",txt:"Queen's pawn."},
 {san:"e5",hl:"1...e5!? — The Englund Gambit!",txt:"e5! Black immediately sacrifices a pawn for attacking chances.",why:"The Englund is a surprise weapon. Black wants chaos and early activity."},
 {san:"dxe5",hl:"2.dxe5",txt:"White accepts."},
@@ -839,11 +839,12 @@ const TRAPS=[
 {san:"Nf3",hl:"3.Nf3 — Defend",txt:"Nf3 defends e5 simply."},
 {san:"Qe7",hl:"3...Qe7 — Attack again",txt:"Qe7 attacks e5 and prepares to castle queenside."},
 {san:"Bf4",hl:"4.Bf4 — Defend again",txt:"Bf4 defends e5 and develops."},
-{san:"Qb4",hl:"4...Qb4+! — Check and attack b2",txt:"Qb4+! Check AND attacks b2. A tricky double threat.",why:"White must block — and after Nd2, Black has Ne5 Nd3+ forking king and bishop!"},
-{san:"Nd2",hl:"5.Nd2 — Block",txt:"Nd2 blocks the check."},
-{san:"Ne5",hl:"5...Ne5 — Attack the bishop",txt:"Ne5! Attacks the Bf4 AND threatens Nd3+."},
-{san:"Nd3",hl:"6.Nd3? — Nd3+ coming",txt:"If White plays Nd3 to defend... Black plays Nd3+ winning the queen!",tip:"The Englund Gambit is full of tricks. The Qb4+ and Ne5 ideas are the main traps. Not objectively sound but very dangerous in blitz!"}
-],summary:{mistake:"White defends passively and falls into the Qb4+ Ne5 Nd3+ fork.",punish:"Nd3+ forks king and queen — Black wins the queen.",fallback:"Best defence: after Qb4+ Nc3! (not Nd2), Black doesn't get the fork. White is simply better."}},
+{san:"Qb4",hl:"4...Qb4+! — Check and attack b2",txt:"Qb4+! Check AND attacks b2. A tricky double threat.",why:"White must block. If Nc3, Black plays Qxc3+! bxc3 Nxe5 winning the bishop and pawn."},
+{san:"Nc3",hl:"5.Nc3 — Block",txt:"Nc3 blocks the check — but now the queen strikes!"},
+{san:"Qxc3",hl:"5...Qxc3+! — WIN A PIECE!",txt:"Qxc3+! Black takes the knight with check! White must recapture with the b-pawn.",why:"After bxc3, White's pawn structure is wrecked AND Black wins the e5 pawn next."},
+{san:"bxc3",hl:"6.bxc3 — Forced recapture",txt:"White must take — doubled isolated pawns and a ruined queenside."},
+{san:"Nxe5",hl:"6...Nxe5 — Win the pawn too!",txt:"Nxe5! Black wins back the pawn AND has the bishop pair. Black has excellent compensation.",tip:"Englund Gambit Trap: Qb4+ forces a block. If Nc3, play Qxc3+! bxc3 Nxe5 — Black wins a piece and a pawn, wrecking White's pawn structure. The Englund is a great surprise weapon in blitz!"}
+],summary:{mistake:"White plays Nc3 to block Qb4+ check, allowing Qxc3+! winning a piece.",punish:"After Qxc3+ bxc3 Nxe5, Black wins a knight and a pawn with wrecked White pawns.",fallback:"White should play Bd2 or c3 to decline the Englund and just develop solidly."}},
 
 {id:'b3',side:'Black',level:'Intermediate',name:"Nimzowitsch Defence Trap",sub:"1.e4 Nc6 — hypermodern",moves:[
 {san:"e4",hl:"1.e4",txt:"White opens."},
@@ -1008,7 +1009,7 @@ const TRAPS=[
 {san:"Qxd5",hl:"11...Qxd5 — Simplified and active",txt:"Queen recaptures. The Dragon bishop on g7 dominates the position.",tip:"In the Yugoslav Attack Dragon, d5! is Black's key break. After the exchanges, the Bg7 becomes the strongest piece on the board."}
 ],summary:{mistake:"White allows d5 without preparation, and after the exchanges the Dragon bishop dominates.",punish:"After Qxd5, Black has an active queen and the Dragon bishop — excellent compensation.",fallback:"White should play Bb3 before Black plays d5, keeping more control."}},
 
-{id:'b12',side:'Black',level:'Intermediate',name:"Noah's Ark Trap",sub:"b5-b4 traps the Ruy Lopez bishop",moves:[
+{id:'b12',side:'Black',level:'Intermediate',name:"Noah's Ark Trap",sub:"c5-c4 cage traps the Ruy Lopez bishop",moves:[
 {san:"e4",hl:"1.e4",txt:"Open."},
 {san:"e5",hl:"1...e5",txt:"Mirror."},
 {san:"Nf3",hl:"2.Nf3",txt:"Develop."},
@@ -1018,16 +1019,18 @@ const TRAPS=[
 {san:"Ba4",hl:"4.Ba4",txt:"Bishop retreats."},
 {san:"Nf6",hl:"4...Nf6",txt:"Develop."},
 {san:"O-O",hl:"5.0-0",txt:"Castle."},
-{san:"d6",hl:"5...d6",txt:"Solid."},
-{san:"d4",hl:"6.d4",txt:"Centre break."},
-{san:"b5",hl:"6...b5! — The trap begins!",txt:"b5! Attacks the bishop AND sets up the Noah's Ark Trap.",why:"b5 forces the bishop to move. If it goes to b3, the trap is sprung!"},
-{san:"Bb3",hl:"7.Bb3 — Into the trap!",txt:"Bb3 — the bishop retreats. Now comes the famous Noah's Ark!",warn:"Bb3 walks into the trap. White should play Bc2 instead."},
-{san:"d5",hl:"7...d5! — Open the position",txt:"d5! Now White must take on e5 or d5."},
-{san:"exd5",hl:"8.exd5",txt:"Take on d5."},
-{san:"Nxd5",hl:"8...Nxd5",txt:"Recapture."},
-{san:"dxe5",hl:"9.dxe5",txt:"Take the pawn."},
-{san:"c5",hl:"9...c5! — TRAP! Bishop is caught!",txt:"c5!! The Noah's Ark Trap! The bishop on b3 is now TRAPPED. c5-b4-c3 will cage it.",why:"The pawn cage b5-c5 traps the bishop on b3. White cannot save it.",tip:"The Noah's Ark Trap: after b5 Bb3 d5 exd5 Nxd5 dxe5 c5!, the bishop on b3 is trapped by the pawn cage b5-c5-a5. This trap has been known since the 15th century!"}
-],summary:{mistake:"White plays Bb3 retreating the bishop into the Noah's Ark trap after b5.",punish:"After c5, the bishop on b3 is trapped by b5-c5. White loses the bishop.",fallback:"White should play Bc2 instead of Bb3 to avoid the trap."}},
+{san:"Be7",hl:"5...Be7 — Prepare castle",txt:"Be7 prepares queenside defence and castling.",why:"Be7 is the classical Ruy Lopez setup. Black will castle and then strike back."},
+{san:"Re1",hl:"6.Re1 — Support e4",txt:"Re1 supports the e4 pawn.",why:"Re1 is a key Ruy Lopez move — the rook supports e4 and e5."},
+{san:"b5",hl:"6...b5! — Drive the bishop",txt:"b5! Black drives the bishop back.",why:"b5 forces the bishop to retreat to b3. This is the beginning of the Noah's Ark setup."},
+{san:"Bb3",hl:"7.Bb3 — Retreat",txt:"Bb3 — bishop retreats. But now it's going to get trapped!",warn:"Once the bishop reaches b3, the Noah's Ark trap can be sprung with Na5!"},
+{san:"d6",hl:"7...d6 — Solid",txt:"d6 solidifies the centre."},
+{san:"c3",hl:"8.c3 — Prepare d4",txt:"c3 prepares d4."},
+{san:"Na5",hl:"8...Na5! — The key move!",txt:"Na5! The knight attacks the Bb3 AND clears c6 for the c-pawn to advance!",why:"Na5 is the critical Noah's Ark move. It attacks the bishop AND prepares c5!"},
+{san:"Bc2",hl:"9.Bc2 — Safe retreat",txt:"Bc2 — the bishop retreats to safety. But Black plays c5!"},
+{san:"c5",hl:"9...c5! — The pawn cage begins",txt:"c5! Now the bishop on c2 is being pushed into the corner.",why:"c5 threatens c4 which will trap the bishop completely. White cannot stop both."},
+{san:"d4",hl:"10.d4 — Fight back",txt:"d4 — White tries to fight back in the centre."},
+{san:"c4",hl:"10...c4! — TRAP! Bishop is CAGED!",txt:"c4!! The Noah's Ark Trap is complete! The bishop on c2 is trapped by the pawn cage b5-c4-a5!",tip:"The Noah's Ark Trap: Na5 attacks the bishop, then c5-c4 builds a cage. The bishop on c2 (or b3 if White doesn't retreat) is completely trapped. This trap has been known since the 1500s!"}
+],summary:{mistake:"White retreats the Ruy Lopez bishop to b3 then c2, allowing Na5 c5 c4 pawn cage.",punish:"After c4, the bishop on c2 is trapped by pawns. Black wins a full piece.",fallback:"White should play Bc2 immediately on move 4 before b5 is possible, or play d4 before the cage is set."}},
 
 {id:'b13',side:'Black',level:'Intermediate',name:"Dutch Leningrad",sub:"Qe8 prepares e5 and h5 simultaneously",moves:[
 {san:"d4",hl:"1.d4",txt:"Queen's pawn."},
@@ -1154,22 +1157,24 @@ const TRAPS=[
 {san:"Qh4",hl:"7...Qh4+ — CHECK!",txt:"Qh4+! Check! The e1-h4 diagonal is wide open. White must block.",why:"This is the point of the From's Gambit — the queen comes to h4 with check and White is in trouble.",warn:"After Qh4+, White faces major problems. The king cannot castle and the position is very difficult.",tip:"From's Gambit: f4 weakens the e1-h4 diagonal. Black uses this with e5, Bxd6, g5-g4, Qh4+. The queen on h4 with check is the signature move of the From's Gambit!"}
 ],summary:{mistake:"White accepts From's Gambit without understanding the diagonal weakness.",punish:"After Qh4+, White's king cannot castle safely and faces a powerful attack.",fallback:"White should play 2.e4 instead of fxe5, entering a different game entirely."}},
 
-{id:'bird2',side:'Bird',level:'Beginner',name:"From's Gambit — f2 Trap",sub:"Bxf2+!! sacrifice on f2",moves:[
-{san:"f4",hl:"1.f4 — Bird's Opening",txt:"f4 — Bird's Opening."},
+{id:'bird2',side:'Bird',level:'Beginner',name:"From's Gambit — Bishop Sac Trap",sub:"Bg3+!! forces king out then Re8 pins",moves:[
+{san:"f4",hl:"1.f4 — Bird's Opening",txt:"f4 — Bird's Opening.",why:"f4 controls e5 but weakens the e1-h4 diagonal and the kingside."},
 {san:"e5",hl:"1...e5 — From's Gambit",txt:"e5 — From's Gambit!"},
 {san:"fxe5",hl:"2.fxe5",txt:"White accepts."},
 {san:"d6",hl:"2...d6",txt:"Attack e5."},
-{san:"exd6",hl:"3.exd6",txt:"White takes."},
-{san:"Bxd6",hl:"3...Bxd6",txt:"Bishop develops powerfully."},
-{san:"Nf3",hl:"4.Nf3",txt:"Develop."},
+{san:"exd6",hl:"3.exd6",txt:"White captures."},
+{san:"Bxd6",hl:"3...Bxd6 — Monster bishop!",txt:"Bxd6! The bishop develops powerfully aiming at g3 and h2.",why:"This bishop is the key attacker. It targets the weakened diagonal caused by 1.f4."},
+{san:"Nf3",hl:"4.Nf3",txt:"White develops normally."},
 {san:"Nf6",hl:"4...Nf6",txt:"Develop and attack e4."},
-{san:"e4",hl:"5.e4 — Grab space",txt:"e4 — White grabs central space.",warn:"But now f2 is a TARGET — only defended by the king!"},
-{san:"Nxe4",hl:"5...Nxe4 — Take e4!",txt:"Nxe4! Black takes the pawn."},
+{san:"e4",hl:"5.e4 — White grabs space",txt:"e4 — White grabs central space.",warn:"But now the kingside pawns are advanced and the king is exposed."},
+{san:"Nxe4",hl:"5...Nxe4 — Take the pawn!",txt:"Nxe4! Black takes the pawn."},
 {san:"Qe2",hl:"6.Qe2 — Attack the knight",txt:"Qe2 attacks the Ne4."},
-{san:"Bxf2",hl:"6...Bxf2+!! — SACRIFICE ON f2!",txt:"Bxf2+!! Stunning sacrifice! White king must take.",why:"After Kxf2, Black plays Nc5 forking queen on e2 and bishop if White tries to save it. White loses the queen!"},
-{san:"Kxf2",hl:"7.Kxf2 — Forced",txt:"King must take."},
-{san:"Nc5",hl:"7...Nc5 — Fork!",txt:"Nc5! Forks the queen on e2 AND attacks d3. White loses the queen!",why:"White cannot save both the queen and the pawn. Black wins decisive material.",tip:"The f2 sacrifice in From's Gambit is a beautiful tactical pattern. After fxe5 d6 exd6 Bxd6 Nf3 Nf6 e4 Nxe4 Qe2, Black plays Bxf2+!! Then Nc5 forks the queen. The f2 square is the key weakness in the Bird's Opening!"}
-],summary:{mistake:"White plays e4 and Qe2 without noticing Bxf2+!! sacrific followed by Nc5 fork.",punish:"After Bxf2+ Kxf2 Nc5, Black forks the queen. White loses it.",fallback:"White should avoid e4 in the Bird's Opening and play d3 instead for solid development."}},
+{san:"O-O",hl:"6...0-0 — Castle first!",txt:"0-0! Black castles and connects the rooks before the tactics begin.",why:"Castling activates the rook on f8 which will play a key role."},
+{san:"Nc3",hl:"7.Nc3 — Develop",txt:"White develops, still attacking Ne4."},
+{san:"Bg3",hl:"7...Bg3+!! — BISHOP SACRIFICE!",txt:"Bg3+!! Stunning! Black sacrifices the bishop to drag the king out!",why:"After hxg3, the h-file opens. After Kf2, the rook on f8 pins the king!"},
+{san:"hxg3",hl:"8.hxg3 — Forced",txt:"White must take the bishop."},
+{san:"Re8",hl:"8...Re8! — Pin the king!",txt:"Re8! The rook pins White's king against the queen on e2. White is in serious trouble!",tip:"From's Gambit bishop sac: after Bg3+!! hxg3 Re8!, White's queen is pinned to the king. Black has full compensation for the piece with devastating activity. The h-file and e-file pressure is overwhelming!"}
+],summary:{mistake:"White grabs e4 with Qe2 but allows Bg3+!! sacrifice opening the h-file.",punish:"After hxg3 Re8, the queen is pinned and White's position falls apart.",fallback:"White should avoid e4 in the Bird's and play d3 for solid development."}},
 
 {id:'bird3',side:'Bird',level:'Beginner',name:"Bird's — Diagonal Weakness Trap",sub:"Early Qh4+ after f4 — diagonal exploitation",moves:[
 {san:"f4",hl:"1.f4",txt:"Bird's Opening. Immediately weakens the e1-h4 diagonal."},
@@ -1194,26 +1199,26 @@ const TRAPS=[
 {san:"Qh4",hl:"10...Qh4! — DIAGONAL ATTACK!",txt:"Qh4! The queen exploits the weakened e1-h4 diagonal.",why:"The f4 pawn created this weakness from move 1. Now the queen attacks h2 and creates threats.",tip:"1.f4 immediately weakens the e1-h4 diagonal. Black exploits this by developing pieces quickly and playing Qh4 — attacking h2 and the weakened king. This is the main positional risk of the Bird's Opening."}
 ],summary:{mistake:"White plays f4 without understanding the diagonal weakness it creates.",punish:"After Ne4 dxe4 and Qh4, Black controls the weakened h4 square and threatens h2.",fallback:"White should play Bd3 to guard the diagonal after f4."}},
 
-{id:'bird4',side:'Bird',level:'Intermediate',name:"Bird's — Greco Style Quick Mate",sub:"Fast development punishes slow Bird's play",moves:[
-{san:"f4",hl:"1.f4 — Bird's Opening",txt:"f4 — Bird's Opening."},
+{id:'bird4',side:'Bird',level:'Intermediate',name:"Bird's — Greco Style Quick Mate",sub:"Ng4 Nf2!! forks king and rook",moves:[
+{san:"f4",hl:"1.f4 — Bird's Opening",txt:"f4 — Bird's Opening.",why:"f4 controls e5 but immediately weakens f2 and the kingside."},
 {san:"e5",hl:"1...e5 — From's Gambit!",txt:"From's Gambit!"},
 {san:"fxe5",hl:"2.fxe5",txt:"Accept."},
 {san:"d6",hl:"2...d6",txt:"Attack e5."},
 {san:"exd6",hl:"3.exd6",txt:"Take."},
-{san:"Bxd6",hl:"3...Bxd6",txt:"Monster bishop."},
-{san:"Nc3",hl:"4.Nc3 — Defensive attempt",txt:"Nc3 develops and supports the centre.",why:"This is a more solid approach for White."},
+{san:"Bxd6",hl:"3...Bxd6 — Monster bishop",txt:"Bishop develops powerfully."},
+{san:"Nc3",hl:"4.Nc3 — Defensive attempt",txt:"Nc3 develops and supports the centre.",why:"A more solid approach for White."},
 {san:"Nf6",hl:"4...Nf6",txt:"Develop."},
 {san:"e4",hl:"5.e4",txt:"Centre."},
-{san:"O-O",hl:"5...0-0 — Fast castle",txt:"Black castles quickly, then attacks.",why:"Fast development and castling is the Greco style — punish slow or greedy play."},
-{san:"Bc4",hl:"6.Bc4 — Targets f7",txt:"Bc4 — White eyes f7, planning Nxf7 fork idea."},
-{san:"Ng4",hl:"6...Ng4! — Attack f2!",txt:"Ng4! Black attacks f2 — the weakest point near White's king.",why:"f2 is only defended by the king. Ng4 creates immediate threats."},
-{san:"Ne2",hl:"7.Ne2 — Defend",txt:"Ne2 defends f2."},
-{san:"Qh4",hl:"7...Qh4! — Queen to h4!",txt:"Qh4! Queen attacks h2 and f2 simultaneously!",why:"Two pawns are attacked at once. White cannot defend both."},
-{san:"h3",hl:"8.h3 — Try to drive knight",txt:"h3 tries to chase the Ng4."},
-{san:"Qxf2",hl:"8...Qxf2+! — CHECK!",txt:"Qxf2+! Black takes f2 with check!",why:"After Kd1 Qxg2, Black has won two pawns and White's king is exposed."},
-{san:"Kd1",hl:"9.Kd1 — Forced",txt:"King must move."},
-{san:"Qxg2",hl:"9...Qxg2 — Rook falls!",txt:"Qxg2! Black wins the rook on h1. White is completely lost.",tip:"The Greco-style mating attack in the From's Gambit: after fast castling, Ng4 attacks f2, then Qh4 attacks both h2 and f2. White cannot defend against both threats!"}
-],summary:{mistake:"White develops Bc4 targeting f7 but allows Ng4 Qh4 double attack on f2 and h2.",punish:"After Qxf2+ Kd1 Qxg2, Black wins the rook and White's position collapses.",fallback:"White should play d3 and Nf3 for solid development instead of Bc4."}},
+{san:"O-O",hl:"5...0-0 — Fast castle",txt:"Black castles quickly — then attacks!",why:"Castling activates the rooks and prepares the Ng4 trick."},
+{san:"Bc4",hl:"6.Bc4 — Targets f7",txt:"Bc4 — White eyes f7.",warn:"White aims at f7 but misses the Ng4-f2 fork!"},
+{san:"Ng4",hl:"6...Ng4! — Attack f2!",txt:"Ng4! Black attacks f2 — the weakest point near White's king.",why:"f2 is only defended by the king. Ng4 creates a devastating threat."},
+{san:"h3",hl:"7.h3 — Chase the knight",txt:"h3 tries to chase the Ng4.",warn:"h3 allows the stunning Nf2! — a knight fork!"},
+{san:"Nf2",hl:"7...Nf2!! — FORK! King and Rook!",txt:"Nf2!! The knight forks the king AND the rook on h1!",why:"After Kxf2 the bishop checks on g3. After Rxh1 Black is simply up material."},
+{san:"Kxf2",hl:"8.Kxf2 — Take the knight",txt:"King takes — forced."},
+{san:"Bg3",hl:"8...Bg3+ — Check!",txt:"Bg3+! Bishop checks the exposed king!",why:"The king has no good square. Ke3 runs into Qh4, Ke2 allows Qh4 as well."},
+{san:"Ke2",hl:"9.Ke2 — Flee",txt:"King flees."},
+{san:"Qh4",hl:"9...Qh4! — Domination!",txt:"Qh4! Queen joins the attack. White is completely overwhelmed with the king in the open.",tip:"The Greco-style attacking pattern in Bird's: Ng4 attacks f2, then after h3, Nf2!! forks king and rook. After Kxf2 Bg3+ Ke2 Qh4, White's king has no shelter. Developed pieces punish the weakened kingside!"}
+],summary:{mistake:"White plays Bc4 and h3 without noticing the Ng4-Nf2 fork.",punish:"After Nf2!! Kxf2 Bg3+ Ke2 Qh4, White's exposed king is decisive.",fallback:"White should play d3 and Nf3 to solidify before attacking with Bc4."}},
 
 {id:'bird5',side:'Bird',level:'Intermediate',name:"Reversed Dutch Trap",sub:"Bird's reversed Dutch — b4! queenside attack",moves:[
 {san:"f4",hl:"1.f4 — Bird's Opening",txt:"f4 — Bird's Opening. Essentially a reversed Dutch Defence!",why:"The Dutch is 1...f5 by Black. The Bird's is the same idea for White — control e5."},
@@ -1222,15 +1227,17 @@ const TRAPS=[
 {san:"d5",hl:"2...d5",txt:"Solid centre."},
 {san:"e3",hl:"3.e3",txt:"Solid."},
 {san:"Bf5",hl:"3...Bf5 — Active bishop",txt:"Bf5! Active bishop development.",why:"In the reversed Dutch, this bishop mirrors Black's Bf5 in the Caro-Kann."},
-{san:"b3",hl:"4.b3 — Fianchetto",txt:"b3 prepares Bb2 fianchetto — a key Dutch reversed idea.",why:"Bb2 on the long diagonal is very strong in the reversed Dutch."},
+{san:"b3",hl:"4.b3 — Fianchetto",txt:"b3 prepares Bb2 fianchetto — a key reversed Dutch idea.",why:"Bb2 on the long diagonal is very strong in the reversed Dutch."},
 {san:"e6",hl:"4...e6",txt:"Solid."},
-{san:"Bb2",hl:"5.Bb2",txt:"The key fianchetto bishop."},
+{san:"Bb2",hl:"5.Bb2 — The key bishop",txt:"Bb2 — the fianchetto bishop is the heart of the Bird's strategy.",why:"The Bb2 controls the long diagonal alongside Ne5."},
 {san:"Be7",hl:"5...Be7",txt:"Develop."},
-{san:"O-O",hl:"6.0-0",txt:"Castle."},
-{san:"O-O",hl:"6...0-0",txt:"Castle."},
-{san:"Ne5",hl:"7.Ne5! — The Dutch outpost",txt:"Ne5! The knight on e5 is the Bird's/reversed Dutch key outpost piece.",why:"Ne5 is the same idea as in the Dutch Defence — controlling e5 is the whole point of f4."},
-{san:"c5",hl:"7...c5 — Undermine e5",txt:"c5! Black undermines the Ne5 support."},
-{san:"b4",hl:"8.b4! — REVERSED DUTCH ATTACK!",txt:"b4! White attacks with the queenside pawns — just like in the Dutch reversed!",why:"In the Dutch, Black attacks with b5-b4. Here White mirrors with b4-b5. The Bb2 becomes a monster.",tip:"Bird's Opening = reversed Dutch Defence. The same ideas apply with colours reversed. Ne5 is the key outpost, Bb2 is the monster bishop, and b4-b5 is the pawn storm. Study both openings together!"}
+{san:"Be2",hl:"6.Be2 — Develop kingside",txt:"Be2 develops the kingside bishop, preparing to castle.",why:"Be2 is needed before castling. This is the correct development order in the Bird's."},
+{san:"O-O",hl:"6...0-0",txt:"Black castles."},
+{san:"O-O",hl:"7.0-0 — Castle!",txt:"White castles safely."},
+{san:"Nbd7",hl:"7...Nbd7",txt:"Develop."},
+{san:"Ne5",hl:"8.Ne5! — The Bird's outpost",txt:"Ne5! The knight on e5 is the Bird's/reversed Dutch key outpost piece.",why:"Ne5 is the same idea as in the Dutch Defence — controlling e5 is the whole point of f4."},
+{san:"c5",hl:"8...c5 — Undermine e5",txt:"c5! Black undermines the Ne5 support."},
+{san:"b4",hl:"9.b4! — REVERSED DUTCH ATTACK!",txt:"b4! White attacks with the queenside pawns — just like in the Dutch reversed!",tip:"Bird's Opening = reversed Dutch Defence. The same ideas apply with colours reversed. Ne5 is the key outpost, Bb2 is the monster bishop, and b4-b5 is the pawn storm. Study both openings together!"}
 ],summary:{mistake:"Black allows the Bird's Ne5 outpost and b4-b5 pawn storm.",punish:"After b4, White's queenside attack with the Bb2 battery is very dangerous.",fallback:"Black should challenge Ne5 with Nd7 and play c5 earlier."}},
 
 {id:'bird6',side:'Bird',level:'Advanced',name:"Lasker-Style Pin Trap in Bird's",sub:"Bg4 pin punishes slow Bird's development",moves:[
@@ -1527,7 +1534,7 @@ function buildBoard(boardId, rankId, fileId, flipped) {
       const rank = flipped ? r + 1 : 8 - r;
       const file = flipped ? 7 - f : f;
       const sqName = 'abcdefgh'[file] + rank;
-      sq.className = 'sq ' + ((rank + file) % 2 === 0 ? 'dk' : 'lt');
+      sq.className = 'sq ' + ((rank + file) % 2 === 0 ? 'lt' : 'dk');
       sq.style.width = SQ_SIZE + 'px';
       sq.style.height = SQ_SIZE + 'px';
       sq.dataset.sq = sqName;
@@ -1560,7 +1567,7 @@ function renderBoard(chess, boardId, fromSq, toSq, checkSq, arrSvgId) {
 function isLight(sq) {
   const f = 'abcdefgh'.indexOf(sq[0]);
   const r = parseInt(sq[1]);
-  return (f + r) % 2 === 1;
+  return (f + r) % 2 === 0;
 }
 
 function drawArrow(svgId, from, to, color='rgba(100,200,100,0.7)', boardId='board') {
