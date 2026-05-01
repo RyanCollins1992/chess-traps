@@ -1825,6 +1825,11 @@ body {
 .study-layout { overflow: visible !important; }
 .main-content { overflow-x: clip; } /* clip not hidden — allows dropdowns to show */
 
+
+.dd-item-name { font-size: 13px; font-weight: 500; color: #c8d8f0; flex: 1; }
+.dd-item-sub  { font-size: 10px; color: var(--muted); margin-top: 1px; font-weight: 400; }
+.dd-item { align-items: flex-start; }
+
 </style>
 </head>
 <body>
@@ -4951,16 +4956,14 @@ function buildDropdowns() {
   const bySection = {w: [], b: [], q: [], bird: [], rep: []};
   TRAPS.forEach(t => {
     if (t.level === 'Repertoire') {
-      // Repertoire White traps go into White, Black into Black
       if (t.side === 'Black') bySection.b.push(t);
       else bySection.w.push(t);
-      bySection.rep.push(t); // keep for compat
+      bySection.rep.push(t);
       return;
     }
-    // Bird's openings go into White (you play White in Bird's)
     const key = t.side === 'Bird' ? 'w' : t.side === 'White' ? 'w' : 'b';
     bySection[key].push(t);
-    if (t.side === 'Bird') bySection.bird.push(t); // keep for compat
+    if (t.side === 'Bird') bySection.bird.push(t);
   });
   QUICK_MATES.forEach(q => bySection.q.push({...q, isQM: true}));
 
@@ -4979,8 +4982,11 @@ function buildDropdowns() {
     const isBird = key === 'bird';
     d.className = 'dd-item' + (isBird ? ' bird-item' : '');
     d.dataset.id = t.id;
-    const lv = t.level ? `<span class="lv lv-${t.level === 'Beginner' ? 'b' : t.level === 'Intermediate' ? 'i' : 'a'}">${t.level}</span>` : '';
-    d.innerHTML = `<div class="dd-item-name">${t.name}</div><div class="dd-item-right">${lv}</div>`;
+    const lv = ''; // level shown in section header, not per-item
+    const mastered = typeof getMastered === 'function' && getMastered()[t.id];
+    const studied = typeof getProgress === 'function' && getProgress().traps_studied?.[t.id];
+    const tick = mastered ? '<span style="color:#2a9d8f;font-size:12px;flex-shrink:0">✓</span>' : studied ? '<span style="color:#334060;font-size:10px;flex-shrink:0">·</span>' : '';
+    d.innerHTML = `<div class="dd-item-name">${t.name}${t.sub ? `<div class="dd-item-sub">${t.sub}</div>` : ''}</div>${tick}`;
     d.onclick = () => {
       document.querySelectorAll('.dd-item').forEach(el => el.classList.remove('cur'));
       d.classList.add('cur');
@@ -5000,37 +5006,58 @@ function buildDropdowns() {
     if (!container) return;
     container.innerHTML = '';
 
-    if (key === 'w') {
-      // White openings first
-      const whiteTrap = bySection.w.filter(t => t.side === 'White');
-      const birdTrap  = bySection.w.filter(t => t.side === 'Bird');
-      const repWhite  = bySection.w.filter(t => t.level === 'Repertoire');
+    const LEVEL_ORDER = ['Beginner', 'Intermediate', 'Advanced', 'Repertoire'];
+    const LEVEL_LABELS = {
+      Beginner:     { icon: '🟢', label: 'Beginner' },
+      Intermediate: { icon: '🟡', label: 'Intermediate' },
+      Advanced:     { icon: '🔴', label: 'Advanced' },
+      Repertoire:   { icon: '♞', label: 'Repertoire' },
+    };
 
-      if (whiteTrap.length) {
-        container.appendChild(makeSectionHdr('♔ White Openings'));
-        whiteTrap.forEach(t => container.appendChild(makeItem(t, 'w')));
-      }
-      if (birdTrap.length) {
-        container.appendChild(makeSectionHdr("🐦 Bird's Opening"));
-        birdTrap.forEach(t => container.appendChild(makeItem(t, 'w')));
-      }
-      if (repWhite.length) {
-        container.appendChild(makeSectionHdr('♞ Repertoire — Playing White'));
-        repWhite.forEach(t => container.appendChild(makeItem(t, 'w')));
-      }
+    if (key === 'w' || key === 'b') {
+      // Group by level
+      const groups = {};
+      bySection[key].forEach(t => {
+        const lv = t.level || 'Beginner';
+        if (!groups[lv]) groups[lv] = [];
+        groups[lv].push(t);
+      });
 
-    } else if (key === 'b') {
-      const blackTrap = bySection.b.filter(t => t.side === 'Black');
-      const repBlack  = bySection.b.filter(t => t.level === 'Repertoire');
+      // Render in Beginner → Intermediate → Advanced → Repertoire order
+      LEVEL_ORDER.forEach(lv => {
+        if (!groups[lv] || !groups[lv].length) return;
+        // Section header
+        const hdr = document.createElement('div');
+        hdr.style.cssText = [
+          'display:flex;align-items:center;gap:8px',
+          'font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em',
+          'padding:12px 14px 5px',
+          'color:var(--muted)',
+          'border-top:1px solid rgba(255,255,255,.05)',
+          'margin-top:4px',
+        ].join(';');
+        // First section has no top border
+        if (lv === LEVEL_ORDER[0] || !Object.keys(groups).find(g => LEVEL_ORDER.indexOf(g) < LEVEL_ORDER.indexOf(lv) && groups[g]?.length)) {
+          hdr.style.borderTop = 'none';
+          hdr.style.marginTop = '0';
+        }
+        const info = LEVEL_LABELS[lv] || { icon: '•', label: lv };
+        hdr.innerHTML = `<span style="font-size:12px">${info.icon}</span><span>${info.label}</span><span style="margin-left:auto;font-size:9px;opacity:.5;text-transform:none;letter-spacing:0">${groups[lv].length} traps</span>`;
+        container.appendChild(hdr);
 
-      if (blackTrap.length) {
-        container.appendChild(makeSectionHdr('♚ Black Openings'));
-        blackTrap.forEach(t => container.appendChild(makeItem(t, 'b')));
-      }
-      if (repBlack.length) {
-        container.appendChild(makeSectionHdr('♞ Repertoire — Playing Black'));
-        repBlack.forEach(t => container.appendChild(makeItem(t, 'b')));
-      }
+        // Sort alphabetically within each level
+        groups[lv].sort((a,b) => a.name.localeCompare(b.name));
+        groups[lv].forEach(t => container.appendChild(makeItem(t, key)));
+      });
+
+    } else if (key === 'q') {
+      // Mates: ordered easiest → hardest (they're already in rough order by id)
+      // Add a single header
+      const hdr = document.createElement('div');
+      hdr.style.cssText = 'font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:10px 14px 5px;color:var(--muted)';
+      hdr.innerHTML = '<span style="font-size:12px">⚡</span> <span>Quickest Mates — Simplest First</span>';
+      container.appendChild(hdr);
+      bySection[key].forEach(t => container.appendChild(makeItem(t, key)));
 
     } else {
       bySection[key].forEach(t => container.appendChild(makeItem(t, key)));
