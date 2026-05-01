@@ -20,15 +20,7 @@ html{-webkit-text-size-adjust:100%}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;min-height:100vh}
 
 /* TOPBAR */
-.topbar{background:#111d35;border-bottom:1px solid var(--border);padding:0 14px;height:48px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.5)}
-.logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.logo-knight{font-size:22px;line-height:1}
-.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
-.trap-count{font-size:11px;color:var(--muted)}
-.mode-switcher{display:flex;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;overflow:hidden}
-.mode-btn{padding:5px 13px;border:none;background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
-.mode-btn.active{background:var(--bg2);color:#fff;box-shadow:inset 0 0 0 1px var(--border2)}
-.mode-btn:hover:not(.active){color:var(--text)}
+
 
 /* NAV */
 .subnav{background:#111d35;border-bottom:1px solid var(--border);display:flex;position:sticky;top:48px;z-index:190}
@@ -1043,45 +1035,264 @@ canvas#rating-canvas{width:100%;height:220px;display:block}
 .diff-filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
 .diff-section-hdr{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);font-weight:700;padding:10px 0 4px}
 
+
+/* ════════════════════════════════════════════════════════
+   SIDEBAR NAVIGATION SYSTEM
+════════════════════════════════════════════════════════ */
+
+/* Layout */
+html, body { height:100%; }
+body { display:flex; flex-direction:column; }
+.sidebar-overlay {
+  display:none; position:fixed; inset:0; z-index:290;
+  background:rgba(0,0,10,.65); backdrop-filter:blur(3px);
+}
+.sidebar-overlay.vis { display:block; }
+
+/* Sidebar */
+.sidebar {
+  position:fixed; top:0; left:0; height:100vh; width:230px;
+  background:#0e1a30; border-right:1px solid var(--border);
+  display:flex; flex-direction:column; z-index:300;
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
+  overflow:hidden;
+}
+.sidebar-body {
+  flex:1; overflow-y:auto; overflow-x:hidden; padding:8px 8px 4px;
+  scrollbar-width:thin; scrollbar-color:var(--dim) transparent;
+}
+.sidebar-body::-webkit-scrollbar { width:3px; }
+.sidebar-body::-webkit-scrollbar-thumb { background:var(--dim); border-radius:2px; }
+
+/* Logo */
+.sidebar-logo {
+  display:flex; align-items:center; gap:12px;
+  padding:16px 14px; border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.sidebar-logo-knight { font-size:28px; line-height:1; }
+.sidebar-logo-name { font-size:16px; font-weight:800; color:#fff; letter-spacing:-.4px; }
+.sidebar-logo-sub { font-size:10px; color:var(--muted); margin-top:2px; }
+
+/* Nav groups */
+.nav-group { margin-bottom:4px; }
+.nav-group-label {
+  font-size:9px; text-transform:uppercase; letter-spacing:.12em;
+  color:var(--dim); font-weight:700; padding:10px 10px 4px;
+}
+
+/* Nav items */
+.nav-item {
+  display:flex; align-items:center; gap:10px;
+  width:100%; padding:9px 10px; border-radius:8px;
+  border:none; background:transparent; cursor:pointer;
+  font-family:inherit; font-size:13px; font-weight:500;
+  color:var(--muted); text-align:left; position:relative;
+  transition:background .1s, color .1s;
+  -webkit-tap-highlight-color:transparent;
+  white-space:nowrap;
+}
+.nav-item:hover { background:rgba(255,255,255,.05); color:var(--text); }
+.nav-item.active {
+  background:rgba(90,153,16,.18); color:var(--accent2); font-weight:600;
+}
+.nav-item.active::before {
+  content:''; position:absolute; left:0; top:20%; bottom:20%;
+  width:3px; background:var(--accent); border-radius:0 3px 3px 0;
+}
+.ni { font-size:15px; width:20px; text-align:center; flex-shrink:0; }
+
+/* Sidebar footer */
+.sidebar-footer {
+  flex-shrink:0; padding:10px 8px 12px;
+  border-top:1px solid var(--border);
+}
+.sidebar-streak {
+  display:flex; align-items:center; gap:10px;
+  padding:9px 12px; border-radius:10px;
+  background:rgba(240,204,64,.07); border:1px solid rgba(240,204,64,.18);
+}
+.sidebar-streak-num { font-size:18px; font-weight:800; color:var(--gold); line-height:1; }
+.sidebar-streak-lbl { font-size:10px; color:var(--muted); }
+.sidebar-xp { font-size:13px; font-weight:700; color:var(--accent2); }
+
+/* Topbar */
+.topbar {
+  position:sticky; top:0; z-index:200;
+  height:52px; background:#0c1626;
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:12px;
+  padding:0 16px; box-shadow:0 1px 16px rgba(0,0,0,.5);
+  margin-left:230px;
+  transition:margin-left .25s cubic-bezier(.4,0,.2,1);
+}
+.topbar-title {
+  flex:1; font-size:15px; font-weight:700; color:#fff;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.topbar-actions { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.topbar-elo {
+  font-size:11px; color:var(--accent2); font-weight:700;
+  background:rgba(90,153,16,.12); padding:4px 10px;
+  border-radius:100px; border:1px solid rgba(90,153,16,.25);
+  cursor:pointer; white-space:nowrap;
+}
+.topbar-elo:hover { background:rgba(90,153,16,.22); }
+.topbar-sound {
+  width:34px; height:34px; border-radius:8px;
+  border:1px solid var(--border2); background:transparent;
+  color:var(--muted); font-size:16px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.topbar-sound:hover { border-color:var(--accent); color:var(--accent2); }
+
+/* Hamburger button */
+.hamburger {
+  display:none; flex-direction:column; justify-content:center;
+  gap:5px; width:36px; height:36px; border-radius:8px;
+  border:1px solid var(--border2); background:transparent;
+  cursor:pointer; padding:8px; flex-shrink:0;
+}
+.hamburger span {
+  display:block; height:2px; background:var(--muted);
+  border-radius:2px; transition:all .2s;
+}
+.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+/* Main content */
+.main-content {
+  margin-left:230px;
+  min-height:calc(100vh - 52px);
+  transition:margin-left .25s cubic-bezier(.4,0,.2,1);
+}
+
+/* Study subnav stays sticky below topbar */
+.subnav {
+  position:sticky; top:52px; z-index:180;
+  background:#0c1626; border-bottom:1px solid var(--border);
+}
+
+/* Mobile */
+@media (max-width:768px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .topbar { margin-left:0; padding:0 12px; }
+  .hamburger { display:flex; }
+  .main-content { margin-left:0; }
+}
+
+/* Collapsed sidebar (desktop toggle) */
+body.sidebar-collapsed .sidebar { transform:translateX(-100%); }
+body.sidebar-collapsed .topbar { margin-left:0; }
+body.sidebar-collapsed .main-content { margin-left:0; }
+
+/* Sound button (old selector compat) */
+.sound-btn {
+  width:34px; height:34px; border-radius:8px;
+  border:1px solid var(--border2); background:transparent;
+  color:var(--muted); font-size:16px; cursor:pointer;
+}
+
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <div class="logo"><span class="logo-knight">♞</span> Chess Traps</div>
-  <div class="topbar-right">
-    <span class="trap-count" id="trap-count"></span>
-    <div class="mode-switcher">
-      <button class="mode-btn active" id="btn-study" onclick="switchMode('study')">📖 Study</button>
-      <button class="mode-btn" id="btn-coach" onclick="switchMode('coach')">🤖 Coach</button>
-      <button class="mode-btn" id="btn-freeplay" onclick="switchMode('freeplay')">♛ Free Play</button>
-      <button class="mode-btn" id="btn-roadmap" onclick="switchMode('roadmap')">🗺 Roadmap</button>
-      <button class="mode-btn" id="btn-puzzle" onclick="switchMode('puzzle')">🧩 Puzzles</button>
-      <button class="mode-btn" id="btn-quiz" onclick="switchMode('quiz')">❓ Quiz</button>
-      <button class="mode-btn" id="btn-analyser" onclick="switchMode('analyser')">🔬 Analyse</button>
-      <button class="mode-btn" id="btn-progress" onclick="switchMode('progress')">📊 Progress</button>
-      <button class="mode-btn" id="btn-endgame" onclick="switchMode('endgame')">♔ Endgames</button>
-      <button class="mode-btn" id="btn-blunder" onclick="switchMode('blunder')">🔍 Blunders</button>
-      <button class="mode-btn" id="btn-tree" onclick="switchMode('tree')">🌳 Tree</button>
-      <button class="mode-btn" id="btn-daily" onclick="switchMode('daily')">📅 Daily</button>
-      <button class="mode-btn" id="btn-badges" onclick="switchMode('badges')">🏆 Badges</button>
-      <button class="mode-btn" id="btn-patterns" onclick="switchMode('patterns')">♟ Patterns</button>
-      <button class="mode-btn" id="btn-settings" onclick="switchMode('settings')">⚙️ Settings</button>
-      <button class="mode-btn" id="btn-favourites" onclick="switchMode('favourites')">⭐ Favourites</button>
-      <button class="mode-btn" id="btn-weekly" onclick="switchMode('weekly')">📈 Weekly</button>
-      <button class="mode-btn" id="btn-spaced" onclick="switchMode('spaced')">🔁 Review</button>
-      <button class="mode-btn" id="btn-drill" onclick="switchMode('drill')">🧠 Drill</button>
-      <button class="mode-btn" id="btn-import" onclick="switchMode('import')">📥 Import</button>
-      <button class="mode-btn" id="btn-opponent" onclick="switchMode('opponent')">🎯 Opponent</button>
-      <button class="mode-btn" id="btn-battle" onclick="switchMode('battle')">⚔️ Battle</button>
-      <button class="mode-btn" id="btn-graph" onclick="switchMode('graph')">📈 Graph</button>
-      <button class="mode-btn" id="btn-pieces" onclick="switchMode('pieces')">⚖️ Pieces</button>
-      <button class="mode-btn" id="btn-timer" onclick="switchMode('timer')">⏱ Timer</button>
-      <button class="mode-btn" id="btn-difficulty" onclick="switchMode('difficulty')">⭐ Difficulty</button>
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span class="sidebar-logo-knight">♞</span>
+    <div>
+      <div class="sidebar-logo-name">Chess Traps</div>
+      <div class="sidebar-logo-sub" id="trap-count">Loading…</div>
     </div>
   </div>
-</div>
+
+  <div class="sidebar-body">
+    <div class="nav-group">
+      <div class="nav-group-label">Learn</div>
+      <button class="nav-item active" id="btn-study"      onclick="switchMode('study')">      <span class="ni">📖</span> Study Traps</button>
+      <button class="nav-item"        id="btn-roadmap"    onclick="switchMode('roadmap')">    <span class="ni">🗺</span> ELO Roadmap</button>
+      <button class="nav-item"        id="btn-tree"       onclick="switchMode('tree')">       <span class="ni">🌳</span> Opening Tree</button>
+      <button class="nav-item"        id="btn-favourites" onclick="switchMode('favourites')"> <span class="ni">⭐</span> Favourites</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Play</div>
+      <button class="nav-item" id="btn-coach"    onclick="switchMode('coach')">    <span class="ni">🤖</span> vs. Coach</button>
+      <button class="nav-item" id="btn-freeplay" onclick="switchMode('freeplay')"> <span class="ni">♛</span> Free Play</button>
+      <button class="nav-item" id="btn-battle"   onclick="switchMode('battle')">   <span class="ni">⚔️</span> Trap Battle</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Train</div>
+      <button class="nav-item" id="btn-puzzle"     onclick="switchMode('puzzle')">     <span class="ni">🧩</span> Puzzles</button>
+      <button class="nav-item" id="btn-drill"      onclick="switchMode('drill')">      <span class="ni">🧠</span> Memory Drill</button>
+      <button class="nav-item" id="btn-quiz"       onclick="switchMode('quiz')">       <span class="ni">❓</span> Opening Quiz</button>
+      <button class="nav-item" id="btn-patterns"   onclick="switchMode('patterns')">   <span class="ni">♟</span> Mate Patterns</button>
+      <button class="nav-item" id="btn-endgame"    onclick="switchMode('endgame')">    <span class="ni">♔</span> Endgames</button>
+      <button class="nav-item" id="btn-pieces"     onclick="switchMode('pieces')">     <span class="ni">⚖️</span> Piece Values</button>
+      <button class="nav-item" id="btn-spaced"     onclick="switchMode('spaced')">     <span class="ni">🔁</span> Spaced Review</button>
+      <button class="nav-item" id="btn-difficulty" onclick="switchMode('difficulty')"> <span class="ni">⭐</span> Rate Difficulty</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Analyse</div>
+      <button class="nav-item" id="btn-analyser" onclick="switchMode('analyser')"> <span class="ni">🔬</span> Analyse</button>
+      <button class="nav-item" id="btn-blunder"  onclick="switchMode('blunder')">  <span class="ni">🔍</span> Blunder Coach</button>
+      <button class="nav-item" id="btn-import"   onclick="switchMode('import')">   <span class="ni">📥</span> Import Games</button>
+      <button class="nav-item" id="btn-opponent" onclick="switchMode('opponent')">  <span class="ni">🎯</span> Opponent Scout</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Progress</div>
+      <button class="nav-item" id="btn-daily"    onclick="switchMode('daily')">    <span class="ni">📅</span> Daily Tasks</button>
+      <button class="nav-item" id="btn-progress" onclick="switchMode('progress')"> <span class="ni">📊</span> My Progress</button>
+      <button class="nav-item" id="btn-graph"    onclick="switchMode('graph')">    <span class="ni">📈</span> Rating Graph</button>
+      <button class="nav-item" id="btn-badges"   onclick="switchMode('badges')">   <span class="ni">🏆</span> Badges</button>
+      <button class="nav-item" id="btn-weekly"   onclick="switchMode('weekly')">   <span class="ni">📋</span> Weekly Report</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-group-label">Tools</div>
+      <button class="nav-item" id="btn-timer"    onclick="switchMode('timer')">    <span class="ni">⏱</span> Study Timer</button>
+      <button class="nav-item" id="btn-settings" onclick="switchMode('settings')"> <span class="ni">⚙️</span> Settings</button>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-streak" id="sidebar-streak-row">
+      <span style="font-size:18px">🔥</span>
+      <div>
+        <div class="sidebar-streak-num" id="sidebar-streak-num">1</div>
+        <div class="sidebar-streak-lbl">day streak</div>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <div class="sidebar-xp" id="sidebar-xp">0 XP</div>
+        <div class="sidebar-streak-lbl">today</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="topbar-title" id="topbar-title">📖 Study Traps</div>
+  <div class="topbar-actions">
+    <span class="topbar-elo" id="topbar-elo" onclick="switchMode('graph')" title="Estimated rating">— ELO</span>
+    <button class="topbar-sound" id="sound-btn" onclick="toggleSound()">🔊</button>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="main-content" id="main-content">
 
 <!-- ══════════════════════════════════════════════════
      STUDY MODE
@@ -4535,6 +4746,21 @@ function leaveCoachGame() {
 // ══════════════════════════════════════════════════════════════════
 // MODE SWITCHING
 // ══════════════════════════════════════════════════════════════════
+// Page titles for topbar
+const PAGE_TITLES = {
+  study:'📖 Study Traps', coach:'🤖 vs. Coach', freeplay:'♛ Free Play',
+  roadmap:'🗺 ELO Roadmap', puzzle:'🧩 Puzzles', quiz:'❓ Opening Quiz',
+  analyser:'🔬 Analyse Position', progress:'📊 My Progress',
+  endgame:'♔ Endgame Trainer', blunder:'🔍 Blunder Coach',
+  tree:'🌳 Opening Tree', daily:'📅 Daily Tasks', badges:'🏆 Badges',
+  patterns:'♟ Mate Patterns', settings:'⚙️ Settings',
+  favourites:'⭐ Favourites', weekly:'📋 Weekly Report',
+  spaced:'🔁 Spaced Review', drill:'🧠 Memory Drill',
+  import:'📥 Import Games', opponent:'🎯 Opponent Scout',
+  battle:'⚔️ Trap Battle', graph:'📈 Rating Graph',
+  pieces:'⚖️ Piece Values', timer:'⏱ Study Timer', difficulty:'⭐ Rate Difficulty',
+};
+
 function switchMode(mode) {
   const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges','patterns','settings','favourites','weekly','spaced','drill','import','opponent','battle','graph','pieces','timer','difficulty'];
   pages.forEach(p => {
@@ -4544,6 +4770,11 @@ function switchMode(mode) {
     if (btn) btn.classList.toggle('active', p === mode);
   });
   document.querySelector('.subnav').style.display = mode === 'study' ? 'flex' : 'none';
+  // Update topbar title
+  const titleEl = document.getElementById('topbar-title');
+  if (titleEl) titleEl.textContent = PAGE_TITLES[mode] || mode;
+  // Close sidebar on mobile
+  closeSidebar();
   if (mode === 'freeplay' && !fpGame) fpNewGame();
   if (mode === 'roadmap') renderRoadmap();
   if (mode === 'puzzle') { if (!pzState.setIdx.length) pzNewSet(); }
@@ -4621,6 +4852,14 @@ window.addEventListener('load', () => {
   // Restore API key from settings
   const savedKey = localStorage.getItem('chess-api-key');
   if (savedKey) apiKey = savedKey;
+
+  // Sidebar init
+  updateSidebarStreak();
+  updateTopbarElo();
+
+  // Update trap count in sidebar logo
+  const tcEl = document.getElementById('trap-count');
+  if (tcEl) tcEl.textContent = (TRAPS.length + QUICK_MATES.length) + ' traps';
 });
 
 function loadTrapOfDay() {
@@ -4950,7 +5189,8 @@ let soundEnabled = localStorage.getItem('chess-sound') !== 'off';
 function toggleSound() {
   soundEnabled = !soundEnabled;
   localStorage.setItem('chess-sound', soundEnabled ? 'on' : 'off');
-  document.getElementById('sound-btn').textContent = soundEnabled ? '🔊' : '🔇';
+  const sb = document.getElementById('sound-btn');
+  if (sb) sb.textContent = soundEnabled ? '🔊' : '🔇';
 }
 function playSound(type) {
   if (!soundEnabled) return;
@@ -8182,6 +8422,60 @@ function diffRate(id,stars,starsEl) {
 // These extend existing functions by being called FROM within them
 // after this file loads — see patches below applied to original fns
 
+
+// ══════════════════════════════════════════════════════════════════
+// SIDEBAR NAVIGATION
+// ══════════════════════════════════════════════════════════════════
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const btn = document.getElementById('hamburger-btn');
+  const isOpen = sidebar.classList.contains('open');
+  if (window.innerWidth <= 768) {
+    sidebar.classList.toggle('open', !isOpen);
+    overlay.classList.toggle('vis', !isOpen);
+    btn && btn.classList.toggle('open', !isOpen);
+  } else {
+    document.body.classList.toggle('sidebar-collapsed');
+  }
+}
+
+function closeSidebar() {
+  if (window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('vis');
+    const btn = document.getElementById('hamburger-btn');
+    btn && btn.classList.remove('open');
+  }
+}
+
+function updateSidebarStreak() {
+  try {
+    const d = JSON.parse(localStorage.getItem('chess-daily') || '{}');
+    const today = new Date().toDateString();
+    const streak = d.date === today ? (d.streak || 1) : 1;
+    const xp = d.date === today ? (d.xp || 0) : 0;
+    const numEl = document.getElementById('sidebar-streak-num');
+    const xpEl = document.getElementById('sidebar-xp');
+    if (numEl) numEl.textContent = streak;
+    if (xpEl) xpEl.textContent = xp + ' XP';
+  } catch(e) {}
+}
+
+function updateTopbarElo() {
+  if (typeof calcEloEstimate === 'function') {
+    const elo = calcEloEstimate();
+    const el = document.getElementById('topbar-elo');
+    if (el) el.textContent = elo + ' ELO';
+  }
+}
+
+// Close sidebar on outside click (desktop)
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeSidebar();
+});
+
 </script>
+</div><!-- end main-content -->
 </body>
 </html>
