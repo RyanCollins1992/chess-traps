@@ -64,9 +64,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .trap-sub{font-size:12px;color:var(--muted);margin-top:3px}
 
 /* BOARD LAYOUT */
-.study-layout{display:flex;gap:14px;align-items:flex-start}
-@media(max-width:650px){.study-layout{flex-direction:column;align-items:stretch}}
-.board-col{flex-shrink:0;display:flex;flex-direction:column;gap:8px;align-items:center}
+.study-layout{display:flex;gap:14px;align-items:flex-start;min-width:0;overflow:hidden}
+@media(max-width:900px){.study-layout{flex-direction:column;align-items:stretch}}
+.board-col{flex-shrink:0;display:flex;flex-direction:column;gap:8px;align-items:center;min-width:0}
 .board-outer{display:inline-flex;flex-direction:column;gap:2px}
 .b-row{display:flex;align-items:stretch;gap:2px}
 .rank-col{display:flex;flex-direction:column;width:16px}
@@ -112,7 +112,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .hint{text-align:center;font-size:10px;color:var(--dim);padding:2px 0}
 
 /* INFO SIDE */
-.info-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.info-col{flex:1;min-width:260px;max-width:400px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
 .coach-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
 .who{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:100px;margin-bottom:7px}
 .who-w{background:rgba(255,255,255,.07);color:#ccc;border:1px solid rgba(255,255,255,.1)}
@@ -540,7 +540,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 
 
 /* ═══ ENDGAME TRAINER ═══════════════════════════════════════ */
-.endgame-page{max-width:960px;margin:0 auto;padding:12px}
+.endgame-page{max-width:960px;margin:0 auto;padding:12px;box-sizing:border-box}
 .endgame-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .endgame-hdr h2{font-size:22px;font-weight:800;color:#fff}
 .endgame-hdr p{font-size:13px;color:var(--muted);margin-top:3px}
@@ -553,7 +553,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .eg-card-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
 .eg-card-lvl{font-size:9px;padding:2px 7px;border-radius:100px;font-weight:700;margin-top:6px;display:inline-block}
 .eg-layout{display:flex;gap:14px;align-items:flex-start}
-@media(max-width:650px){.eg-layout{flex-direction:column}}
+@media(max-width:900px){.eg-layout{flex-direction:column}}
 .eg-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .eg-task-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
 .eg-task-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
@@ -566,11 +566,11 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .eg-progress-ring{display:flex;align-items:center;justify-content:center;gap:14px;padding:8px}
 
 /* ═══ BLUNDER COACH ════════════════════════════════════════ */
-.blunder-page{max-width:960px;margin:0 auto;padding:12px}
+.blunder-page{max-width:960px;margin:0 auto;padding:12px;box-sizing:border-box}
 .blunder-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .blunder-hdr h2{font-size:22px;font-weight:800;color:#fff}
 .blunder-layout{display:flex;gap:14px;align-items:flex-start}
-@media(max-width:650px){.blunder-layout{flex-direction:column}}
+@media(max-width:900px){.blunder-layout{flex-direction:column}}
 .blunder-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .blunder-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
 .blunder-move-num{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--warn);margin-bottom:5px}
@@ -592,10 +592,10 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .pgn-input-section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
 
 /* ═══ OPENING TREE ════════════════════════════════════════ */
-.tree-page{max-width:960px;margin:0 auto;padding:12px}
+.tree-page{max-width:960px;margin:0 auto;padding:12px;box-sizing:border-box}
 .tree-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .tree-layout{display:flex;gap:14px;align-items:flex-start}
-@media(max-width:650px){.tree-layout{flex-direction:column}}
+@media(max-width:900px){.tree-layout{flex-direction:column}}
 .tree-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .tree-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .tree-sel-btn{padding:6px 14px;border-radius:100px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;font-family:inherit;transition:all .12s}
@@ -706,7 +706,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 /* ══════════════════════════════════════════════════
    CHECKMATE PATTERNS
 ══════════════════════════════════════════════════ */
-.patterns-page{max-width:960px;margin:0 auto;padding:12px}
+.patterns-page{max-width:960px;margin:0 auto;padding:12px;box-sizing:border-box}
 .pattern-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .pattern-badge{width:44px;height:44px;background:linear-gradient(135deg,#3a1010,#7a1010);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(180,0,0,.3)}
 .pattern-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:16px}
@@ -717,7 +717,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .pattern-name{font-size:13px;font-weight:700;color:#fff}
 .pattern-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
 .pattern-layout{display:flex;gap:14px;align-items:flex-start}
-@media(max-width:650px){.pattern-layout{flex-direction:column}}
+@media(max-width:900px){.pattern-layout{flex-direction:column}}
 .pattern-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .pattern-info{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
 .pattern-info-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
@@ -793,10 +793,10 @@ textarea.inp-field{resize:vertical;min-height:70px}
 /* ══════════════════════════════════════════════════
    SPACED REPETITION
 ══════════════════════════════════════════════════ */
-.spaced-page{max-width:960px;margin:0 auto;padding:12px}
+.spaced-page{max-width:960px;margin:0 auto;padding:12px;box-sizing:border-box}
 .spaced-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .spaced-layout{display:flex;gap:14px;align-items:flex-start}
-@media(max-width:650px){.spaced-layout{flex-direction:column}}
+@media(max-width:900px){.spaced-layout{flex-direction:column}}
 .spaced-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .spaced-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px}
 .spaced-queue{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto}
@@ -835,11 +835,11 @@ textarea.inp-field{resize:vertical;min-height:70px}
 
 
 /* ═══ MEMORY DRILL ════════════════════════════════════════ */
-.drill-page{max-width:960px;margin:0 auto;padding:12px}
+.drill-page{max-width:960px;margin:0 auto;padding:12px;box-sizing:border-box}
 .drill-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .drill-badge{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
 .drill-layout{display:flex;gap:14px;align-items:flex-start}
-@media(max-width:650px){.drill-layout{flex-direction:column}}
+@media(max-width:900px){.drill-layout{flex-direction:column}}
 .drill-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 .drill-trap-select{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:12px}
 .drill-trap-btn{padding:10px 14px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all .12s;display:flex;align-items:center;gap:8px}
@@ -921,7 +921,7 @@ textarea.inp-field{resize:vertical;min-height:70px}
 .battle-score-num{font-size:28px;font-weight:900;color:#fff}
 .battle-score-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .battle-layout{display:flex;gap:14px;align-items:flex-start}
-@media(max-width:650px){.battle-layout{flex-direction:column}}
+@media(max-width:900px){.battle-layout{flex-direction:column}}
 .battle-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
 
 /* ═══ RATING GRAPH ═════════════════════════════════════════ */
@@ -1166,6 +1166,8 @@ body { display:flex; flex-direction:column; }
   margin-left:230px;
   min-height:calc(100vh - 52px);
   transition:margin-left .25s cubic-bezier(.4,0,.2,1);
+  overflow-x:hidden;
+  min-width:0;
 }
 
 /* Study subnav stays sticky below topbar */
@@ -1220,6 +1222,82 @@ body.sidebar-collapsed .main-content { margin-left:0; }
 /* Counter coach overlay enhancements */
 .cc-opp-move{display:inline-block;font-family:monospace;font-size:14px;font-weight:700;color:var(--warn);background:rgba(220,60,60,.1);border:1px solid rgba(220,60,60,.25);padding:2px 8px;border-radius:5px;margin:2px}
 .cc-your-move{display:inline-block;font-family:monospace;font-size:14px;font-weight:700;color:var(--accent2);background:rgba(90,153,16,.1);border:1px solid rgba(90,153,16,.25);padding:2px 8px;border-radius:5px;margin:2px}
+
+
+/* ═══ LAYOUT OVERFLOW FIX ═══════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Prevent any page from overflowing main-content */
+[id$="-page"] { min-width: 0; overflow-x: hidden; }
+
+/* Study layout: board + right panel, properly constrained */
+.study-page,
+.endgame-page, .blunder-page, .tree-page, .patterns-page,
+.spaced-page, .drill-page, .battle-page, .pieces-page,
+.timer-page, .difficulty-page, .opponent-page, .import-page,
+.badges-page, .weekly-page, .daily-page, .favourites-page {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Board col: fixed size, never overflow */
+.board-col { flex-shrink: 0; }
+
+/* Info / right panels: flex and shrink properly */
+.info-col,
+.eg-right, .blunder-right, .tree-right, .pattern-right,
+.spaced-right, .drill-right, .battle-right {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* Notation: always scroll horizontally, never overflow parent */
+.notation {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+/* AI panel: constrain width */
+.ai-panel {
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Coach card text: wrap properly */
+.coach-card, .who, .move-san, .move-hl, .move-txt {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Subnav: full width of content area */
+.subnav {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+.subnav::-webkit-scrollbar { display: none; }
+
+/* Study layout responsive: stack below 900px viewport */
+@media (max-width: 1100px) {
+  .info-col { min-width: 220px; }
+}
+@media (max-width: 960px) {
+  .study-layout,
+  .eg-layout, .blunder-layout, .tree-layout, .pattern-layout,
+  .spaced-layout, .drill-layout, .battle-layout {
+    flex-direction: column;
+  }
+  .info-col,
+  .eg-right, .blunder-right, .tree-right, .pattern-right,
+  .spaced-right, .drill-right, .battle-right {
+    width: 100%;
+    max-width: 100%;
+  }
+}
 
 </style>
 </head>
@@ -4025,8 +4103,13 @@ const COACH_OPENINGS = [
 let SQ_SIZE = 52;
 
 function calcSqSize() {
-  const w = Math.min(window.innerWidth - 40, 420);
-  SQ_SIZE = Math.floor(w / 8);
+  // Account for sidebar (230px on desktop), main padding (32px), right panel (280px min), gaps (14px)
+  const sidebarW = window.innerWidth > 768 ? 230 : 0;
+  const availW = window.innerWidth - sidebarW - 32; // total available for content
+  // Board should be at most half the available space, and never exceed 420px
+  const maxBoard = Math.min(availW - 300, 420); // 300px reserved for right panel
+  const boardW = Math.max(maxBoard, 240); // minimum 240px board
+  SQ_SIZE = Math.floor(boardW / 8);
 }
 
 function pieceKey(p) {
@@ -5102,6 +5185,7 @@ const PAGE_TITLES = {
 };
 
 function switchMode(mode) {
+  calcSqSize(); // Recalculate board size on every mode switch
   const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges','patterns','settings','favourites','weekly','spaced','drill','import','opponent','battle','graph','pieces','timer','difficulty'];
   pages.forEach(p => {
     const el = document.getElementById(p + '-page');
@@ -8781,6 +8865,7 @@ function toggleSidebar() {
     btn && btn.classList.toggle('open', !isOpen);
   } else {
     document.body.classList.toggle('sidebar-collapsed');
+    setTimeout(calcSqSize, 300); // recalculate after sidebar animation
   }
 }
 
