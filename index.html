@@ -5923,9 +5923,12 @@ window.addEventListener('load', () => {
   const savedFont = localStorage.getItem('font-size');
   if (savedFont) setFontSize(savedFont);
 
-  // Light mode button state
+  // Reset light mode to dark on load (ignore saved 'on' state)
+  localStorage.removeItem('light-mode');
+  lightMode = false;
+  applyLightMode();
   const lmBtn = document.getElementById('light-mode-btn');
-  if (lmBtn) lmBtn.textContent = lightMode ? '🌙' : '☀️';
+  if (lmBtn) lmBtn.textContent = '☀️';
 });
 
 function loadTrapOfDay() {
@@ -10216,7 +10219,7 @@ function updateStudyOpeningName() {
 // ═══════════════════════════════════════════════════════════════
 // FEATURE 7: DARK/LIGHT MODE TOGGLE
 // ═══════════════════════════════════════════════════════════════
-let lightMode = localStorage.getItem('light-mode') === 'on';
+let lightMode = false; // always start dark, user can toggle
 
 function toggleLightMode() {
   lightMode = !lightMode;
@@ -10230,20 +10233,17 @@ function applyLightMode() {
   let style = document.getElementById('light-mode-style');
   if (!style) { style = document.createElement('style'); style.id = 'light-mode-style'; document.head.appendChild(style); }
   if (lightMode) {
+    // Soft warm light mode — not harsh white
     style.textContent = `
       :root {
-        --bg:#f0ede6;--bg2:#e8e4db;--bg3:#dedad0;
-        --border:#c8c4b8;--border2:#b8b4a8;
-        --text:#1c2537;--muted:#5a6880;--dim:#b0b8c8;
-        --accent:#1e7a6e;--accent2:#2a9d8f;
-        --gold:#c87f0a;--gold2:#e6a817;
-        --warn:#a02020;
+        --bg:#2a2e3a;--bg2:#242836;--bg3:#1e2230;
+        --border:#363b4e;--border2:#404660;
+        --text:#dcd8cc;--muted:#8090a8;--dim:#404a60;
+        --accent:#2a9d8f;--accent2:#3dbdae;
+        --gold:#e6a817;
+        --warn:#c0392b;
       }
-      .sidebar, .topbar { background:#e8e4db !important; }
-      .sidebar { border-right:1px solid #c8c4b8 !important; }
-      .dd-menu { background:#e8e4db !important; border-color:#c8c4b8 !important; }
-      .coach-card, .stat-card, .settings-section { background:#dedad0 !important; }
-      body { background:#f0ede6; color:#1c2537; }
+      body { background:var(--bg); color:var(--text); }
     `;
   } else {
     style.textContent = '';
