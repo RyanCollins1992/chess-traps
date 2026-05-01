@@ -948,6 +948,124 @@ canvas#rating-canvas{width:100%;height:220px;display:block}
 .confetti-piece{position:absolute;width:10px;height:10px;border-radius:2px;animation:confettiFall linear forwards}
 @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
+
+/* ══════════════════════════════════════════════════
+   THREAT DETECTOR
+══════════════════════════════════════════════════ */
+.sq.hl-threat{background:rgba(220,60,60,.55)!important}
+.sq.hl-threat.lt{background:rgba(220,60,60,.45)!important}
+.sq.hl-own-attack{background:rgba(90,180,90,.5)!important}
+.sq.hl-own-attack.lt{background:rgba(90,180,90,.4)!important}
+.threat-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;border:1.5px solid #dd4444;background:#2a1010;color:#ee8080;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:all .15s;width:100%;justify-content:center}
+.threat-btn:hover{background:#3a1818;border-color:#ff6060}
+.threat-btn.active{background:#3a0808;border-color:#ff2020;color:#ffaaaa;animation:pulse .8s ease-in-out infinite}
+.threat-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);padding:4px 0}
+.threat-legend-item{display:flex;align-items:center;gap:5px}
+.threat-legend-sq{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+
+/* ══════════════════════════════════════════════════
+   OPENING NAME LIVE DISPLAY
+══════════════════════════════════════════════════ */
+.opening-name-bar{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px;font-size:12px;min-height:38px;transition:all .3s}
+.opening-name-icon{font-size:16px;flex-shrink:0}
+.opening-name-text{flex:1;color:var(--text);font-weight:600}
+.opening-name-eco{font-size:10px;color:var(--muted);font-family:monospace;flex-shrink:0}
+.opening-name-path{font-size:10px;color:var(--muted);margin-top:1px}
+
+/* ══════════════════════════════════════════════════
+   PGN EXPORT
+══════════════════════════════════════════════════ */
+.pgn-export-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);color:var(--muted);cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:all .15s}
+.pgn-export-btn:hover{border-color:var(--accent);color:var(--accent2);background:#0c2818}
+
+/* ══════════════════════════════════════════════════
+   WHY DID I LOSE OVERLAY
+══════════════════════════════════════════════════ */
+.loss-explain{background:#0e0620;border:1px solid var(--coach);border-radius:10px;padding:14px;margin-top:10px;display:none}
+.loss-explain.vis{display:block}
+.loss-explain-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--coach2);margin-bottom:7px}
+.loss-explain-text{font-size:13px;color:#c0a0e0;line-height:1.7}
+
+/* ══════════════════════════════════════════════════
+   PIECE VALUE TRAINER
+══════════════════════════════════════════════════ */
+.pieces-page{max-width:780px;margin:0 auto;padding:12px}
+.pieces-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.pieces-badge{width:44px;height:44px;background:linear-gradient(135deg,#2a1a5a,#160a30);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 18px rgba(80,40,180,.3)}
+.pieces-board-pair{display:flex;gap:14px;align-items:flex-start;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.pieces-board-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pieces-board-label{font-size:13px;font-weight:700;color:var(--muted);text-align:center}
+.pieces-mini-board{display:grid;grid-template-columns:repeat(8,1fr);border:2px solid var(--border2);box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.pmb-sq{width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.pmb-sq svg{width:36px;height:36px}
+.pieces-question{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;margin-bottom:14px}
+.pieces-q-text{font-size:17px;font-weight:700;color:#fff;margin-bottom:12px}
+.pieces-options{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.pieces-opt{padding:12px 28px;border-radius:10px;border:2px solid var(--border2);background:var(--bg3);color:var(--text);font-size:15px;font-weight:700;cursor:pointer;transition:all .12s;min-width:120px}
+.pieces-opt:hover:not(:disabled){border-color:var(--accent);background:#0c2818;color:var(--accent2)}
+.pieces-opt.correct{border-color:var(--accent)!important;background:#0c2818!important;color:var(--accent2)!important}
+.pieces-opt.wrong{border-color:var(--warn)!important;background:#2a1010!important;color:#ee7070!important}
+.pieces-opt:disabled{cursor:not-allowed}
+.pieces-result{font-size:13px;font-weight:600;padding:10px 14px;border-radius:8px;margin-top:10px;display:none}
+.pieces-result.correct{background:#0c2818;border:1px solid var(--accent);color:var(--accent2);display:block}
+.pieces-result.wrong{background:#2a1010;border:1px solid var(--warn);color:#ee7070;display:block}
+.piece-values-ref{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+.pvr-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center}
+.pvr-piece{font-size:28px;margin-bottom:4px}
+.pvr-name{font-size:11px;color:var(--muted)}
+.pvr-val{font-size:18px;font-weight:800;color:var(--gold)}
+
+/* ══════════════════════════════════════════════════
+   STUDY TIMER (POMODORO)
+══════════════════════════════════════════════════ */
+.timer-page{max-width:500px;margin:0 auto;padding:12px}
+.timer-page-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.timer-circle-wrap{display:flex;flex-direction:column;align-items:center;margin:24px 0}
+.timer-circle{position:relative;width:200px;height:200px}
+.timer-circle svg{position:absolute;top:0;left:0;transform:rotate(-90deg)}
+.timer-circle-bg{fill:none;stroke:var(--bg3);stroke-width:8}
+.timer-circle-prog{fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .9s linear,stroke .3s}
+.timer-circle-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.timer-big-num{font-size:48px;font-weight:900;font-family:monospace;color:#fff;line-height:1}
+.timer-mode-lbl{font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.07em}
+.timer-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.timer-ctrl-btn{padding:11px 22px;border-radius:10px;border:none;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s;min-width:100px}
+.timer-start{background:var(--accent);color:#fff}
+.timer-start:hover{background:#6ab020}
+.timer-pause{background:var(--bg3);border:1px solid var(--border2);color:var(--text)}
+.timer-reset{background:var(--bg3);border:1px solid var(--border2);color:var(--muted)}
+.timer-preset-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.timer-preset-btn{padding:6px 14px;border-radius:100px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;font-family:inherit;transition:all .12s}
+.timer-preset-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.timer-session-log{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;max-height:200px;overflow-y:auto}
+.timer-session-log::-webkit-scrollbar{width:3px}
+.timer-session-log::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.timer-log-item{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
+.timer-log-item:last-child{border-bottom:none}
+.timer-log-icon{font-size:16px;flex-shrink:0}
+.timer-log-text{flex:1;color:var(--text)}
+.timer-log-time{font-size:10px;color:var(--muted);flex-shrink:0}
+
+/* ══════════════════════════════════════════════════
+   TRAP DIFFICULTY RATING
+══════════════════════════════════════════════════ */
+.difficulty-page{max-width:960px;margin:0 auto;padding:12px}
+.difficulty-hdr{padding:10px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.difficulty-grid{display:flex;flex-direction:column;gap:6px}
+.diff-row{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;transition:background .1s}
+.diff-row:hover{background:var(--bg3)}
+.diff-row-name{font-size:13px;font-weight:600;color:#fff;flex:1;cursor:pointer}
+.diff-row-name:hover{color:var(--accent2)}
+.diff-stars{display:flex;gap:4px}
+.diff-star{font-size:20px;cursor:pointer;opacity:.3;transition:opacity .12s;line-height:1}
+.diff-star.filled{opacity:1}
+.diff-star:hover,.diff-star:hover ~ .diff-star{opacity:.6}
+.diff-row-side{font-size:10px;padding:2px 7px;border-radius:100px;font-weight:700;flex-shrink:0}
+.diff-filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.diff-filter-btn{padding:5px 12px;border-radius:100px;border:1px solid var(--border2);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;font-family:inherit;transition:all .12s}
+.diff-filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.diff-section-hdr{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);font-weight:700;padding:10px 0 4px}
+
 </style>
 </head>
 <body>
@@ -981,6 +1099,9 @@ canvas#rating-canvas{width:100%;height:220px;display:block}
       <button class="mode-btn" id="btn-opponent" onclick="switchMode('opponent')">🎯 Opponent</button>
       <button class="mode-btn" id="btn-battle" onclick="switchMode('battle')">⚔️ Battle</button>
       <button class="mode-btn" id="btn-graph" onclick="switchMode('graph')">📈 Graph</button>
+      <button class="mode-btn" id="btn-pieces" onclick="switchMode('pieces')">⚖️ Pieces</button>
+      <button class="mode-btn" id="btn-timer" onclick="switchMode('timer')">⏱ Timer</button>
+      <button class="mode-btn" id="btn-difficulty" onclick="switchMode('difficulty')">⭐ Difficulty</button>
     </div>
   </div>
 </div>
@@ -1203,6 +1324,14 @@ canvas#rating-canvas{width:100%;height:220px;display:block}
             <div style="text-align:center"><div class="clock-display" id="clock-white">—</div><span class="clock-label">You</span></div>
           </div>
 
+          <div class="opening-name-bar" id="coach-opening-name-bar">
+            <span class="opening-name-icon">📖</span>
+            <div style="flex:1">
+              <div class="opening-name-text" id="coach-opening-name-text">Starting Position</div>
+              <div class="opening-name-path" id="coach-opening-name-path"></div>
+            </div>
+            <span class="opening-name-eco" id="coach-opening-eco"></span>
+          </div>
           <div class="turn-bar">
             <div class="turn-dot white" id="turn-dot"></div>
             <div class="turn-text" id="turn-text">White to move</div>
@@ -1221,7 +1350,12 @@ canvas#rating-canvas{width:100%;height:220px;display:block}
             <button class="ca-btn ca-primary" id="coach-hint-btn" onclick="askCoachHint()">💡 Get Hint</button>
             <button class="ca-btn ca-secondary" onclick="coachUndoMove()">↩ Undo</button>
             <button class="ca-btn ca-secondary" onclick="coachNewGame()">↺ Restart</button>
+            <button class="ca-btn ca-secondary" onclick="exportCoachPGN()">📄 PGN</button>
             <button class="ca-btn ca-danger" onclick="leaveCoachGame()">✕ Quit</button>
+          </div>
+          <div class="loss-explain" id="coach-loss-explain">
+            <div class="loss-explain-title">🤖 Why did the game end?</div>
+            <div class="loss-explain-text" id="coach-loss-explain-text">Analysing…</div>
           </div>
 
           <div class="game-over-banner" id="game-over">
@@ -1265,6 +1399,14 @@ canvas#rating-canvas{width:100%;height:220px;display:block}
         <div class="fp-notation" id="fp-notation"></div>
       </div>
       <div class="freeplay-right">
+        <div class="opening-name-bar" id="fp-opening-name-bar">
+          <span class="opening-name-icon">📖</span>
+          <div style="flex:1">
+            <div class="opening-name-text" id="fp-opening-name-text">Starting Position</div>
+            <div class="opening-name-path" id="fp-opening-name-path"></div>
+          </div>
+          <span class="opening-name-eco" id="fp-opening-eco"></span>
+        </div>
         <div class="fp-turn-bar">
           <span class="fp-turn-piece" id="fp-turn-piece">♙</span>
           <span class="fp-turn-label" id="fp-turn-label">White to move</span>
@@ -1293,11 +1435,23 @@ canvas#rating-canvas{width:100%;height:220px;display:block}
           </div>
         </div>
 
+        <button class="threat-btn" id="fp-threat-btn" onclick="fpToggleThreat()">
+          🎯 Show Threats &amp; Attacks
+        </button>
+        <div class="threat-legend" id="fp-threat-legend" style="display:none">
+          <div class="threat-legend-item"><div class="threat-legend-sq" style="background:rgba(220,60,60,.55)"></div>Enemy attacks</div>
+          <div class="threat-legend-item"><div class="threat-legend-sq" style="background:rgba(90,180,90,.5)"></div>Your attacks</div>
+        </div>
         <div class="fp-actions">
           <button class="ca-btn ca-secondary" onclick="fpUndo()">↩ Undo</button>
           <button class="ca-btn ca-secondary" onclick="fpFlip()">⇅ Flip Board</button>
           <button class="ca-btn ca-secondary" onclick="fpNewGame()">↺ New Game</button>
+          <button class="ca-btn ca-secondary" onclick="exportFpPGN()">📄 PGN</button>
           <button class="ca-btn ca-danger" onclick="switchMode('study')">✕ Exit</button>
+        </div>
+        <div class="loss-explain" id="fp-loss-explain">
+          <div class="loss-explain-title">🤖 Why did the game end?</div>
+          <div class="loss-explain-text" id="fp-loss-explain-text">Analysing…</div>
         </div>
 
         <div class="game-over-banner" id="fp-game-over">
@@ -1310,6 +1464,135 @@ canvas#rating-canvas{width:100%;height:220px;display:block}
     </div>
   </div>
 </div><!-- end freeplay-page -->
+
+<!-- ═══ PIECE VALUE TRAINER ════════════════════════════════ -->
+<div id="pieces-page" style="display:none">
+<div class="pieces-page">
+  <div class="pieces-hdr">
+    <div class="pieces-badge">⚖️</div>
+    <div>
+      <h2>Piece Value Trainer</h2>
+      <p>Which side has more material? Count instantly — at 530 most games are decided by hanging pieces</p>
+    </div>
+  </div>
+
+  <div class="piece-values-ref" id="pvr-ref">
+    <div class="pvr-card"><div class="pvr-piece">♙</div><div class="pvr-name">Pawn</div><div class="pvr-val">1</div></div>
+    <div class="pvr-card"><div class="pvr-piece">♘</div><div class="pvr-name">Knight</div><div class="pvr-val">3</div></div>
+    <div class="pvr-card"><div class="pvr-piece">♗</div><div class="pvr-name">Bishop</div><div class="pvr-val">3</div></div>
+    <div class="pvr-card"><div class="pvr-piece">♖</div><div class="pvr-name">Rook</div><div class="pvr-val">5</div></div>
+    <div class="pvr-card"><div class="pvr-piece">♕</div><div class="pvr-name">Queen</div><div class="pvr-val">9</div></div>
+  </div>
+
+  <div id="pv-active">
+    <div class="pieces-board-pair" id="pv-board-pair">
+      <!-- boards rendered by JS -->
+    </div>
+    <div class="pieces-question">
+      <div class="pieces-q-text" id="pv-question">Which side has more material?</div>
+      <div class="pieces-options" id="pv-options"></div>
+      <div class="pieces-result" id="pv-result"></div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:6px">
+      <button class="puzzle-btn puzzle-btn-primary" id="pv-next-btn" onclick="pvNext()" style="display:none">Next →</button>
+      <button class="puzzle-btn puzzle-btn-secondary" onclick="pvNewQuestion()">↺ New Question</button>
+    </div>
+    <div class="stats-grid-big" style="grid-template-columns:repeat(3,1fr);margin-top:14px">
+      <div class="stat-card green"><div class="stat-num" id="pv-correct">0</div><div class="stat-lbl">Correct</div></div>
+      <div class="stat-card"><div class="stat-num" id="pv-total">0</div><div class="stat-lbl">Answered</div></div>
+      <div class="stat-card gold"><div class="stat-num" id="pv-streak">0</div><div class="stat-lbl">Streak</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ STUDY TIMER (POMODORO) ════════════════════════════ -->
+<div id="timer-page" style="display:none">
+<div class="timer-page">
+  <div class="timer-page-hdr">
+    <div class="pieces-badge" style="background:linear-gradient(135deg,#003a2a,#001a12)">⏱</div>
+    <div>
+      <h2>Study Timer</h2>
+      <p>25 min focus, 5 min break — the Pomodoro technique for chess study</p>
+    </div>
+  </div>
+
+  <div class="timer-preset-row">
+    <button class="timer-preset-btn active" onclick="timerSetPreset(25,5,this)">25 / 5</button>
+    <button class="timer-preset-btn" onclick="timerSetPreset(15,3,this)">15 / 3</button>
+    <button class="timer-preset-btn" onclick="timerSetPreset(45,10,this)">45 / 10</button>
+    <button class="timer-preset-btn" onclick="timerSetPreset(50,10,this)">50 / 10</button>
+    <button class="timer-preset-btn" onclick="timerSetPreset(5,1,this)">5 / 1 (quick)</button>
+  </div>
+
+  <div class="timer-circle-wrap">
+    <div class="timer-circle">
+      <svg width="200" height="200" viewBox="0 0 200 200">
+        <circle class="timer-circle-bg" cx="100" cy="100" r="88"/>
+        <circle class="timer-circle-prog" id="timer-prog-circle" cx="100" cy="100" r="88"
+          stroke-dasharray="553" stroke-dashoffset="0"/>
+      </svg>
+      <div class="timer-circle-inner">
+        <div class="timer-big-num" id="timer-display">25:00</div>
+        <div class="timer-mode-lbl" id="timer-mode-lbl">Focus</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="timer-controls">
+    <button class="timer-ctrl-btn timer-start" id="timer-start-btn" onclick="timerStart()">▶ Start</button>
+    <button class="timer-ctrl-btn timer-pause" id="timer-pause-btn" onclick="timerPause()" style="display:none">⏸ Pause</button>
+    <button class="timer-ctrl-btn timer-reset" onclick="timerReset()">↺ Reset</button>
+  </div>
+
+  <div style="text-align:center;margin-bottom:16px">
+    <div style="font-size:13px;color:var(--muted)">
+      Session <span id="timer-session-num" style="color:var(--text);font-weight:700">1</span> of 4
+      · <span id="timer-total-today" style="color:var(--accent2)">0</span> sessions today
+    </div>
+  </div>
+
+  <div class="timer-session-log" id="timer-log">
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">Session Log</div>
+    <div id="timer-log-items" style="color:var(--muted);font-size:12px">No sessions yet today</div>
+  </div>
+
+  <div style="margin-top:12px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;font-size:12px;color:var(--muted);line-height:1.7">
+    <strong style="color:var(--text)">💡 Pomodoro Tips:</strong><br>
+    • Study one mode at a time — e.g. 25 min on Puzzles only<br>
+    • Actually take the 5 min break — walk around, look away from screen<br>
+    • After 4 sessions, take a longer 15-30 min break<br>
+    • 2-3 Pomodoros per day = significant improvement over time
+  </div>
+</div>
+</div>
+
+<!-- ═══ TRAP DIFFICULTY RATING ════════════════════════════ -->
+<div id="difficulty-page" style="display:none">
+<div class="difficulty-page">
+  <div class="pieces-hdr" style="margin-bottom:16px">
+    <div class="pieces-badge" style="background:linear-gradient(135deg,#3a2800,#1a1000)">⭐</div>
+    <div>
+      <h2>Trap Difficulty</h2>
+      <p>Rate how hard each trap is for you — the Spaced Repetition system will prioritise your hard ones</p>
+    </div>
+  </div>
+  <div class="diff-filter-row">
+    <button class="diff-filter-btn active" onclick="diffFilter('all',this)">All</button>
+    <button class="diff-filter-btn" onclick="diffFilter('unrated',this)">Unrated</button>
+    <button class="diff-filter-btn" onclick="diffFilter('hard',this)">⭐⭐⭐ Hard</button>
+    <button class="diff-filter-btn" onclick="diffFilter('medium',this)">⭐⭐ Medium</button>
+    <button class="diff-filter-btn" onclick="diffFilter('easy',this)">⭐ Easy</button>
+  </div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:10px">
+    Tap stars to rate · ⭐ Easy · ⭐⭐ Medium · ⭐⭐⭐ Hard
+    <span style="float:right;color:var(--accent2)" id="diff-rated-count"></span>
+  </div>
+  <div class="difficulty-grid" id="difficulty-grid"></div>
+</div>
+</div>
+
+
 
 <!-- ═══ MEMORY DRILL ═══════════════════════════════════════ -->
 <div id="drill-page" style="display:none">
@@ -4009,6 +4292,8 @@ function renderCoachBoard(fromSq, toSq) {
 }
 
 async function checkAndRespond(move) {
+  // Update opening name bar
+  if (coachGame) updateOpeningNameBar(coachGame.chess, 'coach-opening-name-text', 'coach-opening-name-path', 'coach-opening-eco');
   const { chess, opening, bookMoveIdx } = coachGame;
 
   // Check game end
@@ -4170,6 +4455,11 @@ async function askCoachHint() {
 function endCoachGame(result) {
   clockClear();
   coachGame.gameOver = true;
+  // Loss explainer
+  const resultText = result === 'checkmate'
+    ? (coachGame.chess.turn() !== coachGame.playerColor ? 'You won by checkmate' : 'You were checkmated')
+    : result.includes('draw') ? 'The game was drawn' : 'The game ended: ' + result;
+  setTimeout(() => explainGameEnd(coachGame.chess, resultText, 'coach-loss-explain', 'coach-loss-explain-text'), 1200);
   const banner = document.getElementById('game-over');
   const emoji = document.getElementById('game-over-emoji');
   const title = document.getElementById('game-over-title');
@@ -4289,7 +4579,7 @@ function leaveCoachGame() {
 // MODE SWITCHING
 // ══════════════════════════════════════════════════════════════════
 function switchMode(mode) {
-  const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges','patterns','settings','favourites','weekly','spaced','drill','import','opponent','battle','graph'];
+  const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges','patterns','settings','favourites','weekly','spaced','drill','import','opponent','battle','graph','pieces','timer','difficulty'];
   pages.forEach(p => {
     const el = document.getElementById(p + '-page');
     if (el) el.style.display = p === mode ? 'block' : 'none';
@@ -4317,6 +4607,9 @@ function switchMode(mode) {
   if (mode === 'import') initImportPage();
   if (mode === 'battle') initBattleSetup();
   if (mode === 'graph') renderGraph();
+  if (mode === 'pieces') pvNewQuestion();
+  if (mode === 'timer') { timerUpdateDisplay(); timerRequestNotifications(); }
+  if (mode === 'difficulty') renderDifficulty();
   if (mode === 'study') updateFavStar();
 }
 
@@ -4391,6 +4684,12 @@ function fpNewGame() {
   fpGame = { chess: new Chess(), flipped: false, selectedSq: null, gameOver: false };
   fpQualityCache = {};
   fpQualityPending = false;
+  // Reset threat detector
+  fpThreatActive = false;
+  const _tBtn = document.getElementById('fp-threat-btn');
+  const _tLeg = document.getElementById('fp-threat-legend');
+  if (_tBtn) _tBtn.classList.remove('active');
+  if (_tLeg) _tLeg.style.display = 'none';
   const fpClockSecs = parseInt(localStorage.getItem('stg-clock-default') || '0');
   const fpClockBar = document.getElementById('fp-clock-bar');
   if (fpClockSecs > 0) { clockInit(fpClockSecs); clockStart('w'); if (fpClockBar) fpClockBar.style.display='flex'; }
@@ -4458,6 +4757,8 @@ function fpRenderBoard(fromSq, toSq) {
     if (badge) sq.appendChild(badge);
     sq.onclick = () => fpHandleClick(sn);
   });
+  // Threat overlay
+  if (typeof fpThreatActive !== 'undefined' && fpThreatActive && fpGame) fpShowThreats();
 }
 
 // ── Click handling ────────────────────────────────────────────────────
@@ -4593,6 +4894,8 @@ async function fpFetchQualities(from, moves, fen, cacheKey) {
 
 // ── After move feedback ────────────────────────────────────────────────
 async function fpAfterMove(move) {
+  // Update opening name
+  if (fpGame) updateOpeningNameBar(fpGame.chess, 'fp-opening-name-text', 'fp-opening-name-path', 'fp-opening-eco');
   // Check game end
   const chess = fpGame.chess;
   if (chess.in_checkmate()) {
@@ -4636,6 +4939,7 @@ function fpEndGame(msg, emoji) {
   fpGame.gameOver = true;
   recordEvent('freeplay_game', msg);
   playSound('mate');
+  setTimeout(() => explainGameEnd(fpGame.chess, msg, 'fp-loss-explain', 'fp-loss-explain-text'), 800);
   setTimeout(() => showGameReview(fpGame.chess.history({verbose:true}), msg, fpGame.chess.turn()==='w'?'b':'w', 'Free Play'), 1500);
   document.getElementById('fp-over-emoji').textContent = emoji;
   document.getElementById('fp-over-title').textContent = msg;
@@ -7526,6 +7830,514 @@ function renderGraph() {
     }).join('');
   }
 }
+
+
+// ══════════════════════════════════════════════════════════════════
+// THREAT DETECTOR
+// ══════════════════════════════════════════════════════════════════
+let fpThreatActive = false;
+
+function fpToggleThreat() {
+  fpThreatActive = !fpThreatActive;
+  const btn = document.getElementById('fp-threat-btn');
+  const legend = document.getElementById('fp-threat-legend');
+  if (btn) btn.classList.toggle('active', fpThreatActive);
+  if (legend) legend.style.display = fpThreatActive ? 'flex' : 'none';
+  if (fpGame) {
+    fpRenderBoard();
+    if (fpThreatActive) fpShowThreats();
+  }
+}
+
+function fpShowThreats() {
+  if (!fpGame || !fpThreatActive) return;
+  const { chess } = fpGame;
+  const bEl = document.getElementById('fp-board');
+  if (!bEl) return;
+
+  // Find all squares attacked by enemy (opponent of current player)
+  // and all squares attacked by the current player
+  const currentTurn = chess.turn();
+  const enemyColor = currentTurn === 'w' ? 'b' : 'w';
+
+  // Get all moves for BOTH sides (using a temp chess instance)
+  const enemyAttacked = new Set();
+  const ownAttacked = new Set();
+
+  // Chess.js: generate moves for each side
+  ['w','b'].forEach(color => {
+    const tempChess = new Chess(chess.fen());
+    // Force it to be that color's turn by manipulating FEN
+    const fenParts = chess.fen().split(' ');
+    fenParts[1] = color;
+    const tempFen = fenParts.join(' ');
+    try {
+      const tc = new Chess(tempFen);
+      const moves = tc.moves({ verbose: true });
+      moves.forEach(m => {
+        if (color === enemyColor) enemyAttacked.add(m.to);
+        else ownAttacked.add(m.to);
+      });
+    } catch(e) {}
+  });
+
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    if (enemyAttacked.has(sn)) sq.classList.add('hl-threat');
+    if (ownAttacked.has(sn) && !enemyAttacked.has(sn)) sq.classList.add('hl-own-attack');
+  });
+}
+
+// Threat logic wired directly into fpRenderBoard and fpNewGame
+
+// ══════════════════════════════════════════════════════════════════
+// OPENING NAME DISPLAY (live ECO database lookup)
+// ══════════════════════════════════════════════════════════════════
+// Compact opening database — moves → name
+const OPENING_DB = {
+  'e4': { name:'King\'s Pawn', eco:'B00' },
+  'e4 e5': { name:'Open Game', eco:'C20' },
+  'e4 e5 Nf3': { name:'King\'s Knight Opening', eco:'C40' },
+  'e4 e5 Nf3 Nc6': { name:'Two Knights / Ruy Lopez base', eco:'C41' },
+  'e4 e5 Nf3 Nc6 Bc4': { name:'Italian Game', eco:'C50' },
+  'e4 e5 Nf3 Nc6 Bc4 Bc5': { name:'Giuoco Piano', eco:'C50' },
+  'e4 e5 Nf3 Nc6 Bc4 Nf6': { name:'Two Knights Defence', eco:'C55' },
+  'e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5': { name:'Fried Liver Attack', eco:'C57' },
+  'e4 e5 Nf3 Nc6 Bb5': { name:'Ruy Lopez', eco:'C60' },
+  'e4 e5 Nf3 Nc6 Bb5 a6': { name:'Ruy Lopez — Morphy Defence', eco:'C68' },
+  'e4 e5 Nf3 Nc6 d4': { name:'Scotch Game', eco:'C44' },
+  'e4 e5 Nc3': { name:'Vienna Game', eco:'C25' },
+  'e4 c5': { name:'Sicilian Defence', eco:'B20' },
+  'e4 c5 Nf3': { name:'Sicilian — Open', eco:'B40' },
+  'e4 c5 Nf3 d6': { name:'Sicilian — Najdorf setup', eco:'B90' },
+  'e4 c5 Nf3 Nc6': { name:'Sicilian — Classical', eco:'B56' },
+  'e4 c6': { name:'Caro-Kann Defence', eco:'B10' },
+  'e4 e6': { name:'French Defence', eco:'C00' },
+  'e4 e6 d4 d5': { name:'French Defence', eco:'C02' },
+  'e4 e6 d4 d5 e5': { name:'French — Advance Variation', eco:'C02' },
+  'd4': { name:'Queen\'s Pawn', eco:'A40' },
+  'd4 d5': { name:'Queen\'s Pawn — Closed', eco:'D00' },
+  'd4 d5 c4': { name:'Queen\'s Gambit', eco:'D06' },
+  'd4 d5 c4 dxc4': { name:'Queen\'s Gambit Accepted', eco:'D20' },
+  'd4 d5 c4 e6': { name:'Queen\'s Gambit Declined', eco:'D30' },
+  'd4 d5 Nf3': { name:'London System setup', eco:'D02' },
+  'd4 d5 Nf3 Nf6 Bf4': { name:'London System', eco:'D02' },
+  'd4 Nf6': { name:'Indian Defences', eco:'A45' },
+  'd4 Nf6 c4': { name:'Indian Defences — c4', eco:'A50' },
+  'd4 Nf6 c4 g6': { name:'King\'s Indian / Grünfeld', eco:'E60' },
+  'd4 Nf6 c4 e6': { name:'Nimzo/Queen\'s Indian setup', eco:'E20' },
+  'd4 Nf6 c4 e5': { name:'Budapest Gambit', eco:'A52' },
+  'f4': { name:"Bird's Opening", eco:'A02' },
+  'f4 e5': { name:"Bird's — From's Gambit", eco:'A02' },
+  'c4': { name:'English Opening', eco:'A10' },
+  'Nf3': { name:'Réti Opening', eco:'A04' },
+};
+
+function getOpeningName(chess) {
+  const hist = chess.history();
+  // Try longest match first
+  for (let len = Math.min(hist.length, 7); len >= 1; len--) {
+    const key = hist.slice(0, len).join(' ');
+    if (OPENING_DB[key]) return OPENING_DB[key];
+  }
+  if (hist.length === 0) return { name:'Starting Position', eco:'' };
+  return { name:'Unknown Opening', eco:'' };
+}
+
+function updateOpeningNameBar(chess, nameId, pathId, ecoId) {
+  const info = getOpeningName(chess);
+  const nameEl = document.getElementById(nameId);
+  const ecoEl = document.getElementById(ecoId);
+  if (nameEl) nameEl.textContent = info.name;
+  if (ecoEl) ecoEl.textContent = info.eco || '';
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PGN EXPORT
+// ══════════════════════════════════════════════════════════════════
+function buildPGN(chess, white, black, event) {
+  const date = new Date().toISOString().slice(0,10).replace(/-/g,'.');
+  const result = chess.in_checkmate() ? (chess.turn()==='w' ? '0-1' : '1-0') :
+                 (chess.in_stalemate() || chess.in_draw()) ? '1/2-1/2' : '*';
+  const header = `[Event "${event||'Chess Traps App'}"]\n[Date "${date}"]\n[White "${white||'Player'}"]\n[Black "${black||'Coach'}"]\n[Result "${result}"]\n\n`;
+  const moves = chess.history();
+  let pgn = header;
+  moves.forEach((san, i) => {
+    if (i % 2 === 0) pgn += `${Math.floor(i/2)+1}. `;
+    pgn += san + ' ';
+  });
+  pgn += result;
+  return pgn;
+}
+
+function downloadPGN(pgn, filename) {
+  const blob = new Blob([pgn], { type:'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename || 'game.pgn';
+  a.click();
+}
+
+function exportCoachPGN() {
+  if (!coachGame) return;
+  const { chess, opening, playerColor } = coachGame;
+  const white = playerColor === 'w' ? 'You' : 'Coach';
+  const black = playerColor === 'b' ? 'You' : 'Coach';
+  const pgn = buildPGN(chess, white, black, opening?.name || 'Coach Game');
+  downloadPGN(pgn, 'coach-game.pgn');
+  // Also copy to blunder analyser
+  document.getElementById('bl-pgn-input').value = pgn;
+}
+
+function exportFpPGN() {
+  if (!fpGame) return;
+  const pgn = buildPGN(fpGame.chess, 'White', 'Black', 'Free Play');
+  downloadPGN(pgn, 'free-play.pgn');
+  document.getElementById('bl-pgn-input').value = pgn;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// WHY DID I LOSE EXPLAINER
+// ══════════════════════════════════════════════════════════════════
+async function explainGameEnd(chess, result, containerId, textId) {
+  const el = document.getElementById(containerId);
+  const textEl = document.getElementById(textId);
+  if (!el || !textEl) return;
+  el.classList.add('vis');
+
+  if (!apiKey) {
+    textEl.textContent = `Game ended: ${result}. Add an API key for AI explanation!`;
+    return;
+  }
+  textEl.textContent = 'Analysing…';
+
+  try {
+    const moves = chess.history();
+    const pgn = moves.map((m,i) => (i%2===0 ? `${Math.floor(i/2)+1}. ` : '') + m).join(' ');
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514', max_tokens:120,
+        system:'You are a chess coach. In exactly ONE sentence, explain the ROOT CAUSE of why the game ended. Not what the final move was — why the position became lost. Be specific. Example: "You lost because you left your king in the centre while your opponent developed all their pieces."',
+        messages:[{role:'user', content:`Result: ${result}. Game: ${pgn}. One sentence root cause.`}]
+      })
+    });
+    const data = await resp.json();
+    textEl.textContent = data.content?.[0]?.text || result;
+  } catch(e) {
+    textEl.textContent = `${result} — add an API key for detailed explanation.`;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PIECE VALUE TRAINER
+// ══════════════════════════════════════════════════════════════════
+const PIECE_VALUES = { p:1, n:3, b:3, r:5, q:9, k:0 };
+let pvState = { correct:0, total:0, streak:0 };
+
+const PIECE_SETS = [
+  // [white pieces, black pieces] as arrays of piece types
+  [['q','r','p','p'],      ['r','r','n']],        // Q+R+2P vs 2R+N  (W=16, B=13)
+  [['r','b','p','p'],      ['q','p']],             // R+B+2P vs Q+P   (W=12, B=10)
+  [['n','n','p','p','p'],  ['r','b']],             // 2N+3P vs R+B    (W=9,  B=8)
+  [['r','n'],              ['b','b','p','p']],     // R+N vs 2B+2P    (W=8,  B=8)
+  [['q','p'],              ['r','r']],             // Q+P vs 2R       (W=10, B=10)
+  [['r','p','p','p'],      ['n','b','p']],         // R+3P vs N+B+P   (W=8,  B=7)
+  [['q'],                  ['r','b','n']],         // Q vs R+B+N      (W=9,  B=11)
+  [['r','r'],              ['q']],                 // 2R vs Q         (W=10, B=9)
+  [['b','b'],              ['r','p']],             // 2B vs R+P       (W=6,  B=6)
+  [['n','b','p','p'],      ['r','p','p']],         // N+B+2P vs R+2P  (W=8,  B=7)
+];
+
+function pvCalcMaterial(pieces) {
+  return pieces.reduce((sum, p) => sum + (PIECE_VALUES[p] || 0), 0);
+}
+
+function pvMakeMiniBoardHTML(pieces, color) {
+  // Arrange pieces on a small 4x4 grid just for display
+  const squares = [];
+  for (let i = 0; i < 16; i++) {
+    const isLight = (Math.floor(i/4) + i%4) % 2 === 0;
+    const piece = pieces[i] || null;
+    const pKey = piece ? (color + piece.toUpperCase()) : null;
+    squares.push(`<div class="pmb-sq ${isLight?'lt':'dk'}" style="width:44px;height:44px">${pKey ? P[pKey] : ''}</div>`);
+  }
+  return `<div class="pieces-mini-board" style="grid-template-columns:repeat(4,1fr)">${squares.join('')}</div>`;
+}
+
+function pvNewQuestion() {
+  const setIdx = Math.floor(Math.random() * PIECE_SETS.length);
+  const [whitePieces, blackPieces] = PIECE_SETS[setIdx];
+  const wMat = pvCalcMaterial(whitePieces);
+  const bMat = pvCalcMaterial(blackPieces);
+
+  // Shuffle pieces for display
+  const wShuf = [...whitePieces].sort(() => Math.random()-.5);
+  const bShuf = [...blackPieces].sort(() => Math.random()-.5);
+
+  // Store current question
+  pvState.current = { wMat, bMat, wPieces: wShuf, bPieces: bShuf };
+
+  // Render boards
+  const pair = document.getElementById('pv-board-pair');
+  if (!pair) return;
+  pair.innerHTML = `
+    <div class="pieces-board-wrap">
+      <div class="pieces-board-label">♔ White (${wMat} pts)</div>
+      ${pvMakeMiniBoardHTML(wShuf, 'w')}
+    </div>
+    <div style="font-size:28px;font-weight:900;color:var(--gold);display:flex;align-items:center">VS</div>
+    <div class="pieces-board-wrap">
+      <div class="pieces-board-label">♚ Black (${bMat} pts)</div>
+      ${pvMakeMiniBoardHTML(bShuf, 'b')}
+    </div>`;
+
+  // Set question
+  document.getElementById('pv-question').textContent = 'Which side has more material value?';
+  document.getElementById('pv-result').style.display = 'none';
+  document.getElementById('pv-next-btn').style.display = 'none';
+
+  // Options
+  const correct = wMat > bMat ? 'White' : bMat > wMat ? 'Black' : 'Equal';
+  pvState.correct_answer = correct;
+
+  const optsEl = document.getElementById('pv-options');
+  optsEl.innerHTML = ['White ♔','Equal ↔','Black ♚'].map(o => {
+    const val = o.includes('White') ? 'White' : o.includes('Equal') ? 'Equal' : 'Black';
+    return `<button class="pieces-opt" onclick="pvAnswer('${val}')">${o}</button>`;
+  }).join('');
+}
+
+function pvAnswer(answer) {
+  const { correct_answer, wMat, bMat } = pvState;
+  const isCorrect = answer === correct_answer;
+  pvState.total++;
+
+  document.querySelectorAll('.pieces-opt').forEach(btn => {
+    btn.disabled = true;
+    const val = btn.textContent.includes('White') ? 'White' : btn.textContent.includes('Equal') ? 'Equal' : 'Black';
+    if (val === correct_answer) btn.classList.add('correct');
+    else if (val === answer && !isCorrect) btn.classList.add('wrong');
+  });
+
+  const res = document.getElementById('pv-result');
+  if (isCorrect) {
+    pvState.correct++;
+    pvState.streak++;
+    res.className = 'pieces-result correct';
+    res.textContent = `✅ Correct! White has ${wMat} pts, Black has ${bMat} pts. ${wMat > bMat ? 'White is up by '+(wMat-bMat) : bMat > wMat ? 'Black is up by '+(bMat-wMat) : 'Material is equal'}.`;
+    playSound('correct');
+    recordEvent('puzzle_correct', 'piece_value');
+  } else {
+    pvState.streak = 0;
+    res.className = 'pieces-result wrong';
+    res.textContent = `❌ ${correct_answer} has more material. White: ${wMat} pts, Black: ${bMat} pts. ${Math.abs(wMat-bMat)} point difference.`;
+    playSound('wrong');
+  }
+  res.style.display = 'block';
+  document.getElementById('pv-next-btn').style.display = 'flex';
+
+  document.getElementById('pv-correct').textContent = pvState.correct;
+  document.getElementById('pv-total').textContent = pvState.total;
+  document.getElementById('pv-streak').textContent = pvState.streak;
+}
+
+function pvNext() { pvNewQuestion(); }
+
+// ══════════════════════════════════════════════════════════════════
+// STUDY TIMER (POMODORO)
+// ══════════════════════════════════════════════════════════════════
+let pomState = {
+  focusMins: 25, breakMins: 5,
+  secsLeft: 25*60, totalSecs: 25*60,
+  isBreak: false, running: false,
+  interval: null, sessionNum: 1,
+  todaySessions: parseInt(localStorage.getItem('pom-today-' + new Date().toDateString()) || '0'),
+};
+
+function timerSetPreset(focus, brk, btn) {
+  if (pomState.running) return;
+  pomState.focusMins = focus;
+  pomState.breakMins = brk;
+  pomState.isBreak = false;
+  pomState.secsLeft = focus * 60;
+  pomState.totalSecs = focus * 60;
+  document.querySelectorAll('.timer-preset-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  timerUpdateDisplay();
+}
+
+function timerStart() {
+  if (pomState.running) return;
+  pomState.running = true;
+  document.getElementById('timer-start-btn').style.display = 'none';
+  document.getElementById('timer-pause-btn').style.display = 'inline-block';
+  pomState.interval = setInterval(() => {
+    pomState.secsLeft--;
+    timerUpdateDisplay();
+    if (pomState.secsLeft <= 0) timerPhaseComplete();
+  }, 1000);
+}
+
+function timerPause() {
+  clearInterval(pomState.interval);
+  pomState.running = false;
+  document.getElementById('timer-start-btn').style.display = 'inline-block';
+  document.getElementById('timer-pause-btn').style.display = 'none';
+}
+
+function timerReset() {
+  timerPause();
+  pomState.isBreak = false;
+  pomState.secsLeft = pomState.focusMins * 60;
+  pomState.totalSecs = pomState.focusMins * 60;
+  timerUpdateDisplay();
+}
+
+function timerPhaseComplete() {
+  timerPause();
+  playSound('mate');
+  if (!pomState.isBreak) {
+    // Focus complete → log session
+    pomState.todaySessions++;
+    pomState.sessionNum++;
+    localStorage.setItem('pom-today-' + new Date().toDateString(), pomState.todaySessions);
+    document.getElementById('timer-total-today').textContent = pomState.todaySessions;
+    timerLogSession('focus', pomState.focusMins);
+    recordEvent('freeplay_game', 'pomodoro_focus');
+    // Switch to break
+    pomState.isBreak = true;
+    pomState.secsLeft = pomState.breakMins * 60;
+    pomState.totalSecs = pomState.breakMins * 60;
+    if (Notification.permission === 'granted') new Notification('🎉 Focus session complete! Time for a break.');
+    timerUpdateDisplay();
+    timerStart(); // auto-start break
+  } else {
+    // Break complete → back to focus
+    pomState.isBreak = false;
+    pomState.secsLeft = pomState.focusMins * 60;
+    pomState.totalSecs = pomState.focusMins * 60;
+    timerLogSession('break', pomState.breakMins);
+    if (Notification.permission === 'granted') new Notification('⏰ Break over! Back to chess study.');
+    timerUpdateDisplay();
+  }
+}
+
+function timerUpdateDisplay() {
+  const m = Math.floor(pomState.secsLeft / 60);
+  const s = pomState.secsLeft % 60;
+  document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  document.getElementById('timer-mode-lbl').textContent = pomState.isBreak ? 'Break ☕' : 'Focus 🧠';
+  document.getElementById('timer-session-num').textContent = pomState.sessionNum;
+
+  // Update circle progress
+  const circle = document.getElementById('timer-prog-circle');
+  if (circle) {
+    const circumference = 553;
+    const progress = 1 - (pomState.secsLeft / pomState.totalSecs);
+    circle.style.strokeDashoffset = circumference * (1 - progress);
+    circle.style.stroke = pomState.isBreak ? '#d07020' : '#5a9910';
+  }
+}
+
+function timerLogSession(type, mins) {
+  const log = document.getElementById('timer-log-items');
+  if (!log) return;
+  if (log.textContent === 'No sessions yet today') log.innerHTML = '';
+  const time = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  const icon = type === 'focus' ? '🧠' : '☕';
+  const text = type === 'focus' ? `${mins} min focus session complete!` : `${mins} min break taken`;
+  const item = document.createElement('div');
+  item.className = 'timer-log-item';
+  item.innerHTML = `<span class="timer-log-icon">${icon}</span><span class="timer-log-text">${text}</span><span class="timer-log-time">${time}</span>`;
+  log.prepend(item);
+}
+
+function timerRequestNotifications() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// TRAP DIFFICULTY RATING
+// ══════════════════════════════════════════════════════════════════
+function getDiffRatings() {
+  try { return JSON.parse(localStorage.getItem('chess-difficulty') || '{}'); } catch { return {}; }
+}
+function saveDiffRating(id, stars) {
+  const d = getDiffRatings();
+  d[id] = stars;
+  localStorage.setItem('chess-difficulty', JSON.stringify(d));
+  // Update SR ease factor based on difficulty
+  const sr = getSRData();
+  const card = sr[id] || { interval:1, due:0, reps:0, ease:2.5 };
+  // Hard (3★) = lower ease, Easy (1★) = higher ease
+  card.ease = stars === 1 ? 3.0 : stars === 2 ? 2.5 : 1.8;
+  sr[id] = card;
+  saveSRData(sr);
+}
+
+let diffFilterMode = 'all';
+
+function diffFilter(mode, btn) {
+  diffFilterMode = mode;
+  document.querySelectorAll('.diff-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDifficulty();
+}
+
+function renderDifficulty() {
+  const grid = document.getElementById('difficulty-grid');
+  const countEl = document.getElementById('diff-rated-count');
+  if (!grid) return;
+
+  const ratings = getDiffRatings();
+  const all = [...TRAPS, ...QUICK_MATES];
+  const rated = all.filter(t => ratings[t.id]);
+  if (countEl) countEl.textContent = `${rated.length}/${all.length} rated`;
+
+  let filtered = all;
+  if (diffFilterMode === 'unrated') filtered = all.filter(t => !ratings[t.id]);
+  else if (diffFilterMode === 'hard') filtered = all.filter(t => ratings[t.id] === 3);
+  else if (diffFilterMode === 'medium') filtered = all.filter(t => ratings[t.id] === 2);
+  else if (diffFilterMode === 'easy') filtered = all.filter(t => ratings[t.id] === 1);
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="padding:14px;font-size:12px;color:var(--muted)">No traps match this filter.</div>';
+    return;
+  }
+
+  // Group by side
+  const groups = { White: [], Black: [], Bird: [], Mate: [] };
+  filtered.forEach(t => {
+    const g = t.side === 'White' ? 'White' : t.side === 'Black' ? 'Black' : t.side === 'Bird' ? 'Bird' : 'Mate';
+    groups[g].push(t);
+  });
+
+  const sideClass = { White:'pw', Black:'pb', Bird:'p-bird', Mate:'pq' };
+  grid.innerHTML = Object.entries(groups).filter(([,items]) => items.length > 0).map(([side, items]) => `
+    <div class="diff-section-hdr">${side === 'White' ? '♔ White' : side === 'Black' ? '♚ Black' : side === 'Bird' ? '🐦 Bird\'s' : '⚡ Mates'}</div>
+    ${items.map(t => {
+      const stars = ratings[t.id] || 0;
+      return `<div class="diff-row">
+        <div class="diff-row-name" onclick="jumpToTrap('${t.id}');switchMode('study')">${t.name}</div>
+        <div class="diff-stars">
+          ${[1,2,3].map(n => `<span class="diff-star ${stars >= n ? 'filled' : ''}" onclick="diffRate('${t.id}',${n},this.parentElement)">⭐</span>`).join('')}
+        </div>
+        <span class="diff-row-side pill ${sideClass[side]}">${t.level||''}</span>
+      </div>`;
+    }).join('')}
+  `).join('');
+}
+
+function diffRate(id, stars, starsEl) {
+  saveDiffRating(id, stars);
+  starsEl.querySelectorAll('.diff-star').forEach((s,i) => s.classList.toggle('filled', i < stars));
+}
+
+// Opening name + loss explainer wired directly into existing functions below
 
 </script>
 </body>
