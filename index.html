@@ -89,9 +89,19 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .sq.hl-t{background:#cdd16f!important}
 .sq.hl-chk{background:#cc2222!important}
 .sq.hl-sel{background:#55bb55!important;cursor:pointer}
+/* Move dots — empty square */
 .sq.hl-mv{cursor:pointer}
-.sq.hl-mv::after{content:'';position:absolute;width:30%;height:30%;background:rgba(0,0,0,.22);border-radius:50%;pointer-events:none;z-index:5}
-.sq.hl-mv.has-pc::after{inset:3px;width:auto;height:auto;border-radius:4px;border:3px solid rgba(0,0,0,.3);background:transparent}
+.sq.hl-mv::after{content:'';position:absolute;width:32%;height:32%;border-radius:50%;pointer-events:none;z-index:5;background:rgba(0,0,0,.20)}
+/* Move dots — capture ring on occupied square */
+.sq.hl-mv.has-pc::after{inset:3px;width:auto;height:auto;border-radius:50%;border:4px solid rgba(0,0,0,.22);background:transparent}
+/* Move quality overlays */
+.sq.hl-brilliant::after{background:rgba(0,200,220,.55)!important;border-color:rgba(0,200,220,.7)!important}
+.sq.hl-great::after{background:rgba(90,200,90,.55)!important;border-color:rgba(90,200,90,.7)!important}
+.sq.hl-good::after{background:rgba(100,160,255,.45)!important;border-color:rgba(100,160,255,.65)!important}
+.sq.hl-inaccuracy::after{background:rgba(240,200,60,.45)!important;border-color:rgba(240,200,60,.65)!important}
+/* Quality badge labels on the dot */
+.sq.hl-brilliant .mv-badge,.sq.hl-great .mv-badge,.sq.hl-good .mv-badge{display:flex}
+.mv-badge{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:9px;font-weight:800;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.8);pointer-events:none;z-index:10;white-space:nowrap;letter-spacing:.03em}
 .sq svg{display:block;width:88%;height:88%;pointer-events:none;position:relative;z-index:2}
 .arr-layer{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10;overflow:visible}
 
@@ -255,6 +265,45 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .game-over-banner p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px}
 .game-over-emoji{font-size:44px;margin-bottom:10px;display:block}
 
+
+/* ═══ FREE PLAY MODE ════════════════════════════════════════ */
+.freeplay-wrap{max-width:960px;margin:0 auto;padding:12px}
+.freeplay-hdr{padding:10px 0 14px;border-bottom:1px solid var(--border);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.freeplay-badge{width:44px;height:44px;background:linear-gradient(135deg,#1a6b3a,#0d3d20);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 20px rgba(30,150,80,.3)}
+.freeplay-hdr h2{font-size:20px;font-weight:700;color:#fff}
+.freeplay-hdr p{font-size:12px;color:var(--muted);margin-top:2px}
+.freeplay-layout{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:650px){.freeplay-layout{flex-direction:column}}
+.freeplay-right{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px}
+.fp-turn-bar{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;display:flex;align-items:center;gap:10px}
+.fp-turn-piece{font-size:22px;line-height:1;transition:all .3s}
+.fp-turn-label{font-size:13px;font-weight:700;color:var(--text);flex:1}
+.fp-turn-phase{font-size:11px;color:var(--muted)}
+/* Legend */
+.fp-legend{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px}
+.fp-legend-title{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin-bottom:8px}
+.fp-legend-items{display:flex;flex-wrap:wrap;gap:8px}
+.fp-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text)}
+.fp-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0}
+.fp-dot.brilliant{background:rgba(0,200,220,.8);box-shadow:0 0 6px rgba(0,200,220,.5)}
+.fp-dot.great{background:rgba(90,200,90,.8);box-shadow:0 0 6px rgba(90,200,90,.4)}
+.fp-dot.good{background:rgba(100,160,255,.8);box-shadow:0 0 6px rgba(100,160,255,.4)}
+.fp-dot.normal{background:rgba(0,0,0,.22);border:1px solid rgba(0,0,0,.1)}
+/* FP feed */
+.fp-feed{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.fp-feed-hdr{padding:7px 12px;background:#0b0b1e;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.fp-feed-msgs{overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-height:100px;max-height:220px}
+.fp-feed-msgs::-webkit-scrollbar{width:3px}
+.fp-feed-msgs::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.fp-msg{font-size:12px;line-height:1.6;padding:7px 10px;border-radius:7px}
+.fp-msg.tip{background:#04100a;border-left:3px solid var(--accent);color:var(--accent2)}
+.fp-msg.info{background:var(--bg3);color:var(--muted);font-size:11px}
+.fp-msg.brilliant-msg{background:#002428;border-left:3px solid #00c8dc;color:#00e8ff}
+.fp-msg.great-msg{background:#041208;border-left:3px solid #5ac85a;color:#7aee7a}
+.fp-msg.warn{background:#100404;border-left:3px solid var(--warn);color:#cc6060}
+/* FP actions */
+.fp-actions{display:flex;gap:8px;flex-wrap:wrap}
+.fp-notation{background:#08081a;border-radius:8px;padding:8px 10px;display:flex;flex-wrap:wrap;align-items:baseline;gap:1px;font-family:monospace;font-size:12px;line-height:2;min-height:34px;max-height:80px;overflow-y:auto}
 /* Playable board extras */
 .board-label-top{text-align:center;font-size:11px;color:var(--muted);padding:4px 0 2px;font-weight:600}
 </style>
@@ -269,6 +318,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="mode-switcher">
       <button class="mode-btn active" id="btn-study" onclick="switchMode('study')">📖 Study</button>
       <button class="mode-btn" id="btn-coach" onclick="switchMode('coach')">🤖 Coach</button>
+      <button class="mode-btn" id="btn-freeplay" onclick="switchMode('freeplay')">♛ Free Play</button>
     </div>
   </div>
 </div>
@@ -501,6 +551,76 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     </div>
   </div>
 </div><!-- end coach-page -->
+
+<!-- ══════════════════════════════════════════════════
+     FREE PLAY MODE (both colours, move quality hints)
+══════════════════════════════════════════════════ -->
+<div id="freeplay-page" style="display:none">
+  <div class="freeplay-wrap">
+    <div class="freeplay-hdr">
+      <div class="freeplay-badge">♛</div>
+      <div>
+        <h2>Free Play</h2>
+        <p>Play both sides — click any piece to see Brilliant ⭐, Great ✨ and Good 👍 moves highlighted</p>
+      </div>
+    </div>
+    <div class="freeplay-layout">
+      <div class="board-col">
+        <div class="board-label-top" id="fp-top-label">Black ♟</div>
+        <div class="board-outer">
+          <div class="b-row">
+            <div class="rank-col" id="fp-rank-col"></div>
+            <div class="board-wrap">
+              <div class="board" id="fp-board"></div>
+              <svg class="arr-layer" id="fp-arr-layer" viewBox="0 0 416 416"></svg>
+            </div>
+          </div>
+          <div class="file-row" id="fp-file-row"></div>
+        </div>
+        <div class="board-label-top" id="fp-bottom-label">White ♙</div>
+        <div class="fp-notation" id="fp-notation"></div>
+      </div>
+      <div class="freeplay-right">
+        <div class="fp-turn-bar">
+          <span class="fp-turn-piece" id="fp-turn-piece">♙</span>
+          <span class="fp-turn-label" id="fp-turn-label">White to move</span>
+          <span class="fp-turn-phase" id="fp-turn-phase">Opening</span>
+        </div>
+
+        <div class="fp-legend">
+          <div class="fp-legend-title">Move Quality Legend</div>
+          <div class="fp-legend-items">
+            <div class="fp-legend-item"><div class="fp-dot brilliant"></div> Brilliant ⭐ — best possible move</div>
+            <div class="fp-legend-item"><div class="fp-dot great"></div> Great ✨ — excellent move</div>
+            <div class="fp-legend-item"><div class="fp-dot good"></div> Good 👍 — solid move</div>
+            <div class="fp-legend-item"><div class="fp-dot normal"></div> Normal — reasonable move</div>
+          </div>
+        </div>
+
+        <div class="fp-feed">
+          <div class="fp-feed-hdr">📊 Move Analysis</div>
+          <div class="fp-feed-msgs" id="fp-feed">
+            <div class="fp-msg info">Click any piece to see move quality highlights. Requires API key for AI analysis.</div>
+          </div>
+        </div>
+
+        <div class="fp-actions">
+          <button class="ca-btn ca-secondary" onclick="fpUndo()">↩ Undo</button>
+          <button class="ca-btn ca-secondary" onclick="fpFlip()">⇅ Flip Board</button>
+          <button class="ca-btn ca-secondary" onclick="fpNewGame()">↺ New Game</button>
+          <button class="ca-btn ca-danger" onclick="switchMode('study')">✕ Exit</button>
+        </div>
+
+        <div class="game-over-banner" id="fp-game-over">
+          <span class="game-over-emoji" id="fp-over-emoji">🏁</span>
+          <h3 id="fp-over-title">Game Over</h3>
+          <p id="fp-over-msg">Well played!</p>
+          <button class="ca-btn ca-primary" onclick="fpNewGame()" style="margin:0 auto">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- end freeplay-page -->
 
 <script>
 // ══════════════════════════════════════════════════════════════════
@@ -2008,13 +2128,14 @@ function handleCoachSquareClick(sqName) {
     // Try to make a move
     const move = chess.move({ from: coachSelectedSq, to: sqName, promotion: 'q' });
     coachSelectedSq = null;
+    moveQualityCache = {}; // clear cache on move
 
     if (move) {
-      renderCoachBoard();
+      renderCoachBoard(move.from, move.to);
       updateCoachNotation();
       checkAndRespond(move);
     } else {
-      // Maybe selecting a new piece
+      // Re-select own piece
       if (piece && piece.color === playerColor) {
         coachSelectedSq = sqName;
         renderCoachBoard();
@@ -2027,10 +2148,14 @@ function handleCoachSquareClick(sqName) {
     if (piece && piece.color === playerColor) {
       coachSelectedSq = sqName;
       renderCoachBoard();
-      showPossibleMoves(sqName);
+      showPossibleMoves(sqName); // called AFTER render so highlights sit on top
     }
   }
 }
+
+// Move quality cache: sqName -> 'brilliant'|'great'|'good'|'normal'
+let moveQualityCache = {};
+let qualityFetchPending = false;
 
 function showPossibleMoves(from) {
   const bEl = document.getElementById('coach-board');
@@ -2038,47 +2163,123 @@ function showPossibleMoves(from) {
   const targets = new Set(moves.map(m => m.to));
 
   bEl.querySelectorAll('.sq').forEach(sq => {
-    if (sq.dataset.sq === from) sq.classList.add('hl-sel');
-    if (targets.has(sq.dataset.sq)) {
+    const sn = sq.dataset.sq;
+    if (sn === from) sq.classList.add('hl-sel');
+    if (targets.has(sn)) {
       sq.classList.add('hl-mv');
-      if (coachGame.chess.get(sq.dataset.sq)) sq.classList.add('has-pc');
+      if (coachGame.chess.get(sn)) sq.classList.add('has-pc');
+
+      // Apply cached quality if available
+      const quality = moveQualityCache[from + '-' + sn];
+      if (quality) applyMoveQuality(sq, quality);
     }
   });
+
+  // Fetch move qualities from AI if we have an API key and no pending fetch
+  if (apiKey && !qualityFetchPending && moves.length > 0) {
+    qualityFetchPending = true;
+    fetchMoveQualities(from, moves).then(qualities => {
+      qualityFetchPending = false;
+      if (!coachSelectedSq || coachSelectedSq !== from) return; // user deselected
+      const bEl2 = document.getElementById('coach-board');
+      bEl2.querySelectorAll('.sq.hl-mv').forEach(sq => {
+        const sn = sq.dataset.sq;
+        const q = qualities[from + '-' + sn];
+        if (q) {
+          moveQualityCache[from + '-' + sn] = q;
+          applyMoveQuality(sq, q);
+        }
+      });
+    }).catch(() => { qualityFetchPending = false; });
+  }
+}
+
+function applyMoveQuality(sq, quality) {
+  sq.classList.remove('hl-brilliant','hl-great','hl-good','hl-inaccuracy');
+  if (quality === 'brilliant') sq.classList.add('hl-brilliant');
+  else if (quality === 'great') sq.classList.add('hl-great');
+  else if (quality === 'good') sq.classList.add('hl-good');
+  else if (quality === 'inaccuracy') sq.classList.add('hl-inaccuracy');
+
+  // Add/update badge
+  let badge = sq.querySelector('.mv-badge');
+  if (!badge) { badge = document.createElement('div'); badge.className = 'mv-badge'; sq.appendChild(badge); }
+  const labels = {brilliant:'⭐ Brilliant', great:'✨ Great', good:'👍 Good', inaccuracy:'⚠️ Risky'};
+  badge.textContent = labels[quality] || '';
+}
+
+async function fetchMoveQualities(from, moves) {
+  const chess = coachGame.chess;
+  const fen = chess.fen();
+  const playerColor = coachGame.playerColor === 'w' ? 'White' : 'Black';
+  const moveList = moves.slice(0, 8).map(m => m.san).join(', '); // limit to 8 moves
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        system: `You are a chess engine assistant. Given a FEN position and a list of legal moves for ${playerColor}, classify each move as exactly one of: brilliant, great, good, normal, inaccuracy. Respond ONLY with valid JSON like: {"e4":"great","d4":"good","Nf3":"normal"}. No explanation, no markdown, just the JSON object.`,
+        messages: [{role:'user', content:`FEN: ${fen}
+Moves to classify: ${moveList}
+Classify each move. Only output JSON.`}]
+      })
+    });
+    const data = await resp.json();
+    const txt = data.content?.[0]?.text || '{}';
+    const clean = txt.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(clean);
+    // Convert san->quality to from+to->quality
+    const result = {};
+    moves.forEach(m => {
+      if (parsed[m.san]) result[from + '-' + m.to] = parsed[m.san];
+    });
+    return result;
+  } catch(e) {
+    return {};
+  }
 }
 
 function renderCoachBoard(fromSq, toSq) {
   const { chess } = coachGame;
   const bEl = document.getElementById('coach-board');
-  const flipped = bEl.dataset.flipped === 'true';
 
-  bEl.querySelectorAll('.sq').forEach(sq => {
-    const sn = sq.dataset.sq;
-    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
-    if (fromSq && sn === fromSq) sq.classList.add('hl-f');
-    if (toSq && sn === toSq) sq.classList.add('hl-t');
-    if (coachSelectedSq && sn === coachSelectedSq) sq.classList.add('hl-sel');
-
-    // Check highlight
-    if (chess.in_check()) {
-      const b = chess.board();
-      const turn = chess.turn();
-      for (let r = 0; r < 8; r++) {
-        for (let f = 0; f < 8; f++) {
-          const p = b[r][f];
-          if (p && p.type === 'k' && p.color === turn) {
-            if (sn === 'abcdefgh'[f] + (8 - r)) sq.classList.add('hl-chk');
-          }
+  // Find king in check position
+  let checkSq = null;
+  if (chess.in_check()) {
+    const b = chess.board();
+    const turn = chess.turn();
+    outer: for (let r = 0; r < 8; r++) {
+      for (let f = 0; f < 8; f++) {
+        const p = b[r][f];
+        if (p && p.type === 'k' && p.color === turn) {
+          checkSq = 'abcdefgh'[f] + (8 - r);
+          break outer;
         }
       }
     }
+  }
 
-    const p = chess.get(sn);
-    sq.innerHTML = p ? P[pieceKey(p)] : '';
-  });
-
-  // Re-attach click handlers after re-render
   bEl.querySelectorAll('.sq').forEach(sq => {
-    sq.onclick = () => handleCoachSquareClick(sq.dataset.sq);
+    const sn = sq.dataset.sq;
+
+    // Reset only base colour + special highlights — preserve piece SVG
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (fromSq && sn === fromSq) sq.classList.add('hl-f');
+    if (toSq && sn === toSq) sq.classList.add('hl-t');
+    if (checkSq && sn === checkSq) sq.classList.add('hl-chk');
+    if (coachSelectedSq && sn === coachSelectedSq) sq.classList.add('hl-sel');
+
+    // Update piece — keep any .mv-badge child but replace the piece SVG
+    const p = chess.get(sn);
+    const badge = sq.querySelector('.mv-badge');
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+    if (badge) sq.appendChild(badge); // restore badge if it existed
+
+    // Re-attach click
+    sq.onclick = () => handleCoachSquareClick(sn);
   });
 }
 
@@ -2349,9 +2550,12 @@ function leaveCoachGame() {
 function switchMode(mode) {
   document.getElementById('study-page').style.display = mode === 'study' ? 'block' : 'none';
   document.getElementById('coach-page').style.display = mode === 'coach' ? 'block' : 'none';
+  document.getElementById('freeplay-page').style.display = mode === 'freeplay' ? 'block' : 'none';
   document.getElementById('btn-study').classList.toggle('active', mode === 'study');
   document.getElementById('btn-coach').classList.toggle('active', mode === 'coach');
+  document.getElementById('btn-freeplay').classList.toggle('active', mode === 'freeplay');
   document.querySelector('.subnav').style.display = mode === 'study' ? 'flex' : 'none';
+  if (mode === 'freeplay' && !fpGame) fpNewGame();
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -2386,6 +2590,291 @@ function init() {
 }
 
 window.addEventListener('load', init);
+// ══════════════════════════════════════════════════════════════════
+// FREE PLAY MODE — play both colours with move quality hints
+// ══════════════════════════════════════════════════════════════════
+let fpGame = null;       // { chess, flipped, selectedSq, gameOver }
+let fpQualityCache = {}; // fen+sq -> {to: quality}
+let fpQualityPending = false;
+
+function fpNewGame() {
+  fpGame = { chess: new Chess(), flipped: false, selectedSq: null, gameOver: false };
+  fpQualityCache = {};
+  fpQualityPending = false;
+  document.getElementById('fp-game-over').classList.remove('vis');
+  document.getElementById('fp-notation').innerHTML = '';
+  document.getElementById('fp-feed').innerHTML =
+    '<div class="fp-msg info">Click any piece to see move quality highlights.</div>';
+  buildBoard('fp-board', 'fp-rank-col', 'fp-file-row', false);
+  fpRenderBoard();
+  fpUpdateTurnBar();
+}
+
+function fpFlip() {
+  if (!fpGame) return;
+  fpGame.flipped = !fpGame.flipped;
+  fpGame.selectedSq = null;
+  buildBoard('fp-board', 'fp-rank-col', 'fp-file-row', fpGame.flipped);
+  fpRenderBoard();
+  const tl = document.getElementById('fp-top-label');
+  const bl = document.getElementById('fp-bottom-label');
+  if (fpGame.flipped) { tl.textContent = 'White ♙'; bl.textContent = 'Black ♟'; }
+  else { tl.textContent = 'Black ♟'; bl.textContent = 'White ♙'; }
+}
+
+function fpUndo() {
+  if (!fpGame || fpGame.chess.history().length === 0) return;
+  fpGame.chess.undo();
+  fpGame.selectedSq = null;
+  fpGame.gameOver = false;
+  document.getElementById('fp-game-over').classList.remove('vis');
+  fpRenderBoard();
+  fpUpdateTurnBar();
+  fpUpdateNotation();
+  fpAddMsg('info', '↩ Move undone.');
+}
+
+// ── Board rendering ────────────────────────────────────────────────────
+function fpRenderBoard(fromSq, toSq) {
+  if (!fpGame) return;
+  const { chess, selectedSq } = fpGame;
+  const bEl = document.getElementById('fp-board');
+  if (!bEl) return;
+
+  let checkSq = null;
+  if (chess.in_check()) {
+    const b = chess.board(); const turn = chess.turn();
+    outer: for (let r = 0; r < 8; r++) for (let f = 0; f < 8; f++) {
+      const p = b[r][f];
+      if (p && p.type === 'k' && p.color === turn) { checkSq = 'abcdefgh'[f] + (8-r); break outer; }
+    }
+  }
+
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (fromSq && sn === fromSq) sq.classList.add('hl-f');
+    if (toSq && sn === toSq) sq.classList.add('hl-t');
+    if (checkSq && sn === checkSq) sq.classList.add('hl-chk');
+    if (selectedSq && sn === selectedSq) sq.classList.add('hl-sel');
+
+    const p = chess.get(sn);
+    const badge = sq.querySelector('.mv-badge');
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+    if (badge) sq.appendChild(badge);
+    sq.onclick = () => fpHandleClick(sn);
+  });
+}
+
+// ── Click handling ────────────────────────────────────────────────────
+function fpHandleClick(sqName) {
+  if (!fpGame || fpGame.gameOver) return;
+  const { chess } = fpGame;
+  const piece = chess.get(sqName);
+  const currentTurn = chess.turn();
+
+  if (fpGame.selectedSq) {
+    // Try to make a move
+    const move = chess.move({ from: fpGame.selectedSq, to: sqName, promotion: 'q' });
+    const prevSel = fpGame.selectedSq;
+    fpGame.selectedSq = null;
+
+    if (move) {
+      fpRenderBoard(move.from, move.to);
+      fpUpdateNotation();
+      fpUpdateTurnBar();
+      fpAfterMove(move);
+      return;
+    }
+    // Re-select own piece
+    if (piece && piece.color === currentTurn) {
+      fpGame.selectedSq = sqName;
+      fpRenderBoard();
+      fpShowMoves(sqName);
+      return;
+    }
+    fpRenderBoard();
+  } else {
+    if (piece && piece.color === currentTurn) {
+      fpGame.selectedSq = sqName;
+      fpRenderBoard();
+      fpShowMoves(sqName);
+    }
+  }
+}
+
+// ── Show legal moves with quality dots ────────────────────────────────
+function fpShowMoves(from) {
+  if (!fpGame) return;
+  const chess = fpGame.chess;
+  const moves = chess.moves({ square: from, verbose: true });
+  const targets = new Set(moves.map(m => m.to));
+  const fen = chess.fen();
+  const cacheKey = fen + '|' + from;
+
+  const bEl = document.getElementById('fp-board');
+  bEl.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    if (sn === from) sq.classList.add('hl-sel');
+    if (targets.has(sn)) {
+      sq.classList.add('hl-mv');
+      if (chess.get(sn)) sq.classList.add('has-pc');
+      // Apply cached quality
+      const cached = fpQualityCache[cacheKey + '|' + sn];
+      if (cached) fpApplyQuality(sq, cached);
+    }
+  });
+
+  // Fetch AI qualities
+  if (apiKey && !fpQualityPending && moves.length > 0) {
+    fpQualityPending = true;
+    fpFetchQualities(from, moves, fen, cacheKey).then(qualities => {
+      fpQualityPending = false;
+      if (!fpGame || fpGame.selectedSq !== from) return;
+      const bEl2 = document.getElementById('fp-board');
+      bEl2.querySelectorAll('.sq.hl-mv').forEach(sq => {
+        const q = qualities[sq.dataset.sq];
+        if (q) {
+          fpQualityCache[cacheKey + '|' + sq.dataset.sq] = q;
+          fpApplyQuality(sq, q);
+        }
+      });
+      // Add summary to feed
+      const bests = Object.entries(qualities).filter(([,q]) => q === 'brilliant' || q === 'great');
+      if (bests.length > 0) {
+        const label = bests[0][1] === 'brilliant' ? 'brilliant-msg' : 'great-msg';
+        const icon = bests[0][1] === 'brilliant' ? '⭐' : '✨';
+        const sanMove = moves.find(m => m.to === bests[0][0]);
+        if (sanMove) fpAddMsg(label, `${icon} <strong>${sanMove.san}</strong> is a ${bests[0][1]} move in this position!`);
+      }
+    }).catch(() => { fpQualityPending = false; });
+  }
+}
+
+function fpApplyQuality(sq, quality) {
+  sq.classList.remove('hl-brilliant','hl-great','hl-good','hl-inaccuracy');
+  if (quality === 'brilliant') sq.classList.add('hl-brilliant');
+  else if (quality === 'great') sq.classList.add('hl-great');
+  else if (quality === 'good') sq.classList.add('hl-good');
+  else if (quality === 'inaccuracy') sq.classList.add('hl-inaccuracy');
+
+  let badge = sq.querySelector('.mv-badge');
+  if (!badge) { badge = document.createElement('div'); badge.className = 'mv-badge'; sq.appendChild(badge); }
+  const labels = { brilliant:'⭐', great:'✨', good:'👍', inaccuracy:'⚠️' };
+  badge.textContent = labels[quality] || '';
+}
+
+async function fpFetchQualities(from, moves, fen, cacheKey) {
+  const side = fpGame.chess.turn() === 'w' ? 'White' : 'Black';
+  const moveList = moves.slice(0, 10).map(m => m.san).join(', ');
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 250,
+        system: 'You are a chess engine. Classify each move as: brilliant, great, good, normal, or inaccuracy. Return ONLY a valid JSON object like {"e4":"great","d4":"good"}. No markdown, no explanation.',
+        messages: [{ role:'user', content:`Position (FEN): ${fen}\n${side} legal moves: ${moveList}\nClassify each. JSON only.` }]
+      })
+    });
+    const data = await resp.json();
+    const txt = (data.content?.[0]?.text || '{}').replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(txt);
+    // Map san -> to square
+    const result = {};
+    moves.forEach(m => { if (parsed[m.san]) result[m.to] = parsed[m.san]; });
+    return result;
+  } catch(e) { return {}; }
+}
+
+// ── After move feedback ────────────────────────────────────────────────
+async function fpAfterMove(move) {
+  // Check game end
+  const chess = fpGame.chess;
+  if (chess.in_checkmate()) {
+    fpEndGame(chess.turn() === 'w' ? 'Black wins by checkmate!' : 'White wins by checkmate!', chess.turn() === 'w' ? '🏆' : '🏆');
+    return;
+  }
+  if (chess.in_stalemate()) { fpEndGame('Stalemate — Draw!', '🤝'); return; }
+  if (chess.in_threefold_repetition()) { fpEndGame('Draw by repetition!', '🤝'); return; }
+  if (chess.insufficient_material()) { fpEndGame('Draw — insufficient material!', '🤝'); return; }
+
+  if (!apiKey) {
+    fpAddMsg('info', `Played <strong>${move.san}</strong>. Add an API key for move analysis!`);
+    return;
+  }
+
+  // Quick feedback on the move that was played
+  try {
+    const fen = chess.fen();
+    const side = move.color === 'w' ? 'White' : 'Black';
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'x-api-key':apiKey, 'anthropic-version':'2023-06-01' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 120,
+        system: 'You are a chess coach for a beginner. In 1 sentence, say whether the move just played was brilliant/great/good/inaccuracy and why. Be specific and encouraging.',
+        messages: [{ role:'user', content:`${side} just played ${move.san}. FEN after move: ${fen}. One sentence feedback.` }]
+      })
+    });
+    const data = await resp.json();
+    const txt = data.content?.[0]?.text || '';
+    if (txt) {
+      const cls = txt.toLowerCase().includes('brilliant') ? 'brilliant-msg' :
+                  txt.toLowerCase().includes('great') ? 'great-msg' : 'tip';
+      fpAddMsg(cls, txt);
+    }
+  } catch(e) {}
+}
+
+function fpEndGame(msg, emoji) {
+  fpGame.gameOver = true;
+  document.getElementById('fp-over-emoji').textContent = emoji;
+  document.getElementById('fp-over-title').textContent = msg;
+  document.getElementById('fp-over-msg').textContent = 'Start a new game or undo the last move.';
+  document.getElementById('fp-game-over').classList.add('vis');
+}
+
+function fpUpdateTurnBar() {
+  if (!fpGame) return;
+  const turn = fpGame.chess.turn();
+  document.getElementById('fp-turn-piece').textContent = turn === 'w' ? '♙' : '♟';
+  document.getElementById('fp-turn-label').textContent = turn === 'w' ? 'White to move' : 'Black to move';
+  const moves = fpGame.chess.history().length;
+  document.getElementById('fp-turn-phase').textContent = moves < 10 ? 'Opening' : moves < 30 ? 'Middlegame' : 'Endgame';
+}
+
+function fpUpdateNotation() {
+  if (!fpGame) return;
+  const hist = fpGame.chess.history();
+  const el = document.getElementById('fp-notation');
+  el.innerHTML = '';
+  hist.forEach((san, i) => {
+    if (i % 2 === 0) {
+      const mn = document.createElement('span');
+      mn.className = 'mn'; mn.textContent = (i/2+1) + '.';
+      el.appendChild(mn);
+    }
+    const mv = document.createElement('span');
+    mv.className = 'mv done'; mv.textContent = san;
+    el.appendChild(mv);
+  });
+  el.scrollLeft = el.scrollWidth;
+}
+
+function fpAddMsg(cls, html) {
+  const feed = document.getElementById('fp-feed');
+  const d = document.createElement('div');
+  d.className = 'fp-msg ' + cls;
+  d.innerHTML = html;
+  feed.appendChild(d);
+  feed.scrollTop = feed.scrollHeight;
+  // Keep feed tidy
+  while (feed.children.length > 30) feed.removeChild(feed.firstChild);
+}
+
 </script>
 </body>
 </html>
