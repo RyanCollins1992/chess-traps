@@ -46,7 +46,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .p-bird{background:rgba(180,80,10,.15);color:var(--bird2);border:1px solid rgba(180,80,10,.25)}
 .dd-arrow{font-size:8px;opacity:.4;transition:transform .2s;margin-left:2px}
 .dd-btn.open .dd-arrow{transform:rotate(180deg);opacity:.7}
-.active-label{flex:1;text-align:left;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--accent2)}
+.active-label{font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);max-width:100px;opacity:.8}
 .active-label.gold{color:var(--gold)}
 .active-label.bird{color:var(--bird2)}
 .dd-menu{position:absolute;top:100%;left:0;right:0;min-width:220px;background:#162240;border:1px solid var(--border2);border-top:none;border-radius:0 0 10px 10px;box-shadow:0 12px 40px rgba(0,0,0,.8);z-index:400;display:none;max-height:65vh;overflow-y:auto}
@@ -1513,12 +1513,7 @@ body {
 .dd-btn .pill { display: none; }
 
 /* Tab labels — plain text, no pill background */
-.dd-btn::before {
-  content: attr(data-label);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .02em;
-}
+/* dd-btn::before removed — label is in span */
 
 /* Dropdown menu */
 .dd-menu {
@@ -1537,7 +1532,7 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--dim) transparent;
 }
-.dd-menu.open { display: block; }
+.dd-menu.open { display: block !important; }
 .dd-menu::-webkit-scrollbar { width: 3px; }
 .dd-menu::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
 
@@ -1771,6 +1766,11 @@ body {
 
 .dd-tab-label { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
 
+
+/* DROPDOWN FIX — ensure open state always visible */
+.dd-menu.open { display: block !important; }
+.dd-btn.open .dd-arrow { transform: rotate(180deg); opacity: 1; }
+
 </style>
 </head>
 <body>
@@ -1885,7 +1885,7 @@ body {
   <!-- Sub-nav dropdowns -->
   <div class="subnav">
     <div class="dd-wrap">
-      <button class="dd-btn" id="btn-w" data-label="White" onclick="toggleDD('w')" onmouseenter="openDD('w')" onmouseleave="schedClose('w')">
+      <button class="dd-btn" id="btn-w" onclick="toggleDD('w')" onmouseenter="openDD('w')" onmouseleave="schedClose('w')">
         <span class="dd-tab-label">White</span>
         <span class="active-label" id="wlabel"></span>
         <span class="dd-arrow">▼</span>
@@ -1895,7 +1895,7 @@ body {
       </div>
     </div>
     <div class="dd-wrap">
-      <button class="dd-btn" id="btn-b" data-label="Black" onclick="toggleDD('b')" onmouseenter="openDD('b')" onmouseleave="schedClose('b')">
+      <button class="dd-btn" id="btn-b" onclick="toggleDD('b')" onmouseenter="openDD('b')" onmouseleave="schedClose('b')">
         <span class="dd-tab-label">Black</span>
         <span class="active-label" id="blabel"></span>
         <span class="dd-arrow">▼</span>
@@ -1905,7 +1905,7 @@ body {
       </div>
     </div>
     <div class="dd-wrap">
-      <button class="dd-btn" id="btn-q" data-label="Mates" onclick="toggleDD('q')" onmouseenter="openDD('q')" onmouseleave="schedClose('q')">
+      <button class="dd-btn" id="btn-q" onclick="toggleDD('q')" onmouseenter="openDD('q')" onmouseleave="schedClose('q')">
         <span class="dd-tab-label">Mates</span>
         <span class="active-label gold" id="qlabel"></span>
         <span class="dd-arrow">▼</span>
@@ -1915,7 +1915,7 @@ body {
       </div>
     </div>
     <div class="dd-wrap">
-      <button class="dd-btn" id="btn-bird" data-label="Bird's" onclick="toggleDD('bird')" onmouseenter="openDD('bird')" onmouseleave="schedClose('bird')">
+      <button class="dd-btn" id="btn-bird" onclick="toggleDD('bird')" onmouseenter="openDD('bird')" onmouseleave="schedClose('bird')">
         <span class="dd-tab-label">Bird's</span>
         <span class="active-label bird" id="birdlabel"></span>
         <span class="dd-arrow">▼</span>
@@ -1925,7 +1925,7 @@ body {
       </div>
     </div>
     <div class="dd-wrap">
-      <button class="dd-btn" id="btn-rep" data-label="Repertoire" onclick="toggleDD('rep')" onmouseenter="openDD('rep')" onmouseleave="schedClose('rep')">
+      <button class="dd-btn" id="btn-rep" onclick="toggleDD('rep')" onmouseenter="openDD('rep')" onmouseleave="schedClose('rep')">
         <span class="pill" style="background:linear-gradient(90deg,#1a5c52,#0f2e2a);color:#c090ff;border-color:#2a7a6e">♞ REPERTOIRE</span>
         <span class="active-label" id="replabel"></span>
         <span class="dd-arrow">▼</span>
