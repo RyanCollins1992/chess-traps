@@ -49,7 +49,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .active-label{font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);max-width:100px;opacity:.8}
 .active-label.gold{color:var(--gold)}
 .active-label.bird{color:var(--bird2)}
-.dd-menu{position:absolute;top:100%;left:0;right:0;min-width:220px;background:#162240;border:1px solid var(--border2);border-top:none;border-radius:0 0 10px 10px;box-shadow:0 12px 40px rgba(0,0,0,.8);z-index:400;display:none;max-height:65vh;overflow-y:auto}
+.dd-menu{position:absolute;top:100%;left:0;min-width:240px;background:#1c2537;border:1px solid rgba(255,255,255,.09);border-radius:0 8px 8px 8px;box-shadow:0 12px 40px rgba(0,0,0,.7);z-index:9000;display:none;max-height:70vh;overflow-y:auto}
 .dd-menu.open{display:block}
 .dd-menu::-webkit-scrollbar{width:3px}
 .dd-menu::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
@@ -1469,72 +1469,13 @@ body {
   border-radius: 7px;
 }
 
-/* ── SUBNAV — clean tab style, no pills ───────────────────── */
-.subnav {
-  background: #111720;
-  border-bottom: 1px solid rgba(255,255,255,.06);
-  padding: 0 16px;
-  display: flex;
-  gap: 0;
-}
-
-.dd-wrap { position: relative; }
-
-.dd-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 14px;
-  height: 42px;
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: inherit;
-  transition: color .15s, border-color .15s;
-  white-space: nowrap;
-}
-
-.dd-btn:hover { color: #c8d8f0; border-bottom-color: rgba(77,191,176,.3); }
-.dd-btn.open  { color: #4dbfb0; border-bottom-color: #2a9d8f; }
-
-.dd-arrow {
-  font-size: 8px;
-  opacity: .5;
-  transition: transform .15s;
-}
-.dd-btn.open .dd-arrow { transform: rotate(180deg); opacity: 1; }
-
-/* Remove old pill buttons */
-.pill { display: none; }
-.dd-btn .pill { display: none; }
+/* subnav CSS replaced below */
 
 /* Tab labels — plain text, no pill background */
 /* dd-btn::before removed — label is in span */
 
 /* Dropdown menu */
-.dd-menu {
-  position: absolute;
-  top: calc(100% + 1px);
-  left: 0;
-  background: #1c2537;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 0 8px 8px 8px;
-  min-width: 220px;
-  max-height: 380px;
-  overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0,0,0,.4);
-  display: none;
-  z-index: 500;
-  scrollbar-width: thin;
-  scrollbar-color: var(--dim) transparent;
-}
-.dd-menu.open { display: block !important; }
-.dd-menu::-webkit-scrollbar { width: 3px; }
-.dd-menu::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+/* dd-menu rules consolidated below */
 
 /* Dropdown items */
 .dd-item {
@@ -1767,9 +1708,109 @@ body {
 .dd-tab-label { font-size: 12px; font-weight: 600; letter-spacing: .02em; }
 
 
-/* DROPDOWN FIX — ensure open state always visible */
-.dd-menu.open { display: block !important; }
+/* dropdown fix merged */
+
+
+/* ══ SUBNAV — definitive clean version ══════════════════════ */
+.subnav {
+  background: #111720;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding: 0;
+  display: flex;
+  position: sticky;
+  top: 50px;
+  z-index: 180;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.subnav::-webkit-scrollbar { display: none; }
+
+.dd-wrap { position: relative; flex-shrink: 0; }
+
+.dd-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 18px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #8896b0;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color .15s, border-color .15s;
+  white-space: nowrap;
+  user-select: none;
+}
+.dd-btn:hover {
+  color: #c8d8f0;
+  background: rgba(255,255,255,.03);
+  border-bottom-color: rgba(77,191,176,.3);
+}
+.dd-btn.open {
+  color: #4dbfb0;
+  border-bottom-color: #2a9d8f;
+  background: rgba(42,157,143,.05);
+}
+
+.dd-tab-label { font-size: 13px; font-weight: 600; }
+
+.active-label {
+  font-size: 11px;
+  color: #4dbfb0;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dd-arrow {
+  font-size: 10px;
+  opacity: .5;
+  transition: transform .2s;
+  margin-left: 2px;
+}
 .dd-btn.open .dd-arrow { transform: rotate(180deg); opacity: 1; }
+
+/* ══ DROPDOWN MENU ══════════════════════════════════════════ */
+.dd-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 260px;
+  background: #1c2537;
+  border: 1px solid rgba(255,255,255,.1);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.6);
+  z-index: 9999;
+  display: none;
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #2a3550 transparent;
+}
+.dd-menu::-webkit-scrollbar { width: 3px; }
+.dd-menu::-webkit-scrollbar-thumb { background: #2a3550; border-radius: 2px; }
+.dd-menu.open { display: block; }
+
+/* ══ DROPDOWN ITEMS ═════════════════════════════════════════ */
+.dd-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  transition: background .1s;
+  color: #c8d8f0;
+}
+.dd-item:hover { background: rgba(42,157,143,.1); }
+.dd-item.cur   { background: rgba(42,157,143,.15); }
+.dd-item:last-child { border-bottom: none; }
 
 </style>
 </head>
@@ -1888,7 +1929,7 @@ body {
       <button class="dd-btn" id="btn-w" onclick="toggleDD('w')" onmouseenter="openDD('w')" onmouseleave="schedClose('w')">
         <span class="dd-tab-label">White</span>
         <span class="active-label" id="wlabel"></span>
-        <span class="dd-arrow">▼</span>
+        <span class="dd-arrow">▾</span>
       </button>
       <div class="dd-menu" id="menu-w" onmouseenter="cancelClose('w')" onmouseleave="schedClose('w')">
         <div id="dd-w-items"></div>
@@ -1898,7 +1939,7 @@ body {
       <button class="dd-btn" id="btn-b" onclick="toggleDD('b')" onmouseenter="openDD('b')" onmouseleave="schedClose('b')">
         <span class="dd-tab-label">Black</span>
         <span class="active-label" id="blabel"></span>
-        <span class="dd-arrow">▼</span>
+        <span class="dd-arrow">▾</span>
       </button>
       <div class="dd-menu" id="menu-b" onmouseenter="cancelClose('b')" onmouseleave="schedClose('b')">
         <div id="dd-b-items"></div>
@@ -1907,32 +1948,19 @@ body {
     <div class="dd-wrap">
       <button class="dd-btn" id="btn-q" onclick="toggleDD('q')" onmouseenter="openDD('q')" onmouseleave="schedClose('q')">
         <span class="dd-tab-label">Mates</span>
-        <span class="active-label gold" id="qlabel"></span>
-        <span class="dd-arrow">▼</span>
+        <span class="active-label" id="qlabel"></span>
+        <span class="dd-arrow">▾</span>
       </button>
       <div class="dd-menu" id="menu-q" onmouseenter="cancelClose('q')" onmouseleave="schedClose('q')">
         <div id="dd-q-items"></div>
       </div>
     </div>
-    <div class="dd-wrap">
-      <button class="dd-btn" id="btn-bird" onclick="toggleDD('bird')" onmouseenter="openDD('bird')" onmouseleave="schedClose('bird')">
-        <span class="dd-tab-label">Bird's</span>
-        <span class="active-label bird" id="birdlabel"></span>
-        <span class="dd-arrow">▼</span>
-      </button>
-      <div class="dd-menu" id="menu-bird" onmouseenter="cancelClose('bird')" onmouseleave="schedClose('bird')">
-        <div id="dd-bird-items"></div>
-      </div>
+    <!-- hidden menus kept for JS compat -->
+    <div style="display:none" id="dd-bird-wrap">
+      <div class="dd-menu" id="menu-bird"><div id="dd-bird-items"></div></div>
     </div>
-    <div class="dd-wrap">
-      <button class="dd-btn" id="btn-rep" onclick="toggleDD('rep')" onmouseenter="openDD('rep')" onmouseleave="schedClose('rep')">
-        <span class="pill" style="background:linear-gradient(90deg,#1a5c52,#0f2e2a);color:#c090ff;border-color:#2a7a6e">♞ REPERTOIRE</span>
-        <span class="active-label" id="replabel"></span>
-        <span class="dd-arrow">▼</span>
-      </button>
-      <div class="dd-menu" id="menu-rep" onmouseenter="cancelClose('rep')" onmouseleave="schedClose('rep')">
-        <div id="dd-rep-items"></div>
-      </div>
+    <div style="display:none" id="dd-rep-wrap">
+      <div class="dd-menu" id="menu-rep"><div id="dd-rep-items"></div></div>
     </div>
   </div>
 
@@ -4895,9 +4923,9 @@ function schedClose(id) { timers[id] = setTimeout(() => { document.getElementByI
 function cancelClose(id) { clearTimeout(timers[id]); }
 function toggleDD(id) {
   const m = document.getElementById('menu-' + id);
-  if (m.classList.contains('open')) { schedClose(id); } else { ['w','b','q','bird','rep'].forEach(x => { if (x !== id) schedClose(x); }); openDD(id); }
+  if (m.classList.contains('open')) { schedClose(id); } else { ['w','b','q'].forEach(x => { if (x !== id) schedClose(x); }); openDD(id); }
 }
-function closeAllDD() { ['w','b','q','bird','rep'].forEach(id => {
+function closeAllDD() { ['w','b','q'].forEach(id => {
     const el = document.getElementById('menu-' + id);
     if (el) el.classList.remove('open');
     const btn = document.getElementById('btn-' + id);
@@ -4908,14 +4936,29 @@ function closeAllDD() { ['w','b','q','bird','rep'].forEach(id => {
 function buildDropdowns() {
   const bySection = {w: [], b: [], q: [], bird: [], rep: []};
   TRAPS.forEach(t => {
-    if (t.level === 'Repertoire') { bySection.rep.push(t); return; }
-    const key = t.side === 'Bird' ? 'bird' : t.side === 'White' ? 'w' : 'b';
+    if (t.level === 'Repertoire') {
+      // Repertoire White traps go into White, Black into Black
+      if (t.side === 'Black') bySection.b.push(t);
+      else bySection.w.push(t);
+      bySection.rep.push(t); // keep for compat
+      return;
+    }
+    // Bird's openings go into White (you play White in Bird's)
+    const key = t.side === 'Bird' ? 'w' : t.side === 'White' ? 'w' : 'b';
     bySection[key].push(t);
+    if (t.side === 'Bird') bySection.bird.push(t); // keep for compat
   });
   QUICK_MATES.forEach(q => bySection.q.push({...q, isQM: true}));
 
-  const totW = bySection.w.length, totB = bySection.b.length, totQ = bySection.q.length, totBird = bySection.bird.length;
-  document.getElementById('trap-count').textContent = `${totW + totB} traps · ${totQ} mates · ${totBird} Bird's`;
+  const totW = bySection.w.length, totB = bySection.b.length, totQ = bySection.q.length;
+  document.getElementById('trap-count').textContent = `${totW + totB} traps · ${totQ} mates`;
+
+  function makeSectionHdr(label) {
+    const h = document.createElement('div');
+    h.style.cssText = 'font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;padding:10px 14px 4px;opacity:.7;border-top:1px solid rgba(255,255,255,.05);margin-top:4px';
+    h.textContent = label;
+    return h;
+  }
 
   function makeItem(t, key) {
     const d = document.createElement('div');
@@ -4932,7 +4975,7 @@ function buildDropdowns() {
       } else {
         loadTrap(t);
       }
-      document.getElementById(key === 'q' ? 'qlabel' : key === 'bird' ? 'birdlabel' : key + 'label').textContent = t.name;
+      document.getElementById(key === 'q' ? 'qlabel' : key === 'b' ? 'blabel' : 'wlabel').textContent = t.name;
       closeAllDD();
     };
     return d;
@@ -4942,22 +4985,43 @@ function buildDropdowns() {
     const container = document.getElementById('dd-' + key + '-items');
     if (!container) return;
     container.innerHTML = '';
-    bySection[key].forEach(t => container.appendChild(makeItem(t, key)));
-  });
-  // Repertoire section
-  const repContainer = document.getElementById('dd-rep-items');
-  if (repContainer) {
-    repContainer.innerHTML = '';
-    const repWhite = bySection.rep.filter(t => t.side === 'White');
-    const repBlack = bySection.rep.filter(t => t.side === 'Black');
-    function repHdr(txt) {
-      const h = document.createElement('div');
-      h.style.cssText = 'font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);font-weight:700;padding:8px 14px 4px';
-      h.textContent = txt; return h;
+
+    if (key === 'w') {
+      // White openings first
+      const whiteTrap = bySection.w.filter(t => t.side === 'White');
+      const birdTrap  = bySection.w.filter(t => t.side === 'Bird');
+      const repWhite  = bySection.w.filter(t => t.level === 'Repertoire');
+
+      if (whiteTrap.length) {
+        container.appendChild(makeSectionHdr('♔ White Openings'));
+        whiteTrap.forEach(t => container.appendChild(makeItem(t, 'w')));
+      }
+      if (birdTrap.length) {
+        container.appendChild(makeSectionHdr("🐦 Bird's Opening"));
+        birdTrap.forEach(t => container.appendChild(makeItem(t, 'w')));
+      }
+      if (repWhite.length) {
+        container.appendChild(makeSectionHdr('♞ Repertoire — Playing White'));
+        repWhite.forEach(t => container.appendChild(makeItem(t, 'w')));
+      }
+
+    } else if (key === 'b') {
+      const blackTrap = bySection.b.filter(t => t.side === 'Black');
+      const repBlack  = bySection.b.filter(t => t.level === 'Repertoire');
+
+      if (blackTrap.length) {
+        container.appendChild(makeSectionHdr('♚ Black Openings'));
+        blackTrap.forEach(t => container.appendChild(makeItem(t, 'b')));
+      }
+      if (repBlack.length) {
+        container.appendChild(makeSectionHdr('♞ Repertoire — Playing Black'));
+        repBlack.forEach(t => container.appendChild(makeItem(t, 'b')));
+      }
+
+    } else {
+      bySection[key].forEach(t => container.appendChild(makeItem(t, key)));
     }
-    if (repWhite.length) { repContainer.appendChild(repHdr('♔ With White')); repWhite.forEach(t => repContainer.appendChild(makeItem(t,'rep'))); }
-    if (repBlack.length) { repContainer.appendChild(repHdr('♚ With Black')); repBlack.forEach(t => repContainer.appendChild(makeItem(t,'rep'))); }
-  }
+  });
 }
 
 // Quick mate loader
@@ -5756,10 +5820,12 @@ function init() {
 
   // Load first white trap
   if (TRAPS.length > 0) {
-    const first = TRAPS[0];
+    const first = TRAPS.find(t => t.side === 'White') || TRAPS[0];
     loadTrap(first);
-    document.querySelector('.dd-item[data-id="' + first.id + '"]')?.classList.add('cur');
-    document.getElementById('wlabel').textContent = first.name;
+    setTimeout(() => {
+      document.querySelector('.dd-item[data-id="' + first.id + '"]')?.classList.add('cur');
+      document.getElementById('wlabel').textContent = first.name;
+    }, 100);
   }
 
   window.addEventListener('resize', () => {
