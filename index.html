@@ -1830,6 +1830,162 @@ body {
 .dd-item-sub  { font-size: 10px; color: var(--muted); margin-top: 1px; font-weight: 400; }
 .dd-item { align-items: flex-start; }
 
+
+/* ═══ TRAP NOTES ═══════════════════════════════════════════ */
+.trap-notes-panel {
+  background: rgba(42,157,143,.05);
+  border: 1px solid rgba(42,157,143,.18);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.trap-notes-hdr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(42,157,143,.12);
+  background: rgba(42,157,143,.06);
+}
+.trap-notes-textarea {
+  width: 100%;
+  min-height: 90px;
+  max-height: 200px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 10px 12px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.trap-notes-textarea::placeholder { color: var(--dim); }
+.trap-notes-textarea:focus { background: rgba(255,255,255,.02); }
+
+/* ═══ WHAT-IF ═══════════════════════════════════════════════ */
+.whatif-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.whatif-label {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.whatif-btn {
+  padding: 3px 9px;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.04);
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all .12s;
+}
+.whatif-btn:hover {
+  border-color: rgba(42,157,143,.4);
+  background: rgba(42,157,143,.08);
+  color: var(--accent2);
+}
+
+/* ═══ WHAT-IF RESULT PANEL ══════════════════════════════════ */
+.whatif-result {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: rgba(230,168,23,.06);
+  border: 1px solid rgba(230,168,23,.15);
+  border-radius: 8px;
+  font-size: 12px;
+  color: #b8a060;
+  line-height: 1.6;
+  display: none;
+}
+.whatif-result.vis { display: block; }
+.whatif-result-move { font-family: 'DM Mono', monospace; font-weight: 700; color: #e6a817; }
+
+/* ═══ SESSION SUMMARY BANNER ════════════════════════════════ */
+.session-summary {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 280px;
+  background: #1c2537;
+  border: 1px solid rgba(42,157,143,.25);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.5);
+  z-index: 8000;
+  animation: slideInRight .3s ease;
+}
+@keyframes slideInRight {
+  from { transform: translateX(320px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+.session-summary-hdr {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.session-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  color: var(--muted);
+}
+.session-stat:last-of-type { border-bottom: none; }
+.session-stat strong { color: var(--text); font-family: 'DM Mono', monospace; }
+.session-summary-close {
+  margin-top: 12px;
+  width: 100%;
+  padding: 7px;
+  border-radius: 7px;
+  border: none;
+  background: rgba(42,157,143,.15);
+  color: #4dbfb0;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.session-summary-close:hover { background: rgba(42,157,143,.25); }
+
+/* ═══ MISTAKE PATTERN TRACKER ══════════════════════════════ */
+.pattern-tracker {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.pattern-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+}
+.pattern-bar-label { font-size: 12px; color: var(--text); flex: 1; }
+.pattern-bar-track { flex: 2; background: var(--bg3); border-radius: 100px; height: 6px; overflow: hidden; }
+.pattern-bar-fill  { height: 100%; border-radius: 100px; background: var(--warn); transition: width .4s ease; }
+.pattern-bar-fill.ok { background: var(--accent); }
+.pattern-bar-pct   { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); min-width: 30px; text-align: right; }
+
 </style>
 </head>
 <body>
@@ -2038,6 +2194,15 @@ body {
           <div style="font-size:13px">Press <strong style="color:var(--accent2)">▶ Next</strong> to step through every move</div>
         </div>
         <div class="summary-cards" id="summary"></div>
+        <!-- Trap Notes -->
+        <div class="trap-notes-panel" id="trap-notes-panel" style="display:none">
+          <div class="trap-notes-hdr">
+            <span style="font-size:13px">📝</span>
+            <span style="font-size:12px;font-weight:600;color:var(--text)">My Notes</span>
+            <span style="font-size:10px;color:var(--muted);margin-left:auto">N to focus</span>
+          </div>
+          <textarea id="trap-notes-input" class="trap-notes-textarea" placeholder="Write your own notes on this trap — what to remember, when to use it, who it works against…" oninput="saveTrapNote()" onkeydown="if(e.key==='Escape')this.blur()"></textarea>
+        </div>
         <button class="qcoach-btn" id="ask-coach-btn" onclick="askCoach()">
           <span>🤖</span> Ask Coach — Best Move Here
         </button>
@@ -4656,12 +4821,13 @@ const COACH_OPENINGS = [
 let SQ_SIZE = 52;
 
 function calcSqSize() {
-  // Account for sidebar (230px on desktop), main padding (32px), right panel (280px min), gaps (14px)
   const sidebarW = window.innerWidth > 768 ? 230 : 0;
-  const availW = window.innerWidth - sidebarW - 32; // total available for content
-  // Board should be at most half the available space, and never exceed 420px
-  const maxBoard = Math.min(availW - 300, 420); // 300px reserved for right panel
-  const boardW = Math.max(maxBoard, 240); // minimum 240px board
+  const padding = 40;
+  const availW = window.innerWidth - sidebarW - padding;
+  // On wide screens reserve 320px for right panel; cap board at 380px
+  const rightPanel = availW > 700 ? 320 : 0;
+  const maxBoard = Math.min(availW - rightPanel, 380);
+  const boardW = Math.max(maxBoard, 220);
   SQ_SIZE = Math.floor(boardW / 8);
 }
 
@@ -4785,8 +4951,10 @@ function loadTrap(trap) {
   curTrap = trap;
   curStep = -1;
   recordEvent('trap_studied', trap.id);
+  trackSessionTrap(trap.id);
   setTimeout(updateFavStar, 50);
   setTimeout(updateMasteredBtn, 50);
+  setTimeout(loadTrapNote, 50);
   // Show the mastered/share buttons now a trap is loaded
   const mb = document.getElementById('mastered-btn');
   const sb = document.getElementById('share-trap-btn');
@@ -4904,6 +5072,17 @@ function renderStep() {
     if (m.why) html += `<div class="box box-why"><strong>Why:</strong> ${m.why}</div>`;
     if (m.warn) html += `<div class="box box-warn">⚠️ ${m.warn}</div>`;
     if (m.tip) html += `<div class="box box-tip">💡 ${m.tip}</div>`;
+
+    // What if? — show alternative lines for the current move
+    const legalAlts = studyChess.moves().filter(s => s !== m.san).slice(0, 4);
+    if (legalAlts.length && curStep >= 0) {
+      html += `<div class="whatif-row"><span class="whatif-label">What if…</span>`;
+      legalAlts.forEach(alt => {
+        html += `<button class="whatif-btn" onclick="showWhatIf('${alt}')">${alt}</button>`;
+      });
+      html += `</div>`;
+    }
+
     document.getElementById('coach-card').innerHTML = html;
   } else {
     document.getElementById('coach-card').innerHTML = `<div class="empty-icon">♟</div><div style="font-size:13px">Press <strong style="color:var(--accent2)">▶ Next</strong> to step through every move</div>`;
@@ -5098,6 +5277,8 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowUp' || e.key === 'Home') navFirst();
     if (e.key === 'ArrowDown' || e.key === 'End') navLast();
     if (e.key === 'f' || e.key === 'F') { const f = getFavourites(); const id = curTrap?.id; if(id){const idx=f.indexOf(id);if(idx>=0)f.splice(idx,1);else f.push(id);saveFavourites(f);updateFavStar();} }
+    if (e.key === 'm' || e.key === 'M') { if (typeof toggleMastered === 'function') toggleMastered(); }
+    if (e.key === 'n' || e.key === 'N') { document.getElementById('trap-notes-input')?.focus(); }
     if (e.key === '/' ) { e.preventDefault(); document.getElementById('study-search-inp')?.focus(); }
   }
   if (activeMode === 'puzzle') {
@@ -5823,6 +6004,13 @@ function switchMode(mode) {
   // Update topbar title
   const titleEl = document.getElementById('topbar-title');
   if (titleEl) titleEl.textContent = PAGE_TITLES[mode] || mode;
+  // Show session summary when switching away from study after activity
+  if (typeof activeMode !== 'undefined' && activeMode === 'study' && mode !== 'study') {
+    if (sessionTrapsStudied.size >= 2 || sessionPuzzlesSolved >= 3) {
+      clearTimeout(sessionSummaryTimer);
+      setTimeout(showSessionSummary, 400);
+    }
+  }
   // Close sidebar on mobile
   closeSidebar();
   if (mode === 'freeplay' && !fpGame) fpNewGame();
@@ -5907,6 +6095,9 @@ window.addEventListener('load', () => {
 
   // Sidebar init
   updateSidebarStreak();
+  // Record ELO at session start for session summary delta
+  if (typeof calcEloEstimate === 'function') localStorage.setItem('elo-session-start', calcEloEstimate());
+  setTimeout(initClockPresets, 500);
   updateTopbarElo();
 
   // Update trap count in sidebar logo
@@ -6295,6 +6486,7 @@ function resetProgress() {
   renderProgress();
 }
 function renderProgress() {
+  setTimeout(() => renderPatternTracker("pattern-tracker-container"), 100);
   const p = getProgress();
   const trapsStudied = Object.keys(p.traps_studied || {}).length;
   const totalTraps = TRAPS.length + QUICK_MATES.length;
@@ -7942,8 +8134,10 @@ function studySearch(val) {
     (t.sub||'').toLowerCase().includes(q) ||
     (t.side||'').toLowerCase().includes(q) ||
     (t.level||'').toLowerCase().includes(q) ||
-    t.id.toLowerCase().includes(q)
-  ).slice(0, 8);
+    t.id.toLowerCase().includes(q) ||
+    (t.level === 'Repertoire' && 'repertoire'.includes(q)) ||
+    (t.summary||'').toLowerCase().includes(q)
+  ).slice(0, 10);
 
   if (!matches.length) { results.classList.remove('vis'); return; }
   results.innerHTML = matches.map(t => {
@@ -10148,6 +10342,7 @@ function toggleMastered() {
     m[curTrap.id] = Date.now();
     playSound('correct');
     launchConfetti(1200);
+    trackSessionMastered();
   }
   saveMastered(m);
   updateMasteredBtn();
@@ -10185,8 +10380,12 @@ function renderProgressRing() {
   const ring = document.getElementById('sidebar-progress-ring');
   if (!ring) return;
   const total = TRAPS.length + QUICK_MATES.length;
-  const mastered = Object.keys(getMastered()).length;
-  const studied = Object.keys(getProgress().traps_studied || {}).length;
+  const masteredMap = getMastered();
+  const studiedMap = getProgress().traps_studied || {};
+  const mastered = Object.keys(masteredMap).length;
+  // Count traps studied 3+ times as "in progress"
+  const inProgress = Object.values(studiedMap).filter(n => n >= 3 && !masteredMap[Object.keys(studiedMap).find(k => studiedMap[k] === n)]).length;
+  const studied = Object.keys(studiedMap).length;
   const pct = Math.round((mastered / Math.max(total, 1)) * 100);
   const studiedPct = Math.round((studied / Math.max(total, 1)) * 100);
   const r = 22, circ = 2 * Math.PI * r;
@@ -10285,6 +10484,213 @@ function checkTrapFromURL() {
       else loadTrap(trap);
     }, 300);
   }
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// TRAP NOTES
+// ══════════════════════════════════════════════════════════════════
+function getTrapNotes() {
+  try { return JSON.parse(localStorage.getItem('chess-notes') || '{}'); } catch { return {}; }
+}
+function saveTrapNote() {
+  const el = document.getElementById('trap-notes-input');
+  if (!el || !curTrap) return;
+  const notes = getTrapNotes();
+  const val = el.value.trim();
+  if (val) notes[curTrap.id] = val;
+  else delete notes[curTrap.id];
+  localStorage.setItem('chess-notes', JSON.stringify(notes));
+  // Show saved indicator
+  el.style.borderColor = 'rgba(42,157,143,.4)';
+  setTimeout(() => { el.style.borderColor = ''; }, 800);
+}
+function loadTrapNote() {
+  const panel = document.getElementById('trap-notes-panel');
+  const el = document.getElementById('trap-notes-input');
+  if (!panel || !el || !curTrap) return;
+  const notes = getTrapNotes();
+  el.value = notes[curTrap.id] || '';
+  panel.style.display = 'block';
+}
+
+// ══════════════════════════════════════════════════════════════════
+// WHAT-IF EXPLANATION
+// ══════════════════════════════════════════════════════════════════
+async function showWhatIf(altMove) {
+  // Show inline result without API if no key
+  const card = document.getElementById('coach-card');
+  if (!card) return;
+
+  // Remove any existing whatif result
+  card.querySelectorAll('.whatif-result').forEach(e => e.remove());
+  const result = document.createElement('div');
+  result.className = 'whatif-result vis';
+
+  // Try on a clone chess to see what happens
+  try {
+    const clone = new Chess(studyChess.fen());
+    const move = clone.move(altMove, {sloppy: true});
+    if (!move) { result.innerHTML = `<span class="whatif-result-move">${altMove}</span> is not a legal move here.`; card.appendChild(result); return; }
+
+    const expectedSan = curTrap.moves[curStep]?.san;
+    const isExpected = altMove === expectedSan;
+
+    if (!apiKey) {
+      // Local explanation without AI
+      let explanation = '';
+      if (clone.in_checkmate()) explanation = `${altMove} delivers checkmate — well done!`;
+      else if (clone.in_check()) explanation = `${altMove} gives check. The main line plays ${expectedSan || 'a different move'} which is stronger because it keeps more pressure.`;
+      else explanation = `Instead of the recommended ${expectedSan || 'move'}, you played ${altMove}. This is ${isExpected ? 'the correct move!' : 'playable but the trap line continues differently. The key move maintains the initiative — try the recommended line to see why.'}`;
+      result.innerHTML = `<span class="whatif-result-move">${altMove}</span> — ${explanation}`;
+      card.appendChild(result);
+      return;
+    }
+
+    result.innerHTML = `<span class="whatif-result-move">${altMove}</span> — Asking coach…`;
+    card.appendChild(result);
+
+    const m = curTrap.moves[curStep];
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 80,
+        system: 'Chess coach for a 530 ELO beginner. Answer in ONE sentence explaining why the alternative move is weaker or stronger than the recommended move. Be specific about material or positional consequences.',
+        messages: [{ role: 'user', content: `Trap: ${curTrap.name}. Position after ${studyChess.history().join(' ')}. Recommended: ${m?.san}. Player asks: what if I play ${altMove} instead? One sentence.` }]
+      })
+    });
+    const data = await resp.json();
+    result.innerHTML = `<span class="whatif-result-move">${altMove}</span> — ${data.content?.[0]?.text || 'Try the recommended move to follow the trap line.'}`;
+  } catch(e) {
+    result.innerHTML = `<span class="whatif-result-move">${altMove}</span> — Could not analyse. Follow the recommended move to stay on the trap line.`;
+    card.appendChild(result);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// SESSION SUMMARY
+// ══════════════════════════════════════════════════════════════════
+let sessionStart = Date.now();
+let sessionTrapsStudied = new Set();
+let sessionPuzzlesSolved = 0;
+let sessionMastered = 0;
+
+function trackSessionTrap(id) { sessionTrapsStudied.add(id); }
+function trackSessionPuzzle() { sessionPuzzlesSolved++; }
+function trackSessionMastered() { sessionMastered++; }
+
+function showSessionSummary() {
+  const existing = document.getElementById('session-summary-card');
+  if (existing) existing.remove();
+
+  const mins = Math.round((Date.now() - sessionStart) / 60000);
+  if (mins < 2 && sessionTrapsStudied.size < 2) return; // too short
+
+  const eloStart = parseInt(localStorage.getItem('elo-session-start') || '0');
+  const eloNow = typeof calcEloEstimate === 'function' ? calcEloEstimate() : 0;
+  const eloDiff = eloNow - eloStart;
+
+  const card = document.createElement('div');
+  card.id = 'session-summary-card';
+  card.className = 'session-summary';
+  card.innerHTML = `
+    <div class="session-summary-hdr">📊 Session Summary</div>
+    <div class="session-stat"><span>Time studied</span><strong>${mins} min</strong></div>
+    <div class="session-stat"><span>Traps studied</span><strong>${sessionTrapsStudied.size}</strong></div>
+    <div class="session-stat"><span>Puzzles solved</span><strong>${sessionPuzzlesSolved}</strong></div>
+    <div class="session-stat"><span>Traps mastered</span><strong>${sessionMastered}</strong></div>
+    ${eloDiff > 0 ? `<div class="session-stat"><span>ELO change</span><strong style="color:#4dbfb0">+${eloDiff}</strong></div>` : ''}
+    <button class="session-summary-close" onclick="document.getElementById('session-summary-card').remove()">Got it ✓</button>
+  `;
+  document.body.appendChild(card);
+  setTimeout(() => { if (card.parentNode) card.style.opacity = '0'; }, 12000);
+  setTimeout(() => { if (card.parentNode) card.remove(); }, 12600);
+}
+
+// Show summary after 20 min or on mode switch away from study
+let sessionSummaryTimer = setTimeout(showSessionSummary, 20 * 60 * 1000);
+
+// ══════════════════════════════════════════════════════════════════
+// MISTAKE PATTERN TRACKER
+// ══════════════════════════════════════════════════════════════════
+const PATTERN_TYPES = ['Fork', 'Pin', 'Skewer', 'Back Rank', 'Sacrifice', 'Discovered Attack', 'Smothered', 'Zwischenzug'];
+
+function getPatternData() {
+  try { return JSON.parse(localStorage.getItem('chess-patterns') || '{}'); } catch { return {}; }
+}
+
+function recordPatternResult(patternType, correct) {
+  const data = getPatternData();
+  if (!data[patternType]) data[patternType] = { attempts: 0, correct: 0 };
+  data[patternType].attempts++;
+  if (correct) data[patternType].correct++;
+  localStorage.setItem('chess-patterns', JSON.stringify(data));
+}
+
+function renderPatternTracker(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const data = getPatternData();
+  const hasData = Object.keys(data).length > 0;
+
+  if (!hasData) {
+    container.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px 0">Solve puzzles and mate patterns to build your profile. The tracker identifies which pattern types you struggle with most.</div>';
+    return;
+  }
+
+  const rows = PATTERN_TYPES.map(type => {
+    const d = data[type] || { attempts: 0, correct: 0 };
+    if (!d.attempts) return '';
+    const pct = Math.round((d.correct / d.attempts) * 100);
+    const isOk = pct >= 70;
+    return `<div class="pattern-bar-row">
+      <div class="pattern-bar-label">${type}</div>
+      <div class="pattern-bar-track"><div class="pattern-bar-fill ${isOk?'ok':''}" style="width:${pct}%"></div></div>
+      <div class="pattern-bar-pct">${pct}%</div>
+    </div>`;
+  }).filter(Boolean).join('');
+
+  // Find weakest pattern
+  const weakest = PATTERN_TYPES
+    .filter(t => data[t]?.attempts >= 3)
+    .sort((a,b) => (data[a].correct/data[a].attempts) - (data[b].correct/data[b].attempts))[0];
+
+  container.innerHTML = `
+    <div class="pattern-tracker">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px">Pattern Success Rate</div>
+      ${rows || '<div style="font-size:12px;color:var(--muted)">More data needed — keep solving puzzles.</div>'}
+    </div>
+    ${weakest ? `<div style="padding:10px 12px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:8px;font-size:12px;color:#c0a0a0;line-height:1.6">
+      <strong style="color:#e05a4e">Focus area: ${weakest}</strong><br>
+      You get this right ${Math.round((data[weakest].correct/data[weakest].attempts)*100)}% of the time. 
+      Study the ${weakest.toLowerCase()} patterns in Mate Patterns mode.
+    </div>` : ''}
+  `;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// CLOCK — SAVE PRESET PER MODE (inline patch)
+// ══════════════════════════════════════════════════════════════════
+function clockPresetSave(mode, secs) {
+  localStorage.setItem('clock-preset-' + mode, String(secs));
+}
+function clockPresetGet(mode) {
+  const s = localStorage.getItem('clock-preset-' + mode);
+  return s !== null ? parseInt(s) : null;
+}
+
+// Wire clock preset into the clock selector buttons
+function initClockPresets() {
+  // Patch clock select buttons to also save per-mode
+  document.querySelectorAll('.clock-preset-btn, [onclick*="clockPreset"]').forEach(btn => {
+    const orig = btn.onclick;
+    btn.addEventListener('click', () => {
+      const mode = document.getElementById('coach-page')?.style.display !== 'none' ? 'coach' : 'freeplay';
+      const secs = parseInt(btn.dataset.secs || btn.textContent) * 60 || 0;
+      if (secs) clockPresetSave(mode, secs);
+    });
+  });
 }
 
 </script>
