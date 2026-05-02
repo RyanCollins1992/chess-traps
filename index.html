@@ -1986,6 +1986,217 @@ body {
 .pattern-bar-fill.ok { background: var(--accent); }
 .pattern-bar-pct   { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); min-width: 30px; text-align: right; }
 
+
+/* ═══════════════════════════════════════════════════════════════
+   MY CHESS.COM PROFILE
+═══════════════════════════════════════════════════════════════ */
+.myprofile-page { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+.profile-hdr {
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 0 20px; border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.profile-hdr-icon {
+  width: 52px; height: 52px; border-radius: 12px;
+  background: linear-gradient(135deg, #0a2e28, #162537);
+  border: 1px solid rgba(42,157,143,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; flex-shrink: 0;
+}
+
+/* Search */
+.profile-search-row { display: flex; gap: 10px; margin-bottom: 14px; }
+.profile-search-wrap {
+  flex: 1; display: flex; align-items: center; gap: 10px;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 10px; padding: 0 14px;
+  transition: border-color .15s;
+}
+.profile-search-wrap:focus-within { border-color: rgba(42,157,143,.5); }
+.profile-search-icon { font-size: 16px; opacity: .5; flex-shrink: 0; }
+.profile-username-inp {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: var(--text); font-family: inherit; font-size: 14px; padding: 12px 0;
+}
+.profile-username-inp::placeholder { color: var(--dim); }
+.profile-analyse-btn {
+  padding: 0 22px; height: 48px; border-radius: 10px; border: none;
+  background: var(--accent); color: #fff; font-family: inherit;
+  font-size: 14px; font-weight: 700; cursor: pointer; flex-shrink: 0;
+  transition: background .15s;
+}
+.profile-analyse-btn:hover { background: #26a192; }
+.profile-analyse-btn:disabled { background: var(--dim); cursor: not-allowed; }
+
+/* Loading */
+.profile-loading-card {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 22px; background: var(--bg2);
+  border: 1px solid var(--border); border-radius: 12px;
+  margin-bottom: 14px;
+}
+.profile-loading-spinner {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 3px solid var(--border2); border-top-color: var(--accent);
+  animation: spin .7s linear infinite; flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Player card */
+.profile-player-card {
+  background: linear-gradient(135deg, #0a2e28 0%, #111720 100%);
+  border: 1px solid rgba(42,157,143,.2);
+  border-radius: 14px; padding: 20px 24px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.profile-avatar {
+  width: 64px; height: 64px; border-radius: 50%;
+  border: 2px solid rgba(42,157,143,.4); object-fit: cover; flex-shrink: 0;
+  background: var(--bg3); display: flex; align-items: center;
+  justify-content: center; font-size: 28px;
+}
+.profile-name { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.profile-title-badge {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 2px 8px; border-radius: 4px; margin-right: 6px;
+  background: rgba(230,168,23,.15); color: var(--gold);
+  border: 1px solid rgba(230,168,23,.25);
+}
+.profile-rating-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+.profile-rating-chip {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px; padding: 8px 14px; text-align: center;
+}
+.profile-rating-num {
+  font-size: 22px; font-weight: 800; color: var(--accent2);
+  font-family: 'DM Mono', monospace;
+}
+.profile-rating-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* Stats row */
+.profile-stats-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 10px; margin-bottom: 16px;
+}
+.profile-stat-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px; text-align: center;
+}
+.profile-stat-num {
+  font-size: 24px; font-weight: 800; font-family: 'DM Mono', monospace;
+  color: #fff; line-height: 1;
+}
+.profile-stat-lbl { font-size: 10px; color: var(--muted); margin-top: 5px; text-transform: uppercase; letter-spacing: .06em; }
+.profile-stat-card.green .profile-stat-num { color: var(--accent2); }
+.profile-stat-card.red   .profile-stat-num { color: #e05a4e; }
+.profile-stat-card.gold  .profile-stat-num { color: var(--gold); }
+
+/* Two-column layout */
+.profile-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.profile-col {}
+
+/* Section header */
+.profile-section-hdr {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--muted); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* Opening bar */
+.opening-bar-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 9px; padding: 10px 14px; margin-bottom: 6px;
+}
+.opening-bar-top {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.opening-bar-name { font-size: 13px; font-weight: 600; color: #fff; flex: 1; }
+.opening-bar-count { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+.opening-bar-track {
+  height: 5px; background: var(--bg3); border-radius: 100px; overflow: hidden;
+}
+.opening-bar-fill { height: 100%; border-radius: 100px; }
+.opening-bar-fill.win  { background: var(--accent); }
+.opening-bar-fill.loss { background: #e05a4e; }
+.opening-bar-fill.draw { background: var(--gold); }
+.opening-results {
+  display: flex; gap: 8px; margin-top: 5px; font-size: 10px; font-family: 'DM Mono', monospace;
+}
+.or-w { color: var(--accent2); }
+.or-l { color: #e05a4e; }
+.or-d { color: var(--gold); }
+
+/* Recommendation card */
+.profile-rec-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+  cursor: pointer; transition: all .15s;
+  border-left: 3px solid var(--accent);
+}
+.profile-rec-card:hover { background: var(--bg3); border-color: var(--accent); transform: translateX(2px); }
+.profile-rec-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.profile-rec-why  { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+.profile-rec-btns { display: flex; gap: 6px; }
+.profile-rec-btn  {
+  padding: 5px 12px; border-radius: 6px; border: none;
+  font-size: 11px; font-weight: 700; cursor: pointer;
+  font-family: inherit; transition: all .12s;
+}
+.profile-rec-btn.primary   { background: var(--accent); color: #fff; }
+.profile-rec-btn.secondary { background: transparent; border: 1px solid var(--border2); color: var(--muted); }
+.profile-rec-btn:hover.primary   { background: #26a192; }
+.profile-rec-btn:hover.secondary { border-color: var(--accent); color: var(--accent2); }
+
+/* Tip card */
+.profile-tip-card {
+  display: flex; gap: 10px; padding: 10px 12px;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 9px; margin-bottom: 6px;
+  font-size: 12px; line-height: 1.6; color: var(--muted);
+}
+.profile-tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.profile-tip-text strong { color: var(--text); }
+
+/* AI */
+.profile-ai-btn {
+  width: 100%; padding: 12px; border-radius: 9px; border: 1px solid rgba(42,157,143,.3);
+  background: rgba(42,157,143,.08); color: var(--accent2); font-family: inherit;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: all .15s;
+}
+.profile-ai-btn:hover { background: rgba(42,157,143,.15); }
+.profile-ai-result-card {
+  background: var(--bg2); border: 1px solid rgba(42,157,143,.2);
+  border-radius: 10px; padding: 14px 16px; margin-top: 10px;
+  font-size: 13px; line-height: 1.75; color: var(--muted);
+}
+
+/* Game list */
+.profile-game-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; background: var(--bg2);
+  border: 1px solid var(--border); border-radius: 9px;
+  margin-bottom: 6px; cursor: pointer; transition: background .1s;
+}
+.profile-game-card:hover { background: var(--bg3); }
+.profile-game-result {
+  width: 30px; height: 30px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; flex-shrink: 0;
+}
+.pgr-win  { background: rgba(42,157,143,.2);  color: var(--accent2); }
+.pgr-loss { background: rgba(192,57,43,.2);   color: #e05a4e; }
+.pgr-draw { background: rgba(230,168,23,.15); color: var(--gold); }
+.profile-game-info { flex: 1; min-width: 0; }
+.profile-game-vs   { font-size: 13px; font-weight: 600; color: #fff; }
+.profile-game-open { font-size: 11px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.profile-game-meta { font-size: 11px; color: var(--dim); flex-shrink: 0; text-align: right; }
+
+@media(max-width:700px) {
+  .profile-cols { grid-template-columns: 1fr; }
+  .profile-stats-row { grid-template-columns: repeat(2,1fr); }
+}
+
 </style>
 </head>
 <body>
@@ -2036,6 +2247,7 @@ body {
       <button class="nav-item" id="btn-analyser" onclick="switchMode('analyser')"> <span class="ni">🔬</span> Analyse</button>
       <button class="nav-item" id="btn-blunder"  onclick="switchMode('blunder')">  <span class="ni">🔍</span> Blunder Coach</button>
       <button class="nav-item" id="btn-import"   onclick="switchMode('import')">   <span class="ni">📥</span> Import Games</button>
+    <button class="nav-item" id="btn-myprofile" onclick="switchMode('myprofile')"><span class="ni">👤</span> My Profile</button>
       <button class="nav-item" id="btn-opponent" onclick="switchMode('opponent')">  <span class="ni">🎯</span> Opponent Scout</button>
     </div>
 
@@ -2715,6 +2927,92 @@ body {
       <div id="opp-ai-text" style="font-size:13px;color:var(--muted);line-height:1.7"></div>
     </div>
   </div>
+</div>
+</div>
+
+<!-- ═══ MY CHESS.COM PROFILE ════════════════════════════════════ -->
+<div id="myprofile-page" style="display:none">
+<div class="myprofile-page">
+
+  <!-- Header -->
+  <div class="profile-hdr">
+    <div class="profile-hdr-icon">👤</div>
+    <div>
+      <h2 style="margin:0;font-size:20px;font-weight:800;color:#fff">My Chess.com Profile</h2>
+      <p style="margin:4px 0 0;font-size:13px;color:var(--muted)">Analyse your games, find your weaknesses, get personalised opening recommendations</p>
+    </div>
+  </div>
+
+  <!-- Username input -->
+  <div class="profile-search-row">
+    <div class="profile-search-wrap">
+      <span class="profile-search-icon">♟</span>
+      <input class="profile-username-inp" id="profile-username" placeholder="Your chess.com username…" autocomplete="off"
+        onkeydown="if(event.key==='Enter') analyseMyProfile()">
+    </div>
+    <button class="profile-analyse-btn" onclick="analyseMyProfile()">
+      <span id="profile-btn-text">Analyse My Games</span>
+    </button>
+  </div>
+  <div id="profile-error" style="display:none;padding:12px 14px;background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.3);border-radius:8px;color:#e07070;font-size:13px;margin-bottom:12px"></div>
+
+  <!-- Loading state -->
+  <div id="profile-loading" style="display:none">
+    <div class="profile-loading-card">
+      <div class="profile-loading-spinner"></div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:#fff" id="profile-loading-msg">Fetching your games…</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px">Analysing up to 50 recent games</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="profile-results" style="display:none">
+
+    <!-- Player card -->
+    <div class="profile-player-card" id="profile-player-card"></div>
+
+    <!-- Stats row -->
+    <div class="profile-stats-row" id="profile-stats-row"></div>
+
+    <!-- Two columns: openings + recommendations -->
+    <div class="profile-cols">
+
+      <!-- Left: Opening Analysis -->
+      <div class="profile-col">
+        <div class="profile-section-hdr">📊 Your Openings — White</div>
+        <div id="profile-openings-white"></div>
+        <div class="profile-section-hdr" style="margin-top:16px">📊 Your Openings — Black</div>
+        <div id="profile-openings-black"></div>
+      </div>
+
+      <!-- Right: Recommendations -->
+      <div class="profile-col">
+        <div class="profile-section-hdr">🎯 Recommended Traps For You</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px" id="profile-rec-subtitle">Based on the openings you actually play</div>
+        <div id="profile-recommendations"></div>
+
+        <div class="profile-section-hdr" style="margin-top:16px">💡 Personalised Improvement Tips</div>
+        <div id="profile-tips"></div>
+
+        <div class="profile-section-hdr" style="margin-top:16px">🤖 AI Analysis</div>
+        <div id="profile-ai-analysis">
+          <button class="profile-ai-btn" id="profile-ai-btn" onclick="getProfileAI()">
+            ✨ Get AI Coaching Report
+          </button>
+          <div id="profile-ai-result" style="display:none"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Game list -->
+    <div class="profile-section-hdr" style="margin-top:20px">🕹 Recent Games</div>
+    <div id="profile-games-list"></div>
+
+  </div><!-- end profile-results -->
+
 </div>
 </div>
 
@@ -5993,7 +6291,7 @@ const PAGE_TITLES = {
 
 function switchMode(mode) {
   calcSqSize(); // Recalculate board size on every mode switch
-  const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges','patterns','settings','favourites','weekly','spaced','drill','import','opponent','battle','graph','pieces','timer','difficulty'];
+  const pages = ['study','coach','freeplay','roadmap','puzzle','quiz','analyser','progress','endgame','blunder','tree','daily','badges','patterns','settings','favourites','weekly','spaced','drill','import','opponent','battle','graph','pieces','timer','difficulty','myprofile'];
   pages.forEach(p => {
     const el = document.getElementById(p + '-page');
     if (el) el.style.display = p === mode ? 'block' : 'none';
@@ -6036,6 +6334,7 @@ function switchMode(mode) {
   if (mode === 'pieces') pvNewQuestion();
   if (mode === 'timer') { timerUpdateDisplay(); timerRequestNotifications(); }
   if (mode === 'difficulty') renderDifficulty();
+  if (mode === 'myprofile') initMyProfile();
   if (mode === 'study') updateFavStar();
 }
 
@@ -10691,6 +10990,410 @@ function initClockPresets() {
       if (secs) clockPresetSave(mode, secs);
     });
   });
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// MY CHESS.COM PROFILE ANALYSER
+// ══════════════════════════════════════════════════════════════════
+
+let profileData = null; // cached after fetch
+
+function initMyProfile() {
+  const saved = localStorage.getItem('chesscom-username') || localStorage.getItem('profile-username');
+  if (saved) {
+    const inp = document.getElementById('profile-username');
+    if (inp && !inp.value) inp.value = saved;
+  }
+}
+
+async function analyseMyProfile() {
+  const inp = document.getElementById('profile-username');
+  const username = inp?.value?.trim();
+  if (!username) { inp?.focus(); return; }
+
+  localStorage.setItem('profile-username', username);
+  localStorage.setItem('chesscom-username', username);
+
+  const btn = document.getElementById('profile-analyse-btn') || document.querySelector('.profile-analyse-btn');
+  const btnText = document.getElementById('profile-btn-text');
+  const loading = document.getElementById('profile-loading');
+  const results = document.getElementById('profile-results');
+  const errEl = document.getElementById('profile-error');
+
+  if (btnText) btnText.textContent = 'Analysing…';
+  if (btn) btn.disabled = true;
+  loading.style.display = 'block';
+  results.style.display = 'none';
+  errEl.style.display = 'none';
+
+  try {
+    const setMsg = (m) => { const el = document.getElementById('profile-loading-msg'); if (el) el.textContent = m; };
+
+    // 1. Fetch player info
+    setMsg('Fetching your profile…');
+    const playerResp = await fetch(`https://api.chess.com/pub/player/${username.toLowerCase()}`);
+    if (!playerResp.ok) throw new Error(`Player "${username}" not found on chess.com`);
+    const player = await playerResp.json();
+
+    // 2. Fetch ratings
+    setMsg('Loading your ratings…');
+    const statsResp = await fetch(`https://api.chess.com/pub/player/${username.toLowerCase()}/stats`);
+    const stats = statsResp.ok ? await statsResp.json() : {};
+
+    // 3. Fetch recent games (last 2 months for better sample)
+    setMsg('Fetching recent games…');
+    const archResp = await fetch(`https://api.chess.com/pub/player/${username.toLowerCase()}/games/archives`);
+    const archData = archResp.ok ? await archResp.json() : { archives: [] };
+    const archives = archData.archives || [];
+
+    let allGames = [];
+    for (let i = archives.length - 1; i >= Math.max(0, archives.length - 2); i--) {
+      setMsg(`Loading games from ${archives[i].split('/').slice(-2).join('/')}…`);
+      try {
+        const gr = await fetch(archives[i]);
+        const gd = gr.ok ? await gr.json() : { games: [] };
+        allGames = allGames.concat(gd.games || []);
+      } catch(e) {}
+    }
+    allGames = allGames.filter(g => g.rules === 'chess'); // standard chess only
+    const recentGames = allGames.slice(-50); // last 50
+
+    setMsg('Analysing your openings…');
+    profileData = analyseGames(username.toLowerCase(), recentGames, player, stats);
+    renderProfile(profileData);
+
+    loading.style.display = 'none';
+    results.style.display = 'block';
+    if (btnText) btnText.textContent = 'Refresh';
+    if (btn) btn.disabled = false;
+
+  } catch(err) {
+    loading.style.display = 'none';
+    errEl.textContent = '❌ ' + (err.message || 'Could not fetch data. Check your username and try again.');
+    errEl.style.display = 'block';
+    if (btnText) btnText.textContent = 'Analyse My Games';
+    if (btn) btn.disabled = false;
+  }
+}
+
+function analyseGames(username, games, player, stats) {
+  const whiteGames = [], blackGames = [];
+  const openingMap = {}; // { name: { w: 0, l: 0, d: 0, games: [] } }
+
+  games.forEach(g => {
+    const isWhite = g.white?.username?.toLowerCase() === username;
+    const side = isWhite ? 'w' : 'b';
+    const myResult = isWhite ? g.white?.result : g.black?.result;
+    const result = myResult === 'win' ? 'w' : (myResult === 'resigned' || myResult === 'checkmated' || myResult === 'timeout' || myResult === 'abandoned') ? 'l' : 'd';
+    const raw = (g.opening || '').replace(/_/g, ' ').replace(/\//g, ' — ');
+
+    // Shorten opening name: take first 2 parts
+    const parts = raw.split(':');
+    let opening = parts[0].trim();
+    if (opening.length > 35) opening = opening.slice(0, 35) + '…';
+
+    const key = side + '::' + opening;
+    if (!openingMap[key]) openingMap[key] = { opening, side, w: 0, l: 0, d: 0, games: [] };
+    openingMap[key][result]++;
+    openingMap[key].games.push(g);
+
+    if (isWhite) whiteGames.push({ g, result, opening });
+    else blackGames.push({ g, result, opening });
+  });
+
+  // Sort openings by frequency
+  const allOpenings = Object.values(openingMap);
+  const whiteOpenings = allOpenings.filter(o => o.side === 'w').sort((a,b) => (b.w+b.l+b.d) - (a.w+a.l+a.d)).slice(0, 8);
+  const blackOpenings = allOpenings.filter(o => o.side === 'b').sort((a,b) => (b.w+b.l+b.d) - (a.w+a.l+a.d)).slice(0, 8);
+
+  // Overall stats
+  const wins = games.filter((g,i) => {
+    const isW = g.white?.username?.toLowerCase() === username;
+    return (isW && g.white?.result === 'win') || (!isW && g.black?.result === 'win');
+  }).length;
+  const losses = games.filter(g => {
+    const isW = g.white?.username?.toLowerCase() === username;
+    const r = isW ? g.white?.result : g.black?.result;
+    return ['resigned','checkmated','timeout','abandoned'].includes(r);
+  }).length;
+  const draws = games.length - wins - losses;
+
+  // Best and worst openings
+  const withEnough = allOpenings.filter(o => (o.w+o.l+o.d) >= 3);
+  const bestOpening  = withEnough.sort((a,b) => (b.w/(b.w+b.l+b.d||1)) - (a.w/(a.w+a.l+a.d||1)))[0];
+  const worstOpening = withEnough.sort((a,b) => (a.w/(a.w+a.l+a.d||1)) - (b.w/(b.w+b.l+b.d||1)))[0];
+
+  // Ratings
+  const rapid = stats?.chess_rapid?.last?.rating;
+  const blitz = stats?.chess_blitz?.last?.rating;
+  const bullet = stats?.chess_bullet?.last?.rating;
+
+  return {
+    username, player, rapid, blitz, bullet,
+    totalGames: games.length,
+    wins, losses, draws,
+    winRate: games.length ? Math.round(wins / games.length * 100) : 0,
+    whiteOpenings, blackOpenings,
+    bestOpening, worstOpening,
+    recentGames: games.slice(-20).reverse(),
+    allOpenings
+  };
+}
+
+function renderProfile(data) {
+  // ── Player card ──────────────────────────────────────────────────
+  const ratingChips = [
+    data.rapid  ? `<div class="profile-rating-chip"><div class="profile-rating-num">${data.rapid}</div><div class="profile-rating-lbl">Rapid</div></div>` : '',
+    data.blitz  ? `<div class="profile-rating-chip"><div class="profile-rating-num">${data.blitz}</div><div class="profile-rating-lbl">Blitz</div></div>` : '',
+    data.bullet ? `<div class="profile-rating-chip"><div class="profile-rating-num">${data.bullet}</div><div class="profile-rating-lbl">Bullet</div></div>` : '',
+  ].filter(Boolean).join('');
+
+  const titleBadge = data.player?.title ? `<span class="profile-title-badge">${data.player.title}</span>` : '';
+  document.getElementById('profile-player-card').innerHTML = `
+    <div class="profile-avatar">${data.player?.avatar ? `<img src="${data.player.avatar}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">` : '♟'}</div>
+    <div style="flex:1">
+      <div class="profile-name">${titleBadge}${data.player?.username || data.username}</div>
+      <div style="font-size:12px;color:var(--muted)">${data.player?.country?.replace('https://api.chess.com/pub/country/','') || ''} · ${data.player?.followers || 0} followers · Joined ${data.player?.joined ? new Date(data.player.joined*1000).getFullYear() : '?'}</div>
+      <div class="profile-rating-row">${ratingChips || '<span style="color:var(--muted);font-size:12px">No rated games found</span>'}</div>
+    </div>
+  `;
+
+  // ── Stats row ────────────────────────────────────────────────────
+  document.getElementById('profile-stats-row').innerHTML = `
+    <div class="profile-stat-card green"><div class="profile-stat-num">${data.wins}</div><div class="profile-stat-lbl">Wins</div></div>
+    <div class="profile-stat-card red"><div class="profile-stat-num">${data.losses}</div><div class="profile-stat-lbl">Losses</div></div>
+    <div class="profile-stat-card gold"><div class="profile-stat-num">${data.draws}</div><div class="profile-stat-lbl">Draws</div></div>
+    <div class="profile-stat-card"><div class="profile-stat-num">${data.winRate}%</div><div class="profile-stat-lbl">Win Rate</div></div>
+  `;
+
+  // ── Opening bars ─────────────────────────────────────────────────
+  const renderOpeningBars = (openings, containerId) => {
+    const max = Math.max(...openings.map(o => o.w+o.l+o.d), 1);
+    document.getElementById(containerId).innerHTML = openings.length
+      ? openings.map(o => {
+          const total = o.w + o.l + o.d;
+          const wr = Math.round(o.w/total*100);
+          const barW = Math.round(total/max*100);
+          const barColor = wr >= 55 ? 'win' : wr <= 35 ? 'loss' : 'draw';
+          return `<div class="opening-bar-card">
+            <div class="opening-bar-top">
+              <div class="opening-bar-name">${o.opening}</div>
+              <div class="opening-bar-count">${total}g · ${wr}%W</div>
+            </div>
+            <div class="opening-bar-track"><div class="opening-bar-fill ${barColor}" style="width:${barW}%"></div></div>
+            <div class="opening-results">
+              <span class="or-w">W:${o.w}</span>
+              <span class="or-l">L:${o.l}</span>
+              <span class="or-d">D:${o.d}</span>
+            </div>
+          </div>`;
+        }).join('')
+      : '<div style="font-size:12px;color:var(--muted);padding:8px 0">No opening data found in recent games.</div>';
+  };
+  renderOpeningBars(data.whiteOpenings, 'profile-openings-white');
+  renderOpeningBars(data.blackOpenings, 'profile-openings-black');
+
+  // ── Personalised recommendations ─────────────────────────────────
+  const recs = getPersonalisedRecs(data);
+  document.getElementById('profile-rec-subtitle').textContent =
+    `Based on your ${data.totalGames} recent games`;
+  document.getElementById('profile-recommendations').innerHTML = recs.map(r => `
+    <div class="profile-rec-card">
+      <div class="profile-rec-name">${r.trapName}</div>
+      <div class="profile-rec-why">${r.why}</div>
+      <div class="profile-rec-btns">
+        <button class="profile-rec-btn primary" onclick="jumpToTrap('${r.trapId}');switchMode('study')">📖 Study This</button>
+        <button class="profile-rec-btn secondary" onclick="switchMode('drill')">🧠 Drill It</button>
+      </div>
+    </div>
+  `).join('') || '<div style="font-size:12px;color:var(--muted)">Analyse more games to get personalised recommendations.</div>';
+
+  // ── Improvement tips ─────────────────────────────────────────────
+  document.getElementById('profile-tips').innerHTML = buildTips(data).map(t =>
+    `<div class="profile-tip-card"><div class="profile-tip-icon">${t.icon}</div><div class="profile-tip-text">${t.text}</div></div>`
+  ).join('');
+
+  // ── Recent games list ─────────────────────────────────────────────
+  document.getElementById('profile-games-list').innerHTML = data.recentGames.slice(0, 15).map((g, i) => {
+    const isWhite = g.white?.username?.toLowerCase() === data.username;
+    const opp = isWhite ? g.black?.username : g.white?.username;
+    const myResult = isWhite ? g.white?.result : g.black?.result;
+    const res = myResult === 'win' ? 'W' : ['resigned','checkmated','timeout','abandoned'].includes(myResult) ? 'L' : 'D';
+    const cls = res === 'W' ? 'pgr-win' : res === 'L' ? 'pgr-loss' : 'pgr-draw';
+    const opening = (g.opening||'Unknown').replace(/_/g,' ').split(':')[0].slice(0,40);
+    const date = g.end_time ? new Date(g.end_time*1000).toLocaleDateString() : '';
+    const timeClass = g.time_class || '';
+    const myRating = isWhite ? g.white?.rating : g.black?.rating;
+    const oppRating = isWhite ? g.black?.rating : g.white?.rating;
+    return `<div class="profile-game-card" onclick="loadProfileGame(${i})">
+      <div class="profile-game-result ${cls}">${res}</div>
+      <div class="profile-game-info">
+        <div class="profile-game-vs">vs. ${opp||'?'} ${isWhite?'(White)':'(Black)'}</div>
+        <div class="profile-game-open">${opening}</div>
+      </div>
+      <div class="profile-game-meta">
+        <div>${myRating||'?'} vs ${oppRating||'?'}</div>
+        <div style="color:var(--dim)">${timeClass} · ${date}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Personalised trap recommendations ────────────────────────────────────
+function getPersonalisedRecs(data) {
+  const recs = [];
+  const seen = new Set();
+
+  const addRec = (trapId, why) => {
+    if (seen.has(trapId)) return;
+    const trap = TRAPS.find(t => t.id === trapId);
+    if (!trap) return;
+    seen.add(trapId);
+    recs.push({ trapId, trapName: trap.name, why });
+  };
+
+  // Analyse White openings — recommend traps that fit
+  data.whiteOpenings.forEach(o => {
+    const n = o.opening.toLowerCase();
+    const wr = o.w / Math.max(o.w+o.l+o.d, 1);
+    if (n.includes('italian') || n.includes('giuoco'))
+      addRec('w1', `You play the Italian Game — the Fried Liver Attack (${Math.round(wr*100)}% win rate here) is a devastating weapon from this position.`);
+    if (n.includes('scotch'))
+      addRec('w7', `You play the Scotch — add the Scotch Gambit Trap to catch opponents off guard.`);
+    if (n.includes("king's indian") && o.side === 'w')
+      addRec('w_kia_french', `You're already playing King's Indian structures — the KIA vs French is a natural extension.`);
+    if (n.includes('london'))
+      addRec('w14', `You play the London System — the London Trap catches players who rush their bishop out.`);
+    if (n.includes('ruy') || n.includes('lopez'))
+      addRec('w3', `You play the Ruy Lopez — the Marshall Attack Trap is a powerful weapon in this opening.`);
+    if ((n.includes('queen') || n.includes("queen's")) && o.side === 'w')
+      addRec('w5', `You play 1.d4 — the Budapest Gambit Refutation lets you punish Black's gambit attempts.`);
+    if (n.includes('bird'))
+      addRec('bird1', `You play Bird's Opening — From's Gambit Trap catches opponents who try to refute it with e5.`);
+  });
+
+  // Analyse Black openings — recommend matching counters
+  data.blackOpenings.forEach(o => {
+    const n = o.opening.toLowerCase();
+    const wr = o.w / Math.max(o.w+o.l+o.d, 1);
+    if (n.includes('sicilian'))
+      addRec('b1', `You play the Sicilian — the Siberian Trap catches Italian players who enter the Chigorin.`);
+    if (n.includes('french'))
+      addRec('b3', `You play the French — use the French Trap to punish the Exchange Variation.`);
+    if (n.includes('caro'))
+      addRec('b_ck_adv', `You play the Caro-Kann — the Advance Variation Trap is a key weapon.`);
+    if (n.includes("king's indian") || n.includes('pirc') || n.includes('modern'))
+      addRec('b_kid_d4', `You play the KID — our full KID repertoire line maximises your winning chances.`);
+    if (n.includes('scandinavian'))
+      addRec('b9', `You play the Scandinavian — the Scandinavian Trap catches greedy opponents.`);
+    if (n.includes('petroff') || n.includes("petrov"))
+      addRec('b_petroff', `You play the Petroff — our Petroff Trap line punishes early deviations.`);
+    if (n.includes('budapest'))
+      addRec('b_budapest', `You play the Budapest Gambit — learn the full trap line to maximise surprise value.`);
+    if (n.includes("queen's indian") || n.includes('nimzo'))
+      addRec('b_qid', `You play the QID/Nimzo — the Queen's Indian Trap catches White overextending.`);
+  });
+
+  // Fallbacks based on win rate patterns
+  if (recs.length < 3) {
+    if (data.winRate < 45) {
+      addRec('w1', "Your win rate suggests you need more decisive weapons — the Fried Liver is one of the sharpest attacking lines at club level.");
+      addRec('b5', "The Blackburne-Shilling Gambit is a devastating surprise weapon that wins instantly against unprepared players.");
+    }
+    addRec('w_kia_french', "The King's Indian Attack is the best single system for White — same setup against every Black defence.");
+    addRec('b_kid_d4', "The King's Indian Defence gives you active counterplay against 1.d4 regardless of what White plays.");
+  }
+
+  return recs.slice(0, 5);
+}
+
+// ── Personalised improvement tips ────────────────────────────────────────
+function buildTips(data) {
+  const tips = [];
+
+  // Win rate tip
+  if (data.winRate < 40) {
+    tips.push({ icon: '⚠️', text: `<strong>Win rate is ${data.winRate}%</strong> — focus on not hanging pieces. Before every move ask: "Can my opponent take anything for free?" Piece Values trainer can help build this habit.` });
+  } else if (data.winRate >= 55) {
+    tips.push({ icon: '🔥', text: `<strong>Strong ${data.winRate}% win rate!</strong> You're ready to learn more complex traps. Explore the Intermediate and Advanced sections.` });
+  }
+
+  // Worst opening tip
+  if (data.worstOpening) {
+    const wTotal = data.worstOpening.w + data.worstOpening.l + data.worstOpening.d;
+    const wr = Math.round(data.worstOpening.w / wTotal * 100);
+    tips.push({ icon: '📉', text: `<strong>${data.worstOpening.opening}</strong> is your weakest opening — only ${wr}% wins from ${wTotal} games. Either study it deeply or switch to a different system.` });
+  }
+
+  // Best opening tip
+  if (data.bestOpening) {
+    const bTotal = data.bestOpening.w + data.bestOpening.l + data.bestOpening.d;
+    const wr = Math.round(data.bestOpening.w / bTotal * 100);
+    tips.push({ icon: '💪', text: `<strong>${data.bestOpening.opening}</strong> is your best opening — ${wr}% wins! Study its traps even more deeply to maximise your edge.` });
+  }
+
+  // Game volume tip
+  if (data.totalGames < 10) {
+    tips.push({ icon: '📊', text: `<strong>More games needed for better analysis.</strong> Play at least 20 rapid games to get meaningful opening statistics.` });
+  }
+
+  // Default tips
+  tips.push({ icon: '♟', text: `<strong>Study one trap per day.</strong> Use the Spaced Review feature — 5 minutes of daily review beats 1 hour once a week.` });
+  tips.push({ icon: '🎯', text: `<strong>Use the Opponent Scout</strong> before your next rated game. Enter their username to see what traps work best against their specific openings.` });
+
+  return tips.slice(0, 5);
+}
+
+// ── Load a game into Blunder Coach ───────────────────────────────────────
+function loadProfileGame(idx) {
+  if (!profileData?.recentGames?.[idx]) return;
+  const g = profileData.recentGames[idx];
+  if (!g.pgn) return;
+  const pgnEl = document.getElementById('bl-pgn-input');
+  if (pgnEl) pgnEl.value = g.pgn;
+  switchMode('blunder');
+  setTimeout(() => blAnalyse(), 300);
+}
+
+// ── AI coaching report ────────────────────────────────────────────────────
+async function getProfileAI() {
+  if (!profileData) return;
+  const btn = document.getElementById('profile-ai-btn');
+  const result = document.getElementById('profile-ai-result');
+  btn.textContent = '⏳ Generating report…';
+  btn.disabled = true;
+
+  if (!apiKey) {
+    result.innerHTML = `<div class="profile-ai-result-card">Add an API key in Settings to get a personalised AI coaching report based on your game history.</div>`;
+    result.style.display = 'block';
+    btn.style.display = 'none';
+    return;
+  }
+
+  try {
+    const summary = `Player: ${profileData.username}. Rating: Rapid ${profileData.rapid||'?'}, Blitz ${profileData.blitz||'?'}. Last ${profileData.totalGames} games: ${profileData.wins}W ${profileData.losses}L ${profileData.draws}D (${profileData.winRate}% win rate). Top White openings: ${profileData.whiteOpenings.slice(0,3).map(o=>`${o.opening}(${o.w}W/${o.l}L)`).join(', ')}. Top Black openings: ${profileData.blackOpenings.slice(0,3).map(o=>`${o.opening}(${o.w}W/${o.l}L)`).join(', ')}.`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 300,
+        system: 'You are a chess coach analysing a club player\'s game statistics. Give a 3-4 sentence personalised report covering: (1) their biggest weakness based on win rates, (2) one specific opening they should study more, (3) one concrete actionable tip for improvement. Be direct and specific, not generic.',
+        messages: [{ role: 'user', content: `Analyse this player: ${summary}` }]
+      })
+    });
+    const data = await resp.json();
+    const text = data.content?.[0]?.text || 'Could not generate report.';
+    result.innerHTML = `<div class="profile-ai-result-card">${text}</div>`;
+    result.style.display = 'block';
+    btn.style.display = 'none';
+  } catch(e) {
+    result.innerHTML = `<div class="profile-ai-result-card">Could not connect to AI. Check your API key in Settings.</div>`;
+    result.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = '✨ Get AI Coaching Report';
+  }
 }
 
 </script>
