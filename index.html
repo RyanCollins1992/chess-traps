@@ -2303,6 +2303,163 @@ body {
   border-radius: 0 2px 2px 0;
 }
 
+
+/* ═══════════════════════════════════════════════════════════
+   ONBOARDING OVERLAY
+═══════════════════════════════════════════════════════════ */
+#onboarding-overlay {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.ob-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(5, 8, 16, 0.88);
+  backdrop-filter: blur(6px);
+}
+.ob-modal {
+  position: relative; z-index: 1;
+  background: #1c2537;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 18px;
+  width: 100%; max-width: 480px;
+  padding: 36px 32px 28px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.7);
+  max-height: 90vh; overflow-y: auto;
+}
+
+/* Steps */
+.ob-step { display: none; }
+.ob-step.active { display: block; }
+
+/* Logo / icon */
+.ob-logo {
+  font-size: 52px; text-align: center;
+  margin-bottom: 16px; line-height: 1;
+}
+.ob-ready-icon { font-size: 48px; text-align: center; margin-bottom: 14px; }
+.ob-step-num {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--accent2);
+  margin-bottom: 12px; text-align: center;
+}
+
+/* Text */
+.ob-title {
+  font-size: 22px; font-weight: 800; color: #fff;
+  text-align: center; letter-spacing: -.4px; margin-bottom: 8px;
+}
+.ob-sub {
+  font-size: 13px; color: var(--muted); text-align: center;
+  line-height: 1.6; margin-bottom: 20px;
+}
+
+/* Rating grid */
+.ob-rating-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px; margin-bottom: 22px;
+}
+.ob-rating-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 14px 8px; border-radius: 10px;
+  border: 2px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  cursor: pointer; transition: all .15s; font-family: inherit;
+}
+.ob-rating-btn:hover {
+  border-color: rgba(42,157,143,.4);
+  background: rgba(42,157,143,.06);
+}
+.ob-rating-btn.selected {
+  border-color: var(--accent);
+  background: rgba(42,157,143,.14);
+}
+.ob-rating-num {
+  font-size: 20px; font-weight: 800; color: #fff;
+  font-family: 'DM Mono', monospace;
+}
+.ob-rating-lbl { font-size: 10px; color: var(--muted); text-align: center; }
+
+/* Goal grid */
+.ob-goal-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; margin-bottom: 22px;
+}
+.ob-goal-btn {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+  padding: 14px 14px; border-radius: 10px;
+  border: 2px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  cursor: pointer; transition: all .15s; font-family: inherit;
+  text-align: left;
+}
+.ob-goal-btn:hover { border-color: rgba(42,157,143,.4); background: rgba(42,157,143,.06); }
+.ob-goal-btn.selected { border-color: var(--accent); background: rgba(42,157,143,.14); }
+.ob-goal-icon { font-size: 22px; margin-bottom: 2px; }
+.ob-goal-name { font-size: 13px; font-weight: 700; color: #fff; }
+.ob-goal-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+/* Colour grid */
+.ob-colour-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px; margin-bottom: 22px;
+}
+.ob-colour-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 18px 8px 14px; border-radius: 10px;
+  border: 2px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+  cursor: pointer; transition: all .15s; font-family: inherit;
+}
+.ob-colour-btn:hover { border-color: rgba(42,157,143,.4); background: rgba(42,157,143,.06); }
+.ob-colour-btn.selected { border-color: var(--accent); background: rgba(42,157,143,.14); }
+.ob-colour-name { font-size: 13px; font-weight: 700; color: #fff; }
+.ob-colour-desc { font-size: 10px; color: var(--muted); text-align: center; }
+
+/* Buttons */
+.ob-next-btn {
+  width: 100%; padding: 14px;
+  border-radius: 10px; border: none;
+  background: var(--accent); color: #fff;
+  font-family: inherit; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: background .15s;
+}
+.ob-next-btn:hover:not(:disabled) { background: #26a192; }
+.ob-next-btn:disabled { background: var(--dim); color: #555; cursor: not-allowed; }
+.ob-back-btn {
+  padding: 14px 20px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: transparent; color: var(--muted);
+  font-family: inherit; font-size: 14px; cursor: pointer;
+  transition: all .15s;
+}
+.ob-back-btn:hover { border-color: rgba(255,255,255,.2); color: var(--text); }
+.ob-btn-row { display: flex; gap: 10px; align-items: center; }
+.ob-btn-row .ob-next-btn { flex: 1; }
+
+/* First trap card */
+.ob-first-trap {
+  background: rgba(42,157,143,.08);
+  border: 1px solid rgba(42,157,143,.2);
+  border-radius: 12px; padding: 14px 16px;
+  margin-bottom: 14px; text-align: left;
+}
+.ob-trap-label { font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--accent2); margin-bottom: 5px; }
+.ob-trap-name { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.ob-trap-why { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* Tips row */
+.ob-tips-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px; }
+.ob-tip {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 9px 12px; background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06); border-radius: 8px;
+  font-size: 12px; color: var(--muted); line-height: 1.5;
+}
+.ob-tip-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.ob-tip strong { color: var(--text); }
+
 </style>
 </head>
 <body>
@@ -2458,6 +2615,66 @@ body {
 <!-- ══════════════════════════════════════════════════
      STUDY MODE
 ══════════════════════════════════════════════════ -->
+
+<!-- ═══ ONBOARDING OVERLAY ═══════════════════════════════ -->
+<div id="onboarding-overlay" style="display:none">
+  <div class="ob-backdrop"></div>
+  <div class="ob-modal">
+    <div class="ob-step active" id="ob-step-1">
+      <div class="ob-logo">♞</div>
+      <h1 class="ob-title">Welcome to ElovaChess</h1>
+      <p class="ob-sub">Learn chess traps, build your opening repertoire, and track your improvement — all in one place.</p>
+      <p class="ob-sub" style="margin-top:12px">First, what's your current chess rating?</p>
+      <div class="ob-rating-grid">
+        <button class="ob-rating-btn" onclick="obSelectRating('unrated',this)"><span class="ob-rating-num">?</span><span class="ob-rating-lbl">Just Starting</span></button>
+        <button class="ob-rating-btn" onclick="obSelectRating('400',this)"><span class="ob-rating-num">400</span><span class="ob-rating-lbl">Below 600</span></button>
+        <button class="ob-rating-btn" onclick="obSelectRating('650',this)"><span class="ob-rating-num">650</span><span class="ob-rating-lbl">600 – 800</span></button>
+        <button class="ob-rating-btn" onclick="obSelectRating('900',this)"><span class="ob-rating-num">900</span><span class="ob-rating-lbl">800 – 1000</span></button>
+        <button class="ob-rating-btn" onclick="obSelectRating('1100',this)"><span class="ob-rating-num">1100</span><span class="ob-rating-lbl">1000 – 1200</span></button>
+        <button class="ob-rating-btn" onclick="obSelectRating('1300',this)"><span class="ob-rating-num">1300+</span><span class="ob-rating-lbl">1200 and above</span></button>
+      </div>
+      <button class="ob-next-btn" id="ob-step1-next" onclick="obGoStep(2)" disabled>Next →</button>
+    </div>
+    <div class="ob-step" id="ob-step-2">
+      <div class="ob-step-num">Step 2 of 3</div>
+      <h2 class="ob-title">What's your main goal?</h2>
+      <p class="ob-sub">We'll highlight the most useful features for you.</p>
+      <div class="ob-goal-grid">
+        <button class="ob-goal-btn" onclick="obSelectGoal('traps',this)"><span class="ob-goal-icon">🪤</span><span class="ob-goal-name">Learn Traps</span><span class="ob-goal-desc">Win with surprise openings</span></button>
+        <button class="ob-goal-btn" onclick="obSelectGoal('openings',this)"><span class="ob-goal-icon">📖</span><span class="ob-goal-name">Build Repertoire</span><span class="ob-goal-desc">Solid opening system</span></button>
+        <button class="ob-goal-btn" onclick="obSelectGoal('improve',this)"><span class="ob-goal-icon">📈</span><span class="ob-goal-name">Improve Rating</span><span class="ob-goal-desc">Track and fix weaknesses</span></button>
+        <button class="ob-goal-btn" onclick="obSelectGoal('tactics',this)"><span class="ob-goal-icon">🧩</span><span class="ob-goal-name">Sharpen Tactics</span><span class="ob-goal-desc">Puzzles and drills</span></button>
+      </div>
+      <div class="ob-btn-row">
+        <button class="ob-back-btn" onclick="obGoStep(1)">← Back</button>
+        <button class="ob-next-btn" id="ob-step2-next" onclick="obGoStep(3)" disabled>Next →</button>
+      </div>
+    </div>
+    <div class="ob-step" id="ob-step-3">
+      <div class="ob-step-num">Step 3 of 3</div>
+      <h2 class="ob-title">Which side do you prefer?</h2>
+      <p class="ob-sub">We'll show the most relevant traps first.</p>
+      <div class="ob-colour-grid">
+        <button class="ob-colour-btn" onclick="obSelectColour('white',this)"><span style="font-size:40px">♔</span><span class="ob-colour-name">White</span><span class="ob-colour-desc">I like to attack first</span></button>
+        <button class="ob-colour-btn" onclick="obSelectColour('black',this)"><span style="font-size:40px">♚</span><span class="ob-colour-name">Black</span><span class="ob-colour-desc">I like to counter-attack</span></button>
+        <button class="ob-colour-btn" onclick="obSelectColour('both',this)"><span style="font-size:40px">⚖️</span><span class="ob-colour-name">Both</span><span class="ob-colour-desc">Show me everything</span></button>
+      </div>
+      <div class="ob-btn-row">
+        <button class="ob-back-btn" onclick="obGoStep(2)">← Back</button>
+        <button class="ob-next-btn" id="ob-step3-next" onclick="obFinish()" disabled>Let's Go! →</button>
+      </div>
+    </div>
+    <div class="ob-step" id="ob-step-4">
+      <div class="ob-ready-icon">✅</div>
+      <h2 class="ob-title" id="ob-ready-title">You're all set!</h2>
+      <p class="ob-sub" id="ob-ready-sub">Here's where to start.</p>
+      <div class="ob-first-trap" id="ob-first-trap"></div>
+      <div class="ob-tips-row" id="ob-tips-row"></div>
+      <button class="ob-next-btn" onclick="obClose()" style="margin-top:6px;width:100%">Start Learning →</button>
+    </div>
+  </div>
+</div>
+
 <div class="subnav">
     <div class="dd-wrap">
       <button class="dd-btn" id="btn-w" onclick="toggleDD('w')" onmouseenter="openDD('w')" onmouseleave="schedClose('w')">
@@ -3100,7 +3317,7 @@ body {
       <input class="profile-username-inp" id="profile-username" placeholder="Your chess.com username…" autocomplete="off"
         onkeydown="if(event.key==='Enter') analyseMyProfile()">
     </div>
-    <button class="profile-analyse-btn" onclick="analyseMyProfile()">
+    <button class="profile-analyse-btn" id="profile-analyse-btn" onclick="analyseMyProfile()">
       <span id="profile-btn-text">Analyse My Games</span>
     </button>
   </div>
@@ -6924,6 +7141,9 @@ window.addEventListener('load', () => {
   // Sound button
   const btn = document.getElementById('sound-btn');
   if (btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+  // Set initial topbar title
+  const titleEl = document.getElementById('topbar-title');
+  if (titleEl) titleEl.textContent = '📖 Study Traps';
 
   // Record initial ELO snapshot
   recordEloSnapshot();
@@ -6951,7 +7171,7 @@ window.addEventListener('load', () => {
 
   // Update trap count in sidebar logo
   const tcEl = document.getElementById('trap-count');
-  if (tcEl) tcEl.textContent = (TRAPS.length + QUICK_MATES.length) + ' traps · ' + QUICK_MATES.length + ' mates';
+  if (tcEl) tcEl.textContent = TRAPS.length + ' traps · ' + QUICK_MATES.length + ' mates';
 
   // New features init
   checkStreakBanner();
@@ -6962,6 +7182,11 @@ window.addEventListener('load', () => {
   // Restore font size
   const savedFont = localStorage.getItem('font-size');
   if (savedFont) setFontSize(savedFont);
+
+  // Show onboarding on first visit
+  if (typeof obShouldShow === 'function' && obShouldShow()) {
+    setTimeout(obShow, 600);
+  }
 
   // Reset light mode to dark on load (ignore saved 'on' state)
   localStorage.removeItem('light-mode');
@@ -11105,7 +11330,8 @@ function checkStreakBanner() {
   if (streak < 1) return;
   const banner = document.createElement('div');
   banner.id = 'streak-banner';
-  banner.style.cssText = 'position:fixed;top:50px;left:230px;right:0;z-index:150;background:linear-gradient(90deg,rgba(230,168,23,.12),rgba(42,157,143,.1));border-bottom:1px solid rgba(230,168,23,.2);padding:10px 20px;display:flex;align-items:center;gap:12px;transition:all .3s';
+  const sidebarOffset = window.innerWidth > 768 ? '230px' : '0px';
+  banner.style.cssText = 'position:fixed;top:52px;left:'+sidebarOffset+';right:0;z-index:150;background:linear-gradient(90deg,rgba(230,168,23,.12),rgba(42,157,143,.1));border-bottom:1px solid rgba(230,168,23,.2);padding:10px 20px;display:flex;align-items:center;gap:12px;transition:all .3s';
   banner.innerHTML = `
     <span style="font-size:18px">🔥</span>
     <span style="font-size:13px;color:#e8e4d9;font-weight:600">You're on a ${streak}-day streak — keep it going!</span>
@@ -11975,6 +12201,195 @@ function openNavTabForMode(mode) {
   if (tab) {
     tab.classList.add('open', 'active-tab');
   }
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// ONBOARDING FLOW
+// ══════════════════════════════════════════════════════════════════
+const OB_KEY = 'elovachess-onboarded';
+let obState = { rating: null, goal: null, colour: null };
+
+function obShouldShow() {
+  return !localStorage.getItem(OB_KEY);
+}
+
+function obShow() {
+  document.getElementById('onboarding-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function obClose() {
+  document.getElementById('onboarding-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+  localStorage.setItem(OB_KEY, '1');
+  // Apply their preferences
+  obApplyPreferences();
+  // Open the Learn tab and go to study
+  switchMode('study');
+  if (typeof openNavTabForMode === 'function') openNavTabForMode('study');
+  // Load their recommended first trap
+  const firstTrap = obGetFirstTrap();
+  if (firstTrap) {
+    setTimeout(() => {
+      if (typeof loadTrap === 'function') loadTrap(firstTrap);
+    }, 300);
+  }
+}
+
+function obGoStep(n) {
+  document.querySelectorAll('.ob-step').forEach(s => s.classList.remove('active'));
+  const step = document.getElementById('ob-step-' + n);
+  if (step) step.classList.add('active');
+}
+
+function obSelectRating(val, btn) {
+  document.querySelectorAll('.ob-rating-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  obState.rating = val;
+  const next = document.getElementById('ob-step1-next');
+  if (next) next.disabled = false;
+}
+
+function obSelectGoal(val, btn) {
+  document.querySelectorAll('.ob-goal-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  obState.goal = val;
+  const next = document.getElementById('ob-step2-next');
+  if (next) next.disabled = false;
+}
+
+function obSelectColour(val, btn) {
+  document.querySelectorAll('.ob-colour-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  obState.colour = val;
+  const next = document.getElementById('ob-step3-next');
+  if (next) next.disabled = false;
+}
+
+function obGetFirstTrap() {
+  const { rating, goal, colour } = obState;
+  const ratingNum = parseInt(rating) || 0;
+
+  // Pick the best starting trap based on preferences
+  let candidates = [...TRAPS];
+
+  // Filter by colour preference
+  if (colour === 'white') {
+    candidates = candidates.filter(t => t.side === 'White' || t.side === 'Bird');
+  } else if (colour === 'black') {
+    candidates = candidates.filter(t => t.side === 'Black');
+  }
+
+  // Filter by appropriate level for rating
+  let level = 'Beginner';
+  if (ratingNum >= 800) level = 'Intermediate';
+  if (ratingNum >= 1100) level = 'Advanced';
+  const levelCandidates = candidates.filter(t => t.level === level && t.level !== 'Repertoire');
+  if (levelCandidates.length) candidates = levelCandidates;
+
+  // Goal-specific picks
+  if (goal === 'tactics') return TRAPS.find(t => t.id === 'w1') || candidates[0]; // Fried Liver
+  if (goal === 'openings') {
+    if (colour === 'white' || colour === 'both')
+      return TRAPS.find(t => t.id === 'w_kia_french') || candidates[0];
+    return TRAPS.find(t => t.id === 'b_kid_d4') || candidates[0];
+  }
+
+  // Default: beginner-friendly first trap
+  if (colour === 'black') return TRAPS.find(t => t.id === 'b5') || candidates[0]; // Blackburne-Shilling
+  return TRAPS.find(t => t.id === 'w1') || candidates[0]; // Fried Liver
+}
+
+function obFinish() {
+  const { rating, goal, colour } = obState;
+  const firstTrap = obGetFirstTrap();
+
+  // Save preferences
+  if (rating && rating !== 'unrated') {
+    const eloHistory = JSON.parse(localStorage.getItem('chess-elo-history') || '[]');
+    eloHistory.push({ date: Date.now(), elo: parseInt(rating) });
+    localStorage.setItem('chess-elo-history', JSON.stringify(eloHistory));
+  }
+  localStorage.setItem('ob-colour', colour || 'both');
+  localStorage.setItem('ob-goal', goal || 'traps');
+
+  // Build the personalised "you're all set" screen
+  const goalMessages = {
+    traps: { title: "Time to set some traps!", sub: "Start with this beginner-friendly trap — then work your way up." },
+    openings: { title: "Build your repertoire!", sub: "Start with a complete opening system you can use every game." },
+    improve: { title: "Let's track your progress!", sub: "After learning this trap, check Daily Tasks to keep momentum." },
+    tactics: { title: "Sharpen those tactics!", sub: "Start with this trap, then head to Puzzles to drill patterns." },
+  };
+  const msg = goalMessages[goal] || goalMessages.traps;
+
+  const tips = {
+    traps: [
+      { icon: '💡', text: '<strong>Press Space</strong> to step through each move' },
+      { icon: '🎯', text: '<strong>Press M</strong> to mark a trap as mastered once you know it' },
+      { icon: '📝', text: '<strong>Press N</strong> to add your own notes to any trap' },
+    ],
+    openings: [
+      { icon: '♞', text: '<strong>Repertoire traps</strong> give you a full system — same moves every game' },
+      { icon: '🔁', text: '<strong>Spaced Review</strong> drills your weakest traps automatically' },
+      { icon: '👤', text: '<strong>My Profile</strong> analyses your chess.com games to pick the best traps for you' },
+    ],
+    improve: [
+      { icon: '📅', text: '<strong>Daily Tasks</strong> — complete 3 tasks per day to build a streak' },
+      { icon: '📈', text: '<strong>Rating Graph</strong> tracks your estimated ELO over time' },
+      { icon: '👤', text: '<strong>My Profile</strong> — enter your chess.com username for personalised tips' },
+    ],
+    tactics: [
+      { icon: '🧩', text: '<strong>Puzzles</strong> — solve positions from real games' },
+      { icon: '♟', text: '<strong>Mate Patterns</strong> — learn the 8 most common mating patterns' },
+      { icon: '🧠', text: '<strong>Memory Drill</strong> — multiple-choice moves under time pressure' },
+    ],
+  };
+
+  const titleEl = document.getElementById('ob-ready-title');
+  const subEl = document.getElementById('ob-ready-sub');
+  if (titleEl) titleEl.textContent = msg.title;
+  if (subEl) subEl.textContent = msg.sub;
+
+  // First trap card
+  const trapEl = document.getElementById('ob-first-trap');
+  if (trapEl && firstTrap) {
+    trapEl.innerHTML = `
+      <div class="ob-trap-label">Your first trap</div>
+      <div class="ob-trap-name">${firstTrap.name}</div>
+      <div class="ob-trap-why">${firstTrap.sub}</div>
+    `;
+  }
+
+  // Tips
+  const tipsEl = document.getElementById('ob-tips-row');
+  if (tipsEl) {
+    const tipList = tips[goal] || tips.traps;
+    tipsEl.innerHTML = tipList.map(t =>
+      `<div class="ob-tip"><span class="ob-tip-icon">${t.icon}</span><span>${t.text}</span></div>`
+    ).join('');
+  }
+
+  obGoStep(4);
+}
+
+function obApplyPreferences() {
+  // Nothing destructive — just store for use elsewhere
+  const colour = localStorage.getItem('ob-colour') || 'both';
+  const goal = localStorage.getItem('ob-goal') || 'traps';
+  // Could be used by other features to personalise
+}
+
+// Reset onboarding (for testing / re-run from settings)
+function obReset() {
+  localStorage.removeItem(OB_KEY);
+  localStorage.removeItem('ob-colour');
+  localStorage.removeItem('ob-goal');
+  obState = { rating: null, goal: null, colour: null };
+  document.querySelectorAll('.ob-rating-btn, .ob-goal-btn, .ob-colour-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.ob-next-btn').forEach(b => { if (b.id) b.disabled = true; });
+  obGoStep(1);
+  obShow();
 }
 
 </script>
