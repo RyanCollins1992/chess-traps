@@ -2460,6 +2460,13 @@ body {
 .ob-tip-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 .ob-tip strong { color: var(--text); }
 
+
+/* ═══ BOARD COORDINATES ════════════════════════════════════ */
+body:not(.show-coords) .rank-col { display: none !important; }
+body:not(.show-coords) .file-row { display: none !important; }
+body.show-coords .rank-col { display: flex !important; }
+body.show-coords .file-row { display: flex !important; }
+
 </style>
 </head>
 <body>
@@ -2729,7 +2736,11 @@ body {
   <div class="page active" id="study-content">
     <div id="trap-of-day-banner" style="background:linear-gradient(135deg,#081a18,#081a18);border:1px solid var(--accent);border-radius:10px;padding:11px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="loadTrapOfDay()">
       <span style="font-size:20px">🌟</span>
-      <div style="flex:1"><div style="font-size:11px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.07em">Trap of the Day</div><div style="font-size:13px;color:#fff;margin-top:1px" id="totd-name">Loading…</div></div>
+      <div style="flex:1">
+        <div style="font-size:11px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.07em">🗓 Trap of the Week</div>
+        <div style="font-size:13px;color:#fff;margin-top:1px" id="totd-name">Loading…</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px" id="totd-progress"></div>
+      </div>
       <span style="font-size:11px;color:var(--accent);font-weight:600">Study →</span>
     </div>
     <div class="trap-hdr" style="display:flex;align-items:flex-start;gap:10px">
@@ -3258,8 +3269,14 @@ body {
     </div>
   </div>
   <div class="import-btn-row">
-    <input class="username-inp" id="opponent-username" placeholder="Opponent's chess.com username">
+    <input class="username-inp" id="opponent-username" placeholder="Opponent's chess.com username"
+      autocomplete="off" onkeydown="if(event.key==='Enter')opponentProfile()"
+      oninput="oppShowSuggestions(this.value)" onfocus="oppShowSuggestions(this.value)">
     <button class="puzzle-btn puzzle-btn-primary" onclick="opponentProfile()">🎯 Profile Them</button>
+  </div>
+  <div id="opp-suggestions" style="display:none;margin-bottom:10px">
+    <div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);font-weight:700;margin-bottom:6px">Recent Opponents</div>
+    <div id="opp-suggestions-list" style="display:flex;flex-wrap:wrap;gap:6px"></div>
   </div>
   <div id="opponent-loading" style="display:none;text-align:center;padding:20px;color:var(--muted);animation:pulse 1s infinite">⏳ Analysing their games…</div>
   <div id="opponent-error" style="display:none;padding:12px;background:#2a1010;border:1px solid var(--warn);border-radius:8px;color:#ee7070;font-size:13px;margin-bottom:10px"></div>
@@ -3698,6 +3715,15 @@ body {
     <div class="settings-section-hdr">Display</div>
     <div class="settings-row">
       <div class="settings-row-label">
+        <div class="settings-row-title">Board Coordinates</div>
+        <div class="settings-row-sub">Show a–h and 1–8 labels on the board</div>
+      </div>
+      <button class="settings-toggle" id="stg-coords" onclick="stgToggle('coords')" style="width:44px;height:24px;border-radius:100px;border:none;cursor:pointer;transition:background .2s;background:var(--accent)">
+        <div style="width:18px;height:18px;background:#fff;border-radius:50%;margin:3px;transition:transform .2s;transform:translateX(20px)"></div>
+      </button>
+    </div>
+    <div class="settings-row">
+      <div class="settings-row-label">
         <div class="settings-row-title">Font Size</div>
         <div class="settings-row-sub">Adjust text size for readability</div>
       </div>
@@ -3827,6 +3853,10 @@ body {
         <div class="file-row" id="sr-file-row"></div>
       </div>
       <div class="notation" id="sr-notation" style="margin-top:8px"></div>
+      <!-- Move session progress bar -->
+      <div style="height:4px;background:var(--bg3);border-radius:2px;margin-top:8px;overflow:hidden">
+        <div id="sr-move-progress" style="height:100%;background:var(--accent);border-radius:2px;width:0%;transition:width .3s"></div>
+      </div>
       <div class="nav-controls" style="margin-top:6px">
         <button class="nv" onclick="srFirst()">⏮</button>
         <button class="nv" onclick="srPrev()">◀</button>
@@ -3834,6 +3864,8 @@ body {
         <button class="nv" onclick="srNext()">▶</button>
         <button class="nv" onclick="srLast()">⏭</button>
       </div>
+      <!-- Move session coaching card -->
+      <div class="coach-card" id="sr-coach-card" style="display:none;margin-top:8px"></div>
     </div>
     <div class="spaced-right">
       <div class="spaced-card">
@@ -3958,6 +3990,7 @@ body {
       </div>
     </div>
     <div class="blunder-right">
+      <div id="bl-clock-analysis"></div>
       <div class="pgn-input-section">
         <div style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px">Paste your game PGN from chess.com</div>
         <textarea class="inp-field" id="bl-pgn-input" style="min-height:80px" placeholder="1. e4 e5 2. Nf3 ...&#10;&#10;Tip: In chess.com, go to your game → Analysis → Share → Copy PGN"></textarea>
@@ -7151,9 +7184,26 @@ window.addEventListener('load', () => {
   const totd = getTrapOfDay();
   const totdEl = document.getElementById('totd-name');
   if (totdEl && totd) totdEl.textContent = totd.name;
+  const totdProg = document.getElementById('totd-progress');
+  if (totdProg) {
+    const studied = getTrapOfWeekProgress();
+    totdProg.textContent = studied >= 5 ? '✓ Well drilled this week!' : studied > 0 ? `Studied ${studied}× this week` : 'Not studied yet this week';
+  }
 
   // Apply saved board theme
   applyBoardTheme(localStorage.getItem('board-theme') || 'classic');
+  // Apply saved coords setting (on by default for beginners)
+  const coordsSetting = localStorage.getItem('stg-coords');
+  if (coordsSetting !== 'off') {
+    document.body.classList.add('show-coords');
+    const coordsBtn = document.getElementById('stg-coords');
+    if (coordsBtn) {
+      coordsBtn.classList.add('on');
+      coordsBtn.style.background = 'var(--accent)';
+      const inner = coordsBtn.querySelector('div');
+      if (inner) inner.style.transform = 'translateX(20px)';
+    }
+  }
 
   // Restore API key from settings
   const savedKey = localStorage.getItem('chess-api-key');
@@ -9148,8 +9198,14 @@ function stgToggle(key) {
   if (!el) return;
   const isOn = el.classList.contains('on');
   el.className = 'settings-toggle ' + (isOn ? 'off' : 'on');
+  const inner = el.querySelector('div');
+  if (inner) inner.style.transform = isOn ? 'translateX(0px)' : 'translateX(20px)';
+  el.style.background = isOn ? 'var(--dim)' : 'var(--accent)';
   localStorage.setItem('stg-'+key, isOn ? 'off' : 'on');
   if (key === 'sound') soundEnabled = !isOn;
+  if (key === 'coords') {
+    document.body.classList.toggle('show-coords', !isOn);
+  }
 }
 
 function stgSave(key, val) { localStorage.setItem('stg-'+key, val); }
@@ -9410,7 +9466,7 @@ function renderSR() {
     qEl.innerHTML = '<div style="padding:12px;font-size:12px;color:var(--muted)">🎉 All caught up! Nothing due for review right now.</div>';
   } else {
     qEl.innerHTML = due.slice(0, 15).map(item => `
-      <div class="spaced-item due-now" onclick="srStudy('${item.trap.id}')">
+      <div class="spaced-item due-now" onclick="srStartMoveSession('${item.trap.id}')">
         <div class="spaced-item-name">${item.trap.name}</div>
         <div class="spaced-item-due" style="color:var(--warn)">Due now</div>
       </div>`).join('');
@@ -9523,9 +9579,18 @@ function srRate(quality) {
 // TRAP OF THE DAY (shown on study mode)
 // ══════════════════════════════════════════════════════════════════
 function getTrapOfDay() {
-  const dayNum = Math.floor(Date.now() / 86400000);
-  const all = [...TRAPS, ...QUICK_MATES];
-  return all[dayNum % all.length];
+  // Trap of the WEEK — same trap for 7 days so you actually drill it
+  const weekNum = Math.floor(Date.now() / (86400000 * 7));
+  const all = TRAPS.filter(t => t.level !== 'Repertoire');
+  return all[weekNum % all.length];
+}
+
+function getTrapOfWeekProgress() {
+  // How many times has the user studied this week's trap?
+  const trap = getTrapOfDay();
+  if (!trap) return 0;
+  const progress = getProgress();
+  return (progress.traps_studied || {})[trap.id] || 0;
 }
 
 
@@ -9885,10 +9950,16 @@ async function importFetchGames() {
 function importLoadGame(idx) {
   const game = window._importedGames?.[idx];
   if (!game || !game.pgn) { alert('No PGN available for this game'); return; }
-  // Load into blunder coach
   document.getElementById('bl-pgn-input').value = game.pgn;
   switchMode('blunder');
-  blAnalyse();
+  setTimeout(() => {
+    blAnalyse();
+    if (game.pgn.includes('[%clk')) {
+      const me = (localStorage.getItem('chesscom-username') || '').toLowerCase();
+      const isWhite = (game.white?.username || '').toLowerCase() === me;
+      renderClockAnalysis(game.pgn, isWhite, 'bl-clock-analysis');
+    }
+  }, 400);
 }
 
 function initImportPage() {
@@ -12390,6 +12461,419 @@ function obReset() {
   document.querySelectorAll('.ob-next-btn').forEach(b => { if (b.id) b.disabled = true; });
   obGoStep(1);
   obShow();
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 3: OPPONENT SCOUT AUTO-SUGGEST
+// ══════════════════════════════════════════════════════════════════
+function getRecentOpponents() {
+  try { return JSON.parse(localStorage.getItem('recent-opponents') || '[]'); } catch { return []; }
+}
+
+function saveRecentOpponents(games, myUsername) {
+  if (!games || !myUsername) return;
+  const me = myUsername.toLowerCase();
+  const seen = new Set();
+  const opponents = [];
+  games.forEach(g => {
+    const opp = g.white?.username?.toLowerCase() === me
+      ? g.black?.username : g.white?.username;
+    if (opp && opp.toLowerCase() !== me && !seen.has(opp.toLowerCase())) {
+      seen.add(opp.toLowerCase());
+      opponents.push(opp);
+    }
+  });
+  // Merge with existing, keep most recent 20
+  const existing = getRecentOpponents();
+  const merged = [...opponents, ...existing.filter(o => !seen.has(o.toLowerCase()))].slice(0, 20);
+  localStorage.setItem('recent-opponents', JSON.stringify(merged));
+}
+
+function oppShowSuggestions(query) {
+  const container = document.getElementById('opp-suggestions');
+  const list = document.getElementById('opp-suggestions-list');
+  if (!container || !list) return;
+  const all = getRecentOpponents();
+  if (!all.length) { container.style.display = 'none'; return; }
+  const filtered = query
+    ? all.filter(o => o.toLowerCase().includes(query.toLowerCase()))
+    : all;
+  if (!filtered.length) { container.style.display = 'none'; return; }
+  container.style.display = 'block';
+  list.innerHTML = filtered.slice(0, 10).map(name =>
+    `<button onclick="oppPickSuggestion('${name}')" style="
+      padding:5px 12px;border-radius:100px;border:1px solid var(--border2);
+      background:var(--bg3);color:var(--muted);font-size:11px;cursor:pointer;
+      font-family:inherit;transition:all .12s;white-space:nowrap
+    " onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent2)'"
+       onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--muted)'"
+    >${name}</button>`
+  ).join('');
+}
+
+function oppPickSuggestion(name) {
+  const inp = document.getElementById('opponent-username');
+  if (inp) { inp.value = name; }
+  document.getElementById('opp-suggestions').style.display = 'none';
+  opponentProfile();
+}
+
+// Hide suggestions when clicking elsewhere
+document.addEventListener('click', e => {
+  if (!e.target.closest('#opp-suggestions') && e.target.id !== 'opponent-username') {
+    const s = document.getElementById('opp-suggestions');
+    if (s) s.style.display = 'none';
+  }
+});
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 4: CLOCK ANALYSIS AFTER IMPORT
+// ══════════════════════════════════════════════════════════════════
+function parseClockTimes(pgn) {
+  // Chess.com embeds clock times as comments: { [%clk 0:04:58] }
+  const times = [];
+  const regex = /\[%clk\s+(\d+):(\d+):(\d+)\]/g;
+  let m;
+  while ((m = regex.exec(pgn)) !== null) {
+    const secs = parseInt(m[1]) * 3600 + parseInt(m[2]) * 60 + parseInt(m[3]);
+    times.push(secs);
+  }
+  return times;
+}
+
+function buildClockAnalysis(pgn, playerIsWhite) {
+  const times = parseClockTimes(pgn);
+  if (times.length < 4) return null; // not enough data
+
+  // times alternate: White move 1, Black move 1, White move 2, Black move 2...
+  const myTimes = [], oppTimes = [];
+  times.forEach((t, i) => {
+    const isWhiteMove = i % 2 === 0;
+    if ((isWhiteMove && playerIsWhite) || (!isWhiteMove && !playerIsWhite)) {
+      myTimes.push(t);
+    } else {
+      oppTimes.push(t);
+    }
+  });
+
+  // Calculate time spent per move (difference between consecutive clocks)
+  const timeSpent = [];
+  for (let i = 0; i < myTimes.length - 1; i++) {
+    const spent = myTimes[i] - myTimes[i + 1];
+    if (spent >= 0 && spent < 600) timeSpent.push({ move: i + 1, secs: spent });
+  }
+
+  if (!timeSpent.length) return null;
+
+  // Find slowest moves
+  const slowest = [...timeSpent].sort((a, b) => b.secs - a.secs).slice(0, 3);
+  const totalTime = timeSpent.reduce((s, m) => s + m.secs, 0);
+  const openingTime = timeSpent.slice(0, 10).reduce((s, m) => s + m.secs, 0);
+  const openingPct = Math.round((openingTime / Math.max(totalTime, 1)) * 100);
+
+  return { timeSpent, slowest, totalTime, openingTime, openingPct, moveCount: timeSpent.length };
+}
+
+function renderClockAnalysis(pgn, playerIsWhite, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const analysis = buildClockAnalysis(pgn, playerIsWhite);
+  if (!analysis) {
+    container.innerHTML = '<div style="font-size:11px;color:var(--dim);padding:8px 0">No clock data available for this game.</div>';
+    return;
+  }
+
+  const { timeSpent, slowest, totalTime, openingTime, openingPct, moveCount } = analysis;
+
+  // Identify if opening was slow (first 10 moves > 40% of total time)
+  const openingWeak = openingPct > 40;
+
+  // Build move time bar chart (simple inline bars)
+  const maxSecs = Math.max(...timeSpent.map(m => m.secs), 1);
+  const bars = timeSpent.slice(0, 20).map(m => {
+    const pct = Math.round((m.secs / maxSecs) * 100);
+    const isSlow = m.secs >= 30;
+    const color = isSlow ? 'var(--warn)' : 'var(--accent)';
+    return `<div title="Move ${m.move}: ${m.secs}s" style="display:flex;align-items:center;gap:6px;padding:2px 0">
+      <span style="font-size:10px;color:var(--dim);min-width:20px;text-align:right;font-family:'DM Mono',monospace">${m.move}</span>
+      <div style="flex:1;background:var(--bg3);border-radius:3px;height:8px;overflow:hidden">
+        <div style="width:${pct}%;height:100%;background:${color};border-radius:3px;transition:width .3s"></div>
+      </div>
+      <span style="font-size:10px;color:${isSlow?'var(--warn)':'var(--muted)'};min-width:28px;font-family:'DM Mono',monospace">${m.secs}s</span>
+    </div>`;
+  }).join('');
+
+  const slowestList = slowest.map(m =>
+    `<span style="font-family:'DM Mono',monospace;color:var(--warn)">Move ${m.move}</span> (${m.secs}s)`
+  ).join(' · ');
+
+  container.innerHTML = `
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:8px">⏱ Clock Analysis</div>
+    ${openingWeak ? `
+    <div style="padding:10px 12px;background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.2);border-radius:8px;margin-bottom:10px;font-size:12px;color:#c0a0a0;line-height:1.6">
+      <strong style="color:#e05a4e">⚠️ Opening time pressure</strong> — you used ${openingPct}% of your total time in the first 10 moves.
+      Study the openings you're unsure about in Study Traps to save clock time.
+    </div>` : ''}
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">
+      Slowest moves: ${slowestList}
+    </div>
+    <div style="font-size:10px;color:var(--dim);margin-bottom:6px">Time per move (first 20 moves)</div>
+    <div style="padding:6px 0">${bars}</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
+      Total time used: <span style="font-family:'DM Mono',monospace;color:var(--text)">${Math.round(totalTime/60)}m ${totalTime%60}s</span>
+      · Opening (moves 1–10): <span style="font-family:'DM Mono',monospace;color:${openingWeak?'var(--warn)':'var(--text)'}">
+        ${Math.round(openingTime/60)}m ${openingTime%60}s (${openingPct}%)
+      </span>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// FEATURE 5: SPACED REPETITION — MOVE-BY-MOVE (CHESSABLE STYLE)
+// ══════════════════════════════════════════════════════════════════
+let srMoveState = null; // active move-by-move session
+
+function srStartMoveSession(trapId) {
+  const trap = [...TRAPS, ...QUICK_MATES].find(t => t.id === trapId);
+  if (!trap) return;
+
+  srMoveState = {
+    trap,
+    chess: new Chess(),
+    moveIdx: 0,          // current target move index
+    playerColor: trap.side === 'Black' ? 'b' : 'w',
+    flipped: trap.side === 'Black',
+    mistakes: 0,
+    correct: 0,
+    complete: false
+  };
+
+  // Show the move session UI
+  showSRMoveSession();
+}
+
+function showSRMoveSession() {
+  if (!srMoveState) return;
+  const { trap, chess, moveIdx, playerColor, flipped } = srMoveState;
+  const moves = trap.moves;
+
+  // Build the board
+  buildBoard('sr-board', 'sr-rank-col', 'sr-file-row', flipped);
+  srRenderBoardMove();
+
+  // Play opponent moves automatically up to the player's next move
+  srPlayOpponentMoves();
+}
+
+function srPlayOpponentMoves() {
+  if (!srMoveState) return;
+  const { trap, chess, moveIdx, playerColor } = srMoveState;
+  const moves = trap.moves;
+
+  // Auto-play moves that aren't the player's
+  let idx = moveIdx;
+  while (idx < moves.length) {
+    const isWhiteMove = chess.turn() === 'w';
+    const isPlayerMove = (isWhiteMove && playerColor === 'w') || (!isWhiteMove && playerColor === 'b');
+    if (isPlayerMove) break; // stop — player needs to make this move
+
+    // Auto-play the opponent's move
+    const move = chess.move(moves[idx].san, { sloppy: true });
+    if (!move) break;
+    srMoveState.moveIdx++;
+    idx++;
+  }
+
+  srRenderBoardMove();
+
+  if (srMoveState.moveIdx >= moves.length) {
+    srMoveComplete();
+    return;
+  }
+
+  // Show coaching prompt for the player's move
+  const targetMove = moves[srMoveState.moveIdx];
+  const coachEl = document.getElementById('sr-coach-card');
+  if (coachEl) {
+    coachEl.innerHTML = `
+      <div style="font-size:12px;font-weight:700;color:var(--accent2);margin-bottom:6px">
+        Move ${Math.ceil((srMoveState.moveIdx + 1) / 2)} · Your turn
+      </div>
+      <div style="font-size:13px;color:var(--text);margin-bottom:4px">${targetMove.hl || 'What is the best move here?'}</div>
+      <div style="font-size:11px;color:var(--muted)">${targetMove.txt || ''}</div>
+      <div id="sr-move-feedback" style="display:none;margin-top:8px;padding:8px 10px;border-radius:7px;font-size:12px"></div>
+    `;
+    coachEl.style.display = 'block';
+  }
+  srUpdateProgress();
+}
+
+function srHandleMoveModeClick(sqName) {
+  if (!srMoveState || srMoveState.complete) return;
+  const { chess, moveIdx, trap, playerColor, flipped } = srMoveState;
+
+  // Check it's actually the player's turn
+  const isPlayerTurn = (chess.turn() === 'w' && playerColor === 'w') ||
+                       (chess.turn() === 'b' && playerColor === 'b');
+  if (!isPlayerTurn) return;
+
+  const board = document.getElementById('sr-board');
+  if (!board) return;
+
+  if (srMoveState.selectedSq) {
+    const from = srMoveState.selectedSq;
+    srMoveState.selectedSq = null;
+
+    const move = chess.move({ from, to: sqName, promotion: 'q' });
+    if (move) {
+      const expected = trap.moves[moveIdx]?.san;
+      const isCorrect = move.san === expected;
+
+      playSound(move.captured ? 'capture' : 'move');
+      srRenderBoardMove(from, sqName);
+
+      const fb = document.getElementById('sr-move-feedback');
+      if (fb) {
+        if (isCorrect) {
+          fb.style.display = 'block';
+          fb.style.background = 'rgba(42,157,143,.1)';
+          fb.style.border = '1px solid rgba(42,157,143,.2)';
+          fb.style.color = '#4dbfb0';
+          fb.textContent = '✓ Correct!';
+          srMoveState.correct++;
+          srMoveState.moveIdx++;
+          setTimeout(srPlayOpponentMoves, 600);
+        } else {
+          // Wrong move — undo and show hint
+          chess.undo();
+          fb.style.display = 'block';
+          fb.style.background = 'rgba(192,57,43,.1)';
+          fb.style.border = '1px solid rgba(192,57,43,.2)';
+          fb.style.color = '#e05a4e';
+          fb.textContent = `✗ Try again — look at the hint: ${expected}`;
+          srMoveState.mistakes++;
+          srRenderBoardMove();
+        }
+      }
+    } else {
+      // Try selecting new piece
+      const piece = chess.get(sqName);
+      if (piece && piece.color === chess.turn()) {
+        srMoveState.selectedSq = sqName;
+        srRenderBoardMove();
+        srHighlightMoves(sqName);
+      } else {
+        srRenderBoardMove();
+      }
+    }
+  } else {
+    const piece = chess.get(sqName);
+    if (piece && piece.color === chess.turn()) {
+      srMoveState.selectedSq = sqName;
+      playSound('select');
+      srRenderBoardMove();
+      srHighlightMoves(sqName);
+    }
+  }
+}
+
+function srHighlightMoves(from) {
+  const board = document.getElementById('sr-board');
+  if (!board || !srMoveState) return;
+  const moves = srMoveState.chess.moves({ square: from, verbose: true });
+  const targets = new Set(moves.map(m => m.to));
+  board.querySelectorAll('.sq').forEach(sq => {
+    if (sq.dataset.sq === from) sq.classList.add('hl-sel');
+    if (targets.has(sq.dataset.sq)) sq.classList.add('hl-mv');
+  });
+}
+
+function srRenderBoardMove(fromSq, toSq) {
+  if (!srMoveState) return;
+  const board = document.getElementById('sr-board');
+  if (!board) return;
+  const { chess, selectedSq } = srMoveState;
+
+  let checkSq = null;
+  if (chess.in_check()) {
+    for (let r = 0; r < 8; r++) for (let f = 0; f < 8; f++) {
+      const p = chess.board()[r][f];
+      if (p && p.type === 'k' && p.color === chess.turn()) {
+        checkSq = 'abcdefgh'[f] + (8 - r); break;
+      }
+    }
+  }
+
+  board.querySelectorAll('.sq').forEach(sq => {
+    const sn = sq.dataset.sq;
+    sq.className = 'sq ' + (isLight(sn) ? 'lt' : 'dk');
+    if (fromSq && sn === fromSq) sq.classList.add('hl-f');
+    if (toSq && sn === toSq) sq.classList.add('hl-t');
+    if (checkSq && sn === checkSq) sq.classList.add('hl-chk');
+    if (selectedSq && sn === selectedSq) sq.classList.add('hl-sel');
+    const p = chess.get(sn);
+    sq.innerHTML = p ? P[pieceKey(p)] : '';
+    sq.onclick = () => srHandleMoveModeClick(sn);
+  });
+}
+
+function srMoveComplete() {
+  if (!srMoveState) return;
+  const { trap, correct, mistakes } = srMoveState;
+  srMoveState.complete = true;
+
+  // Rate this session in SR system
+  const totalMoves = trap.moves.filter((m, i) => {
+    const isW = i % 2 === 0;
+    const pc = srMoveState.playerColor;
+    return (isW && pc === 'w') || (!isW && pc === 'b');
+  }).length;
+
+  // SM-2 rating based on accuracy
+  const accuracy = totalMoves > 0 ? correct / totalMoves : 0;
+  const rating = accuracy >= 0.9 ? 4 : accuracy >= 0.7 ? 3 : accuracy >= 0.5 ? 2 : 1;
+  srRate(rating - 1); // 0=Again, 1=Hard, 2=Good, 3=Easy
+
+  playSound(mistakes === 0 ? 'mate' : 'correct');
+  if (mistakes === 0) launchConfetti(1500);
+
+  const coachEl = document.getElementById('sr-coach-card');
+  if (coachEl) {
+    const pct = Math.round(accuracy * 100);
+    coachEl.innerHTML = `
+      <div style="text-align:center;padding:10px 0">
+        <div style="font-size:32px;margin-bottom:8px">${mistakes === 0 ? '🏆' : accuracy >= 0.7 ? '✅' : '📚'}</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">
+          ${mistakes === 0 ? 'Perfect!' : accuracy >= 0.7 ? 'Well done!' : 'Keep practising!'}
+        </div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:14px">
+          ${correct}/${totalMoves} moves correct · ${mistakes} mistake${mistakes !== 1 ? 's' : ''} · ${pct}% accuracy
+        </div>
+        <div style="font-size:12px;color:var(--muted);padding:10px;background:var(--bg3);border-radius:8px">
+          Spaced repetition updated — next review in 
+          <span style="color:var(--accent2)">${rating >= 3 ? '3–7 days' : rating >= 2 ? '2 days' : 'tomorrow'}</span>
+        </div>
+      </div>
+    `;
+  }
+  recordEvent('trap_studied', trap.id);
+  updateMasteredBtn();
+  renderProgressRing();
+}
+
+function srUpdateProgress() {
+  if (!srMoveState) return;
+  const { trap, moveIdx } = srMoveState;
+  const total = trap.moves.length;
+  const pct = Math.round((moveIdx / Math.max(total, 1)) * 100);
+  const prog = document.getElementById('sr-move-progress');
+  if (prog) {
+    prog.style.width = pct + '%';
+  }
+  const lbl = document.getElementById('sr-nav-lbl');
+  if (lbl) lbl.textContent = `${moveIdx}/${total}`;
 }
 
 </script>
