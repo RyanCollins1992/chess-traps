@@ -2197,6 +2197,112 @@ body {
   .profile-stats-row { grid-template-columns: repeat(2,1fr); }
 }
 
+
+/* ═══════════════════════════════════════════════════════════
+   SIDEBAR — COLLAPSIBLE TAB GROUPS
+═══════════════════════════════════════════════════════════ */
+
+/* Remove old nav-group styles */
+.nav-group { display: none; }
+.nav-group-label { display: none; }
+
+/* Tab container */
+.nav-tab {
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.nav-tab:last-child { border-bottom: none; }
+
+/* Tab header — the clickable row */
+.nav-tab-hdr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 14px 11px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #8896b0;
+  text-align: left;
+  transition: background .12s, color .12s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.nav-tab-hdr:hover {
+  background: rgba(255,255,255,.04);
+  color: #c8d8f0;
+}
+.nav-tab.open > .nav-tab-hdr {
+  color: #e8e4d9;
+  background: rgba(42,157,143,.06);
+}
+.nav-tab.active-tab > .nav-tab-hdr {
+  color: #4dbfb0;
+}
+
+/* Tab icon */
+.nav-tab-icon {
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: .8;
+}
+.nav-tab.open > .nav-tab-hdr .nav-tab-icon,
+.nav-tab.active-tab > .nav-tab-hdr .nav-tab-icon { opacity: 1; }
+
+/* Tab label */
+.nav-tab-label { flex: 1; letter-spacing: .01em; }
+
+/* Arrow indicator */
+.nav-tab-arrow {
+  font-size: 14px;
+  color: var(--dim);
+  transition: transform .2s ease, color .15s;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.nav-tab.open > .nav-tab-hdr .nav-tab-arrow {
+  transform: rotate(90deg);
+  color: var(--accent);
+}
+
+/* Tab body — slides open/closed */
+.nav-tab-body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .22s ease, opacity .18s ease;
+  opacity: 0;
+  padding: 0 6px;
+}
+.nav-tab.open > .nav-tab-body {
+  max-height: 500px;
+  opacity: 1;
+  padding: 2px 6px 6px;
+}
+
+/* Nav items inside tabs — slightly indented */
+.nav-tab-body .nav-item {
+  padding: 8px 10px 8px 14px;
+  font-size: 12.5px;
+  border-radius: 7px;
+  margin: 1px 0;
+}
+
+/* Accent bar on active item */
+.nav-tab-body .nav-item.active {
+  background: rgba(42,157,143,.14);
+  color: #4dbfb0;
+  font-weight: 600;
+}
+.nav-tab-body .nav-item.active::before {
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+
 </style>
 </head>
 <body>
@@ -2215,56 +2321,100 @@ body {
   </div>
 
   <div class="sidebar-body">
-    <div class="nav-group">
-      <div class="nav-group-label">Learn</div>
-      <button class="nav-item active" id="btn-study"      onclick="switchMode('study')">      <span class="ni">📖</span> Study Traps</button>
-      <button class="nav-item"        id="btn-roadmap"    onclick="switchMode('roadmap')">    <span class="ni">🗺</span> ELO Roadmap</button>
-      <button class="nav-item"        id="btn-tree"       onclick="switchMode('tree')">       <span class="ni">🌳</span> Opening Tree</button>
-      <button class="nav-item"        id="btn-favourites" onclick="switchMode('favourites')"> <span class="ni">⭐</span> Favourites</button>
+
+    <!-- TAB: LEARN -->
+    <div class="nav-tab open" id="tab-learn">
+      <button class="nav-tab-hdr" onclick="toggleNavTab('learn')">
+        <span class="nav-tab-icon">📖</span>
+        <span class="nav-tab-label">Learn</span>
+        <span class="nav-tab-arrow">›</span>
+      </button>
+      <div class="nav-tab-body">
+        <button class="nav-item active" id="btn-study"      onclick="switchMode('study')">      <span class="ni">📖</span> Study Traps</button>
+        <button class="nav-item"        id="btn-roadmap"    onclick="switchMode('roadmap')">    <span class="ni">🗺</span> ELO Roadmap</button>
+        <button class="nav-item"        id="btn-tree"       onclick="switchMode('tree')">       <span class="ni">🌳</span> Opening Tree</button>
+        <button class="nav-item"        id="btn-favourites" onclick="switchMode('favourites')"> <span class="ni">⭐</span> Favourites</button>
+      </div>
     </div>
 
-    <div class="nav-group">
-      <div class="nav-group-label">Play</div>
-      <button class="nav-item" id="btn-coach"    onclick="switchMode('coach')">    <span class="ni">🤖</span> vs. Coach</button>
-      <button class="nav-item" id="btn-freeplay" onclick="switchMode('freeplay')"> <span class="ni">♛</span> Free Play</button>
-      <button class="nav-item" id="btn-battle"   onclick="switchMode('battle')">   <span class="ni">⚔️</span> Trap Battle</button>
+    <!-- TAB: PLAY -->
+    <div class="nav-tab" id="tab-play">
+      <button class="nav-tab-hdr" onclick="toggleNavTab('play')">
+        <span class="nav-tab-icon">♛</span>
+        <span class="nav-tab-label">Play</span>
+        <span class="nav-tab-arrow">›</span>
+      </button>
+      <div class="nav-tab-body">
+        <button class="nav-item" id="btn-coach"    onclick="switchMode('coach')">    <span class="ni">🤖</span> vs. Coach</button>
+        <button class="nav-item" id="btn-freeplay" onclick="switchMode('freeplay')"> <span class="ni">♛</span> Free Play</button>
+        <button class="nav-item" id="btn-battle"   onclick="switchMode('battle')">   <span class="ni">⚔️</span> Trap Battle</button>
+      </div>
     </div>
 
-    <div class="nav-group">
-      <div class="nav-group-label">Train</div>
-      <button class="nav-item" id="btn-puzzle"     onclick="switchMode('puzzle')">     <span class="ni">🧩</span> Puzzles</button>
-      <button class="nav-item" id="btn-drill"      onclick="switchMode('drill')">      <span class="ni">🧠</span> Memory Drill</button>
-      <button class="nav-item" id="btn-quiz"       onclick="switchMode('quiz')">       <span class="ni">❓</span> Opening Quiz</button>
-      <button class="nav-item" id="btn-patterns"   onclick="switchMode('patterns')">   <span class="ni">♟</span> Mate Patterns</button>
-      <button class="nav-item" id="btn-endgame"    onclick="switchMode('endgame')">    <span class="ni">♔</span> Endgames</button>
-      <button class="nav-item" id="btn-pieces"     onclick="switchMode('pieces')">     <span class="ni">⚖️</span> Piece Values</button>
-      <button class="nav-item" id="btn-spaced"     onclick="switchMode('spaced')">     <span class="ni">🔁</span> Spaced Review</button>
-      <button class="nav-item" id="btn-difficulty" onclick="switchMode('difficulty')"> <span class="ni">⭐</span> Rate Difficulty</button>
+    <!-- TAB: TRAIN -->
+    <div class="nav-tab" id="tab-train">
+      <button class="nav-tab-hdr" onclick="toggleNavTab('train')">
+        <span class="nav-tab-icon">🧩</span>
+        <span class="nav-tab-label">Train</span>
+        <span class="nav-tab-arrow">›</span>
+      </button>
+      <div class="nav-tab-body">
+        <button class="nav-item" id="btn-puzzle"     onclick="switchMode('puzzle')">     <span class="ni">🧩</span> Puzzles</button>
+        <button class="nav-item" id="btn-drill"      onclick="switchMode('drill')">      <span class="ni">🧠</span> Memory Drill</button>
+        <button class="nav-item" id="btn-quiz"       onclick="switchMode('quiz')">       <span class="ni">❓</span> Opening Quiz</button>
+        <button class="nav-item" id="btn-patterns"   onclick="switchMode('patterns')">   <span class="ni">♟</span> Mate Patterns</button>
+        <button class="nav-item" id="btn-endgame"    onclick="switchMode('endgame')">    <span class="ni">♔</span> Endgames</button>
+        <button class="nav-item" id="btn-pieces"     onclick="switchMode('pieces')">     <span class="ni">⚖️</span> Piece Values</button>
+        <button class="nav-item" id="btn-spaced"     onclick="switchMode('spaced')">     <span class="ni">🔁</span> Spaced Review</button>
+        <button class="nav-item" id="btn-difficulty" onclick="switchMode('difficulty')"> <span class="ni">⭐</span> Rate Difficulty</button>
+      </div>
     </div>
 
-    <div class="nav-group">
-      <div class="nav-group-label">Analyse</div>
-      <button class="nav-item" id="btn-analyser" onclick="switchMode('analyser')"> <span class="ni">🔬</span> Analyse</button>
-      <button class="nav-item" id="btn-blunder"  onclick="switchMode('blunder')">  <span class="ni">🔍</span> Blunder Coach</button>
-      <button class="nav-item" id="btn-import"   onclick="switchMode('import')">   <span class="ni">📥</span> Import Games</button>
-    <button class="nav-item" id="btn-myprofile" onclick="switchMode('myprofile')"><span class="ni">👤</span> My Profile</button>
-      <button class="nav-item" id="btn-opponent" onclick="switchMode('opponent')">  <span class="ni">🎯</span> Opponent Scout</button>
+    <!-- TAB: ANALYSE -->
+    <div class="nav-tab" id="tab-analyse">
+      <button class="nav-tab-hdr" onclick="toggleNavTab('analyse')">
+        <span class="nav-tab-icon">🔬</span>
+        <span class="nav-tab-label">Analyse</span>
+        <span class="nav-tab-arrow">›</span>
+      </button>
+      <div class="nav-tab-body">
+        <button class="nav-item" id="btn-myprofile" onclick="switchMode('myprofile')"> <span class="ni">👤</span> My Profile</button>
+        <button class="nav-item" id="btn-analyser"  onclick="switchMode('analyser')">  <span class="ni">🔬</span> Analyse</button>
+        <button class="nav-item" id="btn-blunder"   onclick="switchMode('blunder')">   <span class="ni">🔍</span> Blunder Coach</button>
+        <button class="nav-item" id="btn-import"    onclick="switchMode('import')">    <span class="ni">📥</span> Import Games</button>
+        <button class="nav-item" id="btn-opponent"  onclick="switchMode('opponent')">  <span class="ni">🎯</span> Opponent Scout</button>
+      </div>
     </div>
 
-    <div class="nav-group">
-      <div class="nav-group-label">Progress</div>
-      <button class="nav-item" id="btn-daily"    onclick="switchMode('daily')">    <span class="ni">📅</span> Daily Tasks</button>
-      <button class="nav-item" id="btn-progress" onclick="switchMode('progress')"> <span class="ni">📊</span> My Progress</button>
-      <button class="nav-item" id="btn-graph"    onclick="switchMode('graph')">    <span class="ni">📈</span> Rating Graph</button>
-      <button class="nav-item" id="btn-badges"   onclick="switchMode('badges')">   <span class="ni">🏆</span> Badges</button>
-      <button class="nav-item" id="btn-weekly"   onclick="switchMode('weekly')">   <span class="ni">📋</span> Weekly Report</button>
+    <!-- TAB: PROGRESS -->
+    <div class="nav-tab" id="tab-progress">
+      <button class="nav-tab-hdr" onclick="toggleNavTab('progress')">
+        <span class="nav-tab-icon">📊</span>
+        <span class="nav-tab-label">Progress</span>
+        <span class="nav-tab-arrow">›</span>
+      </button>
+      <div class="nav-tab-body">
+        <button class="nav-item" id="btn-daily"    onclick="switchMode('daily')">    <span class="ni">📅</span> Daily Tasks</button>
+        <button class="nav-item" id="btn-progress" onclick="switchMode('progress')"> <span class="ni">📊</span> My Progress</button>
+        <button class="nav-item" id="btn-graph"    onclick="switchMode('graph')">    <span class="ni">📈</span> Rating Graph</button>
+        <button class="nav-item" id="btn-badges"   onclick="switchMode('badges')">   <span class="ni">🏆</span> Badges</button>
+        <button class="nav-item" id="btn-weekly"   onclick="switchMode('weekly')">   <span class="ni">📋</span> Weekly Report</button>
+      </div>
     </div>
 
-    <div class="nav-group">
-      <div class="nav-group-label">Tools</div>
-      <button class="nav-item" id="btn-timer"    onclick="switchMode('timer')">    <span class="ni">⏱</span> Study Timer</button>
-      <button class="nav-item" id="btn-settings" onclick="switchMode('settings')"> <span class="ni">⚙️</span> Settings</button>
+    <!-- TAB: TOOLS -->
+    <div class="nav-tab" id="tab-tools">
+      <button class="nav-tab-hdr" onclick="toggleNavTab('tools')">
+        <span class="nav-tab-icon">⚙️</span>
+        <span class="nav-tab-label">Tools</span>
+        <span class="nav-tab-arrow">›</span>
+      </button>
+      <div class="nav-tab-body">
+        <button class="nav-item" id="btn-timer"    onclick="switchMode('timer')">    <span class="ni">⏱</span> Study Timer</button>
+        <button class="nav-item" id="btn-settings" onclick="switchMode('settings')"> <span class="ni">⚙️</span> Settings</button>
+      </div>
     </div>
+
   </div>
 
   <div class="sidebar-footer">
@@ -4804,8 +4954,8 @@ const TRAPS=[
 {san:'c5',hl:'11...c5 — Lock the queenside',txt:'c5! Fixes the queenside and prepares Nc6-Nd4 or Nc6-b4.',why:'c5 stops White\'s d5-d6 advance and gives your knight a great square on d4.'},
 {san:'a4',hl:'12.a4',txt:'White advances.'},
 {san:'Nd7',hl:'12...Nd7 — Knight manoeuvre',txt:'Nd7 — heading for c5 (queenside) or supporting f5 (kingside).',why:'Nd7-Nc5 is the queenside plan. Or Nd7-Nf6-Ne8-f5 is the kingside storm.'},
-{san:'Ne4',hl:'13.Ne4',txt:'White centralises.'},
-{san:'Ne8',hl:'13...Ne8! — Prepare f5',txt:'Ne8! The knight retreats to prepare the kingside storm with f5-f4-g5.',tip:"KID vs d4: your plan after d5 is Ne8-f5-f4-g5-h5 kingside storm. Don't get distracted by White's queenside play — your attack on the king comes first! The Bg7 fires down the diagonal once you push f4-g4."}
+{san:'Nb3',hl:'13.Nb3',txt:'White manoeuvres toward queenside.'},
+{san:'Nf6',hl:'13...Nf6 — Reactivate!',txt:'Nf6! The knight returns to f6 — a key regrouping move preparing f5 and the kingside storm.',tip:"KID vs d4: your plan after d5 is to regroup with Nf6-Ne8-f5-f4-g5-h5 kingside storm. Don't get distracted by White's queenside play — your attack on the king comes first! The Bg7 fires down the diagonal once you push f4."}
 ],summary:"King's Indian vs d4: Nf6 g6 Bg7 d6 O-O e5. After d5, play Ne8-f5-f4-g5-h5 kingside storm. The Bg7 is your weapon. Never afraid of White's big centre — attack it with e5 and f5."},
 
 {id:'b_pirc_e4',side:'Black',level:'Repertoire',name:'Pirc/Modern vs 1.e4',sub:"g6 Bg7 d6 Nf6 — flexible fianchetto vs e4",moves:[
@@ -5085,30 +5235,36 @@ const TRAPS=[
 // ── NEW BLACK TRAPS ──────────────────────────────────────────────
 {id:'b_nimzo',side:'Black',level:'Advanced',name:'Nimzo-Indian Defence Trap',sub:"d4 Nf6 c4 e6 Nc3 Bb4 — pin and pressure",moves:[
 {san:'d4',hl:'1.d4',txt:"White opens.",},
-{san:'Nf6',hl:'1...Nf6',txt:"Develop the knight.",why:"Nf6 controls e4 and prepares the Indian setups."},
+{san:'Nf6',hl:'1...Nf6',txt:"Develop the knight.",},
 {san:'c4',hl:'2.c4',txt:"White plays c4.",},
 {san:'e6',hl:'2...e6',txt:"e6 — flexible.",why:"e6 prepares Bb4 — the Nimzo-Indian!"},
 {san:'Nc3',hl:'3.Nc3 — Invites the Nimzo',txt:"Nc3 — now Bb4 pins the knight!",},
-{san:'Bb4',hl:'3...Bb4! — The Nimzo-Indian!',txt:"Bb4! Pin the knight to the king! The Nimzo-Indian Defence.",why:"Bb4 pins the Nc3 against the king. This prevents e4 and creates long-term pressure on White's centre.",warn:"White will try to break the pin. Your goal: either keep the pin, or accept the bishop-for-knight trade and get doubled pawns as compensation."},
+{san:'Bb4',hl:'3...Bb4! — The Nimzo-Indian!',txt:"Bb4! Pin the knight to the king! The Nimzo-Indian Defence.",why:"Bb4 pins the Nc3 against the king. This prevents e4 and creates long-term pressure on White's centre.",warn:"White will try to break the pin. Your goal: keep the pin and fight for the centre."},
 {san:'Qc2',hl:'4.Qc2 — Classical line',txt:"Qc2 — White protects the knight and prepares to fight the pin.",},
-{san:'d5',hl:'4...d5',txt:"d5 — fight for the centre!",why:"d5 stakes central territory. After dxc4 you can play Bxc3+ for the fork trick."},
+{san:'d5',hl:'4...d5',txt:"d5 — fight for the centre!",why:"d5 stakes central territory."},
 {san:'cxd5',hl:'5.cxd5',txt:"White trades.",},
 {san:'exd5',hl:'5...exd5',txt:"Recapture in the centre.",why:"Strong pawn centre. The bishop on b4 is still causing problems."},
 {san:'Bg5',hl:'6.Bg5',txt:"White pins the Nf6.",},
 {san:'h6',hl:'6...h6',txt:"Challenge the bishop.",why:"h6 forces White to commit — take or retreat."},
 {san:'Bxf6',hl:'7.Bxf6',txt:"White takes.",},
-{san:'Qxf6',hl:'7...Qxf6',txt:"Recapture with the queen!",why:"The queen is active on f6, and the doubled pawns are gone."},
+{san:'Qxf6',hl:'7...Qxf6',txt:"Recapture with the queen!",why:"The queen is active on f6."},
 {san:'e3',hl:'8.e3',txt:"White plays solidly.",},
 {san:'O-O',hl:'8...0-0',txt:"Castle!",why:"Castle quickly. Your pieces are very active."},
 {san:'Bd3',hl:'9.Bd3',txt:"White develops.",},
-{san:'c5',hl:'9...c5! — Attack!',txt:"c5! Hit d4 immediately.",why:"c5 attacks d4 and activates all your pieces. If dxc5, Bxc3+ wins material."},
+{san:'c5',hl:'9...c5! — Attack!',txt:"c5! Hit d4 immediately.",why:"c5 attacks d4 and activates all your pieces."},
 {san:'Nge2',hl:'10.Nge2',txt:"White develops.",},
-{san:'Na6',hl:'10...Na6 — Activate!',txt:"Na6 develops the last piece.",why:"Na6 heads for c7 or b4 to increase the pressure."},
+{san:'Nc6',hl:'10...Nc6 — Develop!',txt:"Nc6 develops and attacks d4.",why:"Nc6 puts pressure on d4. All of Black's pieces are coordinated."},
 {san:'O-O',hl:'11.0-0',txt:"White castles.",},
-{san:'cxd4',hl:'11...cxd4',txt:"Open the position!",why:"cxd4 opens the c-file. After exd4, your rook on c8 is very active."},
-{san:'exd4',hl:'12.exd4',txt:"Recapture.",},
-{san:'Nxd4',hl:'12...Nxd4! — Win material!',txt:"Nxd4! Fork! The knight captures and attacks the queen on c2 and the bishop on d3!",tip:"Nimzo-Indian: 3...Bb4 pins the knight. Play c5 to hit d4, and when White plays e3, look for cxd4 exd4 Nxd4 forks. The Nimzo consistently gives Black excellent compensation for the bishop."}
-],summary:"Nimzo-Indian: 1.d4 Nf6 2.c4 e6 3.Nc3 Bb4 — pin the knight. Play d5 c5 to fight the centre. After cxd4 exd4 Nxd4 forks queen and bishop. One of Black's strongest responses to 1.d4."},
+{san:'Na5',hl:'11...Na5 — Fork threat!',txt:"Na5! The knight attacks the Bd3 and threatens Nxc4.",why:"Na5 attacks the bishop and prepares queenside play. White must deal with the threat."},
+{san:'dxc5',hl:'12.dxc5 — Accepting the challenge',txt:"White takes on c5.",},
+{san:'Nb3',hl:'12...Nb3! — Fork!',txt:"Nb3!! The knight forks the Qc2 and the Bc5!",why:"Nb3 attacks both the queen and the c5 bishop simultaneously. White loses material!"},
+{san:'Qb1',hl:'13.Qb1 — Retreat',txt:"The queen must retreat.",},
+{san:'Nxc5',hl:'13...Nxc5 — Win the bishop!',txt:"Nxc5 wins the bishop — Black is up material!",why:"Black has won a pawn and has excellent piece activity."},
+{san:'Bc2',hl:'14.Bc2',txt:"White retreats.",},
+{san:'d4',hl:'14...d4! — Push!',txt:"d4! The passed pawn marches forward.",why:"The d4 pawn is a monster — it will advance to d3 threatening to promote."},
+{san:'exd4',hl:'15.exd4',txt:"White takes.",},
+{san:'Bg4',hl:'15...Bg4 — Pin the knight!',txt:"Bg4! Pin the Nge2 against the king.",why:"The pin paralyses White's knight. Black has a dominating position."},
+{san:'Nf4',hl:'16.Nf4',txt:"White breaks the pin.",tip:"Nimzo-Indian: 3...Bb4 pins the knight. After c5 Na5 dxc5 Nb3!! forks queen and bishop. Black wins material cleanly. The Nimzo consistently gives Black excellent compensation for the bishop pair."}],summary:"Nimzo-Indian: 1.d4 Nf6 2.c4 e6 3.Nc3 Bb4 — pin the knight. Play d5 c5 to fight the centre. After cxd4 exd4 Nxd4 forks queen and bishop. One of Black's strongest responses to 1.d4."},
 
 {id:'b_grunfeld',side:'Black',level:'Advanced',name:'Grünfeld Defence',sub:"d4 Nf6 c4 g6 Nc3 d5 — hypermodern counter",moves:[
 {san:'d4',hl:'1.d4',txt:"White builds a big centre.",},
@@ -6691,6 +6847,8 @@ function switchMode(mode) {
   // Update topbar title
   const titleEl = document.getElementById('topbar-title');
   if (titleEl) titleEl.textContent = PAGE_TITLES[mode] || mode;
+  // Open the correct sidebar tab
+  if (typeof openNavTabForMode === 'function') openNavTabForMode(mode);
   // Show session summary when switching away from study after activity
   if (typeof activeMode !== 'undefined' && activeMode === 'study' && mode !== 'study') {
     if (sessionTrapsStudied.size >= 2 || sessionPuzzlesSolved >= 3) {
@@ -6783,6 +6941,9 @@ window.addEventListener('load', () => {
 
   // Sidebar init
   updateSidebarStreak();
+  // Open Learn tab by default
+  const defaultTab = document.getElementById('tab-learn');
+  if (defaultTab) defaultTab.classList.add('open', 'active-tab');
   // Record ELO at session start for session summary delta
   if (typeof calcEloEstimate === 'function') localStorage.setItem('elo-session-start', calcEloEstimate());
   setTimeout(initClockPresets, 500);
@@ -11782,6 +11943,37 @@ async function getProfileAI() {
     result.style.display = 'block';
     btn.disabled = false;
     btn.textContent = '✨ Get AI Coaching Report';
+  }
+}
+
+
+// ══════════════════════════════════════════════════════════════════
+// SIDEBAR TAB NAVIGATION
+// ══════════════════════════════════════════════════════════════════
+
+// Which tab each mode belongs to
+const MODE_TAB = {'study': 'learn', 'roadmap': 'learn', 'tree': 'learn', 'favourites': 'learn', 'coach': 'play', 'freeplay': 'play', 'battle': 'play', 'puzzle': 'train', 'drill': 'train', 'quiz': 'train', 'patterns': 'train', 'endgame': 'train', 'pieces': 'train', 'spaced': 'train', 'difficulty': 'train', 'myprofile': 'analyse', 'analyser': 'analyse', 'blunder': 'analyse', 'import': 'analyse', 'opponent': 'analyse', 'daily': 'progress', 'progress': 'progress', 'graph': 'progress', 'badges': 'progress', 'weekly': 'progress', 'timer': 'tools', 'settings': 'tools'};
+
+function toggleNavTab(tabName) {
+  const tab = document.getElementById('tab-' + tabName);
+  if (!tab) return;
+  const isOpen = tab.classList.contains('open');
+  // Close all tabs
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('open'));
+  // Toggle clicked tab
+  if (!isOpen) tab.classList.add('open');
+}
+
+function openNavTabForMode(mode) {
+  const tabName = MODE_TAB[mode];
+  if (!tabName) return;
+  // Close all, open the right one
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.remove('open', 'active-tab');
+  });
+  const tab = document.getElementById('tab-' + tabName);
+  if (tab) {
+    tab.classList.add('open', 'active-tab');
   }
 }
 
