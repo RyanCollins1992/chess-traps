@@ -2585,7 +2585,7 @@ body.show-coords .file-row { display: flex !important; }
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
       <div id="sidebar-progress-ring" style="position:relative;width:60px;height:60px;flex-shrink:0"></div>
       <div style="flex:1;font-size:11px;color:var(--muted);line-height:1.5">
-        Traps mastered<br>
+        Mastered<br>
         <span id="sidebar-progress-label" style="font-size:12px;font-weight:700;color:#4dbfb0">0 / 0</span>
       </div>
     </div>
@@ -2630,7 +2630,7 @@ body.show-coords .file-row { display: flex !important; }
     <div class="ob-step active" id="ob-step-1">
       <div class="ob-logo">♞</div>
       <h1 class="ob-title">Welcome to ElovaChess</h1>
-      <p class="ob-sub">Learn chess traps, build your opening repertoire, and track your improvement — all in one place.</p>
+      <p class="ob-sub">Learn openings, build your repertoire, and track your improvement — all in one place.</p>
       <p class="ob-sub" style="margin-top:12px">First, what's your current chess rating?</p>
       <div class="ob-rating-grid">
         <button class="ob-rating-btn" onclick="obSelectRating('unrated',this)"><span class="ob-rating-num">?</span><span class="ob-rating-lbl">Just Starting</span></button>
@@ -11745,7 +11745,7 @@ function showSessionSummary() {
     <div class="session-stat"><span>Time studied</span><strong>${mins} min</strong></div>
     <div class="session-stat"><span>Traps studied</span><strong>${sessionTrapsStudied.size}</strong></div>
     <div class="session-stat"><span>Puzzles solved</span><strong>${sessionPuzzlesSolved}</strong></div>
-    <div class="session-stat"><span>Traps mastered</span><strong>${sessionMastered}</strong></div>
+    <div class="session-stat"><span>Mastered</span><strong>${sessionMastered}</strong></div>
     ${eloDiff > 0 ? `<div class="session-stat"><span>ELO change</span><strong style="color:#4dbfb0">+${eloDiff}</strong></div>` : ''}
     <button class="session-summary-close" onclick="document.getElementById('session-summary-card').remove()">Got it ✓</button>
   `;
